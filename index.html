@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneSheet Region Kalimantan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .data-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+            font-size: 12px;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            color: #333;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .data-table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .data-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .header-yellow {
+            background: #FFD700 !important;
+            font-weight: bold;
+        }
+
+        .cell-green {
+            background: #90EE90 !important;
+        }
+
+        .cell-red {
+            background: #FFB6C1 !important;
+        }
+
+        .cell-yellow {
+            background: #FFFF99 !important;
+        }
+
+        .percentage-cell {
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #555;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .filter-container {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                max-width: 100%;
+            }
+
+            .data-table {
+                font-size: 10px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 6px 4px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .user-info {
+            text-align: right;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <h2>🔐 Login OneSheet</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="login-btn">Masuk</button>
+                <div class="error-message" id="errorMessage">Username atau password salah!</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <div class="header">
+            <div class="user-info">
+                <span id="userDisplay"></span> | 
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+            <h1>📊 ONE SHEET REGION KALIMANTAN</h1>
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="regionFilter">Region:</label>
+                    <select id="regionFilter" onchange="filterData()">
+                        <option value="">Semua Region</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="depoFilter">Depo:</label>
+                    <select id="depoFilter" onchange="filterData()">
+                        <option value="">Semua Depo</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="channelFilter">Channel:</label>
+                    <select id="channelFilter" onchange="filterData()">
+                        <option value="">Semua Channel</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-container">
+            <div id="loading" class="loading">
+                <p>⏳ Memuat data...</p>
+            </div>
+            <div id="dataDisplay"></div>
+        </div>
+    </div>
+
+    <script>
+        // Encrypted credentials (Base64 encoded)
+        // Default: admin / admin123, user / user123
+        const validCredentials = {
+            'YWRtaW4=': 'YWRtaW4xMjM=', // admin:admin123
+            'dXNlcg==': 'dXNlcjEyMw==',   // user:user123
+			'ZGVwbw==': 'ZGVwbzEyMw==',   // user:user123
+            'a2FsaW1hbnRhbg==': 'a2FsaW1hbnRhbjIwMjY=', // kalimantan:kalimantan2026
+        };
+
+        let currentData = [];
+        let filteredData = [];
+
+        // GitHub raw file URL - UPDATE THIS WITH YOUR GITHUB URL
+        const DATA_URL = 'https://raw.githubusercontent.com/YOUR_USERNAME/onesheet-kalimantan/main/data.json';
+
+        // Login Handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            const encodedUsername = btoa(username);
+            const encodedPassword = btoa(password);
+            
+            if (validCredentials[encodedUsername] === encodedPassword) {
+                sessionStorage.setItem('loggedIn', 'true');
+                sessionStorage.setItem('username', username);
+                showDashboard();
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('errorMessage').style.display = 'none';
+                }, 3000);
+            }
+        });
+
+        // Check if already logged in
+        window.onload = function() {
+            if (sessionStorage.getItem('loggedIn') === 'true') {
+                showDashboard();
+            }
+        };
+
+        function showDashboard() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('userDisplay').textContent = 'User: ' + sessionStorage.getItem('username');
+            loadData();
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            location.reload();
+        }
+
+        // Load data from GitHub
+        async function loadData() {
+            try {
+                const response = await fetch(DATA_URL);
+                if (!response.ok) {
+                    throw new Error('Failed to load data');
+                }
+                
+                const data = await response.json();
+                currentData = data.data || [];
+                filteredData = [...currentData];
+                
+                populateFilters();
+                displayData();
+                
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('loading').innerHTML = '<p style="color: #e74c3c;">❌ Gagal memuat data. Pastikan file JSON sudah di-upload ke GitHub.</p>';
+            }
+        }
+
+        function populateFilters() {
+            const regions = [...new Set(currentData.map(item => item.region))].filter(Boolean).sort();
+            const depos = [...new Set(currentData.map(item => item.depo))].filter(Boolean).sort();
+            const channels = [...new Set(currentData.map(item => item.channel))].filter(Boolean).sort();
+
+            const regionSelect = document.getElementById('regionFilter');
+            const depoSelect = document.getElementById('depoFilter');
+            const channelSelect = document.getElementById('channelFilter');
+
+            regions.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region;
+                option.textContent = region;
+                regionSelect.appendChild(option);
+            });
+
+            depos.forEach(depo => {
+                const option = document.createElement('option');
+                option.value = depo;
+                option.textContent = depo;
+                depoSelect.appendChild(option);
+            });
+
+            channels.forEach(channel => {
+                const option = document.createElement('option');
+                option.value = channel;
+                option.textContent = channel;
+                channelSelect.appendChild(option);
+            });
+        }
+
+        function filterData() {
+            const region = document.getElementById('regionFilter').value;
+            const depo = document.getElementById('depoFilter').value;
+            const channel = document.getElementById('channelFilter').value;
+
+            filteredData = currentData.filter(item => {
+                return (!region || item.region === region) &&
+                       (!depo || item.depo === depo) &&
+                       (!channel || item.channel === channel);
+            });
+
+            displayData();
+        }
+
+        function displayData() {
+            const container = document.getElementById('dataDisplay');
+            
+            if (filteredData.length === 0) {
+                container.innerHTML = '<div class="no-data">Tidak ada data yang ditampilkan</div>';
+                return;
+            }
+
+            // Get all unique column names (excluding basic fields)
+            const excludeFields = ['region', 'depo', 'channel'];
+            const allFields = Object.keys(filteredData[0] || {});
+            const dataFields = allFields.filter(f => !excludeFields.includes(f));
+
+            let tableHTML = '<table class="data-table"><thead><tr>';
+            tableHTML += '<th class="header-yellow">Region</th>';
+            tableHTML += '<th class="header-yellow">Depo</th>';
+            tableHTML += '<th class="header-yellow">Channel</th>';
+            
+            // Add dynamic columns
+            dataFields.forEach(field => {
+                tableHTML += `<th class="header-yellow">${field}</th>`;
+            });
+            
+            tableHTML += '</tr></thead><tbody>';
+
+            filteredData.forEach(row => {
+                tableHTML += '<tr>';
+                tableHTML += `<td>${row.region || ''}</td>`;
+                tableHTML += `<td>${row.depo || ''}</td>`;
+                tableHTML += `<td>${row.channel || ''}</td>`;
+                
+                dataFields.forEach(field => {
+                    const value = row[field];
+                    let cellClass = '';
+                    let displayValue = value;
+
+                    // Apply conditional formatting
+                    if (typeof value === 'number') {
+                        if (value >= 100) {
+                            cellClass = 'cell-green';
+                        } else if (value >= 80) {
+                            cellClass = 'cell-yellow';
+                        } else if (value < 80) {
+                            cellClass = 'cell-red';
+                        }
+                        
+                        // Format percentages
+                        if (field.includes('%') || field.includes('Ach')) {
+                            displayValue = value.toFixed(2) + '%';
+                            cellClass += ' percentage-cell';
+                        } else {
+                            displayValue = value.toLocaleString('id-ID');
+                        }
+                    }
+
+                    tableHTML += `<td class="${cellClass}">${displayValue || '-'}</td>`;
+                });
+                
+                tableHTML += '</tr>';
+            });
+
+            tableHTML += '</tbody></table>';
+            container.innerHTML = tableHTML;
+        }
+
+        // Auto refresh every 5 minutes
+        setInterval(() => {
+            if (sessionStorage.getItem('loggedIn') === 'true') {
+                loadData();
+            }
+        }, 300000);
+    </script>
+</body>
+</html>
