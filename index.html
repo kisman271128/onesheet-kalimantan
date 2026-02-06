@@ -183,7 +183,7 @@
             font-weight: 600;
             line-height: 1;
             vertical-align: middle;
-			height: 24px;
+            height: 24px;
         }
 
         .sub-header th {
@@ -191,7 +191,7 @@
             font-size: 9px;
             padding: 3px 2px;
             line-height: 1;
-			height: 20px;
+            height: 20px;
         }
 
         /* Sticky Column */
@@ -213,6 +213,7 @@
         .w2 { background: #9b59b6 !important; }
         .w3 { background: #e67e22 !important; }
         .w4 { background: #16a085 !important; }
+        .w5 { background: #e74c3c !important; }
         .mtd { background: #2c3e50 !important; }
 
         /* Data Cells */
@@ -335,29 +336,8 @@
         <div class="report-container">
             <div id="loading" class="loading">⏳ Memuat dan mengolah data...</div>
             <table id="mainTable">
-                <thead>
-                    <!-- Header Row 1: Week Names -->
-                    <tr>
-                        <th rowspan="2" class="sticky-col">CHANNEL</th>
-                        <th colspan="12" class="w1">W1 (2-8 Feb)</th>
-                        <th colspan="12" class="w2">W2 (9-15 Feb)</th>
-                        <th colspan="12" class="w3">W3 (16-22 Feb)</th>
-                        <th colspan="12" class="w4">W4 (23-28 Feb)</th>
-                        <th colspan="12" class="mtd">MTD</th>
-                    </tr>
-                    <!-- Header Row 2: Column Names -->
-                    <tr class="sub-header">
-                        <!-- W1 -->
-                        <th class="w1">CR</th><th class="w1">CA</th><th class="w1">%</th><th class="w1">LY</th><th class="w1">LM</th><th class="w1">BE</th><th class="w1">BP</th><th class="w1">Act</th><th class="w1">%BP</th><th class="w1">G-BP</th><th class="w1">%BE</th><th class="w1">G-BE</th>
-                        <!-- W2 -->
-                        <th class="w2">CR</th><th class="w2">CA</th><th class="w2">%</th><th class="w2">LY</th><th class="w2">LM</th><th class="w2">BE</th><th class="w2">BP</th><th class="w2">Act</th><th class="w2">%BP</th><th class="w2">G-BP</th><th class="w2">%BE</th><th class="w2">G-BE</th>
-                        <!-- W3 -->
-                        <th class="w3">CR</th><th class="w3">CA</th><th class="w3">%</th><th class="w3">LY</th><th class="w3">LM</th><th class="w3">BE</th><th class="w3">BP</th><th class="w3">Act</th><th class="w3">%BP</th><th class="w3">G-BP</th><th class="w3">%BE</th><th class="w3">G-BE</th>
-                        <!-- W4 -->
-                        <th class="w4">CR</th><th class="w4">CA</th><th class="w4">%</th><th class="w4">LY</th><th class="w4">LM</th><th class="w4">BE</th><th class="w4">BP</th><th class="w4">Act</th><th class="w4">%BP</th><th class="w4">G-BP</th><th class="w4">%BE</th><th class="w4">G-BE</th>
-                        <!-- MTD -->
-                        <th class="mtd">CR</th><th class="mtd">CA</th><th class="mtd">%</th><th class="mtd">LY</th><th class="mtd">LM</th><th class="mtd">BE</th><th class="mtd">BP</th><th class="mtd">Act</th><th class="mtd">%BP</th><th class="mtd">G-BP</th><th class="mtd">%BE</th><th class="mtd">G-BE</th>
-                    </tr>
+                <thead id="tableHeader">
+                    <!-- Generated dynamically by generateTableHeader() -->
                 </thead>
                 <tbody id="tableBody"></tbody>
             </table>
@@ -463,13 +443,78 @@
             showPage('selectionPage');
         }
 
+        // Global week configuration
+        let WEEKS_CONFIG = [];
+
+        // Generate weeks based on current month
+        function getWeeksForMonth() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            const lastDay = new Date(year, month + 1, 0).getDate();
+            
+            const weeks = [
+                { num: 1, start: 2, end: 8, class: 'w1' },
+                { num: 2, start: 9, end: 15, class: 'w2' },
+                { num: 3, start: 16, end: 22, class: 'w3' },
+                { num: 4, start: 23, end: 28, class: 'w4' }
+            ];
+            
+            // Add W5 if month has 29+ days and W5 would be meaningful
+            if (lastDay >= 29) {
+                weeks.push({ num: 5, start: 29, end: lastDay, class: 'w5' });
+            }
+            
+            return weeks;
+        }
+
         function logout() {
             sessionStorage.clear();
             location.reload();
         }
 
+        // Generate table header dynamically based on current month
+        function generateTableHeader() {
+            const now = new Date();
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const monthName = monthNames[now.getMonth()];
+            
+            // Get weeks for current month
+            const weeks = getWeeksForMonth();
+            
+            // Store week names for processAndRender
+            WEEKS_CONFIG = weeks.map(w => `W${w.num}`);
+            WEEKS_CONFIG.push('MTD'); // Always add MTD
+            
+            // Generate header row 1
+            let html = '<tr><th rowspan="2" class="sticky-col">CHANNEL</th>';
+            weeks.forEach(w => {
+                html += `<th colspan="12" class="${w.class}">W${w.num} (${w.start}-${w.end} ${monthName})</th>`;
+            });
+            html += '<th colspan="12" class="mtd">MTD</th></tr>';
+            
+            // Generate header row 2
+            html += '<tr class="sub-header">';
+            const cols = ['CR', 'CA', '%', 'LY', 'LM', 'BE', 'BP', 'Act', '%BP', 'G-BP', '%BE', 'G-BE'];
+            weeks.forEach(w => {
+                cols.forEach(col => {
+                    html += `<th class="${w.class}">${col}</th>`;
+                });
+            });
+            // MTD columns
+            cols.forEach(col => {
+                html += `<th class="mtd">${col}</th>`;
+            });
+            html += '</tr>';
+            
+            document.getElementById('tableHeader').innerHTML = html;
+        }
+
         async function showDashboard() {
             showPage('dashboard');
+            
+            // Generate dynamic header
+            generateTableHeader();
             
             // Update header info
             const username = sessionStorage.getItem('user');
@@ -529,7 +574,9 @@
         }
 
         function processAndRender() {
-            const weeks = ['W1', 'W2', 'W3', 'W4', 'MTD'];
+            // Use dynamic weeks from WEEKS_CONFIG (set by generateTableHeader)
+            const weeks = WEEKS_CONFIG.length > 0 ? WEEKS_CONFIG : ['W1', 'W2', 'W3', 'W4', 'MTD'];
+            
             const channels = {
                 'WHOLESALER': ['SPRBIG', 'BIG', 'MEDIUM', 'SMALL'],
                 'RETAIL': ['SPRBIG', 'BIG', 'MEDIUM', 'SMALL'],
