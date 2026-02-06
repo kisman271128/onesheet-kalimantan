@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OneSheet Region Kalimantan - Weekly Report</title>
+    <title>OneSheet Region Kalimantan</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -13,7 +13,7 @@
             min-height: 100vh;
         }
 
-        /* Login & Selection Pages */
+        /* Login & Selection */
         .page-container {
             display: flex;
             justify-content: center;
@@ -61,6 +61,7 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
+            transition: transform 0.2s;
         }
 
         .btn:hover { transform: translateY(-2px); }
@@ -85,146 +86,173 @@
         .option-card h3 { color: #333; margin-bottom: 5px; }
         .option-card p { color: #666; margin: 0; font-size: 14px; }
 
-        /* Dashboard */
+        .hidden { display: none; }
+
+        /* Dashboard - COMPACT HEADER */
         .dashboard {
             display: none;
-            padding: 20px;
             background: #f0f2f5;
+            min-height: 100vh;
         }
 
         .header-section {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .report-title {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .report-title h1 {
-            color: #333;
-            font-size: 24px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .report-title h2 {
-            color: #666;
-            font-size: 18px;
-            font-weight: normal;
-        }
-
-        .controls {
+            padding: 8px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .header-info {
+            font-size: 13px;
+            color: #333;
+        }
+
+        .header-info strong { font-weight: 600; }
+
+        .tg-info {
+            color: #d35400;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 8px;
         }
 
         .btn-small {
-            padding: 8px 16px;
+            padding: 5px 12px;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 11px;
         }
 
         .btn-primary { background: #3498db; color: white; }
         .btn-danger { background: #e74c3c; color: white; }
-        
-        .badge {
-            background: #667eea;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-        }
 
+        /* Table Container */
         .report-container {
             background: white;
-            border-radius: 10px;
-            padding: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow-x: auto;
+            margin: 5px;
+            border-radius: 8px;
+            overflow: auto;
+            max-height: 92vh;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Weekly Report Table */
-        .weekly-table {
-            width: 100%;
-            border-collapse: collapse;
+        /* Table */
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
             font-size: 10px;
+            width: 100%;
             min-width: 2500px;
         }
 
-        .weekly-table th {
-            background: #2c3e50;
-            color: white;
-            padding: 8px 4px;
-            text-align: center;
-            border: 1px solid #34495e;
-            font-weight: 600;
+        /* Headers - NO GAP */
+        th {
             position: sticky;
             top: 0;
             z-index: 10;
+            background: #2c3e50;
+            color: white;
+            padding: 4px 3px;
+            border: 1px solid #34495e;
+            text-align: center;
+            font-weight: 600;
+            line-height: 1;
+            vertical-align: middle;
+			height: 24px;
         }
 
-        .weekly-table .week-header {
-            background: #3498db;
-            font-size: 11px;
+        .sub-header th {
+            top: 24px;
+            font-size: 9px;
+            padding: 3px 2px;
+            line-height: 1;
+			height: 20px;
         }
 
-        .weekly-table td {
-            padding: 6px 4px;
+        /* Sticky Column */
+        .sticky-col {
+            position: sticky !important;
+            left: 0 !important;
+            z-index: 20 !important;
+            background: #2c3e50 !important;
+            border-right: 2px solid #999 !important;
+            min-width: 150px;
+        }
+
+        th.sticky-col {
+            z-index: 30 !important;
+        }
+
+        /* Week Colors */
+        .w1 { background: #3498db !important; }
+        .w2 { background: #9b59b6 !important; }
+        .w3 { background: #e67e22 !important; }
+        .w4 { background: #16a085 !important; }
+        .mtd { background: #2c3e50 !important; }
+
+        /* Data Cells */
+        td {
+            padding: 5px 3px;
             border: 1px solid #ddd;
             text-align: right;
         }
 
-        .weekly-table .row-label {
+        td.sticky-col {
             text-align: left;
+            padding-left: 10px;
             font-weight: 600;
-            background: #f8f9fa;
-            position: sticky;
-            left: 0;
-            z-index: 5;
-            min-width: 180px;
+            background: #f9f9fa !important;
         }
 
-        .weekly-table .row-channel {
-            background: #fff3cd;
-            font-weight: bold;
-        }
-
-        .weekly-table .row-subitem {
-            padding-left: 30px;
-            background: #fafafa;
-        }
-
-        .weekly-table .row-total {
-            background: #d4edda;
-            font-weight: bold;
-        }
-
+        /* Colors */
         .cell-green { background: #d4edda !important; color: #155724; font-weight: 600; }
         .cell-yellow { background: #fff3cd !important; color: #856404; font-weight: 600; }
         .cell-red { background: #f8d7da !important; color: #721c24; font-weight: 600; }
+        .pos { color: #28a745; font-weight: bold; }
+        .neg { color: #dc3545; font-weight: bold; }
+
+        /* Row Styles */
+        .row-channel { background: #fff3cd; font-weight: bold; }
+        .row-subitem { padding-left: 25px !important; background: #fafafa; }
+        .row-mt-sub { padding-left: 35px !important; background: #f0f8ff; font-style: italic; }
+        .row-total { background: #d4edda; font-weight: bold; }
+        .row-mt { background: #e8f4fd; font-weight: bold; }
 
         .loading {
             text-align: center;
-            padding: 60px;
-            font-size: 18px;
+            padding: 40px;
             color: #666;
+            font-size: 14px;
         }
-
-        .hidden { display: none; }
     </style>
 </head>
 <body>
+
     <!-- Login Page -->
     <div id="loginPage" class="page-container">
         <div class="box">
@@ -285,26 +313,54 @@
 
     <!-- Dashboard -->
     <div id="dashboard" class="dashboard">
+        <!-- COMPACT HEADER - Single Line -->
         <div class="header-section">
-            <div class="report-title">
-                <h1>REGION KALIMANTAN</h1>
-                <h2 id="depoName">DEPO TANJUNG</h2>
+            <div class="header-left">
+                <span class="header-info">
+                    <strong>User:</strong> <span id="userName">user</span> | 
+                    <strong>Depo:</strong> <span id="depoName">TANJUNG</span> - 
+                    <strong>Region:</strong> KALIMANTAN
+                </span>
             </div>
-            <div class="controls">
-                <div>
-                    <span class="badge" id="userInfo">User: admin</span>
-                    <span class="badge" id="depoInfo">TANJUNG</span>
-                </div>
-                <div>
-                    <button class="btn-small btn-primary" onclick="changeDepo()">Ganti Depo</button>
-                    <button class="btn-small btn-danger" onclick="logout()">Logout</button>
-                </div>
+            <div class="header-center">
+                <span class="header-title">Dashboard Weekly - OneSheet</span>
+            </div>
+            <div class="header-right">
+                <span class="tg-info" id="tgDisplay">Time Gone: 0.0%</span>
+                <button class="btn-small btn-primary" onclick="changeDepo()">Ganti Depo</button>
+                <button class="btn-small btn-danger" onclick="logout()">Logout</button>
             </div>
         </div>
 
         <div class="report-container">
             <div id="loading" class="loading">⏳ Memuat dan mengolah data...</div>
-            <div id="reportTable"></div>
+            <table id="mainTable">
+                <thead>
+                    <!-- Header Row 1: Week Names -->
+                    <tr>
+                        <th rowspan="2" class="sticky-col">CHANNEL</th>
+                        <th colspan="12" class="w1">W1 (2-8 Feb)</th>
+                        <th colspan="12" class="w2">W2 (9-15 Feb)</th>
+                        <th colspan="12" class="w3">W3 (16-22 Feb)</th>
+                        <th colspan="12" class="w4">W4 (23-28 Feb)</th>
+                        <th colspan="12" class="mtd">MTD</th>
+                    </tr>
+                    <!-- Header Row 2: Column Names -->
+                    <tr class="sub-header">
+                        <!-- W1 -->
+                        <th class="w1">CR</th><th class="w1">CA</th><th class="w1">%</th><th class="w1">LY</th><th class="w1">LM</th><th class="w1">BE</th><th class="w1">BP</th><th class="w1">Act</th><th class="w1">%BP</th><th class="w1">G-BP</th><th class="w1">%BE</th><th class="w1">G-BE</th>
+                        <!-- W2 -->
+                        <th class="w2">CR</th><th class="w2">CA</th><th class="w2">%</th><th class="w2">LY</th><th class="w2">LM</th><th class="w2">BE</th><th class="w2">BP</th><th class="w2">Act</th><th class="w2">%BP</th><th class="w2">G-BP</th><th class="w2">%BE</th><th class="w2">G-BE</th>
+                        <!-- W3 -->
+                        <th class="w3">CR</th><th class="w3">CA</th><th class="w3">%</th><th class="w3">LY</th><th class="w3">LM</th><th class="w3">BE</th><th class="w3">BP</th><th class="w3">Act</th><th class="w3">%BP</th><th class="w3">G-BP</th><th class="w3">%BE</th><th class="w3">G-BE</th>
+                        <!-- W4 -->
+                        <th class="w4">CR</th><th class="w4">CA</th><th class="w4">%</th><th class="w4">LY</th><th class="w4">LM</th><th class="w4">BE</th><th class="w4">BP</th><th class="w4">Act</th><th class="w4">%BP</th><th class="w4">G-BP</th><th class="w4">%BE</th><th class="w4">G-BE</th>
+                        <!-- MTD -->
+                        <th class="mtd">CR</th><th class="mtd">CA</th><th class="mtd">%</th><th class="mtd">LY</th><th class="mtd">LM</th><th class="mtd">BE</th><th class="mtd">BP</th><th class="mtd">Act</th><th class="mtd">%BP</th><th class="mtd">G-BP</th><th class="mtd">%BE</th><th class="mtd">G-BE</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
         </div>
     </div>
 
@@ -315,12 +371,10 @@
             'a2FsaW1hbnRhbg==': 'a2FsaW1hbnRhbjIwMjQ='
         };
 
-        let data = [];
+        let rawData = [];
         let viewType = '';
-        let depo = '';
-        const BASE = 'https://raw.githubusercontent.com/kisman271128/onesheet-kalimantan/master/';
+        let selectedDepo = '';
 
-        // Login
         document.getElementById('loginForm').addEventListener('submit', e => {
             e.preventDefault();
             const u = document.getElementById('username').value;
@@ -334,9 +388,10 @@
         });
 
         window.onload = () => {
+            loadDepoList();
             if (sessionStorage.getItem('user')) {
                 if (sessionStorage.getItem('depo')) {
-                    depo = sessionStorage.getItem('depo');
+                    selectedDepo = sessionStorage.getItem('depo');
                     viewType = sessionStorage.getItem('view');
                     showDashboard();
                 } else {
@@ -358,48 +413,39 @@
             viewType = type;
             sessionStorage.setItem('view', type);
             if (type === 'summary') {
-                depo = 'SUMMARY';
-                sessionStorage.setItem('depo', 'SUMMARY');
+                selectedDepo = 'data_SUMMARY';
+                sessionStorage.setItem('depo', 'data_SUMMARY');
                 showDashboard();
             } else {
-                loadDepoList();
+                showPage('depoPage');
             }
         }
 
         async function loadDepoList() {
             try {
-                const res = await fetch(BASE + 'depo_list.json');
-                const d = await res.json();
+                const res = await fetch('depo_list.json');
+                const data = await res.json();
                 const sel = document.getElementById('depoSelect');
                 sel.innerHTML = '<option value="">-- Pilih Depo --</option>';
-                d.depos.forEach(dp => {
-                    if (dp) {
-                        const opt = document.createElement('option');
-                        opt.value = dp;
-                        opt.textContent = dp;
-                        sel.appendChild(opt);
-                    }
+                data.depos.forEach(depo => {
+                    let cleanName = depo.toUpperCase().trim().replace(/^DEPO\s+/i, '');
+                    const opt = document.createElement('option');
+                    opt.value = `data_DEPO_${cleanName.replace(/\s+/g, '_')}`;
+                    opt.textContent = cleanName;
+                    sel.appendChild(opt);
                 });
-                showPage('depoPage');
-            } catch (e) {
-                alert('Gagal load depo list');
-            }
+            } catch (e) { console.error('depo_list.json error:', e); }
         }
 
         function loadDepoData() {
-            const sel = document.getElementById('depoSelect').value;
-            if (!sel) return alert('Pilih depo dulu');
-            depo = sel;
-            sessionStorage.setItem('depo', sel);
+            const sel = document.getElementById('depoSelect');
+            selectedDepo = sel.value;
+            if (!selectedDepo) {
+                alert('Pilih depo terlebih dahulu');
+                return;
+            }
+            sessionStorage.setItem('depo', selectedDepo);
             showDashboard();
-        }
-
-        function showDashboard() {
-            showPage('dashboard');
-            document.getElementById('userInfo').textContent = 'User: ' + sessionStorage.getItem('user');
-            document.getElementById('depoInfo').textContent = depo;
-            document.getElementById('depoName').textContent = 'DEPO ' + depo;
-            loadData();
         }
 
         function backToLogin() {
@@ -422,25 +468,72 @@
             location.reload();
         }
 
-        async function loadData() {
+        async function showDashboard() {
+            showPage('dashboard');
+            
+            // Update header info
+            const username = sessionStorage.getItem('user');
+            document.getElementById('userName').textContent = username;
+            
+            if (viewType === 'summary') {
+                document.getElementById('depoName').textContent = 'SUMMARY';
+            } else {
+                const depoName = selectedDepo.replace('data_DEPO_', '').replace(/_/g, ' ');
+                document.getElementById('depoName').textContent = depoName;
+            }
+
+            // Load TG from TG.json
             try {
-                let url = BASE + (viewType === 'summary' ? 'data_SUMMARY.json' : `data_${depo.replace(/\s+/g, '_').toUpperCase()}.json`);
-                const res = await fetch(url);
-                if (!res.ok) throw new Error('Load failed');
+                const tgRes = await fetch('TG.json');
+                const tgData = await tgRes.json();
+                
+                let tgValue = 0;
+                
+                // Check direct TimeGone field
+                if (tgData.TimeGone !== undefined) {
+                    tgValue = tgData.TimeGone;
+                }
+                // Check metadata
+                else if (tgData.metadata && tgData.metadata.time_gone_percentage) {
+                    tgValue = tgData.metadata.time_gone_percentage;
+                } 
+                // Check data array
+                else if (tgData.data && tgData.data.length > 0) {
+                    const firstRecord = tgData.data[0];
+                    if (firstRecord.TG) {
+                        tgValue = (firstRecord.TG * 100).toFixed(1);
+                    } else if (firstRecord['Time Gone']) {
+                        tgValue = firstRecord['Time Gone'];
+                    }
+                }
+                
+                document.getElementById('tgDisplay').textContent = `Time Gone: ${tgValue}%`;
+            } catch (e) { 
+                console.log('TG.json not found or error:', e);
+                document.getElementById('tgDisplay').textContent = 'Time Gone: N/A';
+            }
+
+            // Load Main Data
+            const fileName = `${selectedDepo}.json`;
+            try {
+                const res = await fetch(fileName);
+                if (!res.ok) throw new Error('File not found');
                 const json = await res.json();
-                data = json.data || [];
-                processData();
+                rawData = json.data || [];
                 document.getElementById('loading').style.display = 'none';
+                processAndRender();
             } catch (e) {
-                document.getElementById('loading').innerHTML = '<p style="color: #e74c3c;">❌ Gagal load data</p>';
+                document.getElementById('loading').innerHTML = '<p style="color: #e74c3c;">❌ Error loading ' + fileName + '</p>';
+                console.error(e);
             }
         }
 
-        function processData() {
-            const weeks = ['W1', 'W2', 'W3', 'W4', 'W5', 'MTD'];
+        function processAndRender() {
+            const weeks = ['W1', 'W2', 'W3', 'W4', 'MTD'];
             const channels = {
                 'WHOLESALER': ['SPRBIG', 'BIG', 'MEDIUM', 'SMALL'],
                 'RETAIL': ['SPRBIG', 'BIG', 'MEDIUM', 'SMALL'],
+                'MT': [], // Will have NKA and MTI as subs
                 'NKA': [],
                 'MTI': [],
                 'INSTITUTION': [],
@@ -448,48 +541,87 @@
             };
 
             const result = {};
-            
-            // Initialize structure
             weeks.forEach(w => {
                 result[w] = {};
                 Object.keys(channels).forEach(ch => {
-                    result[w][ch] = { CR: 0, CA: 0, LY: 0, LM: 0, BE: 0, BP: 0, Actual: 0, classes: {} };
+                    result[w][ch] = { 
+                        CR: new Set(), // Use Set for unique Ids
+                        CA: 0, 
+                        LY: 0, 
+                        LM: 0, 
+                        BE: 0, 
+                        BP: 0, 
+                        Actual: 0, 
+                        classes: {} 
+                    };
                     channels[ch].forEach(cls => {
-                        result[w][ch].classes[cls] = { CR: 0, CA: 0, LY: 0, LM: 0, BE: 0, BP: 0, Actual: 0 };
+                        result[w][ch].classes[cls] = { 
+                            CR: new Set(), 
+                            CA: 0, 
+                            LY: 0, 
+                            LM: 0, 
+                            BE: 0, 
+                            BP: 0, 
+                            Actual: 0 
+                        };
                     });
                 });
             });
 
-            // Aggregate data
-            data.forEach(row => {
+            // Aggregate data with UNIQUE Id Pelanggan
+            rawData.forEach(row => {
                 const ch = (row.Channel || row.channel || '').toUpperCase();
                 const cls = (row.Clas || row.clas || '').toUpperCase();
+                const idPelanggan = row['Id Pelanggan'] || row['ID Pelanggan'] || row.id_pelanggan || '';
                 
-                if (!channels[ch]) return;
+                if (!channels[ch] && ch !== 'NKA' && ch !== 'MTI') return;
 
                 weeks.forEach(w => {
                     const wNum = w.replace('W', '').replace('MTD', '');
                     const isMTD = w === 'MTD';
                     
-                    // Channel level
-                    result[w][ch].CR += 1;
-                    result[w][ch].CA += Number(row.CA || 0);
-                    result[w][ch].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
-                    result[w][ch].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
-                    result[w][ch].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
-                    result[w][ch].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
-                    result[w][ch].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+                    if (channels[ch]) {
+                        // Add unique Id to Set
+                        if (idPelanggan) result[w][ch].CR.add(idPelanggan);
+                        
+                        result[w][ch].CA += Number(row.CA || 0);
+                        result[w][ch].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
+                        result[w][ch].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
+                        result[w][ch].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
+                        result[w][ch].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
+                        result[w][ch].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
 
-                    // Class level
-                    if (cls && result[w][ch].classes[cls]) {
-                        result[w][ch].classes[cls].CR += 1;
-                        result[w][ch].classes[cls].CA += Number(row.CA || 0);
-                        result[w][ch].classes[cls].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
-                        result[w][ch].classes[cls].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
-                        result[w][ch].classes[cls].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
-                        result[w][ch].classes[cls].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
-                        result[w][ch].classes[cls].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+                        if (cls && result[w][ch].classes[cls]) {
+                            if (idPelanggan) result[w][ch].classes[cls].CR.add(idPelanggan);
+                            result[w][ch].classes[cls].CA += Number(row.CA || 0);
+                            result[w][ch].classes[cls].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
+                            result[w][ch].classes[cls].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
+                            result[w][ch].classes[cls].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
+                            result[w][ch].classes[cls].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
+                            result[w][ch].classes[cls].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+                        }
                     }
+
+                    // MT = NKA + MTI (will aggregate later)
+                    if (ch === 'NKA' || ch === 'MTI') {
+                        if (idPelanggan) result[w]['MT'].CR.add(idPelanggan);
+                        result[w]['MT'].CA += Number(row.CA || 0);
+                        result[w]['MT'].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
+                        result[w]['MT'].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
+                        result[w]['MT'].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
+                        result[w]['MT'].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
+                        result[w]['MT'].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+                    }
+                });
+            });
+
+            // Convert Sets to counts
+            weeks.forEach(w => {
+                Object.keys(channels).forEach(ch => {
+                    result[w][ch].CR = result[w][ch].CR.size;
+                    Object.keys(result[w][ch].classes).forEach(cls => {
+                        result[w][ch].classes[cls].CR = result[w][ch].classes[cls].CR.size;
+                    });
                 });
             });
 
@@ -497,23 +629,10 @@
         }
 
         function renderTable(result, weeks, channels) {
-            let html = '<table class="weekly-table"><thead><tr><th rowspan="2">All</th>';
-            
-            weeks.forEach(w => {
-                const label = w === 'MTD' ? 'MTD' : `${w} (2-7 FEB)`;
-                html += `<th colspan="14" class="week-header">${label}</th>`;
-            });
-            
-            html += '</tr><tr>';
-            weeks.forEach(() => {
-                html += '<th>CR</th><th>CA</th><th>CA vs CR</th><th>LY</th><th>LM</th><th>BE</th><th>BP</th>';
-                html += '<th>Actual</th><th>% vs BP</th><th>Gap vs BP</th><th>% vs BE</th><th>Gap vs BE</th>';
-                html += '<th>vs LM</th><th>vs LY</th>';
-            });
-            html += '</tr></thead><tbody>';
+            let html = '';
 
-            // GT exc PS
-            html += '<tr><td class="row-label row-total">GT ext PS</td>';
+            // GT ext PS
+            html += '<tr><td class="sticky-col row-total">GT ext PS</td>';
             weeks.forEach(w => {
                 const gt = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'INSTITUTION', 'FS']);
                 html += renderCells(gt);
@@ -522,26 +641,41 @@
 
             // WHOLESALER & RETAIL with classes
             ['WHOLESALER', 'RETAIL'].forEach(ch => {
-                html += `<tr><td class="row-label row-channel">${ch}</td>`;
+                html += `<tr><td class="sticky-col row-channel">${ch}</td>`;
                 weeks.forEach(w => html += renderCells(result[w][ch]));
                 html += '</tr>';
 
                 channels[ch].forEach(cls => {
-                    html += `<tr><td class="row-label row-subitem">${cls}</td>`;
+                    html += `<tr><td class="sticky-col row-subitem">${cls}</td>`;
                     weeks.forEach(w => html += renderCells(result[w][ch].classes[cls]));
                     html += '</tr>';
                 });
             });
 
-            // NKA, MTI, INSTITUTION, FS
-            ['NKA', 'MTI', 'INSTITUTION', 'FS'].forEach(ch => {
-                html += `<tr><td class="row-label row-channel">${ch}</td>`;
+            // MT with NKA and MTI as sub-channels
+            html += `<tr><td class="sticky-col row-mt">MT</td>`;
+            weeks.forEach(w => html += renderCells(result[w]['MT']));
+            html += '</tr>';
+            
+            // NKA as sub of MT
+            html += `<tr><td class="sticky-col row-mt-sub">NKA</td>`;
+            weeks.forEach(w => html += renderCells(result[w]['NKA']));
+            html += '</tr>';
+            
+            // MTI as sub of MT
+            html += `<tr><td class="sticky-col row-mt-sub">MTI</td>`;
+            weeks.forEach(w => html += renderCells(result[w]['MTI']));
+            html += '</tr>';
+
+            // INSTITUTION, FS
+            ['INSTITUTION', 'FS'].forEach(ch => {
+                html += `<tr><td class="sticky-col row-channel">${ch}</td>`;
                 weeks.forEach(w => html += renderCells(result[w][ch]));
                 html += '</tr>';
             });
 
             // ALL Channel Exc. NKA
-            html += '<tr><td class="row-label row-total">ALL Channel Exc. NKA</td>';
+            html += '<tr><td class="sticky-col row-total">ALL Channel Exc. NKA</td>';
             weeks.forEach(w => {
                 const all = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'MTI', 'INSTITUTION', 'FS']);
                 html += renderCells(all);
@@ -549,15 +683,14 @@
             html += '</tr>';
 
             // ALL Channel
-            html += '<tr><td class="row-label row-total">ALL Channel</td>';
+            html += '<tr><td class="sticky-col row-total">ALL Channel</td>';
             weeks.forEach(w => {
                 const all = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'NKA', 'MTI', 'INSTITUTION', 'FS']);
                 html += renderCells(all);
             });
             html += '</tr>';
 
-            html += '</tbody></table>';
-            document.getElementById('reportTable').innerHTML = html;
+            document.getElementById('tableBody').innerHTML = html;
         }
 
         function sumChannels(weekData, chList) {
@@ -577,25 +710,37 @@
         function renderCells(d) {
             const caVsCR = d.CR > 0 ? (d.CA / d.CR * 100).toFixed(1) : '0.0';
             const vsBP = d.BP > 0 ? (d.Actual / d.BP * 100).toFixed(1) : '0.0';
-            const gapBP = (d.Actual - d.BP).toFixed(0);
+            const gapBP = d.Actual - d.BP;
             const vsBE = d.BE > 0 ? (d.Actual / d.BE * 100).toFixed(1) : '0.0';
-            const gapBE = (d.Actual - d.BE).toFixed(0);
-            const vsLM = d.LM > 0 ? (d.Actual / d.LM * 100).toFixed(1) : '0.0';
-            const vsLY = d.LY > 0 ? (d.Actual / d.LY * 100).toFixed(1) : '0.0';
+            const gapBE = d.Actual - d.BE;
             
             const bpClass = vsBP >= 100 ? 'cell-green' : (vsBP >= 80 ? 'cell-yellow' : 'cell-red');
             const beClass = vsBE >= 100 ? 'cell-green' : (vsBE >= 80 ? 'cell-yellow' : 'cell-red');
             
-            return `<td>${d.CR}</td><td>${fmt(d.CA)}</td><td>${caVsCR}%</td>` +
-                   `<td>${fmt(d.LY)}</td><td>${fmt(d.LM)}</td><td>${fmt(d.BE)}</td><td>${fmt(d.BP)}</td>` +
-                   `<td>${fmt(d.Actual)}</td>` +
-                   `<td class="${bpClass}">${vsBP}%</td><td>${gapBP}</td>` +
-                   `<td class="${beClass}">${vsBE}%</td><td>${gapBE}</td>` +
-                   `<td>${vsLM}%</td><td>${vsLY}%</td>`;
+            const gapBPFmt = gapBP > 0 
+                ? `<span class="pos">+${fmtM(gapBP)}</span>` 
+                : `<span class="neg">${fmtM(gapBP)}</span>`;
+            const gapBEFmt = gapBE > 0 
+                ? `<span class="pos">+${fmtM(gapBE)}</span>` 
+                : `<span class="neg">${fmtM(gapBE)}</span>`;
+            
+            return `<td>${fmtN(d.CR)}</td><td>${fmtN(d.CA)}</td><td>${caVsCR}%</td>` +
+                   `<td>${fmtM(d.LY)}</td><td>${fmtM(d.LM)}</td><td>${fmtM(d.BE)}</td><td>${fmtM(d.BP)}</td>` +
+                   `<td>${fmtM(d.Actual)}</td>` +
+                   `<td class="${bpClass}">${vsBP}%</td><td>${gapBPFmt}</td>` +
+                   `<td class="${beClass}">${vsBE}%</td><td>${gapBEFmt}</td>`;
         }
 
-        function fmt(n) {
+        function fmtN(n) {
             return Math.round(n || 0).toLocaleString('id-ID');
+        }
+
+        function fmtM(n) {
+            const m = (n || 0) / 1000000;
+            if (Math.abs(m) >= 1000) {
+                return m.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+            return m.toFixed(1);
         }
     </script>
 </body>
