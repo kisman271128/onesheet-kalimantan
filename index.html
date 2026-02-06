@@ -53,7 +53,7 @@
             font-weight: 500;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
@@ -62,12 +62,12 @@
             transition: border-color 0.3s;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #667eea;
         }
 
-        .login-btn {
+        .login-btn, .select-btn {
             width: 100%;
             padding: 12px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -80,7 +80,7 @@
             transition: transform 0.2s;
         }
 
-        .login-btn:hover {
+        .login-btn:hover, .select-btn:hover {
             transform: translateY(-2px);
         }
 
@@ -90,6 +90,70 @@
             margin-top: 15px;
             font-size: 14px;
             display: none;
+        }
+
+        /* Selection Page Styles */
+        .selection-container {
+            display: none;
+            padding: 20px;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .selection-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .selection-box h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .selection-box p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .selection-option {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .selection-option:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .selection-option h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .selection-option p {
+            color: #666;
+            margin: 0;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            background: #6c757d;
         }
 
         /* Dashboard Styles */
@@ -144,7 +208,7 @@
             cursor: pointer;
         }
 
-        .logout-btn {
+        .logout-btn, .change-depo-btn {
             padding: 10px 20px;
             background: #e74c3c;
             color: white;
@@ -152,10 +216,19 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .change-depo-btn {
+            background: #3498db;
         }
 
         .logout-btn:hover {
             background: #c0392b;
+        }
+
+        .change-depo-btn:hover {
+            background: #2980b9;
         }
 
         .data-container {
@@ -228,26 +301,6 @@
             color: #999;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .filter-container {
-                flex-direction: column;
-            }
-            
-            .filter-group {
-                max-width: 100%;
-            }
-
-            .data-table {
-                font-size: 10px;
-            }
-
-            .data-table th,
-            .data-table td {
-                padding: 6px 4px;
-            }
-        }
-
         .hidden {
             display: none;
         }
@@ -257,6 +310,16 @@
             margin-bottom: 10px;
             color: #666;
             font-size: 14px;
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -280,27 +343,55 @@
         </div>
     </div>
 
+    <!-- Selection Page -->
+    <div id="selectionPage" class="selection-container">
+        <div class="selection-box">
+            <h2>📊 Pilih Data yang Ingin Ditampilkan</h2>
+            <p>Silakan pilih data yang ingin Anda lihat</p>
+            
+            <div class="selection-option" onclick="selectViewType('summary')">
+                <h3>🏢 Summary Regional</h3>
+                <p>Lihat ringkasan data semua Depo (untuk Team Regional)</p>
+            </div>
+            
+            <div class="selection-option" onclick="selectViewType('depo')">
+                <h3>🏪 Data Depo Spesifik</h3>
+                <p>Lihat data detail per Depo</p>
+            </div>
+            
+            <button class="login-btn back-btn" onclick="backToLogin()">← Kembali ke Login</button>
+        </div>
+    </div>
+
+    <!-- Depo Selection Page -->
+    <div id="depoSelectionPage" class="selection-container">
+        <div class="selection-box">
+            <h2>🏪 Pilih Depo</h2>
+            <p>Silakan pilih Depo yang ingin Anda lihat</p>
+            
+            <div class="form-group">
+                <label for="depoSelect">Pilih Depo:</label>
+                <select id="depoSelect">
+                    <option value="">-- Pilih Depo --</option>
+                </select>
+            </div>
+            
+            <button class="select-btn" onclick="loadDepoData()">Tampilkan Data</button>
+            <button class="login-btn back-btn" onclick="backToSelection()">← Kembali</button>
+        </div>
+    </div>
+
     <!-- Dashboard -->
     <div id="dashboard" class="dashboard">
         <div class="header">
             <div class="user-info">
-                <span id="userDisplay"></span> | 
+                <span id="userDisplay"></span>
+                <span class="info-badge" id="currentView"></span>
+                <button class="change-depo-btn" onclick="changeDepo()">Ganti Depo</button>
                 <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
-            <h1>📊 ONE SHEET REGION KALIMANTAN</h1>
+            <h1 id="dashboardTitle">📊 ONE SHEET REGION KALIMANTAN</h1>
             <div class="filter-container">
-                <div class="filter-group">
-                    <label for="regionFilter">Region:</label>
-                    <select id="regionFilter" onchange="filterData()">
-                        <option value="">Semua Region</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="depoFilter">Depo:</label>
-                    <select id="depoFilter" onchange="filterData()">
-                        <option value="">Semua Depo</option>
-                    </select>
-                </div>
                 <div class="filter-group">
                     <label for="channelFilter">Channel:</label>
                     <select id="channelFilter" onchange="filterData()">
@@ -320,7 +411,6 @@
 
     <script>
         // Encrypted credentials (Base64 encoded)
-        // Default: admin / admin123, user / user123
         const validCredentials = {
             'YWRtaW4=': 'YWRtaW4xMjM=', // admin:admin123
             'dXNlcg==': 'dXNlcjEyMw==',   // user:user123
@@ -329,9 +419,11 @@
 
         let currentData = [];
         let filteredData = [];
+        let currentViewType = '';
+        let currentDepo = '';
 
-        // GitHub raw file URL - UPDATE THIS WITH YOUR GITHUB URL
-        const DATA_URL = 'https://raw.githubusercontent.com/kisman271128/onesheet-kalimantan/master/data.json';
+        // GitHub base URL
+        const BASE_URL = 'https://raw.githubusercontent.com/kisman271128/onesheet-kalimantan/master/';
 
         // Login Handler
         document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -346,7 +438,7 @@
             if (validCredentials[encodedUsername] === encodedPassword) {
                 sessionStorage.setItem('loggedIn', 'true');
                 sessionStorage.setItem('username', username);
-                showDashboard();
+                showSelectionPage();
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
                 setTimeout(() => {
@@ -358,15 +450,107 @@
         // Check if already logged in
         window.onload = function() {
             if (sessionStorage.getItem('loggedIn') === 'true') {
-                showDashboard();
+                if (sessionStorage.getItem('viewType')) {
+                    // Resume previous session
+                    currentViewType = sessionStorage.getItem('viewType');
+                    currentDepo = sessionStorage.getItem('currentDepo') || '';
+                    showDashboard();
+                } else {
+                    showSelectionPage();
+                }
             }
         };
 
+        function showSelectionPage() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('selectionPage').style.display = 'flex';
+            document.getElementById('depoSelectionPage').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        function selectViewType(type) {
+            currentViewType = type;
+            sessionStorage.setItem('viewType', type);
+            
+            if (type === 'summary') {
+                currentDepo = 'SUMMARY';
+                sessionStorage.setItem('currentDepo', 'SUMMARY');
+                showDashboard();
+            } else if (type === 'depo') {
+                loadDepoList();
+            }
+        }
+
+        async function loadDepoList() {
+            try {
+                const response = await fetch(BASE_URL + 'depo_list.json');
+                const data = await response.json();
+                
+                const select = document.getElementById('depoSelect');
+                select.innerHTML = '<option value="">-- Pilih Depo --</option>';
+                
+                data.depos.forEach(depo => {
+                    if (depo) {
+                        const option = document.createElement('option');
+                        option.value = depo;
+                        option.textContent = depo;
+                        select.appendChild(option);
+                    }
+                });
+                
+                document.getElementById('selectionPage').style.display = 'none';
+                document.getElementById('depoSelectionPage').style.display = 'flex';
+            } catch (error) {
+                alert('Gagal memuat daftar Depo. Pastikan data sudah di-upload.');
+                console.error(error);
+            }
+        }
+
+        function loadDepoData() {
+            const depoSelect = document.getElementById('depoSelect');
+            const selectedDepo = depoSelect.value;
+            
+            if (!selectedDepo) {
+                alert('Silakan pilih Depo terlebih dahulu');
+                return;
+            }
+            
+            currentDepo = selectedDepo;
+            sessionStorage.setItem('currentDepo', selectedDepo);
+            showDashboard();
+        }
+
         function showDashboard() {
             document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('selectionPage').style.display = 'none';
+            document.getElementById('depoSelectionPage').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
+            
             document.getElementById('userDisplay').textContent = 'User: ' + sessionStorage.getItem('username');
+            document.getElementById('currentView').textContent = currentDepo;
+            
+            if (currentViewType === 'summary') {
+                document.getElementById('dashboardTitle').textContent = '📊 SUMMARY REGIONAL KALIMANTAN';
+            } else {
+                document.getElementById('dashboardTitle').textContent = `📊 DATA DEPO ${currentDepo}`;
+            }
+            
             loadData();
+        }
+
+        function backToLogin() {
+            sessionStorage.clear();
+            location.reload();
+        }
+
+        function backToSelection() {
+            showSelectionPage();
+        }
+
+        function changeDepo() {
+            sessionStorage.removeItem('viewType');
+            sessionStorage.removeItem('currentDepo');
+            showSelectionPage();
         }
 
         function logout() {
@@ -377,13 +561,28 @@
         // Load data from GitHub
         async function loadData() {
             try {
-                const response = await fetch(DATA_URL);
+                let dataUrl;
+                
+                if (currentViewType === 'summary') {
+                    dataUrl = BASE_URL + 'data_SUMMARY.json';
+                } else {
+                    const safeDepoName = currentDepo.replace(/\s+/g, '_').toUpperCase();
+                    dataUrl = BASE_URL + `data_${safeDepoName}.json`;
+                }
+                
+                const response = await fetch(dataUrl);
                 if (!response.ok) {
                     throw new Error('Failed to load data');
                 }
                 
                 const data = await response.json();
-                currentData = data.data || [];
+                
+                if (currentViewType === 'summary') {
+                    currentData = data.summary_by_depo || [];
+                } else {
+                    currentData = data.data || [];
+                }
+                
                 filteredData = [...currentData];
                 
                 populateFilters();
@@ -392,33 +591,15 @@
                 document.getElementById('loading').style.display = 'none';
             } catch (error) {
                 console.error('Error loading data:', error);
-                document.getElementById('loading').innerHTML = '<p style="color: #e74c3c;">❌ Gagal memuat data. Pastikan file JSON sudah di-upload ke GitHub.</p>';
+                document.getElementById('loading').innerHTML = '<p style="color: #e74c3c;">❌ Gagal memuat data. ' + error.message + '</p>';
             }
         }
 
         function populateFilters() {
-            const regions = [...new Set(currentData.map(item => item.region))].filter(Boolean).sort();
-            const depos = [...new Set(currentData.map(item => item.depo))].filter(Boolean).sort();
             const channels = [...new Set(currentData.map(item => item.channel))].filter(Boolean).sort();
-
-            const regionSelect = document.getElementById('regionFilter');
-            const depoSelect = document.getElementById('depoFilter');
             const channelSelect = document.getElementById('channelFilter');
-
-            regions.forEach(region => {
-                const option = document.createElement('option');
-                option.value = region;
-                option.textContent = region;
-                regionSelect.appendChild(option);
-            });
-
-            depos.forEach(depo => {
-                const option = document.createElement('option');
-                option.value = depo;
-                option.textContent = depo;
-                depoSelect.appendChild(option);
-            });
-
+            
+            channelSelect.innerHTML = '<option value="">Semua Channel</option>';
             channels.forEach(channel => {
                 const option = document.createElement('option');
                 option.value = channel;
@@ -428,16 +609,12 @@
         }
 
         function filterData() {
-            const region = document.getElementById('regionFilter').value;
-            const depo = document.getElementById('depoFilter').value;
             const channel = document.getElementById('channelFilter').value;
-
+            
             filteredData = currentData.filter(item => {
-                return (!region || item.region === region) &&
-                       (!depo || item.depo === depo) &&
-                       (!channel || item.channel === channel);
+                return (!channel || item.channel === channel);
             });
-
+            
             displayData();
         }
 
@@ -449,18 +626,11 @@
                 return;
             }
 
-            // Get all unique column names (excluding basic fields)
-            const excludeFields = ['region', 'depo', 'channel'];
             const allFields = Object.keys(filteredData[0] || {});
-            const dataFields = allFields.filter(f => !excludeFields.includes(f));
-
-            let tableHTML = '<table class="data-table"><thead><tr>';
-            tableHTML += '<th class="header-yellow">Region</th>';
-            tableHTML += '<th class="header-yellow">Depo</th>';
-            tableHTML += '<th class="header-yellow">Channel</th>';
             
-            // Add dynamic columns
-            dataFields.forEach(field => {
+            let tableHTML = '<table class="data-table"><thead><tr>';
+            
+            allFields.forEach(field => {
                 tableHTML += `<th class="header-yellow">${field}</th>`;
             });
             
@@ -468,16 +638,12 @@
 
             filteredData.forEach(row => {
                 tableHTML += '<tr>';
-                tableHTML += `<td>${row.region || ''}</td>`;
-                tableHTML += `<td>${row.depo || ''}</td>`;
-                tableHTML += `<td>${row.channel || ''}</td>`;
                 
-                dataFields.forEach(field => {
+                allFields.forEach(field => {
                     const value = row[field];
                     let cellClass = '';
                     let displayValue = value;
 
-                    // Apply conditional formatting
                     if (typeof value === 'number') {
                         if (value >= 100) {
                             cellClass = 'cell-green';
@@ -487,8 +653,7 @@
                             cellClass = 'cell-red';
                         }
                         
-                        // Format percentages
-                        if (field.includes('%') || field.includes('Ach')) {
+                        if (field.includes('%') || field.includes('Ach') || field.includes('avg')) {
                             displayValue = value.toFixed(2) + '%';
                             cellClass += ' percentage-cell';
                         } else {
@@ -508,7 +673,7 @@
 
         // Auto refresh every 5 minutes
         setInterval(() => {
-            if (sessionStorage.getItem('loggedIn') === 'true') {
+            if (sessionStorage.getItem('loggedIn') === 'true' && currentDepo) {
                 loadData();
             }
         }, 300000);
