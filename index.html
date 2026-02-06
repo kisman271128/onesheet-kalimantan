@@ -634,9 +634,9 @@
                         result[w][ch].CA += Number(row.CA || 0);
                         result[w][ch].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
                         result[w][ch].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
-                        result[w][ch].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
+                        result[w][ch].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0); // BEW1, BEW2, BEW3, BEW4 or BEMTD
                         result[w][ch].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
-                        result[w][ch].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+                        result[w][ch].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0); // W1, W2, W3, W4 or MTD
 
                         if (cls && result[w][ch].classes[cls]) {
                             if (idPelanggan) result[w][ch].classes[cls].CR.add(idPelanggan);
@@ -649,7 +649,7 @@
                         }
                     }
 
-                    // MT = NKA + MTI (will aggregate later)
+                    // MT = NKA + MTI
                     if (ch === 'NKA' || ch === 'MTI') {
                         if (idPelanggan) result[w]['MT'].CR.add(idPelanggan);
                         result[w]['MT'].CA += Number(row.CA || 0);
