@@ -28,11 +28,25 @@ def excel_to_json(excel_file, json_file, sheet_name=None):
         # Clean column names
         df.columns = df.columns.str.strip()
         
-        # Replace NaN with None for better JSON handling
+        # Import numpy for better NaN handling
+        import numpy as np
+        
+        # Replace NaN, infinity with None for valid JSON
+        df = df.replace([np.nan, np.inf, -np.inf], None)
+        
+        # Double-check: use where to replace any remaining NaN
         df = df.where(pd.notnull(df), None)
         
         # Convert DataFrame to list of dictionaries
         data_list = df.to_dict('records')
+        
+        # Clean the data_list to remove any remaining NaN
+        import math
+        for record in data_list:
+            for key, value in record.items():
+                if isinstance(value, float):
+                    if math.isnan(value) or math.isinf(value):
+                        record[key] = None
         
         # Create JSON structure
         json_data = {
@@ -46,10 +60,10 @@ def excel_to_json(excel_file, json_file, sheet_name=None):
             "data": data_list
         }
         
-        # Write to JSON file
+        # Write to JSON file with strict NaN handling
         print(f"💾 Menyimpan ke JSON: {json_file}")
         with open(json_file, 'w', encoding='utf-8') as f:
-            json.dump(json_data, f, ensure_ascii=False, indent=2)
+            json.dump(json_data, f, ensure_ascii=False, indent=2, allow_nan=False)
         
         print(f"✅ Konversi berhasil! {len(data_list)} records disimpan")
         print(f"📁 File JSON: {json_file}")
