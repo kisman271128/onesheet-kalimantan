@@ -3,22 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OneSheet Region Kalimantan</title>
+    <title>OneSheet Region Kalimantan - Weekly Report</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
 
-        /* Login Page Styles */
-        .login-container {
+        /* Login & Selection Pages */
+        .page-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,26 +22,19 @@
             padding: 20px;
         }
 
-        .login-box {
+        .box {
             background: white;
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
         }
 
-        .login-box h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
+        h2 { text-align: center; color: #333; margin-bottom: 30px; }
+        
+        .form-group { margin-bottom: 20px; }
+        
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -59,15 +48,9 @@
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.3s;
         }
 
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .login-btn, .select-btn {
+        .btn {
             width: 100%;
             padding: 12px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -77,53 +60,13 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
+            margin-top: 10px;
         }
 
-        .login-btn:hover, .select-btn:hover {
-            transform: translateY(-2px);
-        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-secondary { background: #6c757d; }
 
-        .error-message {
-            color: #e74c3c;
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            display: none;
-        }
-
-        /* Selection Page Styles */
-        .selection-container {
-            display: none;
-            padding: 20px;
-            min-height: 100vh;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .selection-box {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .selection-box h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-
-        .selection-box p {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .selection-option {
+        .option-card {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 10px;
@@ -133,36 +76,23 @@
             border: 2px solid transparent;
         }
 
-        .selection-option:hover {
+        .option-card:hover {
             background: #e9ecef;
             border-color: #667eea;
             transform: translateY(-2px);
         }
 
-        .selection-option h3 {
-            color: #333;
-            margin-bottom: 5px;
-        }
+        .option-card h3 { color: #333; margin-bottom: 5px; }
+        .option-card p { color: #666; margin: 0; font-size: 14px; }
 
-        .selection-option p {
-            color: #666;
-            margin: 0;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .back-btn {
-            margin-top: 20px;
-            background: #6c757d;
-        }
-
-        /* Dashboard Styles */
+        /* Dashboard */
         .dashboard {
             display: none;
             padding: 20px;
+            background: #f0f2f5;
         }
 
-        .header {
+        .header-section {
             background: white;
             padding: 20px;
             border-radius: 10px;
@@ -170,371 +100,305 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .header h1 {
-            color: #333;
-            margin-bottom: 15px;
+        .report-title {
             text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .report-title h1 {
+            color: #333;
             font-size: 24px;
-        }
-
-        .filter-container {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .filter-group {
-            flex: 1;
-            min-width: 200px;
-            max-width: 300px;
-        }
-
-        .filter-group label {
-            display: block;
+            text-transform: uppercase;
             margin-bottom: 5px;
-            color: #555;
-            font-weight: 500;
         }
 
-        .filter-group select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            background: white;
-            cursor: pointer;
+        .report-title h2 {
+            color: #666;
+            font-size: 18px;
+            font-weight: normal;
         }
 
-        .logout-btn, .change-depo-btn {
-            padding: 10px 20px;
-            background: #e74c3c;
-            color: white;
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            margin-left: 10px;
+            font-size: 13px;
         }
 
-        .change-depo-btn {
-            background: #3498db;
+        .btn-primary { background: #3498db; color: white; }
+        .btn-danger { background: #e74c3c; color: white; }
+        
+        .badge {
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
         }
 
-        .logout-btn:hover {
-            background: #c0392b;
-        }
-
-        .change-depo-btn:hover {
-            background: #2980b9;
-        }
-
-        .data-container {
+        .report-container {
             background: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             overflow-x: auto;
         }
 
-        .data-table {
+        /* Weekly Report Table */
+        .weekly-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1200px;
-            font-size: 12px;
+            font-size: 10px;
+            min-width: 2500px;
         }
 
-        .data-table th {
-            background: #f8f9fa;
-            padding: 12px 8px;
+        .weekly-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 4px;
             text-align: center;
-            border: 1px solid #ddd;
+            border: 1px solid #34495e;
             font-weight: 600;
-            color: #333;
             position: sticky;
             top: 0;
             z-index: 10;
         }
 
-        .data-table td {
-            padding: 10px 8px;
+        .weekly-table .week-header {
+            background: #3498db;
+            font-size: 11px;
+        }
+
+        .weekly-table td {
+            padding: 6px 4px;
             border: 1px solid #ddd;
-            text-align: center;
+            text-align: right;
         }
 
-        .data-table tbody tr:hover {
+        .weekly-table .row-label {
+            text-align: left;
+            font-weight: 600;
             background: #f8f9fa;
+            position: sticky;
+            left: 0;
+            z-index: 5;
+            min-width: 180px;
         }
 
-        .header-yellow {
-            background: #FFD700 !important;
+        .weekly-table .row-channel {
+            background: #fff3cd;
             font-weight: bold;
         }
 
-        .cell-green {
-            background: #90EE90 !important;
+        .weekly-table .row-subitem {
+            padding-left: 30px;
+            background: #fafafa;
         }
 
-        .cell-red {
-            background: #FFB6C1 !important;
+        .weekly-table .row-total {
+            background: #d4edda;
+            font-weight: bold;
         }
 
-        .cell-yellow {
-            background: #FFFF99 !important;
-        }
-
-        .percentage-cell {
-            font-weight: 600;
-        }
+        .cell-green { background: #d4edda !important; color: #155724; font-weight: 600; }
+        .cell-yellow { background: #fff3cd !important; color: #856404; font-weight: 600; }
+        .cell-red { background: #f8d7da !important; color: #721c24; font-weight: 600; }
 
         .loading {
             text-align: center;
-            padding: 40px;
-            color: #555;
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .user-info {
-            text-align: right;
-            margin-bottom: 10px;
+            padding: 60px;
+            font-size: 18px;
             color: #666;
-            font-size: 14px;
         }
 
-        .info-badge {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-left: 10px;
-        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
     <!-- Login Page -->
-    <div id="loginPage" class="login-container">
-        <div class="login-box">
+    <div id="loginPage" class="page-container">
+        <div class="box">
             <h2>🔐 Login OneSheet</h2>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" required autocomplete="username">
+                    <label>Username</label>
+                    <input type="text" id="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required autocomplete="current-password">
+                    <label>Password</label>
+                    <input type="password" id="password" required>
                 </div>
-                <button type="submit" class="login-btn">Masuk</button>
-                <div class="error-message" id="errorMessage">Username atau password salah!</div>
+                <button type="submit" class="btn">Masuk</button>
+                <div id="errorMsg" class="hidden" style="color: #e74c3c; text-align: center; margin-top: 15px;">
+                    Username atau password salah!
+                </div>
             </form>
         </div>
     </div>
 
     <!-- Selection Page -->
-    <div id="selectionPage" class="selection-container">
-        <div class="selection-box">
-            <h2>📊 Pilih Data yang Ingin Ditampilkan</h2>
-            <p>Silakan pilih data yang ingin Anda lihat</p>
+    <div id="selectionPage" class="page-container hidden">
+        <div class="box">
+            <h2>📊 Pilih Data</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                Pilih data yang ingin ditampilkan
+            </p>
             
-            <div class="selection-option" onclick="selectViewType('summary')">
+            <div class="option-card" onclick="selectView('summary')">
                 <h3>🏢 Summary Regional</h3>
-                <p>Lihat ringkasan data semua Depo (untuk Team Regional)</p>
+                <p>Lihat ringkasan data semua Depo</p>
             </div>
             
-            <div class="selection-option" onclick="selectViewType('depo')">
+            <div class="option-card" onclick="selectView('depo')">
                 <h3>🏪 Data Depo Spesifik</h3>
-                <p>Lihat data detail per Depo</p>
+                <p>Lihat weekly report per Depo</p>
             </div>
             
-            <button class="login-btn back-btn" onclick="backToLogin()">← Kembali ke Login</button>
+            <button class="btn btn-secondary" onclick="backToLogin()">← Kembali</button>
         </div>
     </div>
 
-    <!-- Depo Selection Page -->
-    <div id="depoSelectionPage" class="selection-container">
-        <div class="selection-box">
+    <!-- Depo Selection -->
+    <div id="depoPage" class="page-container hidden">
+        <div class="box">
             <h2>🏪 Pilih Depo</h2>
-            <p>Silakan pilih Depo yang ingin Anda lihat</p>
-            
             <div class="form-group">
-                <label for="depoSelect">Pilih Depo:</label>
+                <label>Pilih Depo:</label>
                 <select id="depoSelect">
                     <option value="">-- Pilih Depo --</option>
                 </select>
             </div>
-            
-            <button class="select-btn" onclick="loadDepoData()">Tampilkan Data</button>
-            <button class="login-btn back-btn" onclick="backToSelection()">← Kembali</button>
+            <button class="btn" onclick="loadDepoData()">Tampilkan Data</button>
+            <button class="btn btn-secondary" onclick="backToSelection()">← Kembali</button>
         </div>
     </div>
 
     <!-- Dashboard -->
     <div id="dashboard" class="dashboard">
-        <div class="header">
-            <div class="user-info">
-                <span id="userDisplay"></span>
-                <span class="info-badge" id="currentView"></span>
-                <button class="change-depo-btn" onclick="changeDepo()">Ganti Depo</button>
-                <button class="logout-btn" onclick="logout()">Logout</button>
+        <div class="header-section">
+            <div class="report-title">
+                <h1>REGION KALIMANTAN</h1>
+                <h2 id="depoName">DEPO TANJUNG</h2>
             </div>
-            <h1 id="dashboardTitle">📊 ONE SHEET REGION KALIMANTAN</h1>
-            <div class="filter-container">
-                <div class="filter-group">
-                    <label for="channelFilter">Channel:</label>
-                    <select id="channelFilter" onchange="filterData()">
-                        <option value="">Semua Channel</option>
-                    </select>
+            <div class="controls">
+                <div>
+                    <span class="badge" id="userInfo">User: admin</span>
+                    <span class="badge" id="depoInfo">TANJUNG</span>
+                </div>
+                <div>
+                    <button class="btn-small btn-primary" onclick="changeDepo()">Ganti Depo</button>
+                    <button class="btn-small btn-danger" onclick="logout()">Logout</button>
                 </div>
             </div>
         </div>
 
-        <div class="data-container">
-            <div id="loading" class="loading">
-                <p>⏳ Memuat data...</p>
-            </div>
-            <div id="dataDisplay"></div>
+        <div class="report-container">
+            <div id="loading" class="loading">⏳ Memuat dan mengolah data...</div>
+            <div id="reportTable"></div>
         </div>
     </div>
 
     <script>
-        // Encrypted credentials (Base64 encoded)
-        const validCredentials = {
-            'YWRtaW4=': 'YWRtaW4xMjM=', // admin:admin123
-            'dXNlcg==': 'dXNlcjEyMw==',   // user:user123
-            'a2FsaW1hbnRhbg==': 'a2FsaW1hbnRhbjIwMjQ=', // kalimantan:kalimantan2024
+        const CREDS = {
+            'YWRtaW4=': 'YWRtaW4xMjM=',
+            'dXNlcg==': 'dXNlcjEyMw==',
+            'a2FsaW1hbnRhbg==': 'a2FsaW1hbnRhbjIwMjQ='
         };
 
-        let currentData = [];
-        let filteredData = [];
-        let currentViewType = '';
-        let currentDepo = '';
+        let data = [];
+        let viewType = '';
+        let depo = '';
+        const BASE = 'https://raw.githubusercontent.com/kisman271128/onesheet-kalimantan/master/';
 
-        // GitHub base URL
-        const BASE_URL = 'https://raw.githubusercontent.com/kisman271128/onesheet-kalimantan/master/';
-
-        // Login Handler
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', e => {
             e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            const encodedUsername = btoa(username);
-            const encodedPassword = btoa(password);
-            
-            if (validCredentials[encodedUsername] === encodedPassword) {
-                sessionStorage.setItem('loggedIn', 'true');
-                sessionStorage.setItem('username', username);
-                showSelectionPage();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            if (CREDS[btoa(u)] === btoa(p)) {
+                sessionStorage.setItem('user', u);
+                showPage('selectionPage');
             } else {
-                document.getElementById('errorMessage').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('errorMessage').style.display = 'none';
-                }, 3000);
+                document.getElementById('errorMsg').classList.remove('hidden');
             }
         });
 
-        // Check if already logged in
-        window.onload = function() {
-            if (sessionStorage.getItem('loggedIn') === 'true') {
-                if (sessionStorage.getItem('viewType')) {
-                    // Resume previous session
-                    currentViewType = sessionStorage.getItem('viewType');
-                    currentDepo = sessionStorage.getItem('currentDepo') || '';
+        window.onload = () => {
+            if (sessionStorage.getItem('user')) {
+                if (sessionStorage.getItem('depo')) {
+                    depo = sessionStorage.getItem('depo');
+                    viewType = sessionStorage.getItem('view');
                     showDashboard();
                 } else {
-                    showSelectionPage();
+                    showPage('selectionPage');
                 }
             }
         };
 
-        function showSelectionPage() {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('selectionPage').style.display = 'flex';
-            document.getElementById('depoSelectionPage').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'none';
+        function showPage(id) {
+            ['loginPage', 'selectionPage', 'depoPage', 'dashboard'].forEach(p => {
+                document.getElementById(p).classList.add('hidden');
+                document.getElementById(p).style.display = 'none';
+            });
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).style.display = id === 'dashboard' ? 'block' : 'flex';
         }
 
-        function selectViewType(type) {
-            currentViewType = type;
-            sessionStorage.setItem('viewType', type);
-            
+        function selectView(type) {
+            viewType = type;
+            sessionStorage.setItem('view', type);
             if (type === 'summary') {
-                currentDepo = 'SUMMARY';
-                sessionStorage.setItem('currentDepo', 'SUMMARY');
+                depo = 'SUMMARY';
+                sessionStorage.setItem('depo', 'SUMMARY');
                 showDashboard();
-            } else if (type === 'depo') {
+            } else {
                 loadDepoList();
             }
         }
 
         async function loadDepoList() {
             try {
-                const response = await fetch(BASE_URL + 'depo_list.json');
-                const data = await response.json();
-                
-                const select = document.getElementById('depoSelect');
-                select.innerHTML = '<option value="">-- Pilih Depo --</option>';
-                
-                data.depos.forEach(depo => {
-                    if (depo) {
-                        const option = document.createElement('option');
-                        option.value = depo;
-                        option.textContent = depo;
-                        select.appendChild(option);
+                const res = await fetch(BASE + 'depo_list.json');
+                const d = await res.json();
+                const sel = document.getElementById('depoSelect');
+                sel.innerHTML = '<option value="">-- Pilih Depo --</option>';
+                d.depos.forEach(dp => {
+                    if (dp) {
+                        const opt = document.createElement('option');
+                        opt.value = dp;
+                        opt.textContent = dp;
+                        sel.appendChild(opt);
                     }
                 });
-                
-                document.getElementById('selectionPage').style.display = 'none';
-                document.getElementById('depoSelectionPage').style.display = 'flex';
-            } catch (error) {
-                alert('Gagal memuat daftar Depo. Pastikan data sudah di-upload.');
-                console.error(error);
+                showPage('depoPage');
+            } catch (e) {
+                alert('Gagal load depo list');
             }
         }
 
         function loadDepoData() {
-            const depoSelect = document.getElementById('depoSelect');
-            const selectedDepo = depoSelect.value;
-            
-            if (!selectedDepo) {
-                alert('Silakan pilih Depo terlebih dahulu');
-                return;
-            }
-            
-            currentDepo = selectedDepo;
-            sessionStorage.setItem('currentDepo', selectedDepo);
+            const sel = document.getElementById('depoSelect').value;
+            if (!sel) return alert('Pilih depo dulu');
+            depo = sel;
+            sessionStorage.setItem('depo', sel);
             showDashboard();
         }
 
         function showDashboard() {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('selectionPage').style.display = 'none';
-            document.getElementById('depoSelectionPage').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-            
-            document.getElementById('userDisplay').textContent = 'User: ' + sessionStorage.getItem('username');
-            document.getElementById('currentView').textContent = currentDepo;
-            
-            if (currentViewType === 'summary') {
-                document.getElementById('dashboardTitle').textContent = '📊 SUMMARY REGIONAL KALIMANTAN';
-            } else {
-                document.getElementById('dashboardTitle').textContent = `📊 DATA DEPO ${currentDepo}`;
-            }
-            
+            showPage('dashboard');
+            document.getElementById('userInfo').textContent = 'User: ' + sessionStorage.getItem('user');
+            document.getElementById('depoInfo').textContent = depo;
+            document.getElementById('depoName').textContent = 'DEPO ' + depo;
             loadData();
         }
 
@@ -544,13 +408,13 @@
         }
 
         function backToSelection() {
-            showSelectionPage();
+            showPage('selectionPage');
         }
 
         function changeDepo() {
-            sessionStorage.removeItem('viewType');
-            sessionStorage.removeItem('currentDepo');
-            showSelectionPage();
+            sessionStorage.removeItem('depo');
+            sessionStorage.removeItem('view');
+            showPage('selectionPage');
         }
 
         function logout() {
@@ -558,125 +422,181 @@
             location.reload();
         }
 
-        // Load data from GitHub
         async function loadData() {
             try {
-                let dataUrl;
-                
-                if (currentViewType === 'summary') {
-                    dataUrl = BASE_URL + 'data_SUMMARY.json';
-                } else {
-                    const safeDepoName = currentDepo.replace(/\s+/g, '_').toUpperCase();
-                    dataUrl = BASE_URL + `data_${safeDepoName}.json`;
-                }
-                
-                const response = await fetch(dataUrl);
-                if (!response.ok) {
-                    throw new Error('Failed to load data');
-                }
-                
-                const data = await response.json();
-                
-                if (currentViewType === 'summary') {
-                    currentData = data.summary_by_depo || [];
-                } else {
-                    currentData = data.data || [];
-                }
-                
-                filteredData = [...currentData];
-                
-                populateFilters();
-                displayData();
-                
+                let url = BASE + (viewType === 'summary' ? 'data_SUMMARY.json' : `data_${depo.replace(/\s+/g, '_').toUpperCase()}.json`);
+                const res = await fetch(url);
+                if (!res.ok) throw new Error('Load failed');
+                const json = await res.json();
+                data = json.data || [];
+                processData();
                 document.getElementById('loading').style.display = 'none';
-            } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('loading').innerHTML = '<p style="color: #e74c3c;">❌ Gagal memuat data. ' + error.message + '</p>';
+            } catch (e) {
+                document.getElementById('loading').innerHTML = '<p style="color: #e74c3c;">❌ Gagal load data</p>';
             }
         }
 
-        function populateFilters() {
-            const channels = [...new Set(currentData.map(item => item.channel))].filter(Boolean).sort();
-            const channelSelect = document.getElementById('channelFilter');
-            
-            channelSelect.innerHTML = '<option value="">Semua Channel</option>';
-            channels.forEach(channel => {
-                const option = document.createElement('option');
-                option.value = channel;
-                option.textContent = channel;
-                channelSelect.appendChild(option);
-            });
-        }
+        function processData() {
+            const weeks = ['W1', 'W2', 'W3', 'W4', 'W5', 'MTD'];
+            const channels = {
+                'WHOLESALER': ['SPRBIG', 'BIG', 'MEDIUM', 'SMALL'],
+                'RETAIL': ['SPRBIG', 'BIG', 'MEDIUM', 'SMALL'],
+                'NKA': [],
+                'MTI': [],
+                'INSTITUTION': [],
+                'FS': []
+            };
 
-        function filterData() {
-            const channel = document.getElementById('channelFilter').value;
+            const result = {};
             
-            filteredData = currentData.filter(item => {
-                return (!channel || item.channel === channel);
-            });
-            
-            displayData();
-        }
-
-        function displayData() {
-            const container = document.getElementById('dataDisplay');
-            
-            if (filteredData.length === 0) {
-                container.innerHTML = '<div class="no-data">Tidak ada data yang ditampilkan</div>';
-                return;
-            }
-
-            const allFields = Object.keys(filteredData[0] || {});
-            
-            let tableHTML = '<table class="data-table"><thead><tr>';
-            
-            allFields.forEach(field => {
-                tableHTML += `<th class="header-yellow">${field}</th>`;
-            });
-            
-            tableHTML += '</tr></thead><tbody>';
-
-            filteredData.forEach(row => {
-                tableHTML += '<tr>';
-                
-                allFields.forEach(field => {
-                    const value = row[field];
-                    let cellClass = '';
-                    let displayValue = value;
-
-                    if (typeof value === 'number') {
-                        if (value >= 100) {
-                            cellClass = 'cell-green';
-                        } else if (value >= 80) {
-                            cellClass = 'cell-yellow';
-                        } else if (value < 80) {
-                            cellClass = 'cell-red';
-                        }
-                        
-                        if (field.includes('%') || field.includes('Ach') || field.includes('avg')) {
-                            displayValue = value.toFixed(2) + '%';
-                            cellClass += ' percentage-cell';
-                        } else {
-                            displayValue = value.toLocaleString('id-ID');
-                        }
-                    }
-
-                    tableHTML += `<td class="${cellClass}">${displayValue || '-'}</td>`;
+            // Initialize structure
+            weeks.forEach(w => {
+                result[w] = {};
+                Object.keys(channels).forEach(ch => {
+                    result[w][ch] = { CR: 0, CA: 0, LY: 0, LM: 0, BE: 0, BP: 0, Actual: 0, classes: {} };
+                    channels[ch].forEach(cls => {
+                        result[w][ch].classes[cls] = { CR: 0, CA: 0, LY: 0, LM: 0, BE: 0, BP: 0, Actual: 0 };
+                    });
                 });
-                
-                tableHTML += '</tr>';
             });
 
-            tableHTML += '</tbody></table>';
-            container.innerHTML = tableHTML;
+            // Aggregate data
+            data.forEach(row => {
+                const ch = (row.Channel || row.channel || '').toUpperCase();
+                const cls = (row.Clas || row.clas || '').toUpperCase();
+                
+                if (!channels[ch]) return;
+
+                weeks.forEach(w => {
+                    const wNum = w.replace('W', '').replace('MTD', '');
+                    const isMTD = w === 'MTD';
+                    
+                    // Channel level
+                    result[w][ch].CR += 1;
+                    result[w][ch].CA += Number(row.CA || 0);
+                    result[w][ch].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
+                    result[w][ch].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
+                    result[w][ch].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
+                    result[w][ch].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
+                    result[w][ch].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+
+                    // Class level
+                    if (cls && result[w][ch].classes[cls]) {
+                        result[w][ch].classes[cls].CR += 1;
+                        result[w][ch].classes[cls].CA += Number(row.CA || 0);
+                        result[w][ch].classes[cls].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
+                        result[w][ch].classes[cls].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
+                        result[w][ch].classes[cls].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
+                        result[w][ch].classes[cls].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
+                        result[w][ch].classes[cls].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+                    }
+                });
+            });
+
+            renderTable(result, weeks, channels);
         }
 
-        // Auto refresh every 5 minutes
-        setInterval(() => {
-            if (sessionStorage.getItem('loggedIn') === 'true' && currentDepo) {
-                loadData();
-            }
-        }, 300000);
+        function renderTable(result, weeks, channels) {
+            let html = '<table class="weekly-table"><thead><tr><th rowspan="2">All</th>';
+            
+            weeks.forEach(w => {
+                const label = w === 'MTD' ? 'MTD' : `${w} (2-7 FEB)`;
+                html += `<th colspan="14" class="week-header">${label}</th>`;
+            });
+            
+            html += '</tr><tr>';
+            weeks.forEach(() => {
+                html += '<th>CR</th><th>CA</th><th>CA vs CR</th><th>LY</th><th>LM</th><th>BE</th><th>BP</th>';
+                html += '<th>Actual</th><th>% vs BP</th><th>Gap vs BP</th><th>% vs BE</th><th>Gap vs BE</th>';
+                html += '<th>vs LM</th><th>vs LY</th>';
+            });
+            html += '</tr></thead><tbody>';
+
+            // GT exc PS
+            html += '<tr><td class="row-label row-total">GT ext PS</td>';
+            weeks.forEach(w => {
+                const gt = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'INSTITUTION', 'FS']);
+                html += renderCells(gt);
+            });
+            html += '</tr>';
+
+            // WHOLESALER & RETAIL with classes
+            ['WHOLESALER', 'RETAIL'].forEach(ch => {
+                html += `<tr><td class="row-label row-channel">${ch}</td>`;
+                weeks.forEach(w => html += renderCells(result[w][ch]));
+                html += '</tr>';
+
+                channels[ch].forEach(cls => {
+                    html += `<tr><td class="row-label row-subitem">${cls}</td>`;
+                    weeks.forEach(w => html += renderCells(result[w][ch].classes[cls]));
+                    html += '</tr>';
+                });
+            });
+
+            // NKA, MTI, INSTITUTION, FS
+            ['NKA', 'MTI', 'INSTITUTION', 'FS'].forEach(ch => {
+                html += `<tr><td class="row-label row-channel">${ch}</td>`;
+                weeks.forEach(w => html += renderCells(result[w][ch]));
+                html += '</tr>';
+            });
+
+            // ALL Channel Exc. NKA
+            html += '<tr><td class="row-label row-total">ALL Channel Exc. NKA</td>';
+            weeks.forEach(w => {
+                const all = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'MTI', 'INSTITUTION', 'FS']);
+                html += renderCells(all);
+            });
+            html += '</tr>';
+
+            // ALL Channel
+            html += '<tr><td class="row-label row-total">ALL Channel</td>';
+            weeks.forEach(w => {
+                const all = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'NKA', 'MTI', 'INSTITUTION', 'FS']);
+                html += renderCells(all);
+            });
+            html += '</tr>';
+
+            html += '</tbody></table>';
+            document.getElementById('reportTable').innerHTML = html;
+        }
+
+        function sumChannels(weekData, chList) {
+            const sum = { CR: 0, CA: 0, LY: 0, LM: 0, BE: 0, BP: 0, Actual: 0 };
+            chList.forEach(ch => {
+                sum.CR += weekData[ch].CR;
+                sum.CA += weekData[ch].CA;
+                sum.LY += weekData[ch].LY;
+                sum.LM += weekData[ch].LM;
+                sum.BE += weekData[ch].BE;
+                sum.BP += weekData[ch].BP;
+                sum.Actual += weekData[ch].Actual;
+            });
+            return sum;
+        }
+
+        function renderCells(d) {
+            const caVsCR = d.CR > 0 ? (d.CA / d.CR * 100).toFixed(1) : '0.0';
+            const vsBP = d.BP > 0 ? (d.Actual / d.BP * 100).toFixed(1) : '0.0';
+            const gapBP = (d.Actual - d.BP).toFixed(0);
+            const vsBE = d.BE > 0 ? (d.Actual / d.BE * 100).toFixed(1) : '0.0';
+            const gapBE = (d.Actual - d.BE).toFixed(0);
+            const vsLM = d.LM > 0 ? (d.Actual / d.LM * 100).toFixed(1) : '0.0';
+            const vsLY = d.LY > 0 ? (d.Actual / d.LY * 100).toFixed(1) : '0.0';
+            
+            const bpClass = vsBP >= 100 ? 'cell-green' : (vsBP >= 80 ? 'cell-yellow' : 'cell-red');
+            const beClass = vsBE >= 100 ? 'cell-green' : (vsBE >= 80 ? 'cell-yellow' : 'cell-red');
+            
+            return `<td>${d.CR}</td><td>${fmt(d.CA)}</td><td>${caVsCR}%</td>` +
+                   `<td>${fmt(d.LY)}</td><td>${fmt(d.LM)}</td><td>${fmt(d.BE)}</td><td>${fmt(d.BP)}</td>` +
+                   `<td>${fmt(d.Actual)}</td>` +
+                   `<td class="${bpClass}">${vsBP}%</td><td>${gapBP}</td>` +
+                   `<td class="${beClass}">${vsBE}%</td><td>${gapBE}</td>` +
+                   `<td>${vsLM}%</td><td>${vsLY}%</td>`;
+        }
+
+        function fmt(n) {
+            return Math.round(n || 0).toLocaleString('id-ID');
+        }
     </script>
 </body>
 </html>
