@@ -33,7 +33,7 @@
 
         h2 { text-align: center; color: #333; margin-bottom: 30px; }
         
-        .form-group { margin-bottom: 20px; }
+        .form-group { margin-bottom: 6px; }
         
         .form-group label {
             display: block;
@@ -47,7 +47,7 @@
             padding: 12px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 20px;
         }
 
         .btn {
@@ -88,7 +88,7 @@
 
         .hidden { display: none; }
 
-        /* Dashboard - COMPACT HEADER */
+        /* Dashboard */
         .dashboard {
             display: none;
             background: #f0f2f5;
@@ -151,13 +151,126 @@
         .btn-primary { background: #3498db; color: white; }
         .btn-danger { background: #e74c3c; color: white; }
 
-        /* Table Container */
-        .report-container {
+        /* Tabs */
+        .tabs-container {
             background: white;
             margin: 5px;
-            border-radius: 8px;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        /* Sub-tabs for Summary */
+        .sub-tabs-container {
+            background: white;
+            padding: 10px 15px 0 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sub-tabs {
+            display: flex;
+            gap: 5px;
+        }
+
+        .sub-tab {
+            padding: 8px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 12px;
+            color: #666;
+            border-radius: 6px 6px 0 0;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            transition: all 0.2s;
+        }
+
+        .sub-tab:hover {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        .sub-tab.active {
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+            border-color: #667eea;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+        }
+
+        /* Salesman Filter */
+        .salesman-filter {
+            padding: 15px;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .salesman-filter label {
+            font-weight: 600;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .salesman-filter select {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            min-width: 180px;
+        }
+
+        /* Table Container */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .sub-tab-content {
+            display: none;
+        }
+
+        .sub-tab-content.active {
+            display: block;
+        }
+
+        .report-container {
+            background: white;
+            margin: 0 5px 5px 5px;
+            border-radius: 0 0 8px 8px;
             overflow: auto;
-            max-height: 92vh;
+            max-height: 82vh;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
@@ -170,7 +283,6 @@
             min-width: 2500px;
         }
 
-        /* Headers - NO GAP */
         th {
             position: sticky;
             top: 0;
@@ -194,14 +306,15 @@
             height: 20px;
         }
 
-        /* Sticky Column */
         .sticky-col {
             position: sticky !important;
             left: 0 !important;
             z-index: 20 !important;
             background: #2c3e50 !important;
             border-right: 2px solid #999 !important;
-            min-width: 150px;
+            min-width: 100px;
+            max-width: 120px;
+            font-size: 9px;
         }
 
         th.sticky-col {
@@ -216,7 +329,6 @@
         .w5 { background: #e74c3c !important; }
         .mtd { background: #2c3e50 !important; }
 
-        /* Data Cells */
         td {
             padding: 5px 3px;
             border: 1px solid #ddd;
@@ -225,22 +337,21 @@
 
         td.sticky-col {
             text-align: left;
-            padding-left: 10px;
+            padding-left: 5px;
+            padding-right: 2px;
             font-weight: 600;
             background: #f9f9fa !important;
         }
 
-        /* Colors */
         .cell-green { background: #d4edda !important; color: #155724; font-weight: 600; }
         .cell-yellow { background: #fff3cd !important; color: #856404; font-weight: 600; }
         .cell-red { background: #f8d7da !important; color: #721c24; font-weight: 600; }
         .pos { color: #28a745; font-weight: bold; }
         .neg { color: #dc3545; font-weight: bold; }
 
-        /* Row Styles */
         .row-channel { background: #fff3cd; font-weight: bold; }
-        .row-subitem { padding-left: 25px !important; background: #fafafa; }
-        .row-mt-sub { padding-left: 35px !important; background: #f0f8ff; font-style: italic; }
+        .row-subitem { padding-left: 15px !important; background: #fafafa; }
+        .row-mt-sub { padding-left: 20px !important; background: #f0f8ff; font-style: italic; }
         .row-total { background: #d4edda; font-weight: bold; }
         .row-mt { background: #e8f4fd; font-weight: bold; }
 
@@ -250,6 +361,21 @@
             color: #666;
             font-size: 14px;
         }
+		
+		/* Header logo */
+		.login-header {
+			text-align: center;
+			margin-bottom: 6px;   /* ⬅️ jarak logo ke Username */
+		}
+
+		/* Logo */
+		.login-logo {
+			width: 360px;         /* tetap besar */
+			max-width: 85%;
+			height: auto;
+			display: block;
+			margin: 0 auto;       /* ⬅️ hilangkan margin vertikal */
+		}
     </style>
 </head>
 <body>
@@ -257,7 +383,9 @@
     <!-- Login Page -->
     <div id="loginPage" class="page-container">
         <div class="box">
-            <h2>🔐 Login OneSheet</h2>
+            <div class="login-header">
+				<img src="logo.png" alt="Logo OneSheet" class="login-logo">
+			</div>
             <form id="loginForm">
                 <div class="form-group">
                     <label>Username</label>
@@ -314,7 +442,6 @@
 
     <!-- Dashboard -->
     <div id="dashboard" class="dashboard">
-        <!-- COMPACT HEADER - Single Line -->
         <div class="header-section">
             <div class="header-left">
                 <span class="header-info">
@@ -333,14 +460,72 @@
             </div>
         </div>
 
-        <div class="report-container">
-            <div id="loading" class="loading">⏳ Memuat dan mengolah data...</div>
-            <table id="mainTable">
-                <thead id="tableHeader">
-                    <!-- Generated dynamically by generateTableHeader() -->
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tabs" id="mainTabs">
+                <div class="tab active" onclick="switchTab('weekly')">Dashboard Weekly</div>
+                <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Dashboard Weekly -->
+        <div id="tabWeekly" class="tab-content active">
+            <div class="report-container">
+                <div id="loadingWeekly" class="loading">⏳ Memuat dan mengolah data...</div>
+                <table id="tableWeekly">
+                    <thead id="tableHeaderWeekly"></thead>
+                    <tbody id="tableBodyWeekly"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab Content: Summary (for Summary Regional only) -->
+        <div id="tabSummary" class="tab-content">
+            <div class="sub-tabs-container">
+                <div class="sub-tabs">
+                    <div class="sub-tab active" onclick="switchSummarySubTab('depo')">📊 By Depo</div>
+                    <div class="sub-tab" onclick="switchSummarySubTab('tipe')">👥 By Tipe Sales</div>
+                </div>
+            </div>
+            
+            <!-- Sub-tab: By Depo -->
+            <div id="summarySubTabDepo" class="sub-tab-content active">
+                <div class="report-container">
+                    <div id="loadingSummaryDepo" class="loading">⏳ Memuat data...</div>
+                    <table id="tableSummaryDepo">
+                        <thead id="tableHeaderSummaryDepo"></thead>
+                        <tbody id="tableBodySummaryDepo"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Sub-tab: By Tipe Sales -->
+            <div id="summarySubTabTipe" class="sub-tab-content">
+                <div class="report-container">
+                    <div id="loadingSummaryTipe" class="loading">⏳ Memuat data...</div>
+                    <table id="tableSummaryTipe">
+                        <thead id="tableHeaderSummaryTipe"></thead>
+                        <tbody id="tableBodySummaryTipe"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Dashboard by Salesman -->
+        <div id="tabSalesman" class="tab-content">
+            <div class="salesman-filter">
+                <label>Pilih Tipe Sales:</label>
+                <select id="tipeSalesSelect" onchange="filterByTipeSales()">
+                    <option value="">-- All Tipe Sales --</option>
+                </select>
+            </div>
+            <div class="report-container">
+                <div id="loadingSalesman" class="loading">⏳ Pilih Tipe Sales untuk melihat data...</div>
+                <table id="tableSalesman">
+                    <thead id="tableHeaderSalesman"></thead>
+                    <tbody id="tableBodySalesman"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -354,6 +539,8 @@
         let rawData = [];
         let viewType = '';
         let selectedDepo = '';
+        let WEEKS_CONFIG = [];
+        let currentTab = 'weekly';
 
         document.getElementById('loginForm').addEventListener('submit', e => {
             e.preventDefault();
@@ -443,10 +630,69 @@
             showPage('selectionPage');
         }
 
-        // Global week configuration
-        let WEEKS_CONFIG = [];
+        function logout() {
+            sessionStorage.clear();
+            location.reload();
+        }
 
-        // Generate weeks based on current month
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'summary') {
+                document.getElementById('tabSummary').classList.add('active');
+                // Process summary if not already processed
+                if (document.getElementById('tableBodySummaryDepo').innerHTML === '') {
+                    document.getElementById('loadingSummaryDepo').style.display = 'none';
+                    processSummaryByDepo();
+                }
+                if (document.getElementById('tableBodySummaryTipe').innerHTML === '') {
+                    document.getElementById('loadingSummaryTipe').style.display = 'none';
+                    processSummaryByTipe();
+                }
+            } else if (tab === 'weekly') {
+                document.getElementById('tabWeekly').classList.add('active');
+                // Process weekly if not already processed
+                if (document.getElementById('tableBodyWeekly').innerHTML === '') {
+                    document.getElementById('loadingWeekly').style.display = 'none';
+                    processAndRender('Weekly');
+                }
+            } else if (tab === 'salesman') {
+                document.getElementById('tabSalesman').classList.add('active');
+            }
+        }
+
+        function switchSummarySubTab(subTab) {
+            // Update sub-tab buttons
+            document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update sub-tab content
+            document.querySelectorAll('.sub-tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (subTab === 'depo') {
+                document.getElementById('summarySubTabDepo').classList.add('active');
+                // Process if not already processed
+                if (document.getElementById('tableBodySummaryDepo').innerHTML === '') {
+                    document.getElementById('loadingSummaryDepo').style.display = 'none';
+                    processSummaryByDepo();
+                }
+            } else if (subTab === 'tipe') {
+                document.getElementById('summarySubTabTipe').classList.add('active');
+                // Process if not already processed
+                if (document.getElementById('tableBodySummaryTipe').innerHTML === '') {
+                    document.getElementById('loadingSummaryTipe').style.display = 'none';
+                    processSummaryByTipe();
+                }
+            }
+        }
+
         function getWeeksForMonth() {
             const now = new Date();
             const year = now.getFullYear();
@@ -460,7 +706,6 @@
                 { num: 4, start: 23, end: 28, class: 'w4' }
             ];
             
-            // Add W5 if month has 29+ days and W5 would be meaningful
             if (lastDay >= 29) {
                 weeks.push({ num: 5, start: 29, end: lastDay, class: 'w5' });
             }
@@ -468,82 +713,87 @@
             return weeks;
         }
 
-        function logout() {
-            sessionStorage.clear();
-            location.reload();
-        }
-
-        // Generate table header dynamically based on current month
-        function generateTableHeader() {
+        function generateTableHeader(targetId) {
             const now = new Date();
             const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             const monthName = monthNames[now.getMonth()];
             
-            // Get weeks for current month
             const weeks = getWeeksForMonth();
             
-            // Store week names for processAndRender
             WEEKS_CONFIG = weeks.map(w => `W${w.num}`);
-            WEEKS_CONFIG.push('MTD'); // Always add MTD
+            WEEKS_CONFIG.push('MTD');
             
-            // Generate header row 1
             let html = '<tr><th rowspan="2" class="sticky-col">CHANNEL</th>';
             weeks.forEach(w => {
-                html += `<th colspan="12" class="${w.class}">W${w.num} (${w.start}-${w.end} ${monthName})</th>`;
+                html += `<th colspan="9" class="${w.class}">W${w.num} (${w.start}-${w.end} ${monthName})</th>`;
             });
-            html += '<th colspan="12" class="mtd">MTD</th></tr>';
+            html += '<th colspan="13" class="mtd">MTD</th></tr>';
             
-            // Generate header row 2
             html += '<tr class="sub-header">';
-            const cols = ['CR', 'CA', '%', 'LY', 'LM', 'BE', 'BP', 'Act', '%BP', 'G-BP', '%BE', 'G-BE'];
+            const weekCols = ['LY', 'LM', 'BE', 'BP', 'Act', '%BP', 'G-BP', '%BE', 'G-BE'];
+            const mtdCols = ['CR', 'CA', '%', 'LY', 'LM', 'L3M', 'BE', 'BP', 'Act', '%BP', 'G-BP', '%BE', 'G-BE'];
+            
             weeks.forEach(w => {
-                cols.forEach(col => {
+                weekCols.forEach(col => {
                     html += `<th class="${w.class}">${col}</th>`;
                 });
             });
-            // MTD columns
-            cols.forEach(col => {
+            mtdCols.forEach(col => {
                 html += `<th class="mtd">${col}</th>`;
             });
             html += '</tr>';
             
-            document.getElementById('tableHeader').innerHTML = html;
+            document.getElementById(targetId).innerHTML = html;
         }
 
         async function showDashboard() {
             showPage('dashboard');
             
-            // Generate dynamic header
-            generateTableHeader();
-            
-            // Update header info
             const username = sessionStorage.getItem('user');
             document.getElementById('userName').textContent = username;
             
-            if (viewType === 'summary') {
-                document.getElementById('depoName').textContent = 'SUMMARY';
+            const isSummaryRegional = viewType === 'summary';
+            
+            if (isSummaryRegional) {
+                document.getElementById('depoName').textContent = 'SUMMARY REGIONAL';
+                
+                // Show Summary tab for Summary Regional
+                const tabsHtml = `
+                    <div class="tab active" onclick="switchTab('summary')">Summary</div>
+                    <div class="tab" onclick="switchTab('weekly')">Dashboard Weekly</div>
+                    <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
+                `;
+                document.getElementById('mainTabs').innerHTML = tabsHtml;
+                
+                // Show Summary tab by default
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById('tabSummary').classList.add('active');
             } else {
                 const depoName = selectedDepo.replace('data_DEPO_', '').replace(/_/g, ' ');
                 document.getElementById('depoName').textContent = depoName;
+                
+                // Show only Weekly and Salesman tabs for specific depo
+                const tabsHtml = `
+                    <div class="tab active" onclick="switchTab('weekly')">Dashboard Weekly</div>
+                    <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
+                `;
+                document.getElementById('mainTabs').innerHTML = tabsHtml;
+                
+                // Show Weekly tab by default
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById('tabWeekly').classList.add('active');
             }
 
-            // Load TG from TG.json
             try {
                 const tgRes = await fetch('TG.json');
                 const tgData = await tgRes.json();
                 
                 let tgValue = 0;
-                
-                // Check direct TimeGone field
                 if (tgData.TimeGone !== undefined) {
                     tgValue = tgData.TimeGone;
-                }
-                // Check metadata
-                else if (tgData.metadata && tgData.metadata.time_gone_percentage) {
+                } else if (tgData.metadata && tgData.metadata.time_gone_percentage) {
                     tgValue = tgData.metadata.time_gone_percentage;
-                } 
-                // Check data array
-                else if (tgData.data && tgData.data.length > 0) {
+                } else if (tgData.data && tgData.data.length > 0) {
                     const firstRecord = tgData.data[0];
                     if (firstRecord.TG) {
                         tgValue = (firstRecord.TG * 100).toFixed(1);
@@ -558,29 +808,224 @@
                 document.getElementById('tgDisplay').textContent = 'Time Gone: N/A';
             }
 
-            // Load Main Data
             const fileName = `${selectedDepo}.json`;
             try {
                 const res = await fetch(fileName);
                 if (!res.ok) throw new Error('File not found');
                 const json = await res.json();
                 rawData = json.data || [];
-                document.getElementById('loading').style.display = 'none';
-                processAndRender();
+                
+                // Generate headers for all tabs
+                generateTableHeader('tableHeaderWeekly');
+                generateTableHeader('tableHeaderSalesman');
+                if (isSummaryRegional) {
+                    generateTableHeader('tableHeaderSummaryDepo');
+                    generateTableHeader('tableHeaderSummaryTipe');
+                }
+                
+                // Load salesman list
+                loadSalesmanList();
+                
+                if (isSummaryRegional) {
+                    // Process Summary tab - only first sub-tab (By Depo)
+                    document.getElementById('loadingSummaryDepo').style.display = 'none';
+                    processSummaryByDepo();
+                } else {
+                    // Process Weekly tab
+                    document.getElementById('loadingWeekly').style.display = 'none';
+                    processAndRender('Weekly');
+                }
             } catch (e) {
-                document.getElementById('loading').innerHTML = '<p style="color: #e74c3c;">❌ Error loading ' + fileName + '</p>';
+                const loadingEl = isSummaryRegional ? 'loadingSummaryDepo' : 'loadingWeekly';
+                document.getElementById(loadingEl).innerHTML = '<p style="color: #e74c3c;">❌ Error loading ' + fileName + '</p>';
                 console.error(e);
             }
         }
 
-        function processAndRender() {
-            // Use dynamic weeks from WEEKS_CONFIG (set by generateTableHeader)
+        function loadSalesmanList() {
+            const tipeSales = new Set();
+            
+            rawData.forEach(row => {
+                const tipe = row['Tipe Sales'] || row['tipe sales'] || row.TipeSales || row.tipesales || '';
+                if (tipe) tipeSales.add(tipe);
+            });
+            
+            // Store globally
+            window.allTipeSales = Array.from(tipeSales).sort();
+            
+            // Populate Tipe Sales dropdown
+            const tipeSel = document.getElementById('tipeSalesSelect');
+            tipeSel.innerHTML = '<option value="">-- All Tipe Sales --</option>';
+            window.allTipeSales.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t;
+                opt.textContent = t;
+                tipeSel.appendChild(opt);
+            });
+            
+            console.log('Loaded tipe sales:', window.allTipeSales);
+        }
+
+        function filterByTipeSales() {
+            const selectedTipe = document.getElementById('tipeSalesSelect').value;
+            
+            // If no selection, show message
+            if (!selectedTipe) {
+                document.getElementById('loadingSalesman').style.display = 'block';
+                document.getElementById('loadingSalesman').textContent = '⏳ Pilih Tipe Sales untuk melihat data...';
+                document.getElementById('tableBodySalesman').innerHTML = '';
+                return;
+            }
+            
+            document.getElementById('loadingSalesman').style.display = 'none';
+            
+            // Filter data by Tipe Sales
+            const filteredData = rawData.filter(row => {
+                const rowTipe = row['Tipe Sales'] || row['tipe sales'] || row.TipeSales || row.tipesales || '';
+                return rowTipe === selectedTipe;
+            });
+            
+            console.log('Filtered data count:', filteredData.length);
+            
+            // Process with filtered data
+            processAndRender('Salesman', filteredData);
+        }
+
+        function processSummaryByDepo() {
             const weeks = WEEKS_CONFIG.length > 0 ? WEEKS_CONFIG : ['W1', 'W2', 'W3', 'W4', 'MTD'];
+            
+            // Group by Depo
+            const depoGroups = {};
+            
+            rawData.forEach(row => {
+                const depo = row.Depo || 'Unknown';
+                
+                if (!depoGroups[depo]) {
+                    depoGroups[depo] = [];
+                }
+                depoGroups[depo].push(row);
+            });
+            
+            // Aggregate each depo
+            const depoResults = {};
+            Object.keys(depoGroups).forEach(depo => {
+                depoResults[depo] = aggregateData(depoGroups[depo], weeks);
+            });
+            
+            // Sort by %BP MTD (highest first)
+            const sortedDepos = Object.keys(depoResults).sort((a, b) => {
+                const aBP = depoResults[a]['MTD'].BP || 0;
+                const aAct = depoResults[a]['MTD'].Actual || 0;
+                const aPct = aBP > 0 ? (aAct / aBP * 100) : 0;
+                
+                const bBP = depoResults[b]['MTD'].BP || 0;
+                const bAct = depoResults[b]['MTD'].Actual || 0;
+                const bPct = bBP > 0 ? (bAct / bBP * 100) : 0;
+                
+                return bPct - aPct; // Descending (highest first)
+            });
+            
+            // Create sorted results with ranking
+            const sortedResults = {};
+            sortedDepos.forEach((depo, index) => {
+                sortedResults[depo] = depoResults[depo];
+                sortedResults[depo].rank = index + 1; // Add rank (1, 2, 3, ...)
+            });
+            
+            // Render table
+            renderSummaryTable(sortedResults, weeks, 'Depo', sortedDepos);
+        }
+        
+        function processSummaryByTipe() {
+            const weeks = WEEKS_CONFIG.length > 0 ? WEEKS_CONFIG : ['W1', 'W2', 'W3', 'W4', 'MTD'];
+            
+            // Group by Tipe Sales
+            const tipeGroups = {};
+            
+            rawData.forEach(row => {
+                const tipe = row['Tipe Sales'] || row['tipe sales'] || 'Unknown';
+                
+                if (!tipeGroups[tipe]) {
+                    tipeGroups[tipe] = [];
+                }
+                tipeGroups[tipe].push(row);
+            });
+            
+            // Aggregate each tipe
+            const tipeResults = {};
+            const sortedTipes = Object.keys(tipeGroups).sort();
+            sortedTipes.forEach(tipe => {
+                tipeResults[tipe] = aggregateData(tipeGroups[tipe], weeks);
+            });
+            
+            // Render table
+            renderSummaryTable(tipeResults, weeks, 'Tipe', sortedTipes);
+        }
+        
+        function aggregateData(rows, weeks) {
+            const result = {};
+            weeks.forEach(w => {
+                result[w] = { CR: new Set(), CA: 0, LY: 0, LM: 0, L3M: 0, BE: 0, BP: 0, Actual: 0 };
+            });
+            
+            rows.forEach(row => {
+                weeks.forEach(w => {
+                    const wNum = w.replace('W', '').replace('MTD', '');
+                    const isMTD = w === 'MTD';
+                    
+                    const idPelanggan = row['Id Pelanggan'] || row['ID Pelanggan'] || '';
+                    if (idPelanggan) result[w].CR.add(idPelanggan);
+                    
+                    result[w].CA += Number(row.CA || 0);
+                    result[w].LY += Number(row[isMTD ? 'LY' : `LYW${wNum}`] || 0);
+                    result[w].LM += Number(row[isMTD ? 'LM' : `LMW${wNum}`] || 0);
+                    result[w].L3M += Number(row.L3M || row.l3m || 0);
+                    result[w].BE += Number(row[isMTD ? 'BE' : `BEW${wNum}`] || 0);
+                    result[w].BP += Number(row[isMTD ? 'BP' : `BPW${wNum}`] || 0);
+                    result[w].Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
+                });
+            });
+            
+            weeks.forEach(w => {
+                result[w].CR = result[w].CR.size;
+            });
+            
+            return result;
+        }
+        
+        function renderSummaryTable(results, weeks, tableType, sortedKeys = null) {
+            let html = '';
+            
+            const keys = sortedKeys || Object.keys(results);
+            
+            keys.forEach(key => {
+                const rank = results[key].rank || 0;
+                let medalIcon = '';
+                
+                // Add medal icons for By Depo table
+                if (tableType === 'Depo') {
+                    if (rank === 1) medalIcon = '🥇 ';
+                    else if (rank === 2) medalIcon = '🥈 ';
+                    else if (rank === 3) medalIcon = '🥉 ';
+                }
+                
+                html += `<tr><td class="sticky-col row-channel">${medalIcon}${key}</td>`;
+                weeks.forEach(w => html += renderCells(results[key][w], w === 'MTD'));
+                html += '</tr>';
+            });
+            
+            const bodyId = tableType === 'Depo' ? 'tableBodySummaryDepo' : 'tableBodySummaryTipe';
+            document.getElementById(bodyId).innerHTML = html;
+        }
+
+        function processAndRender(target, dataToProcess = null) {
+            const weeks = WEEKS_CONFIG.length > 0 ? WEEKS_CONFIG : ['W1', 'W2', 'W3', 'W4', 'MTD'];
+            const data = dataToProcess || rawData;
             
             const channels = {
                 'WHOLESALER': ['SPRBIG', 'BIG', 'MEDIUM', 'SMALL'],
                 'RETAIL': ['SPRBIG', 'BIG', 'MEDIUM', 'SMALL'],
-                'MT': [], // Will have NKA and MTI as subs
+                'MT': [],
                 'NKA': [],
                 'MTI': [],
                 'INSTITUTION': [],
@@ -592,10 +1037,11 @@
                 result[w] = {};
                 Object.keys(channels).forEach(ch => {
                     result[w][ch] = { 
-                        CR: new Set(), // Use Set for unique Ids
+                        CR: new Set(),
                         CA: 0, 
                         LY: 0, 
-                        LM: 0, 
+                        LM: 0,
+                        L3M: 0,
                         BE: 0, 
                         BP: 0, 
                         Actual: 0, 
@@ -606,7 +1052,8 @@
                             CR: new Set(), 
                             CA: 0, 
                             LY: 0, 
-                            LM: 0, 
+                            LM: 0,
+                            L3M: 0,
                             BE: 0, 
                             BP: 0, 
                             Actual: 0 
@@ -615,8 +1062,7 @@
                 });
             });
 
-            // Aggregate data with UNIQUE Id Pelanggan
-            rawData.forEach(row => {
+            data.forEach(row => {
                 const ch = (row.Channel || row.channel || '').toUpperCase();
                 const cls = (row.Clas || row.clas || '').toUpperCase();
                 const idPelanggan = row['Id Pelanggan'] || row['ID Pelanggan'] || row.id_pelanggan || '';
@@ -628,41 +1074,41 @@
                     const isMTD = w === 'MTD';
                     
                     if (channels[ch]) {
-                        // Add unique Id to Set
                         if (idPelanggan) result[w][ch].CR.add(idPelanggan);
                         
                         result[w][ch].CA += Number(row.CA || 0);
-                        result[w][ch].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
-                        result[w][ch].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
-                        result[w][ch].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0); // BEW1, BEW2, BEW3, BEW4 or BEMTD
-                        result[w][ch].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
-                        result[w][ch].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0); // W1, W2, W3, W4 or MTD
+                        result[w][ch].LY += Number(row[isMTD ? 'LY' : `LYW${wNum}`] || 0);
+                        result[w][ch].LM += Number(row[isMTD ? 'LM' : `LMW${wNum}`] || 0);
+                        result[w][ch].L3M += Number(row.L3M || row.l3m || 0);
+                        result[w][ch].BE += Number(row[isMTD ? 'BE' : `BEW${wNum}`] || 0);
+                        result[w][ch].BP += Number(row[isMTD ? 'BP' : `BPW${wNum}`] || 0);
+                        result[w][ch].Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
 
                         if (cls && result[w][ch].classes[cls]) {
                             if (idPelanggan) result[w][ch].classes[cls].CR.add(idPelanggan);
                             result[w][ch].classes[cls].CA += Number(row.CA || 0);
-                            result[w][ch].classes[cls].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
-                            result[w][ch].classes[cls].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
-                            result[w][ch].classes[cls].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
-                            result[w][ch].classes[cls].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
-                            result[w][ch].classes[cls].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+                            result[w][ch].classes[cls].LY += Number(row[isMTD ? 'LY' : `LYW${wNum}`] || 0);
+                            result[w][ch].classes[cls].LM += Number(row[isMTD ? 'LM' : `LMW${wNum}`] || 0);
+                            result[w][ch].classes[cls].L3M += Number(row.L3M || row.l3m || 0);
+                            result[w][ch].classes[cls].BE += Number(row[isMTD ? 'BE' : `BEW${wNum}`] || 0);
+                            result[w][ch].classes[cls].BP += Number(row[isMTD ? 'BP' : `BPW${wNum}`] || 0);
+                            result[w][ch].classes[cls].Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
                         }
-                    }
-
-                    // MT = NKA + MTI
-                    if (ch === 'NKA' || ch === 'MTI') {
-                        if (idPelanggan) result[w]['MT'].CR.add(idPelanggan);
-                        result[w]['MT'].CA += Number(row.CA || 0);
-                        result[w]['MT'].LY += Number(row[isMTD ? 'LYMTD' : `LYW${wNum}`] || 0);
-                        result[w]['MT'].LM += Number(row[isMTD ? 'LMMTD' : `LMW${wNum}`] || 0);
-                        result[w]['MT'].BE += Number(row[isMTD ? 'BEMTD' : `BEW${wNum}`] || 0);
-                        result[w]['MT'].BP += Number(row[isMTD ? 'BPMTD' : `BPW${wNum}`] || 0);
-                        result[w]['MT'].Actual += Number(row[isMTD ? 'MTD' : `W${wNum}`] || 0);
+                        
+                        if (ch === 'NKA' || ch === 'MTI') {
+                            if (idPelanggan) result[w]['MT'].CR.add(idPelanggan);
+                            result[w]['MT'].CA += Number(row.CA || 0);
+                            result[w]['MT'].LY += Number(row[isMTD ? 'LY' : `LYW${wNum}`] || 0);
+                            result[w]['MT'].LM += Number(row[isMTD ? 'LM' : `LMW${wNum}`] || 0);
+                            result[w]['MT'].L3M += Number(row.L3M || row.l3m || 0);
+                            result[w]['MT'].BE += Number(row[isMTD ? 'BE' : `BEW${wNum}`] || 0);
+                            result[w]['MT'].BP += Number(row[isMTD ? 'BP' : `BPW${wNum}`] || 0);
+                            result[w]['MT'].Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
+                        }
                     }
                 });
             });
 
-            // Convert Sets to counts
             weeks.forEach(w => {
                 Object.keys(channels).forEach(ch => {
                     result[w][ch].CR = result[w][ch].CR.size;
@@ -672,81 +1118,74 @@
                 });
             });
 
-            renderTable(result, weeks, channels);
+            renderTable(result, weeks, channels, target);
         }
 
-        function renderTable(result, weeks, channels) {
+        function renderTable(result, weeks, channels, target) {
             let html = '';
 
-            // GT ext PS
             html += '<tr><td class="sticky-col row-total">GT ext PS</td>';
             weeks.forEach(w => {
                 const gt = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'INSTITUTION', 'FS']);
-                html += renderCells(gt);
+                html += renderCells(gt, w === 'MTD');
             });
             html += '</tr>';
 
-            // WHOLESALER & RETAIL with classes
             ['WHOLESALER', 'RETAIL'].forEach(ch => {
                 html += `<tr><td class="sticky-col row-channel">${ch}</td>`;
-                weeks.forEach(w => html += renderCells(result[w][ch]));
+                weeks.forEach(w => html += renderCells(result[w][ch], w === 'MTD'));
                 html += '</tr>';
 
                 channels[ch].forEach(cls => {
                     html += `<tr><td class="sticky-col row-subitem">${cls}</td>`;
-                    weeks.forEach(w => html += renderCells(result[w][ch].classes[cls]));
+                    weeks.forEach(w => html += renderCells(result[w][ch].classes[cls], w === 'MTD'));
                     html += '</tr>';
                 });
             });
 
-            // MT with NKA and MTI as sub-channels
             html += `<tr><td class="sticky-col row-mt">MT</td>`;
-            weeks.forEach(w => html += renderCells(result[w]['MT']));
+            weeks.forEach(w => html += renderCells(result[w]['MT'], w === 'MTD'));
             html += '</tr>';
             
-            // NKA as sub of MT
             html += `<tr><td class="sticky-col row-mt-sub">NKA</td>`;
-            weeks.forEach(w => html += renderCells(result[w]['NKA']));
+            weeks.forEach(w => html += renderCells(result[w]['NKA'], w === 'MTD'));
             html += '</tr>';
             
-            // MTI as sub of MT
             html += `<tr><td class="sticky-col row-mt-sub">MTI</td>`;
-            weeks.forEach(w => html += renderCells(result[w]['MTI']));
+            weeks.forEach(w => html += renderCells(result[w]['MTI'], w === 'MTD'));
             html += '</tr>';
 
-            // INSTITUTION, FS
             ['INSTITUTION', 'FS'].forEach(ch => {
                 html += `<tr><td class="sticky-col row-channel">${ch}</td>`;
-                weeks.forEach(w => html += renderCells(result[w][ch]));
+                weeks.forEach(w => html += renderCells(result[w][ch], w === 'MTD'));
                 html += '</tr>';
             });
 
-            // ALL Channel Exc. NKA
             html += '<tr><td class="sticky-col row-total">ALL Channel Exc. NKA</td>';
             weeks.forEach(w => {
                 const all = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'MTI', 'INSTITUTION', 'FS']);
-                html += renderCells(all);
+                html += renderCells(all, w === 'MTD');
             });
             html += '</tr>';
 
-            // ALL Channel
             html += '<tr><td class="sticky-col row-total">ALL Channel</td>';
             weeks.forEach(w => {
                 const all = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'NKA', 'MTI', 'INSTITUTION', 'FS']);
-                html += renderCells(all);
+                html += renderCells(all, w === 'MTD');
             });
             html += '</tr>';
 
-            document.getElementById('tableBody').innerHTML = html;
+            document.getElementById(`tableBody${target}`).innerHTML = html;
         }
 
         function sumChannels(weekData, chList) {
-            const sum = { CR: 0, CA: 0, LY: 0, LM: 0, BE: 0, BP: 0, Actual: 0 };
+            const sum = { CR: 0, CA: 0, LY: 0, LM: 0, L3M: 0, BE: 0, BP: 0, Actual: 0 };
             chList.forEach(ch => {
                 sum.CR += weekData[ch].CR;
                 sum.CA += weekData[ch].CA;
                 sum.LY += weekData[ch].LY;
                 sum.LM += weekData[ch].LM;
+                sum.L3M += weekData[ch].L3M;
                 sum.BE += weekData[ch].BE;
                 sum.BP += weekData[ch].BP;
                 sum.Actual += weekData[ch].Actual;
@@ -754,7 +1193,7 @@
             return sum;
         }
 
-        function renderCells(d) {
+        function renderCells(d, isMTD) {
             const caVsCR = d.CR > 0 ? (d.CA / d.CR * 100).toFixed(1) : '0.0';
             const vsBP = d.BP > 0 ? (d.Actual / d.BP * 100).toFixed(1) : '0.0';
             const gapBP = d.Actual - d.BP;
@@ -771,8 +1210,16 @@
                 ? `<span class="pos">+${fmtM(gapBE)}</span>` 
                 : `<span class="neg">${fmtM(gapBE)}</span>`;
             
+            if (!isMTD) {
+                return `<td>${fmtM(d.LY)}</td><td>${fmtM(d.LM)}</td><td>${fmtM(d.BE)}</td><td>${fmtM(d.BP)}</td>` +
+                       `<td>${fmtM(d.Actual)}</td>` +
+                       `<td class="${bpClass}">${vsBP}%</td><td>${gapBPFmt}</td>` +
+                       `<td class="${beClass}">${vsBE}%</td><td>${gapBEFmt}</td>`;
+            }
+            
             return `<td>${fmtN(d.CR)}</td><td>${fmtN(d.CA)}</td><td>${caVsCR}%</td>` +
-                   `<td>${fmtM(d.LY)}</td><td>${fmtM(d.LM)}</td><td>${fmtM(d.BE)}</td><td>${fmtM(d.BP)}</td>` +
+                   `<td>${fmtM(d.LY)}</td><td>${fmtM(d.LM)}</td><td>${fmtM(d.L3M)}</td>` +
+                   `<td>${fmtM(d.BE)}</td><td>${fmtM(d.BP)}</td>` +
                    `<td>${fmtM(d.Actual)}</td>` +
                    `<td class="${bpClass}">${vsBP}%</td><td>${gapBPFmt}</td>` +
                    `<td class="${beClass}">${vsBE}%</td><td>${gapBEFmt}</td>`;
