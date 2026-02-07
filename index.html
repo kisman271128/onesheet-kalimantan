@@ -33,7 +33,7 @@
 
         h2 { text-align: center; color: #333; margin-bottom: 30px; }
         
-        .form-group { margin-bottom: 6px; }
+        .form-group { margin-bottom: 20px; }
         
         .form-group label {
             display: block;
@@ -47,7 +47,7 @@
             padding: 12px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            font-size: 20px;
+            font-size: 14px;
         }
 
         .btn {
@@ -361,21 +361,6 @@
             color: #666;
             font-size: 14px;
         }
-		
-		/* Header logo */
-		.login-header {
-			text-align: center;
-			margin-bottom: 6px;   /* ⬅️ jarak logo ke Username */
-		}
-
-		/* Logo */
-		.login-logo {
-			width: 360px;         /* tetap besar */
-			max-width: 85%;
-			height: auto;
-			display: block;
-			margin: 0 auto;       /* ⬅️ hilangkan margin vertikal */
-		}
     </style>
 </head>
 <body>
@@ -383,9 +368,7 @@
     <!-- Login Page -->
     <div id="loginPage" class="page-container">
         <div class="box">
-            <div class="login-header">
-				<img src="logo.png" alt="Logo OneSheet" class="login-logo">
-			</div>
+            <h2>🔐 Login OneSheet</h2>
             <form id="loginForm">
                 <div class="form-group">
                     <label>Username</label>
@@ -398,6 +381,9 @@
                 <button type="submit" class="btn">Masuk</button>
                 <div id="errorMsg" class="hidden" style="color: #e74c3c; text-align: center; margin-top: 15px;">
                     Username atau password salah!
+                </div>
+                <div id="lastUpdateInfo" style="text-align: center; margin-top: 20px; color: #666; font-size: 13px;">
+                    <strong>Dashboard Last Update Tanggal:</strong> <span id="lastUpdateDate">Loading...</span>
                 </div>
             </form>
         </div>
@@ -451,7 +437,8 @@
                 </span>
             </div>
             <div class="header-center">
-                <span class="header-title">Dashboard Weekly - OneSheet</span>
+                <span class="header-title">Dashboard Weekly - OneSheet</span><br>
+                <span style="font-size: 11px; color: #666; font-weight: normal;">(Last Update: <span id="dashboardLastUpdate">-</span>)</span>
             </div>
             <div class="header-right">
                 <span class="tg-info" id="tgDisplay">Time Gone: 0.0%</span>
@@ -541,6 +528,31 @@
         let selectedDepo = '';
         let WEEKS_CONFIG = [];
         let currentTab = 'weekly';
+        let tgData = null;
+
+        // Load TG data on page load
+        async function loadTGData() {
+            try {
+                const res = await fetch('TG.json');
+                const json = await res.json();
+                tgData = json.data || {};
+                
+                // Update login page
+                const dayClosing = tgData['Day Closing'] || 'N/A';
+                document.getElementById('lastUpdateDate').textContent = dayClosing;
+                
+                // Update dashboard header (if visible)
+                const dashboardUpdateEl = document.getElementById('dashboardLastUpdate');
+                if (dashboardUpdateEl) {
+                    dashboardUpdateEl.textContent = dayClosing;
+                }
+                
+                console.log('TG Data loaded:', tgData);
+            } catch (e) {
+                console.log('TG.json not found or error:', e);
+                document.getElementById('lastUpdateDate').textContent = 'N/A';
+            }
+        }
 
         document.getElementById('loginForm').addEventListener('submit', e => {
             e.preventDefault();
@@ -556,6 +568,7 @@
 
         window.onload = () => {
             loadDepoList();
+            loadTGData(); // Load TG data for last update date
             if (sessionStorage.getItem('user')) {
                 if (sessionStorage.getItem('depo')) {
                     selectedDepo = sessionStorage.getItem('depo');
@@ -752,6 +765,11 @@
             const username = sessionStorage.getItem('user');
             document.getElementById('userName').textContent = username;
             
+            // Set last update date in dashboard header
+            if (tgData && tgData['Day Closing']) {
+                document.getElementById('dashboardLastUpdate').textContent = tgData['Day Closing'];
+            }
+            
             const isSummaryRegional = viewType === 'summary';
             
             if (isSummaryRegional) {
@@ -785,20 +803,20 @@
             }
 
             try {
-                const tgRes = await fetch('TG.json');
-                const tgData = await tgRes.json();
-                
+                // TG data should already be loaded in tgData global variable
                 let tgValue = 0;
-                if (tgData.TimeGone !== undefined) {
-                    tgValue = tgData.TimeGone;
-                } else if (tgData.metadata && tgData.metadata.time_gone_percentage) {
-                    tgValue = tgData.metadata.time_gone_percentage;
-                } else if (tgData.data && tgData.data.length > 0) {
-                    const firstRecord = tgData.data[0];
-                    if (firstRecord.TG) {
-                        tgValue = (firstRecord.TG * 100).toFixed(1);
-                    } else if (firstRecord['Time Gone']) {
-                        tgValue = firstRecord['Time Gone'];
+                if (tgData) {
+                    // Use TG_Percentage if available, otherwise calculate from TG
+                    if (tgData['TG_Percentage'] !== undefined) {
+                        tgValue = tgData['TG_Percentage'];
+                    } else if (tgData['TG'] !== undefined) {
+                        const tgRaw = tgData['TG'];
+                        // If TG is decimal (0.173913), convert to percentage
+                        if (tgRaw >= 0 && tgRaw <= 1) {
+                            tgValue = (tgRaw * 100).toFixed(1);
+                        } else {
+                            tgValue = tgRaw.toFixed(1);
+                        }
                     }
                 }
                 
