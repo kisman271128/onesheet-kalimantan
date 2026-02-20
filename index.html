@@ -350,6 +350,70 @@
         .neg { color: #dc3545; font-weight: bold; }
 
         /* ===== MODERN PARETO TABLE ===== */
+        /* ===== PROJECT TAB ===== */
+        #tabProject .report-container { overflow: auto; max-height: calc(100vh - 240px); }
+        .project-metrics-row {
+            display: flex; gap: 10px; flex-wrap: wrap;
+            padding: 12px 15px 8px;
+            background: #f8f9fa; border-bottom: 1px solid #e0e0e0;
+        }
+        .proj-metric-card {
+            flex: 1; min-width: 130px; background: white;
+            border-radius: 8px; padding: 10px 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            border-top: 3px solid #667eea; text-align: center;
+        }
+        .proj-metric-card.green  { border-top-color: #28a745; }
+        .proj-metric-card.orange { border-top-color: #fd7e14; }
+        .proj-metric-card.red    { border-top-color: #dc3545; }
+        .proj-metric-label {
+            font-size: 10px; color: #888; text-transform: uppercase;
+            letter-spacing: .5px; font-weight: 600; margin-bottom: 4px;
+        }
+        .proj-metric-value { font-size: 16px; font-weight: 700; color: #333; }
+        .proj-metric-value.ach-high { color: #28a745; }
+        .proj-metric-value.ach-mid  { color: #fd7e14; }
+        .proj-metric-value.ach-low  { color: #dc3545; }
+        .proj-subtabs-container {
+            background: white; border-bottom: 2px solid #e0e0e0;
+            padding: 0 15px; overflow-x: auto; white-space: nowrap;
+        }
+        .proj-subtabs { display: inline-flex; gap: 0; }
+        .proj-subtab {
+            padding: 8px 16px; font-size: 12px; font-weight: 600; cursor: pointer;
+            border-bottom: 3px solid transparent; color: #666; transition: all 0.2s; white-space: nowrap;
+        }
+        .proj-subtab:hover { color: #667eea; background: #f8f8ff; }
+        .proj-subtab.active { color: #667eea; border-bottom-color: #667eea; }
+        .proj-subtab-content { display: none; }
+        .proj-subtab-content.active { display: block; }
+        #projTableWrap { width: 100%; overflow-x: auto; }
+        #projTableWrap table { width: auto; min-width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+        #projTableWrap .proj-section-header th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; text-align: center; padding: 10px 12px; font-size: 13px; font-weight: 700;
+        }
+        #projTableWrap thead tr.proj-col-header th {
+            background: #f1f5fb; color: #334155; padding: 7px 10px; font-size: 11px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+            border-bottom: 2px solid #cbd5e1; position: sticky; top: 0; white-space: nowrap;
+        }
+        #projTableWrap tbody tr td { padding: 6px 10px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; white-space: nowrap; }
+        #projTableWrap tbody tr:hover td { background: #f8faff; }
+        #projTableWrap tbody tr.proj-total td {
+            background: #f1f5fb; font-weight: 700;
+            border-top: 2px solid #cbd5e1; border-bottom: 2px solid #cbd5e1;
+        }
+        #projTableWrap th.p-center, #projTableWrap td.p-center { text-align: center; }
+        #projTableWrap th.p-left,   #projTableWrap td.p-left   { text-align: left; white-space: normal; }
+        #projTableWrap th.p-right,  #projTableWrap td.p-right  { text-align: right; font-family: 'Courier New', monospace; }
+        .p-ach-h { background:#d4edda; color:#155724; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:700; }
+        .p-ach-m { background:#fff3cd; color:#856404; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:700; }
+        .p-ach-l { background:#f8d7da; color:#721c24; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:700; }
+        .p-gap-pos { color:#28a745; font-weight:600; }
+        .p-gap-neg { color:#dc3545; font-weight:600; }
+        .proj-rank-badge { display:inline-block; width:24px; height:24px; border-radius:50%; background:linear-gradient(135deg,#667eea,#764ba2); color:white; text-align:center; line-height:24px; font-size:10px; font-weight:700; }
+
         #tabPareto .report-container { overflow: auto; max-height: 80vh; }
 
         #paretoTableWrap { width: 100%; overflow-x: auto; }
@@ -640,7 +704,21 @@
             </div>
         </div>
 
-        <!-- Tab Content: Upload Data (for Depo users only) -->
+        <!-- Tab Content: Project -->
+        <div id="tabProject" class="tab-content">
+            <!-- Metric Cards -->
+            <div class="project-metrics-row" id="projectMetricsRow">
+                <!-- Cards will be rendered dynamically per project -->
+            </div>
+            <!-- Sub-tabs per Project -->
+            <div class="proj-subtabs-container">
+                <div class="proj-subtabs" id="projSubTabs"></div>
+            </div>
+            <div class="report-container">
+                <div id="loadingProject" class="loading">⏳ Memuat data Project...</div>
+                <div id="projTableWrap"></div>
+            </div>
+        </div>
         <div id="tabUpload" class="tab-content">
             <div style="max-width: 800px; margin: 20px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
                 <h2 style="color: #667eea; margin-bottom: 20px;">📤 Upload Data ke GitHub</h2>
@@ -667,9 +745,9 @@
 
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #333;">
-                        Pilih File JSON:
+                        Pilih File JSON (bisa multiple):
                     </label>
-                    <input type="file" id="fileInput" accept=".json" 
+                    <input type="file" id="fileInput" accept=".json" multiple
                            style="padding: 10px; border: 2px solid #ddd; border-radius: 5px; width: 100%; cursor: pointer;">
                 </div>
 
@@ -698,6 +776,7 @@
         let WEEKS_CONFIG = [];
         let currentTab = 'weekly';
         let tgData = null;
+        let projectData = null;
 
         // Load TG data on page load
         async function loadTGData() {
@@ -749,74 +828,63 @@
         
         async function uploadJSON() {
             const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            
-            if (!file) {
+            const files = Array.from(fileInput.files);
+
+            if (files.length === 0) {
                 showUploadStatus('error', '❌ Pilih file JSON terlebih dahulu!');
                 return;
             }
-            
-            if (!file.name.endsWith('.json')) {
-                showUploadStatus('error', '❌ File harus berformat .json');
-                return;
-            }
-            
-            // Validate filename matches depo
-            const expectedFilename = `${selectedDepo}.json`;
-            if (file.name !== expectedFilename) {
-                showUploadStatus('error', `❌ Nama file harus: ${expectedFilename}<br>File Anda: ${file.name}`);
-                return;
-            }
-            
-            showUploadStatus('info', '⏳ Membaca file...');
-            
-            const reader = new FileReader();
-            
-            reader.onload = async function(e) {
-                try {
-                    const jsonData = JSON.parse(e.target.result);
-                    
-                    // Validate JSON structure
-                    if (!jsonData.data || !Array.isArray(jsonData.data)) {
-                        showUploadStatus('error', '❌ Format JSON tidak valid! Harus memiliki property "data" yang berisi array.');
-                        return;
-                    }
-                    
-                    // Get depo name from metadata
-                    let depoName = '';
-                    if (jsonData.metadata && jsonData.metadata.depo) {
-                        depoName = jsonData.metadata.depo;
-                    }
-                    
-                    showUploadStatus('info', `⏳ Mengupload ke GitHub...<br>File: ${file.name}<br>Records: ${jsonData.data.length}`);
-                    
-                    // Upload to GitHub
-                    const uploadSuccess = await uploadToGitHub(file.name, JSON.stringify(jsonData, null, 2));
-                    
-                    if (uploadSuccess) {
-                        // Log upload activity
-                        await logUploadActivity(file.name, jsonData.data.length, depoName);
-                        
-                        showUploadStatus('success', `✅ Data berhasil diupload ke GitHub!<br>File: ${file.name}<br>Records: ${jsonData.data.length}<br>Depo: ${depoName || 'Unknown'}<br><br>Dashboard akan reload dalam 3 detik...`);
-                        
-                        // Reload dashboard after 3 seconds
-                        setTimeout(() => {
-                            location.reload();
-                        }, 3000);
-                    } else {
-                        showUploadStatus('error', '❌ Gagal upload ke GitHub! Periksa koneksi atau hubungi admin.');
-                    }
-                    
-                } catch (error) {
-                    showUploadStatus('error', `❌ Error: ${error.message}`);
+
+            // Validate all files first
+            for (const file of files) {
+                if (!file.name.endsWith('.json')) {
+                    showUploadStatus('error', `❌ File <b>${file.name}</b> harus berformat .json`);
+                    return;
                 }
-            };
-            
-            reader.onerror = function() {
-                showUploadStatus('error', '❌ Error membaca file!');
-            };
-            
-            reader.readAsText(file);
+            }
+
+            let successCount = 0;
+            let failCount = 0;
+            const results = [];
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                showUploadStatus('info', `⏳ Mengupload file ${i + 1} dari ${files.length}: <b>${file.name}</b>...`);
+
+                try {
+                    const text = await file.text();
+                    const jsonData = JSON.parse(text);
+
+                    if (!jsonData.data || !Array.isArray(jsonData.data)) {
+                        results.push(`❌ <b>${file.name}</b>: Format JSON tidak valid (tidak ada property "data")`);
+                        failCount++;
+                        continue;
+                    }
+
+                    const depoName = (jsonData.metadata && jsonData.metadata.depo) ? jsonData.metadata.depo : '';
+                    const uploadSuccess = await uploadToGitHub(file.name, JSON.stringify(jsonData, null, 2));
+
+                    if (uploadSuccess) {
+                        await logUploadActivity(file.name, jsonData.data.length, depoName);
+                        results.push(`✅ <b>${file.name}</b> — ${jsonData.data.length} records${depoName ? ' | ' + depoName : ''}`);
+                        successCount++;
+                    } else {
+                        results.push(`❌ <b>${file.name}</b>: Gagal upload ke GitHub`);
+                        failCount++;
+                    }
+                } catch (error) {
+                    results.push(`❌ <b>${file.name}</b>: ${error.message}`);
+                    failCount++;
+                }
+            }
+
+            const summary = `Upload selesai: <b>${successCount} berhasil</b>${failCount > 0 ? `, <b>${failCount} gagal</b>` : ''}<br><br>` + results.join('<br>');
+            const statusType = failCount === 0 ? 'success' : (successCount === 0 ? 'error' : 'info');
+            showUploadStatus(statusType, summary + (successCount > 0 ? '<br><br>Dashboard akan reload dalam 3 detik...' : ''));
+
+            if (successCount > 0) {
+                setTimeout(() => { location.reload(); }, 3000);
+            }
         }
         
         async function uploadToGitHub(filename, content) {
@@ -1109,6 +1177,11 @@
                 if (expectedFilenameEl) {
                     expectedFilenameEl.textContent = `${selectedDepo}.json`;
                 }
+            } else if (tab === 'project') {
+                document.getElementById('tabProject').classList.add('active');
+                if (!projectData) {
+                    loadProjectData();
+                }
             }
         }
 
@@ -1211,6 +1284,7 @@
                     <div class="tab active" onclick="switchTab('summary')">Summary</div>
                     <div class="tab" onclick="switchTab('weekly')">Dashboard Weekly</div>
                     <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
+                    <div class="tab" onclick="switchTab('project')">📋 Project</div>
                 `;
                 document.getElementById('mainTabs').innerHTML = tabsHtml;
                 
@@ -1226,6 +1300,7 @@
                     <div class="tab active" onclick="switchTab('weekly')">Dashboard Weekly</div>
                     <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
                     <div class="tab" onclick="switchTab('pareto')">📊 30 Pareto Outlet</div>
+                    <div class="tab" onclick="switchTab('project')">📋 Project</div>
                     <div class="tab" onclick="switchTab('upload')">📤 Upload Data</div>
                 `;
                 document.getElementById('mainTabs').innerHTML = tabsHtml;
@@ -1979,6 +2054,213 @@
                 return m.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
             return m.toFixed(1);
+        }
+
+        // ===== PROJECT TAB FUNCTIONS =====
+
+        async function loadProjectData() {
+            const loading = document.getElementById('loadingProject');
+            const wrap = document.getElementById('projTableWrap');
+            loading.style.display = 'block';
+            loading.textContent = '⏳ Memuat data Project...';
+            wrap.innerHTML = '';
+            try {
+                const res = await fetch('Project.json');
+                if (!res.ok) throw new Error('Project.json tidak ditemukan');
+                const json = await res.json();
+                projectData = json.data || [];
+                loading.style.display = 'none';
+                renderProjectTab();
+            } catch(e) {
+                loading.textContent = '❌ Gagal memuat Project.json: ' + e.message;
+            }
+        }
+
+        function renderProjectTab() {
+            if (!projectData || projectData.length === 0) return;
+
+            const fc = (n) => {
+                if (n === null || n === undefined || isNaN(n)) return '-';
+                const v = Math.abs(n) / 1000000;
+                if (v === 0) return '0';
+                return (v >= 1000 ? v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : v.toFixed(1)) + 'jt';
+            };
+
+            const fpct = (v) => {
+                if (v === null || v === undefined || isNaN(v)) return '-';
+                const pct = v > 1 ? v : v * 100;
+                return pct.toFixed(1) + '%';
+            };
+
+            const achBadge = (pct) => {
+                const cls = pct >= 100 ? 'p-ach-h' : pct >= 80 ? 'p-ach-m' : 'p-ach-l';
+                return `<span class="${cls}">${pct.toFixed(1)}%</span>`;
+            };
+
+            const gapFmt = (v) => {
+                if (v === null || isNaN(v)) return '-';
+                const cls = v >= 0 ? 'p-gap-pos' : 'p-gap-neg';
+                const sign = v >= 0 ? '+' : '';
+                return `<span class="${cls}">${sign}${fc(v)}</span>`;
+            };
+
+            // ---- Group by Project name ----
+            const projectGroups = {};
+            projectData.forEach(r => {
+                const proj = r['Project'] || 'Unknown';
+                if (!projectGroups[proj]) projectGroups[proj] = [];
+                projectGroups[proj].push(r);
+            });
+
+            const projectNames = Object.keys(projectGroups).sort();
+
+            // ---- Build metric cards: one per project showing Ach% MTD ----
+            const metricsRow = document.getElementById('projectMetricsRow');
+            metricsRow.innerHTML = '';
+            projectNames.forEach(proj => {
+                const rows = projectGroups[proj];
+                let tTMtd = 0, tAMtd = 0;
+                rows.forEach(r => {
+                    tTMtd += parseFloat(r['T.MTD'] || 0);
+                    tAMtd += parseFloat(r['A.MTD'] || 0);
+                });
+                const achMtdPct = tTMtd > 0 ? tAMtd / tTMtd * 100 : 0;
+                const colorClass = achMtdPct >= 100 ? 'green' : achMtdPct >= 80 ? 'orange' : 'red';
+                const valueClass = achMtdPct >= 100 ? 'ach-high' : achMtdPct >= 80 ? 'ach-mid' : 'ach-low';
+
+                const card = document.createElement('div');
+                card.className = `proj-metric-card ${colorClass}`;
+                card.style.cursor = 'pointer';
+                card.title = `Klik untuk lihat detail ${proj}`;
+                card.onclick = () => switchProjectSubTab(proj);
+                card.innerHTML = `
+                    <div class="proj-metric-label">Ach MTD — ${proj}</div>
+                    <div class="proj-metric-value ${valueClass}">${achMtdPct.toFixed(1)}%</div>
+                    <div style="font-size:10px;color:#aaa;margin-top:3px;">${rows.length} outlet · ${fc(tAMtd)} / ${fc(tTMtd)}</div>
+                `;
+                metricsRow.appendChild(card);
+            });
+
+            // ---- Build sub-tabs ----
+            const subTabsEl = document.getElementById('projSubTabs');
+            subTabsEl.innerHTML = '';
+            projectNames.forEach((name, idx) => {
+                const tab = document.createElement('div');
+                tab.className = 'proj-subtab' + (idx === 0 ? ' active' : '');
+                tab.textContent = name;
+                tab.onclick = () => switchProjectSubTab(name);
+                subTabsEl.appendChild(tab);
+            });
+
+            // Store grouped data for rendering
+            window._projGroups = projectGroups;
+            window._projFc = fc;
+            window._projAchBadge = achBadge;
+            window._projGapFmt = gapFmt;
+
+            // Render first sub-tab
+            if (projectNames.length > 0) renderProjectTable(projectNames[0]);
+        }
+
+        function switchProjectSubTab(projName) {
+            document.querySelectorAll('.proj-subtab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.proj-subtab').forEach(t => {
+                if (t.textContent === projName) t.classList.add('active');
+            });
+            renderProjectTable(projName);
+        }
+
+        function renderProjectTable(projName) {
+            const wrap = document.getElementById('projTableWrap');
+            const rows = (window._projGroups || {})[projName] || [];
+            const fc = window._projFc;
+            const achBadge = window._projAchBadge;
+            const gapFmt = window._projGapFmt;
+
+            // Sort by A.QRT descending (Pareto style)
+            const sorted = [...rows].sort((a, b) => parseFloat(b['A.QRT'] || 0) - parseFloat(a['A.QRT'] || 0));
+
+            // Totals
+            let tTQrt=0, tAQrt=0, tTMtd=0, tAMtd=0, tLY=0, tLM=0, tL3M=0, tGapQrt=0, tGapMtd=0;
+            sorted.forEach(r => {
+                tTQrt  += parseFloat(r['T.Qrt']   || 0);
+                tAQrt  += parseFloat(r['A.QRT']   || 0);
+                tTMtd  += parseFloat(r['T.MTD']   || 0);
+                tAMtd  += parseFloat(r['A.MTD']   || 0);
+                tLY    += parseFloat(r['LY']       || 0);
+                tLM    += parseFloat(r['LM']       || 0);
+                tL3M   += parseFloat(r['L3M']      || 0);
+                tGapQrt+= parseFloat(r['Gap_Qrt']  || 0);
+                tGapMtd+= parseFloat(r['Gap_MTD']  || 0);
+            });
+            const tAchQrt = tTQrt > 0 ? tAQrt / tTQrt * 100 : 0;
+            const tAchMtd = tTMtd > 0 ? tAMtd / tTMtd * 100 : 0;
+
+            let html = `
+            <table>
+                <thead>
+                    <tr class="proj-section-header">
+                        <th colspan="13">📋 Project: ${projName} — ${sorted.length} Outlet (sorted by Actual QRT)</th>
+                    </tr>
+                    <tr class="proj-col-header">
+                        <th class="p-center" style="width:2px;">Rank</th>
+                        <th class="p-left"   style="width:10px;">Nama Pelanggan</th>
+                        <th class="p-left"   style="width:50px;">Salesman</th>
+                        <th class="p-right"  style="width:30px;">Target QRT</th>
+                        <th class="p-right"  style="width:30px;">Actual QRT</th>
+                        <th class="p-center" style="width:30px;">Ach% QRT</th>
+                        <th class="p-right"  style="width:30px;">Gap QRT</th>
+                        <th class="p-right"  style="width:30px;">Target MTD</th>
+                        <th class="p-right"  style="width:30px;">Actual MTD</th>
+                        <th class="p-center" style="width:30px;">Ach% MTD</th>
+                        <th class="p-right"  style="width:30px;">Gap MTD</th>
+                        <th class="p-right"  style="width:30px;">LM</th>
+                        <th class="p-right"  style="width:30px;">LY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="proj-total">
+                        <td class="p-center">—</td>
+                        <td class="p-left"><strong>TOTAL (${sorted.length} Outlet)</strong></td>
+                        <td class="p-left">—</td>
+                        <td class="p-right"><strong>${fc(tTQrt)}</strong></td>
+                        <td class="p-right"><strong>${fc(tAQrt)}</strong></td>
+                        <td class="p-center">${achBadge(tAchQrt)}</td>
+                        <td class="p-right">${gapFmt(tGapQrt)}</td>
+                        <td class="p-right"><strong>${fc(tTMtd)}</strong></td>
+                        <td class="p-right"><strong>${fc(tAMtd)}</strong></td>
+                        <td class="p-center">${achBadge(tAchMtd)}</td>
+                        <td class="p-right">${gapFmt(tGapMtd)}</td>
+                        <td class="p-right"><strong>${fc(tLM)}</strong></td>
+                        <td class="p-right"><strong>${fc(tLY)}</strong></td>
+                    </tr>`;
+
+            sorted.forEach((r, i) => {
+                const achQrt = parseFloat(r['Ach_Qrt'] || 0);
+                const achMtd = parseFloat(r['Ach_MTD'] || 0);
+                const achQrtPct = achQrt > 1 ? achQrt : achQrt * 100;
+                const achMtdPct = achMtd > 1 ? achMtd : achMtd * 100;
+                html += `
+                    <tr>
+                        <td class="p-center"><span class="proj-rank-badge">${i+1}</span></td>
+                        <td class="p-left"><strong style="font-size:12px;">${r['Nama Pelanggan'] || '-'}</strong><br>
+                            <small style="color:#94a3b8;font-size:10px;">${r['Depo'] || ''}</small></td>
+                        <td class="p-left" style="font-size:11px;color:#64748b;">${r['Nama Salesman'] || '-'}</td>
+                        <td class="p-right">${fc(r['T.Qrt'])}</td>
+                        <td class="p-right" style="font-weight:600;">${fc(r['A.QRT'])}</td>
+                        <td class="p-center">${achBadge(achQrtPct)}</td>
+                        <td class="p-right">${gapFmt(r['Gap_Qrt'])}</td>
+                        <td class="p-right">${fc(r['T.MTD'])}</td>
+                        <td class="p-right" style="font-weight:600;">${fc(r['A.MTD'])}</td>
+                        <td class="p-center">${achBadge(achMtdPct)}</td>
+                        <td class="p-right">${gapFmt(r['Gap_MTD'])}</td>
+                        <td class="p-right">${fc(r['LM'])}</td>
+                        <td class="p-right">${fc(r['LY'])}</td>
+                    </tr>`;
+            });
+
+            html += '</tbody></table>';
+            wrap.innerHTML = html;
         }
     </script>
 </body>
