@@ -33,7 +33,7 @@
 
         h2 { text-align: center; color: #333; margin-bottom: 30px; }
         
-        .form-group { margin-bottom: 20px; }
+        .form-group { margin-bottom: 10px; }
         
         .form-group label {
             display: block;
@@ -47,7 +47,7 @@
             padding: 12px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 20px;
         }
 
         .btn {
@@ -349,6 +349,91 @@
         .pos { color: #28a745; font-weight: bold; }
         .neg { color: #dc3545; font-weight: bold; }
 
+        /* ===== MODERN PARETO TABLE ===== */
+        #tabPareto .report-container { overflow: auto; max-height: 80vh; }
+
+        #paretoTableWrap { width: 100%; overflow-x: auto; }
+
+        #paretoTableWrap table {
+            border-collapse: collapse;
+            font-size: 12px;
+            width: 100%;
+            min-width: unset;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+
+        /* Header baris section title (gradient ungu) */
+        #paretoTableWrap .pareto-section-header th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 14px 18px;
+            text-align: left;
+            border: none;
+            position: sticky; top: 0; z-index: 20;
+        }
+
+        /* Header kolom */
+        #paretoTableWrap thead tr.pareto-col-header th {
+            background: #f8fafc;
+            color: #475569;
+            padding: 9px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 2px solid #e2e8f0;
+            border-top: none;
+            position: sticky; top: 44px; z-index: 10;
+            white-space: nowrap;
+        }
+
+        /* Data rows */
+        #paretoTableWrap tbody tr td {
+            padding: 9px 8px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+            white-space: nowrap;
+            background: white;
+            color: #1e293b;
+            font-size: 12px;
+        }
+        #paretoTableWrap tbody tr:hover td { background: #f8faff; }
+
+        /* Total row */
+        #paretoTableWrap tbody tr.pareto-total td {
+            background: #f1f5f9 !important;
+            font-weight: 700;
+            border-top: 2px solid #667eea;
+            border-bottom: 2px solid #667eea;
+        }
+
+        /* Rank badge */
+        .pareto-rank-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 3px 7px;
+            border-radius: 6px;
+        }
+
+        /* Gap colors */
+        .p-gap-neg { color: #dc2626; font-weight: 600; }
+        .p-gap-pos { color: #059669; font-weight: 600; }
+
+        /* Ach% badge */
+        .p-ach-h { background: rgba(16,185,129,0.12); color: #059669; padding: 2px 7px; border-radius: 6px; font-weight: 700; display:inline-block; font-size:11px; }
+        .p-ach-m { background: rgba(245,158,11,0.12); color: #d97706; padding: 2px 7px; border-radius: 6px; font-weight: 700; display:inline-block; font-size:11px; }
+        .p-ach-l { background: rgba(239,68,68,0.12);  color: #dc2626; padding: 2px 7px; border-radius: 6px; font-weight: 700; display:inline-block; font-size:11px; }
+
+        /* Alignment */
+        #paretoTableWrap th.p-center, #paretoTableWrap td.p-center { text-align: center; }
+        #paretoTableWrap th.p-left,   #paretoTableWrap td.p-left   { text-align: left; }
+        #paretoTableWrap th.p-right,  #paretoTableWrap td.p-right  { text-align: right; font-family: 'Courier New', monospace; }
+
         .row-channel { background: #fff3cd; font-weight: bold; }
         .row-subitem { padding-left: 15px !important; background: #fafafa; }
         .row-mt-sub { padding-left: 20px !important; background: #f0f8ff; font-style: italic; }
@@ -361,6 +446,20 @@
             color: #666;
             font-size: 14px;
         }
+		
+		.login-logo {
+			width: 240px;       /* Atur lebar logo sesuai selera */
+			height: auto;
+			margin-top: 2px;   /* Jarak dari atas frame */
+			margin-bottom: 4	px; /* Jarak antara logo dan input username */
+			display: inline-block;
+		}
+
+		/* Pastikan container memiliki padding yang cukup */
+		.login-container {
+			padding: 4px;
+			
+		}
     </style>
 </head>
 <body>
@@ -368,24 +467,27 @@
     <!-- Login Page -->
     <div id="loginPage" class="page-container">
         <div class="box">
-            <h2>🔐 Login OneSheet</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="username" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="btn">Masuk</button>
-                <div id="errorMsg" class="hidden" style="color: #e74c3c; text-align: center; margin-top: 15px;">
-                    Username atau password salah!
-                </div>
-                <div id="lastUpdateInfo" style="text-align: center; margin-top: 20px; color: #666; font-size: 13px;">
-                    <strong>Dashboard Last Update Tanggal:</strong> <span id="lastUpdateDate">Loading...</span>
-                </div>
-            </form>
+            <div class="login-container"> <div style="text-align: center;">
+					<img src="logo.png" alt="Logo OneSheet" class="login-logo">
+				</div>
+				<form id="loginForm">
+					<div class="form-group">
+						<label>Username</label>
+						<input type="text" id="username" required>
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" id="password" required>
+					</div>
+					<button type="submit" class="btn">Masuk</button>
+					<div id="errorMsg" class="hidden" style="color: #e74c3c; text-align: center; margin-top: 15px;">
+						Username atau password salah!
+					</div>
+					<div id="lastUpdateInfo" style="text-align: center; margin-top: 20px; color: #666; font-size: 13px;">
+						<strong>Data Last Update Tanggal:</strong> <span id="lastUpdateDate">Loading...</span>
+					</div>
+				</form>
+			</div>
         </div>
     </div>
 
@@ -437,7 +539,7 @@
                 </span>
             </div>
             <div class="header-center">
-                <span class="header-title">Dashboard Weekly - OneSheet</span><br>
+                <span class="header-title">MAP - Monthly Account Plan</span><br>
                 <span style="font-size: 11px; color: #666; font-weight: normal;">(Last Update: <span id="dashboardLastUpdate">-</span>)</span>
             </div>
             <div class="header-right">
@@ -505,13 +607,80 @@
                 <select id="tipeSalesSelect" onchange="filterByTipeSales()">
                     <option value="">-- All Tipe Sales --</option>
                 </select>
+                
+                <!-- Show Nama Salesman ONLY for specific Depo (not Summary Regional) -->
+                <span id="salesmanComboContainer" style="display: none;">
+                    <label style="margin-left: 20px;">Pilih Salesman:</label>
+                    <select id="salesmanSelect" onchange="filterBySalesman()">
+                        <option value="">-- All Salesman --</option>
+                    </select>
+                </span>
             </div>
             <div class="report-container">
-                <div id="loadingSalesman" class="loading">⏳ Pilih Tipe Sales untuk melihat data...</div>
+                <div id="loadingSalesman" class="loading">⏳ Pilih filter untuk melihat data...</div>
                 <table id="tableSalesman">
                     <thead id="tableHeaderSalesman"></thead>
                     <tbody id="tableBodySalesman"></tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Tab Content: 30 Pareto Outlet -->
+        <div id="tabPareto" class="tab-content">
+            <div class="salesman-filter">
+                <label>Pilih Salesman:</label>
+                <select id="paretoSalesmanSelect" onchange="filterPareto()">
+                    <option value="">-- All Salesman --</option>
+                </select>
+                <span style="margin-left: 20px; font-size: 11px; color: #999;">v15.1.1-compact</span>
+            </div>
+            <div class="report-container">
+                <div id="loadingPareto" class="loading">⏳ Pilih salesman untuk melihat 30 Pareto Outlet...</div>
+                <div id="paretoTableWrap"></div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Upload Data (for Depo users only) -->
+        <div id="tabUpload" class="tab-content">
+            <div style="max-width: 800px; margin: 20px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <h2 style="color: #667eea; margin-bottom: 20px;">📤 Upload Data ke GitHub</h2>
+                
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+                    <h3 style="margin: 0 0 10px 0; color: #1976d2;">ℹ️ Informasi Penting:</h3>
+                    <ul style="margin: 0; padding-left: 20px; color: #555;">
+                        <li><strong>Upload langsung ke GitHub repository</strong></li>
+                        <li>Data yang diupload akan <strong>menggantikan</strong> data lama untuk depo Anda</li>
+                        <li>Nama file <strong>HARUS</strong> sesuai: <code id="expectedFilename" style="background: #fff; padding: 2px 6px; border-radius: 3px;">-</code></li>
+                        <li>Admin dapat <strong>memonitor</strong> siapa yang sudah upload dan kapan</li>
+                        <li><strong>Tanggung jawab update data ada pada masing-masing depo</strong></li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+                    <h3 style="margin: 0 0 10px 0; color: #f57c00;">⚠️ Cara Export Data:</h3>
+                    <ol style="margin: 0; padding-left: 20px; color: #555;">
+                        <li>Jalankan: <code style="background: #fff; padding: 2px 6px; border-radius: 3px;">python excel_to_json_depo.py</code></li>
+                        <li>File akan dibuat dengan nama yang sesuai untuk depo Anda</li>
+                        <li>Upload file tersebut menggunakan form di bawah</li>
+                    </ol>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #333;">
+                        Pilih File JSON:
+                    </label>
+                    <input type="file" id="fileInput" accept=".json" 
+                           style="padding: 10px; border: 2px solid #ddd; border-radius: 5px; width: 100%; cursor: pointer;">
+                </div>
+
+                <button onclick="uploadJSON()" 
+                        style="width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                               color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; 
+                               cursor: pointer; transition: transform 0.2s;">
+                    📤 Upload ke GitHub
+                </button>
+
+                <div id="uploadStatus" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;"></div>
             </div>
         </div>
     </div>
@@ -537,8 +706,8 @@
                 const json = await res.json();
                 tgData = json.data || {};
                 
-                // Update login page
-                const dayClosing = tgData['Day Closing'] || 'N/A';
+                // Update login page — field "Day Closing" (spasi, bukan underscore)
+                const dayClosing = tgData['Day Closing'] || tgData['Day_Closing'] || 'N/A';
                 document.getElementById('lastUpdateDate').textContent = dayClosing;
                 
                 // Update dashboard header (if visible)
@@ -566,9 +735,258 @@
             }
         });
 
-        window.onload = () => {
+        // ========================================
+        // UPLOAD DATA FUNCTIONS (GitHub Integration)
+        // ========================================
+        
+        // GitHub configuration
+        const GITHUB_CONFIG = {
+            owner: 'kisman271128',
+            repo: 'onesheet-kalimantan',
+            token: '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', // Replace with actual token
+            branch: 'master'
+        };
+        
+        async function uploadJSON() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showUploadStatus('error', '❌ Pilih file JSON terlebih dahulu!');
+                return;
+            }
+            
+            if (!file.name.endsWith('.json')) {
+                showUploadStatus('error', '❌ File harus berformat .json');
+                return;
+            }
+            
+            // Validate filename matches depo
+            const expectedFilename = `${selectedDepo}.json`;
+            if (file.name !== expectedFilename) {
+                showUploadStatus('error', `❌ Nama file harus: ${expectedFilename}<br>File Anda: ${file.name}`);
+                return;
+            }
+            
+            showUploadStatus('info', '⏳ Membaca file...');
+            
+            const reader = new FileReader();
+            
+            reader.onload = async function(e) {
+                try {
+                    const jsonData = JSON.parse(e.target.result);
+                    
+                    // Validate JSON structure
+                    if (!jsonData.data || !Array.isArray(jsonData.data)) {
+                        showUploadStatus('error', '❌ Format JSON tidak valid! Harus memiliki property "data" yang berisi array.');
+                        return;
+                    }
+                    
+                    // Get depo name from metadata
+                    let depoName = '';
+                    if (jsonData.metadata && jsonData.metadata.depo) {
+                        depoName = jsonData.metadata.depo;
+                    }
+                    
+                    showUploadStatus('info', `⏳ Mengupload ke GitHub...<br>File: ${file.name}<br>Records: ${jsonData.data.length}`);
+                    
+                    // Upload to GitHub
+                    const uploadSuccess = await uploadToGitHub(file.name, JSON.stringify(jsonData, null, 2));
+                    
+                    if (uploadSuccess) {
+                        // Log upload activity
+                        await logUploadActivity(file.name, jsonData.data.length, depoName);
+                        
+                        showUploadStatus('success', `✅ Data berhasil diupload ke GitHub!<br>File: ${file.name}<br>Records: ${jsonData.data.length}<br>Depo: ${depoName || 'Unknown'}<br><br>Dashboard akan reload dalam 3 detik...`);
+                        
+                        // Reload dashboard after 3 seconds
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
+                    } else {
+                        showUploadStatus('error', '❌ Gagal upload ke GitHub! Periksa koneksi atau hubungi admin.');
+                    }
+                    
+                } catch (error) {
+                    showUploadStatus('error', `❌ Error: ${error.message}`);
+                }
+            };
+            
+            reader.onerror = function() {
+                showUploadStatus('error', '❌ Error membaca file!');
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        async function uploadToGitHub(filename, content) {
+            try {
+                // Check if file exists (to get SHA for update)
+                const checkUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${filename}`;
+                
+                let sha = null;
+                try {
+                    const checkRes = await fetch(checkUrl, {
+                        headers: {
+                            'Authorization': `token ${GITHUB_CONFIG.token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    if (checkRes.ok) {
+                        const data = await checkRes.json();
+                        sha = data.sha;
+                    }
+                } catch (e) {
+                    console.log('File does not exist yet, will create new');
+                }
+                
+                // Upload/Update file
+                const uploadUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${filename}`;
+                
+                const username = sessionStorage.getItem('user') || 'unknown';
+                const depoName = selectedDepo.replace('data_', '').replace('.json', '').replace(/_/g, ' ');
+                
+                const body = {
+                    message: `Update ${filename} by ${username} (${depoName}) - ${new Date().toLocaleString('id-ID')}`,
+                    content: btoa(unescape(encodeURIComponent(content))), // Base64 encode
+                    branch: GITHUB_CONFIG.branch
+                };
+                
+                if (sha) {
+                    body.sha = sha; // Required for updating existing file
+                }
+                
+                const uploadRes = await fetch(uploadUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+                
+                if (!uploadRes.ok) {
+                    const error = await uploadRes.json();
+                    console.error('GitHub upload error:', error);
+                    return false;
+                }
+                
+                return true;
+                
+            } catch (error) {
+                console.error('Upload to GitHub failed:', error);
+                return false;
+            }
+        }
+        
+        async function logUploadActivity(filename, recordCount, depoName) {
+            try {
+                // Get existing log
+                const logUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/upload_log.json`;
+                
+                let existingLog = [];
+                let sha = null;
+                
+                try {
+                    const logRes = await fetch(logUrl, {
+                        headers: {
+                            'Authorization': `token ${GITHUB_CONFIG.token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    
+                    if (logRes.ok) {
+                        const logData = await logRes.json();
+                        sha = logData.sha;
+                        const content = atob(logData.content);
+                        existingLog = JSON.parse(content);
+                    }
+                } catch (e) {
+                    console.log('No existing log, will create new');
+                }
+                
+                // Add new entry
+                const username = sessionStorage.getItem('user') || 'unknown';
+                const newEntry = {
+                    timestamp: new Date().toISOString(),
+                    date: new Date().toLocaleString('id-ID'),
+                    user: username,
+                    depo: depoName || filename.replace('data_', '').replace('.json', '').replace(/_/g, ' '),
+                    filename: filename,
+                    recordCount: recordCount
+                };
+                
+                existingLog.unshift(newEntry); // Add to beginning
+                
+                // Keep only last 100 entries
+                if (existingLog.length > 100) {
+                    existingLog = existingLog.slice(0, 100);
+                }
+                
+                // Upload updated log
+                const logContent = JSON.stringify(existingLog, null, 2);
+                const body = {
+                    message: `Log upload activity - ${username} (${depoName})`,
+                    content: btoa(unescape(encodeURIComponent(logContent))),
+                    branch: GITHUB_CONFIG.branch
+                };
+                
+                if (sha) {
+                    body.sha = sha;
+                }
+                
+                await fetch(logUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+                
+                console.log('Activity logged successfully');
+                
+            } catch (error) {
+                console.error('Failed to log activity:', error);
+                // Don't fail the upload if logging fails
+            }
+        }
+        
+        function clearUploadedData() {
+            showUploadStatus('info', 'ℹ️ Upload ke GitHub bersifat permanen.<br>Untuk menghapus, hubungi admin atau upload file baru untuk replace.');
+        }
+        
+        function checkUploadedData() {
+            // No need to check localStorage anymore
+            // Data always from GitHub
+            document.getElementById('uploadedFileInfo').style.display = 'none';
+        }
+        
+        function showUploadStatus(type, message) {
+            const statusDiv = document.getElementById('uploadStatus');
+            const colors = {
+                'success': '#d4edda',
+                'error': '#f8d7da',
+                'info': '#d1ecf1'
+            };
+            const textColors = {
+                'success': '#155724',
+                'error': '#721c24',
+                'info': '#0c5460'
+            };
+            
+            statusDiv.style.display = 'block';
+            statusDiv.style.background = colors[type] || colors.info;
+            statusDiv.style.color = textColors[type] || textColors.info;
+            statusDiv.style.border = `1px solid ${textColors[type] || textColors.info}`;
+            statusDiv.innerHTML = message;
+        }
+
+        window.onload = async () => {
             loadDepoList();
-            loadTGData(); // Load TG data for last update date
+            await loadTGData(); // Tunggu TG data selesai sebelum showDashboard
             if (sessionStorage.getItem('user')) {
                 if (sessionStorage.getItem('depo')) {
                     selectedDepo = sessionStorage.getItem('depo');
@@ -678,6 +1096,19 @@
                 }
             } else if (tab === 'salesman') {
                 document.getElementById('tabSalesman').classList.add('active');
+            } else if (tab === 'pareto') {
+                document.getElementById('tabPareto').classList.add('active');
+                // Load pareto salesman list if not loaded
+                if (document.getElementById('paretoSalesmanSelect').options.length === 1) {
+                    loadParetoSalesmanList();
+                }
+            } else if (tab === 'upload') {
+                document.getElementById('tabUpload').classList.add('active');
+                // Set expected filename
+                const expectedFilenameEl = document.getElementById('expectedFilename');
+                if (expectedFilenameEl) {
+                    expectedFilenameEl.textContent = `${selectedDepo}.json`;
+                }
             }
         }
 
@@ -790,10 +1221,12 @@
                 const depoName = selectedDepo.replace('data_DEPO_', '').replace(/_/g, ' ');
                 document.getElementById('depoName').textContent = depoName;
                 
-                // Show only Weekly and Salesman tabs for specific depo
+                // Show Weekly, Salesman, and Upload tabs for specific depo
                 const tabsHtml = `
                     <div class="tab active" onclick="switchTab('weekly')">Dashboard Weekly</div>
                     <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
+                    <div class="tab" onclick="switchTab('pareto')">📊 30 Pareto Outlet</div>
+                    <div class="tab" onclick="switchTab('upload')">📤 Upload Data</div>
                 `;
                 document.getElementById('mainTabs').innerHTML = tabsHtml;
                 
@@ -827,11 +1260,39 @@
             }
 
             const fileName = `${selectedDepo}.json`;
+            
+            let json;
+            
             try {
                 const res = await fetch(fileName);
                 if (!res.ok) throw new Error('File not found');
-                const json = await res.json();
+                json = await res.json();
                 rawData = json.data || [];
+                console.log('Data loaded from GitHub');
+            } catch (error) {
+                console.error('Error loading data:', error);
+                alert(`Error loading data: ${error.message}`);
+                return;
+            }
+            
+            // Show last update from metadata
+            if (json.metadata && json.metadata.last_updated) {
+                const headerInfo = document.querySelector('.header-info');
+                if (headerInfo && !isSummaryRegional) {
+                    const existingUpdate = headerInfo.querySelector('.last-update-info');
+                    if (!existingUpdate) {
+                        const updateSpan = document.createElement('span');
+                        updateSpan.className = 'last-update-info';
+                        updateSpan.style.marginLeft = '15px';
+                        updateSpan.style.fontSize = '11px';
+                        updateSpan.style.color = '#666';
+                        updateSpan.textContent = `📅 Update: ${json.metadata.last_updated}`;
+                        headerInfo.appendChild(updateSpan);
+                    }
+                }
+            }
+            
+            try {
                 
                 // Generate headers for all tabs
                 generateTableHeader('tableHeaderWeekly');
@@ -843,6 +1304,16 @@
                 
                 // Load salesman list
                 loadSalesmanList();
+                
+                // Show/hide Nama Salesman combo based on viewType
+                const salesmanCombo = document.getElementById('salesmanComboContainer');
+                if (salesmanCombo) {
+                    if (isSummaryRegional) {
+                        salesmanCombo.style.display = 'none'; // Hide for Summary Regional
+                    } else {
+                        salesmanCombo.style.display = 'inline'; // Show for specific Depo
+                    }
+                }
                 
                 if (isSummaryRegional) {
                     // Process Summary tab - only first sub-tab (By Depo)
@@ -862,13 +1333,31 @@
 
         function loadSalesmanList() {
             const tipeSales = new Set();
+            const salesmen = new Set();
+            const salesmanToTipe = {};
+            const tipeToSalesmen = {};
             
             rawData.forEach(row => {
                 const tipe = row['Tipe Sales'] || row['tipe sales'] || row.TipeSales || row.tipesales || '';
+                const salesman = row['Nama Salesman'] || row['nama salesman'] || row.Salesman || row.salesman || '';
+                
                 if (tipe) tipeSales.add(tipe);
+                
+                if (salesman && tipe) {
+                    salesmen.add(salesman);
+                    salesmanToTipe[salesman] = tipe;
+                    
+                    if (!tipeToSalesmen[tipe]) {
+                        tipeToSalesmen[tipe] = new Set();
+                    }
+                    tipeToSalesmen[tipe].add(salesman);
+                }
             });
             
             // Store globally
+            window.salesmanToTipe = salesmanToTipe;
+            window.tipeToSalesmen = tipeToSalesmen;
+            window.allSalesmen = Array.from(salesmen).sort();
             window.allTipeSales = Array.from(tipeSales).sort();
             
             // Populate Tipe Sales dropdown
@@ -881,32 +1370,268 @@
                 tipeSel.appendChild(opt);
             });
             
+            // Populate Salesman dropdown (if visible)
+            const isSummaryRegional = viewType === 'summary';
+            if (!isSummaryRegional) {
+                populateSalesmanDropdown(window.allSalesmen);
+            }
+            
             console.log('Loaded tipe sales:', window.allTipeSales);
+            console.log('Loaded salesmen:', window.allSalesmen);
+        }
+
+        function populateSalesmanDropdown(salesmenList) {
+            const sel = document.getElementById('salesmanSelect');
+            sel.innerHTML = '<option value="">-- All Salesman --</option>';
+            salesmenList.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                sel.appendChild(opt);
+            });
         }
 
         function filterByTipeSales() {
             const selectedTipe = document.getElementById('tipeSalesSelect').value;
+            const isSummaryRegional = viewType === 'summary';
             
-            // If no selection, show message
-            if (!selectedTipe) {
+            // Reset salesman dropdown if visible
+            if (!isSummaryRegional) {
+                document.getElementById('salesmanSelect').value = '';
+                
+                if (!selectedTipe) {
+                    // Show all salesmen
+                    populateSalesmanDropdown(window.allSalesmen);
+                } else {
+                    // Filter salesmen by tipe
+                    const filteredSalesmen = Array.from(window.tipeToSalesmen[selectedTipe] || []).sort();
+                    populateSalesmanDropdown(filteredSalesmen);
+                }
+            }
+            
+            // Apply filter
+            applyFilter();
+        }
+
+        function filterBySalesman() {
+            const selectedSalesman = document.getElementById('salesmanSelect').value;
+            
+            if (selectedSalesman) {
+                // Auto-select corresponding Tipe Sales
+                const tipe = window.salesmanToTipe[selectedSalesman];
+                if (tipe) {
+                    document.getElementById('tipeSalesSelect').value = tipe;
+                }
+            }
+            
+            // Apply filter
+            applyFilter();
+        }
+
+        function applyFilter() {
+            const selectedTipe = document.getElementById('tipeSalesSelect').value;
+            const isSummaryRegional = viewType === 'summary';
+            
+            // Get salesman selection only if not Summary Regional
+            const selectedSalesman = isSummaryRegional ? '' : document.getElementById('salesmanSelect').value;
+            
+            // If no selection at all, show message
+            if (!selectedTipe && !selectedSalesman) {
                 document.getElementById('loadingSalesman').style.display = 'block';
-                document.getElementById('loadingSalesman').textContent = '⏳ Pilih Tipe Sales untuk melihat data...';
+                document.getElementById('loadingSalesman').textContent = '⏳ Pilih filter untuk melihat data...';
                 document.getElementById('tableBodySalesman').innerHTML = '';
                 return;
             }
             
             document.getElementById('loadingSalesman').style.display = 'none';
             
-            // Filter data by Tipe Sales
+            // Filter data
             const filteredData = rawData.filter(row => {
+                const rowSalesman = row['Nama Salesman'] || row['nama salesman'] || row.Salesman || row.salesman || '';
                 const rowTipe = row['Tipe Sales'] || row['tipe sales'] || row.TipeSales || row.tipesales || '';
-                return rowTipe === selectedTipe;
+                
+                let matchSalesman = !selectedSalesman || rowSalesman === selectedSalesman;
+                let matchTipe = !selectedTipe || rowTipe === selectedTipe;
+                
+                return matchSalesman && matchTipe;
             });
             
             console.log('Filtered data count:', filteredData.length);
             
             // Process with filtered data
             processAndRender('Salesman', filteredData);
+        }
+
+        // ========================================
+        // PARETO OUTLET FUNCTIONS
+        // ========================================
+        
+        function loadParetoSalesmanList() {
+            const salesmanSelect = document.getElementById('paretoSalesmanSelect');
+            const salesmen = new Set();
+            
+            // Collect all salesmen from data
+            rawData.forEach(row => {
+                const salesman = row['Nama Salesman'] || row['nama salesman'] || row.Salesman || row.salesman || '';
+                if (salesman) {
+                    salesmen.add(salesman);
+                }
+            });
+            
+            // Sort and populate
+            const sortedSalesmen = Array.from(salesmen).sort();
+            sortedSalesmen.forEach(salesman => {
+                const option = document.createElement('option');
+                option.value = salesman;
+                option.textContent = salesman;
+                salesmanSelect.appendChild(option);
+            });
+            
+            console.log('Loaded Pareto salesmen:', sortedSalesmen.length);
+        }
+        
+        function filterPareto() {
+            const selectedSalesman = document.getElementById('paretoSalesmanSelect').value;
+            const loading = document.getElementById('loadingPareto');
+            const wrap = document.getElementById('paretoTableWrap');
+
+            if (!selectedSalesman) {
+                loading.style.display = 'block';
+                loading.textContent = '⏳ Pilih salesman untuk melihat 30 Pareto Outlet...';
+                wrap.innerHTML = '';
+                return;
+            }
+
+            loading.style.display = 'none';
+
+            // Aggregate by customer for selected salesman
+            const customerMap = {};
+            rawData.forEach(row => {
+                const rowSalesman = row['Nama Salesman'] || row['nama salesman'] || row.Salesman || '';
+                if (rowSalesman !== selectedSalesman) return;
+
+                const key = row['Nama Pelanggan'] || row['Customer'] || row.Pelanggan || 'Unknown';
+                if (!customerMap[key]) {
+                    customerMap[key] = {
+                        nama: key,
+                        hari: row['Hari Kunj'] || row['JKS'] || '',
+                        channel: row['CC1'] || row['Channel'] || '',
+                        LY: 0, L3M: 0, LM: 0, MTD: 0, BP: 0, BE: 0
+                    };
+                }
+                customerMap[key].LY  += parseFloat(row.LY  || 0);
+                customerMap[key].L3M += parseFloat(row.L3M || 0);
+                customerMap[key].LM  += parseFloat(row.LM  || 0);
+                customerMap[key].MTD += parseFloat(row.MTD || row.Act || 0);
+                customerMap[key].BP  += parseFloat(row.BP  || 0);
+                customerMap[key].BE  += parseFloat(row.BE  || 0);
+            });
+
+            // Sort by BE descending, take top 30
+            const top30 = Object.values(customerMap)
+                .sort((a, b) => b.BE - a.BE)
+                .slice(0, 30);
+
+            renderParetoTable(top30);
+        }
+
+        function renderParetoTable(data) {
+            const wrap = document.getElementById('paretoTableWrap');
+
+            const fc = (n) => {
+                const v = Math.abs(n) / 1000000;
+                if (v === 0) return '0';
+                return (v >= 1000 ? v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : v.toFixed(1)) + 'jt';
+            };
+
+            const fpct = (v) => v === 0 ? '-' : v.toFixed(1) + '%';
+
+            const achBadge = (pct) => {
+                const cls = pct >= 100 ? 'p-ach-h' : pct >= 80 ? 'p-ach-m' : 'p-ach-l';
+                return `<span class="${cls}">${pct.toFixed(1)}%</span>`;
+            };
+
+            const gapFmt = (v) => {
+                const cls = v >= 0 ? 'p-gap-pos' : 'p-gap-neg';
+                const sign = v >= 0 ? '+' : '';
+                return `<span class="${cls}">${sign}${fc(v)}</span>`;
+            };
+
+            // Totals
+            let tLY=0, tL3M=0, tLM=0, tMTD=0, tBP=0, tBE=0;
+            data.forEach(r => { tLY+=r.LY; tL3M+=r.L3M; tLM+=r.LM; tMTD+=r.MTD; tBP+=r.BP; tBE+=r.BE; });
+            const tGapBP = tMTD - tBP;
+            const tGapBE = tMTD - tBE;
+            const tAchBP = tBP > 0 ? tMTD/tBP*100 : 0;
+            const tAchBE = tBE > 0 ? tMTD/tBE*100 : 0;
+
+            let html = `
+            <table>
+                <thead>
+                    <tr class="pareto-section-header">
+                        <th colspan="13">🏆 Top 30 Pareto Outlet</th>
+                    </tr>
+                    <tr class="pareto-col-header">
+                        <th class="p-center" style="width:52px;">Rank</th>
+                        <th class="p-left"   style="min-width:170px;">Nama Pelanggan</th>
+                        <th class="p-center" style="width:80px;">Hari</th>
+                        <th class="p-right"  style="width:80px;">BE (Target)</th>
+                        <th class="p-right"  style="width:80px;">BP</th>
+                        <th class="p-right"  style="width:80px;">MTD (Aktual)</th>
+                        <th class="p-right"  style="width:80px;">Gap vs BE</th>
+                        <th class="p-right"  style="width:80px;">Gap vs BP</th>
+                        <th class="p-center" style="width:70px;">Ach% BE</th>
+                        <th class="p-center" style="width:70px;">Ach% BP</th>
+                        <th class="p-right"  style="width:75px;">LM</th>
+                        <th class="p-right"  style="width:75px;">L3M</th>
+                        <th class="p-right"  style="width:75px;">LY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="pareto-total">
+                        <td class="p-center">—</td>
+                        <td class="p-left"><strong>TOTAL (Top 30)</strong></td>
+                        <td class="p-center">—</td>
+                        <td class="p-right"><strong>${fc(tBE)}</strong></td>
+                        <td class="p-right"><strong>${fc(tBP)}</strong></td>
+                        <td class="p-right"><strong>${fc(tMTD)}</strong></td>
+                        <td class="p-right">${gapFmt(tGapBE)}</td>
+                        <td class="p-right">${gapFmt(tGapBP)}</td>
+                        <td class="p-center">${achBadge(tAchBE)}</td>
+                        <td class="p-center">${achBadge(tAchBP)}</td>
+                        <td class="p-right"><strong>${fc(tLM)}</strong></td>
+                        <td class="p-right"><strong>${fc(tL3M)}</strong></td>
+                        <td class="p-right"><strong>${fc(tLY)}</strong></td>
+                    </tr>`;
+
+            data.forEach((r, i) => {
+                const gapBE = r.MTD - r.BE;
+                const gapBP = r.MTD - r.BP;
+                const achBE = r.BE > 0 ? r.MTD/r.BE*100 : 0;
+                const achBP = r.BP > 0 ? r.MTD/r.BP*100 : 0;
+                // Strip "[N]" prefix from Hari Kunj e.g. "[1]SENIN" → "SENIN"
+                const hari = (r.hari || '').replace(/^\[\d+\]/, '').trim();
+
+                html += `
+                    <tr>
+                        <td class="p-center"><span class="pareto-rank-badge">#${i+1}</span></td>
+                        <td class="p-left"><strong style="font-size:12px;">${r.nama}</strong><br><small style="color:#94a3b8;font-size:10px;">${r.channel}</small></td>
+                        <td class="p-center" style="font-size:11px;color:#64748b;">${hari}</td>
+                        <td class="p-right">${fc(r.BE)}</td>
+                        <td class="p-right">${fc(r.BP)}</td>
+                        <td class="p-right" style="font-weight:600;">${fc(r.MTD)}</td>
+                        <td class="p-right">${gapFmt(gapBE)}</td>
+                        <td class="p-right">${gapFmt(gapBP)}</td>
+                        <td class="p-center">${achBadge(achBE)}</td>
+                        <td class="p-center">${achBadge(achBP)}</td>
+                        <td class="p-right">${fc(r.LM)}</td>
+                        <td class="p-right">${fc(r.L3M)}</td>
+                        <td class="p-right">${fc(r.LY)}</td>
+                    </tr>`;
+            });
+
+            html += '</tbody></table>';
+            wrap.innerHTML = html;
         }
 
         function processSummaryByDepo() {
@@ -1218,8 +1943,9 @@
             const vsBE = d.BE > 0 ? (d.Actual / d.BE * 100).toFixed(1) : '0.0';
             const gapBE = d.Actual - d.BE;
             
-            const bpClass = vsBP >= 100 ? 'cell-green' : (vsBP >= 80 ? 'cell-yellow' : 'cell-red');
-            const beClass = vsBE >= 100 ? 'cell-green' : (vsBE >= 80 ? 'cell-yellow' : 'cell-red');
+            // Updated: < 90% red, 90-99.99% yellow, >= 100% green
+            const bpClass = vsBP >= 100 ? 'cell-green' : (vsBP >= 90 ? 'cell-yellow' : 'cell-red');
+            const beClass = vsBE >= 100 ? 'cell-green' : (vsBE >= 90 ? 'cell-yellow' : 'cell-red');
             
             const gapBPFmt = gapBP > 0 
                 ? `<span class="pos">+${fmtM(gapBP)}</span>` 
