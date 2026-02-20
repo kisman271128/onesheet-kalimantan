@@ -745,9 +745,9 @@
 
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #333;">
-                        Pilih File JSON (bisa multiple):
+                        Pilih File JSON:
                     </label>
-                    <input type="file" id="fileInput" accept=".json" multiple
+                    <input type="file" id="fileInput" accept=".json" 
                            style="padding: 10px; border: 2px solid #ddd; border-radius: 5px; width: 100%; cursor: pointer;">
                 </div>
 
@@ -818,73 +818,98 @@
         // UPLOAD DATA FUNCTIONS (GitHub Integration)
         // ========================================
         
-        // GitHub configuration
+        // GitHub configuration - loaded from config.json
         const GITHUB_CONFIG = {
-            owner: 'kisman271128',
-            repo: 'onesheet-kalimantan',
-            token: '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', // Replace with actual token
+            owner: '',
+            repo: '',
+            token: '',
             branch: 'master'
         };
+
+        async function loadConfig() {
+            try {
+                const res = await fetch('config.json');
+                if (!res.ok) throw new Error('config.json tidak ditemukan');
+                const cfg = await res.json();
+                GITHUB_CONFIG.token  = cfg.github_token  || '';
+                GITHUB_CONFIG.owner  = cfg.github_owner  || '';
+                GITHUB_CONFIG.repo   = cfg.github_repo   || '';
+                GITHUB_CONFIG.branch = cfg.github_branch || 'master';
+            } catch(e) {
+                console.warn('Gagal memuat config.json:', e.message);
+            }
+        }
         
         async function uploadJSON() {
             const fileInput = document.getElementById('fileInput');
-            const files = Array.from(fileInput.files);
-
-            if (files.length === 0) {
+            const file = fileInput.files[0];
+            
+            if (!file) {
                 showUploadStatus('error', '❌ Pilih file JSON terlebih dahulu!');
                 return;
             }
-
-            // Validate all files first
-            for (const file of files) {
-                if (!file.name.endsWith('.json')) {
-                    showUploadStatus('error', `❌ File <b>${file.name}</b> harus berformat .json`);
-                    return;
-                }
+            
+            if (!file.name.endsWith('.json')) {
+                showUploadStatus('error', '❌ File harus berformat .json');
+                return;
             }
-
-            let successCount = 0;
-            let failCount = 0;
-            const results = [];
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                showUploadStatus('info', `⏳ Mengupload file ${i + 1} dari ${files.length}: <b>${file.name}</b>...`);
-
+            
+            // Validate filename matches depo
+            const expectedFilename = `${selectedDepo}.json`;
+            if (file.name !== expectedFilename) {
+                showUploadStatus('error', `❌ Nama file harus: ${expectedFilename}<br>File Anda: ${file.name}`);
+                return;
+            }
+            
+            showUploadStatus('info', '⏳ Membaca file...');
+            
+            const reader = new FileReader();
+            
+            reader.onload = async function(e) {
                 try {
-                    const text = await file.text();
-                    const jsonData = JSON.parse(text);
-
+                    const jsonData = JSON.parse(e.target.result);
+                    
+                    // Validate JSON structure
                     if (!jsonData.data || !Array.isArray(jsonData.data)) {
-                        results.push(`❌ <b>${file.name}</b>: Format JSON tidak valid (tidak ada property "data")`);
-                        failCount++;
-                        continue;
+                        showUploadStatus('error', '❌ Format JSON tidak valid! Harus memiliki property "data" yang berisi array.');
+                        return;
                     }
-
-                    const depoName = (jsonData.metadata && jsonData.metadata.depo) ? jsonData.metadata.depo : '';
+                    
+                    // Get depo name from metadata
+                    let depoName = '';
+                    if (jsonData.metadata && jsonData.metadata.depo) {
+                        depoName = jsonData.metadata.depo;
+                    }
+                    
+                    showUploadStatus('info', `⏳ Mengupload ke GitHub...<br>File: ${file.name}<br>Records: ${jsonData.data.length}`);
+                    
+                    // Upload to GitHub
                     const uploadSuccess = await uploadToGitHub(file.name, JSON.stringify(jsonData, null, 2));
-
+                    
                     if (uploadSuccess) {
+                        // Log upload activity
                         await logUploadActivity(file.name, jsonData.data.length, depoName);
-                        results.push(`✅ <b>${file.name}</b> — ${jsonData.data.length} records${depoName ? ' | ' + depoName : ''}`);
-                        successCount++;
+                        
+                        showUploadStatus('success', `✅ Data berhasil diupload ke GitHub!<br>File: ${file.name}<br>Records: ${jsonData.data.length}<br>Depo: ${depoName || 'Unknown'}<br><br>Dashboard akan reload dalam 3 detik...`);
+                        
+                        // Reload dashboard after 3 seconds
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
                     } else {
-                        results.push(`❌ <b>${file.name}</b>: Gagal upload ke GitHub`);
-                        failCount++;
+                        showUploadStatus('error', '❌ Gagal upload ke GitHub! Periksa koneksi atau hubungi admin.');
                     }
+                    
                 } catch (error) {
-                    results.push(`❌ <b>${file.name}</b>: ${error.message}`);
-                    failCount++;
+                    showUploadStatus('error', `❌ Error: ${error.message}`);
                 }
-            }
-
-            const summary = `Upload selesai: <b>${successCount} berhasil</b>${failCount > 0 ? `, <b>${failCount} gagal</b>` : ''}<br><br>` + results.join('<br>');
-            const statusType = failCount === 0 ? 'success' : (successCount === 0 ? 'error' : 'info');
-            showUploadStatus(statusType, summary + (successCount > 0 ? '<br><br>Dashboard akan reload dalam 3 detik...' : ''));
-
-            if (successCount > 0) {
-                setTimeout(() => { location.reload(); }, 3000);
-            }
+            };
+            
+            reader.onerror = function() {
+                showUploadStatus('error', '❌ Error membaca file!');
+            };
+            
+            reader.readAsText(file);
         }
         
         async function uploadToGitHub(filename, content) {
@@ -1053,6 +1078,7 @@
         }
 
         window.onload = async () => {
+            await loadConfig(); // Load GitHub config dari config.json
             loadDepoList();
             await loadTGData(); // Tunggu TG data selesai sebelum showDashboard
             if (sessionStorage.getItem('user')) {
