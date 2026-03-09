@@ -645,6 +645,7 @@
             <div id="summarySubTabDepo" class="sub-tab-content active">
                 <div class="report-container">
                     <div id="loadingSummaryDepo" class="loading">⏳ Memuat data...</div>
+                    <div id="summaryRegionalInfo" style="display:none;padding:7px 14px;margin-bottom:8px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;color:#166534;line-height:1.6;"></div>
                     <table id="tableSummaryDepo">
                         <thead id="tableHeaderSummaryDepo"></thead>
                         <tbody id="tableBodySummaryDepo"></tbody>
@@ -1365,11 +1366,96 @@
             let json;
             
             try {
-                const res = await fetch(fileName);
-                if (!res.ok) throw new Error('File not found');
-                json = await res.json();
-                rawData = json.data || [];
-                console.log('Data loaded from GitHub');
+                if (isSummaryRegional) {
+                    // ── Summary Regional: fetch semua depo, pisahkan fresh vs stale ──
+                    const loadingEl = document.getElementById('loadingSummaryDepo');
+                    loadingEl.style.display = 'block';
+                    loadingEl.textContent = '⏳ Memuat daftar Depo...';
+
+                    // Tentukan cutoff dari TG.json Day Closing
+                    let cutoffDate = null;
+                    if (tgData && (tgData['Day Closing'] || tgData['Day_Closing'])) {
+                        const dc = tgData['Day Closing'] || tgData['Day_Closing'];
+                        // Support M/D/YYYY, MM/DD/YYYY, YYYY-MM-DD
+                        const parts = dc.includes('/') ? dc.split('/') : dc.split('-');
+                        if (parts.length === 3) {
+                            if (dc.includes('/')) {
+                                // M/D/YYYY format
+                                cutoffDate = new Date(parseInt(parts[2]), parseInt(parts[0])-1, parseInt(parts[1]));
+                            } else {
+                                // YYYY-MM-DD format
+                                cutoffDate = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+                            }
+                            cutoffDate.setHours(0,0,0,0);
+                        }
+                    }
+                    if (!cutoffDate) cutoffDate = new Date(); // fallback ke hari ini
+
+                    // Ambil daftar depo
+                    let depoNames = [];
+                    try {
+                        const dlRes = await fetch('depo_list.json');
+                        const dlData = await dlRes.json();
+                        depoNames = (dlData.depos || []).map(d =>
+                            d.toUpperCase().trim().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_')
+                        );
+                    } catch(e) {
+                        loadingEl.textContent = '❌ depo_list.json tidak ditemukan';
+                        return;
+                    }
+
+                    loadingEl.textContent = `⏳ Memuat data ${depoNames.length} Depo...`;
+
+                    // Fetch semua file parallel
+                    const results = await Promise.allSettled(
+                        depoNames.map(d => fetch(`data_DEPO_${d}.json`).then(r => r.ok ? r.json() : null))
+                    );
+
+                    // Klasifikasi fresh vs stale
+                    rawData = [];
+                    window.depoMeta = {}; // { depoKey: { name, lastUpdated, isFresh } }
+
+                    results.forEach((res, i) => {
+                        const key = depoNames[i];
+                        if (res.status === 'fulfilled' && res.value) {
+                            const jd = res.value;
+                            const records = jd.data || [];
+                            const lastUpd = (jd.metadata && jd.metadata.last_updated) || '';
+                            const depoLabel = (jd.metadata && jd.metadata.depo) || ('DEPO ' + key.replace(/_/g,' '));
+
+                            // Parse last_updated: "2026-03-08 22:34:06"
+                            let updDate = null;
+                            if (lastUpd) {
+                                const dp = lastUpd.split(' ')[0].split('-');
+                                if (dp.length === 3) updDate = new Date(parseInt(dp[0]), parseInt(dp[1])-1, parseInt(dp[2]));
+                                if (updDate) updDate.setHours(0,0,0,0);
+                            }
+
+                            const isFresh = updDate ? (updDate >= cutoffDate) : false;
+
+                            window.depoMeta[key] = {
+                                name: depoLabel,
+                                lastUpdated: lastUpd ? lastUpd.split(' ')[0] : '-',
+                                isFresh
+                            };
+
+                            if (isFresh) rawData.push(...records);
+                        } else {
+                            window.depoMeta[key] = { name: 'DEPO ' + key.replace(/_/g,' '), lastUpdated: '-', isFresh: false, notFound: true };
+                        }
+                    });
+
+                    window.cutoffDateStr = cutoffDate.toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'});
+                    json = { metadata: {} };
+
+                } else {
+                    // ── Per-Depo: fetch single file ───────────────────────────────
+                    const res = await fetch(fileName);
+                    if (!res.ok) throw new Error('File not found');
+                    json = await res.json();
+                    rawData = json.data || [];
+                    console.log('Data loaded from GitHub');
+                }
             } catch (error) {
                 console.error('Error loading data:', error);
                 alert(`Error loading data: ${error.message}`);
@@ -1737,47 +1823,105 @@
 
         function processSummaryByDepo() {
             const weeks = WEEKS_CONFIG.length > 0 ? WEEKS_CONFIG : ['W1', 'W2', 'W3', 'W4', 'MTD'];
-            
-            // Group by Depo
+            const meta  = window.depoMeta || {};
+            const bodyEl = document.getElementById('tableBodySummaryDepo');
+
+            // ── Kelompokkan rawData (hanya fresh) by Depo ─────────────────────
             const depoGroups = {};
-            
             rawData.forEach(row => {
                 const depo = row.Depo || 'Unknown';
-                
-                if (!depoGroups[depo]) {
-                    depoGroups[depo] = [];
-                }
+                if (!depoGroups[depo]) depoGroups[depo] = [];
                 depoGroups[depo].push(row);
             });
-            
-            // Aggregate each depo
+
+            // ── Aggregate fresh depos ─────────────────────────────────────────
             const depoResults = {};
             Object.keys(depoGroups).forEach(depo => {
                 depoResults[depo] = aggregateData(depoGroups[depo], weeks);
             });
-            
-            // Sort by %BP MTD (highest first)
+
+            // Sort by %BP MTD desc
             const sortedDepos = Object.keys(depoResults).sort((a, b) => {
-                const aBP = depoResults[a]['MTD'].BP || 0;
-                const aAct = depoResults[a]['MTD'].Actual || 0;
-                const aPct = aBP > 0 ? (aAct / aBP * 100) : 0;
-                
-                const bBP = depoResults[b]['MTD'].BP || 0;
-                const bAct = depoResults[b]['MTD'].Actual || 0;
-                const bPct = bBP > 0 ? (bAct / bBP * 100) : 0;
-                
-                return bPct - aPct; // Descending (highest first)
+                const pA = depoResults[a]['MTD'].BP > 0 ? depoResults[a]['MTD'].Actual / depoResults[a]['MTD'].BP * 100 : 0;
+                const pB = depoResults[b]['MTD'].BP > 0 ? depoResults[b]['MTD'].Actual / depoResults[b]['MTD'].BP * 100 : 0;
+                return pB - pA;
             });
-            
-            // Create sorted results with ranking
-            const sortedResults = {};
-            sortedDepos.forEach((depo, index) => {
-                sortedResults[depo] = depoResults[depo];
-                sortedResults[depo].rank = index + 1; // Add rank (1, 2, 3, ...)
+            sortedDepos.forEach((d, i) => { depoResults[d].rank = i + 1; });
+
+            // ── Stale depos (from meta where isFresh===false) ─────────────────
+            const staleKeys = Object.keys(meta).filter(k => !meta[k].isFresh && !meta[k].notFound);
+            const notFoundKeys = Object.keys(meta).filter(k => meta[k].notFound);
+
+            // ── Build info banner ─────────────────────────────────────────────
+            const freshCount = sortedDepos.length;
+            const staleCount = staleKeys.length;
+            const cutoffStr  = window.cutoffDateStr || '-';
+            const infoEl = document.getElementById('summaryRegionalInfo');
+            if (infoEl) {
+                infoEl.style.display = '';
+                infoEl.innerHTML =
+                    `✅ <b>${freshCount} Depo</b> data terkini (≥ ${cutoffStr}) &nbsp;|&nbsp; ` +
+                    (staleCount > 0 ? `⚠️ <b>${staleCount} Depo</b> belum update &nbsp;|&nbsp; ` : '') +
+                    `📊 Total regional dihitung dari <b>${freshCount} Depo</b> terkini`;
+            }
+
+            // ── Render fresh section ──────────────────────────────────────────
+            let html = '';
+
+            // Section header fresh
+            html += `<tr><td colspan="999" style="background:#dcfce7;color:#166534;font-weight:700;font-size:11px;padding:6px 12px;border-top:2px solid #16a34a;">
+                ✅ DATA TERKINI — ${freshCount} DEPO (Update ≥ ${cutoffStr})
+            </td></tr>`;
+
+            sortedDepos.forEach(key => {
+                const rank = depoResults[key].rank;
+                const medal = rank===1?'🥇 ':rank===2?'🥈 ':rank===3?'🥉 ':'';
+                // last updated info
+                const metaKey = Object.keys(meta).find(k => meta[k].name && meta[k].name.toUpperCase().includes(key.replace('DEPO ','').toUpperCase())) || '';
+                const updStr  = metaKey && meta[metaKey] ? meta[metaKey].lastUpdated : '';
+                const updBadge = updStr ? `<span style="font-size:9px;color:#15803d;margin-left:4px;">(${updStr})</span>` : '';
+                html += `<tr><td class="sticky-col row-channel">${medal}${key}${updBadge}</td>`;
+                weeks.forEach(w => html += renderCells(depoResults[key][w], w === 'MTD'));
+                html += '</tr>';
             });
-            
-            // Render table
-            renderSummaryTable(sortedResults, weeks, 'Depo', sortedDepos);
+
+            // ── Render stale section ──────────────────────────────────────────
+            if (staleKeys.length > 0) {
+                html += `<tr><td colspan="999" style="background:#fef9c3;color:#854d0e;font-weight:700;font-size:11px;padding:6px 12px;border-top:2px solid #ca8a04;">
+                    ⚠️ BELUM UPDATE — ${staleCount} DEPO (Data lebih lama dari ${cutoffStr}) — Tidak termasuk dalam total regional
+                </td></tr>`;
+
+                staleKeys.forEach(key => {
+                    const m = meta[key];
+                    html += `<tr style="opacity:0.55;background:#fffbeb;">
+                        <td class="sticky-col row-channel" style="color:#92400e;">
+                            ⚠️ ${m.name}
+                            <span style="font-size:9px;color:#b45309;margin-left:4px;">(Update: ${m.lastUpdated})</span>
+                        </td>`;
+                    // Tampilkan sel kosong dengan tanda —
+                    weeks.forEach(() => {
+                        html += `<td colspan="8" style="text-align:center;color:#d97706;font-size:10px;font-style:italic;">— menunggu upload —</td>`;
+                    });
+                    html += '</tr>';
+                });
+            }
+
+            // Not found section
+            if (notFoundKeys.length > 0) {
+                html += `<tr><td colspan="999" style="background:#fee2e2;color:#991b1b;font-weight:700;font-size:11px;padding:6px 12px;border-top:2px solid #dc2626;">
+                    ❌ FILE TIDAK DITEMUKAN — ${notFoundKeys.length} DEPO
+                </td></tr>`;
+                notFoundKeys.forEach(key => {
+                    html += `<tr style="opacity:0.4;background:#fef2f2;">
+                        <td class="sticky-col row-channel" style="color:#b91c1c;">❌ ${meta[key].name}</td>`;
+                    weeks.forEach(() => {
+                        html += `<td colspan="8" style="text-align:center;color:#ef4444;font-size:10px;">— file tidak ada —</td>`;
+                    });
+                    html += '</tr>';
+                });
+            }
+
+            bodyEl.innerHTML = html;
         }
         
         function processSummaryByTipe() {
