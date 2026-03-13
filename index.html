@@ -153,36 +153,42 @@
 
         /* Tabs */
         .tabs-container {
-            background: white;
+            background: #f1f5f9;
             margin: 5px;
-            border-radius: 8px 8px 0 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 6px 8px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
         }
 
         .tabs {
             display: flex;
-            border-bottom: 2px solid #ddd;
+            gap: 4px;
+            border-bottom: none;
         }
 
         .tab {
-            padding: 12px 24px;
+            padding: 9px 20px;
             cursor: pointer;
             font-weight: 600;
             font-size: 13px;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+            color: #64748b;
+            border-radius: 8px;
+            border-bottom: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
         .tab:hover {
-            background: #f8f9fa;
-            color: #333;
+            background: #e2e8f0;
+            color: #334155;
         }
 
         .tab.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-            background: #f8f9fa;
+            background: white;
+            color: #0e7490;
+            border-bottom: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+            font-weight: 700;
         }
 
         /* Sub-tabs for Summary */
@@ -279,7 +285,7 @@
             border-collapse: separate;
             border-spacing: 0;
             font-size: 10px;
-            width: 100%;
+            width: auto;
             min-width: 2500px;
         }
 
@@ -312,8 +318,9 @@
             z-index: 20 !important;
             background: #2c3e50 !important;
             border-right: 2px solid #999 !important;
-            min-width: 100px;
-            max-width: 120px;
+            width: var(--col-sticky, 100px) !important;
+            min-width: var(--col-sticky, 100px) !important;
+            max-width: var(--col-sticky, 100px) !important;
             font-size: 9px;
         }
 
@@ -348,6 +355,121 @@
         .cell-red { background: #f8d7da !important; color: #721c24; font-weight: 600; }
         .pos { color: #28a745; font-weight: bold; }
         .neg { color: #dc3545; font-weight: bold; }
+
+        /* School / Non School sub-row under RETAIL */
+        td.sticky-col.row-school-cat {
+            padding-left: 22px !important;
+            font-style: italic;
+            font-weight: 500;
+            color: #6a4c93;
+            background: #f3eeff !important;
+            border-left: 3px solid #9b59b6 !important;
+        }
+        tr:has(td.row-school-cat) td { background: #faf7ff !important; }
+
+        /* ===== WK-DETAIL TOGGLE ===== */
+        .wk-detail { transition: opacity 0.15s; }
+        .wk-detail.wk-hidden { display: none !important; }
+        /* Per-week toggle button inside the W1/W2/... TH */
+        .wk-per-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 16px; height: 16px; border-radius: 3px;
+            border: 1.5px solid rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.15);
+            color: white; font-size: 13px; font-weight: 900;
+            cursor: pointer; margin-left: 5px;
+            vertical-align: middle; line-height: 1;
+            padding: 0; transition: background 0.15s;
+        }
+        .wk-per-btn:hover { background: rgba(255,255,255,0.35); }
+        .wk-per-btn.collapsed { background: rgba(255,165,0,0.5); border-color: rgba(255,165,0,0.9); }
+        .wk-toggle-btn {
+            margin-left: 4px; padding: 7px 12px;
+            background: white; border: 1.5px solid #cbd5e1;
+            border-radius: 8px; cursor: pointer;
+            font-size: 12px; font-weight: 600; color: #475569;
+            display: inline-flex; align-items: center; gap: 4px;
+            transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            white-space: nowrap;
+        }
+        .wk-toggle-btn:hover { background:#eff6ff; border-color:#3b82f6; color:#3b82f6; }
+        .wk-toggle-btn.collapsed { background:#fff7ed; border-color:#f97316; color:#ea580c; }
+
+        /* ===== FLOATING COLUMN SETTINGS ===== */
+        #colSettingsFloat {
+            position: fixed; bottom: 24px; right: 24px; z-index: 9990;
+            display: none;
+        }
+        #colSettingsFloat.visible { display: block; }
+        #colSettingsToggleBtn {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none; cursor: pointer; color: white;
+            font-size: 18px; box-shadow: 0 4px 14px rgba(102,126,234,0.5);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        #colSettingsToggleBtn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(102,126,234,0.7); }
+        #colSettingsPanel {
+            position: absolute; bottom: 52px; right: 0;
+            background: white; border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            padding: 16px 18px; width: 260px;
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+        #colSettingsPanel.open { display: block; }
+        #colSettingsPanel h4 {
+            margin: 0 0 12px; font-size: 12px; font-weight: 700;
+            color: #1e293b; letter-spacing: 0.5px; text-transform: uppercase;
+            border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;
+        }
+        .col-setting-row {
+            display: flex; align-items: center; gap: 8px;
+            margin-bottom: 10px;
+        }
+        .col-setting-row label {
+            font-size: 11px; color: #475569; font-weight: 600;
+            min-width: 95px; line-height: 1.3;
+        }
+        .col-setting-row input[type=range] {
+            flex: 1; accent-color: #667eea; height: 4px;
+        }
+        .col-setting-row span {
+            font-size: 11px; font-weight: 700; color: #667eea;
+            min-width: 34px; text-align: right;
+        }
+        #colSettingsPanel .reset-btn {
+            width: 100%; margin-top: 4px; padding: 6px;
+            border: 1.5px solid #e2e8f0; border-radius: 6px;
+            background: #f8fafc; cursor: pointer; font-size: 11px;
+            color: #64748b; font-weight: 600; transition: all 0.2s;
+        }
+        #colSettingsPanel .reset-btn:hover { background: #eff6ff; border-color: #3b82f6; color: #3b82f6; }
+
+        /* CSS vars for column widths */
+        :root {
+            --col-sticky: 100px;
+            --col-detail: 52px;
+            --col-result: 45px;
+            --col-mtd: 45px;
+        }
+        /* Apply fixed widths to ALL tables using these cells */
+        .wk-detail {
+            width: var(--col-detail) !important;
+            min-width: var(--col-detail) !important;
+            max-width: var(--col-detail) !important;
+        }
+        .wk-result {
+            width: var(--col-result) !important;
+            min-width: var(--col-result) !important;
+            max-width: var(--col-result) !important;
+        }
+        .wk-mtd-cell {
+            width: var(--col-mtd) !important;
+            min-width: var(--col-mtd) !important;
+            max-width: var(--col-mtd) !important;
+        }
 
         /* ===== MODERN PARETO TABLE ===== */
         /* ===== PROJECT TAB ===== */
@@ -387,26 +509,31 @@
         .proj-subtab.active { color: #667eea; border-bottom-color: #667eea; }
         .proj-subtab-content { display: none; }
         .proj-subtab-content.active { display: block; }
-        #projTableWrap { width: 100%; overflow-x: auto; }
+        #projTableWrap { width: 100%; overflow-x: auto; overflow-y: auto; max-height: calc(100vh - 260px); }
         #projTableWrap table { width: auto; min-width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
         #projTableWrap .proj-section-header th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white; text-align: center; padding: 10px 12px; font-size: 13px; font-weight: 700;
+            position: sticky; top: 0; z-index: 12;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.15);
         }
         #projTableWrap thead tr.proj-col-header th {
             background: #f1f5fb; color: #334155; padding: 7px 10px; font-size: 11px;
             font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
-            border-bottom: 2px solid #cbd5e1; position: sticky; top: 0; white-space: nowrap;
+            border-bottom: 2px solid #cbd5e1; position: sticky; z-index: 11; white-space: nowrap;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.08);
         }
         #projTableWrap tbody tr td { padding: 6px 10px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; white-space: nowrap; }
         #projTableWrap tbody tr:hover td { background: #f8faff; }
         #projTableWrap tbody tr.proj-total td {
-            background: #f1f5fb; font-weight: 700;
-            border-top: 2px solid #cbd5e1; border-bottom: 2px solid #cbd5e1;
+            background: #e8edf5; font-weight: 700;
+            border-top: 2px solid #94a3b8; border-bottom: 2px solid #94a3b8;
+            position: sticky; z-index: 10;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         #projTableWrap th.p-center, #projTableWrap td.p-center { text-align: center; }
         #projTableWrap th.p-left,   #projTableWrap td.p-left   { text-align: left; white-space: normal; }
-        #projTableWrap th.p-right,  #projTableWrap td.p-right  { text-align: right; font-family: 'Courier New', monospace; }
+        #projTableWrap th.p-right,  #projTableWrap td.p-right  { text-align: right; }
         .p-ach-h { background:#d4edda; color:#155724; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:700; }
         .p-ach-m { background:#fff3cd; color:#856404; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:700; }
         .p-ach-l { background:#f8d7da; color:#721c24; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:700; }
@@ -416,7 +543,59 @@
 
         #tabPareto .report-container { overflow: auto; max-height: 80vh; }
 
-        #paretoTableWrap { width: 100%; overflow-x: auto; }
+        /* ── Category table ── */
+        #catTableWrap { width: 100%; overflow-x: auto; overflow-y: auto; max-height: calc(100vh - 155px); }
+        #catTableWrap table {
+            table-layout: fixed;
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            font-size: 10px !important;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+        #catTableWrap thead tr.cat-section-header th {
+            padding: 8px 10px;
+            font-size: 11px;
+            background: linear-gradient(135deg, #0e7490, #0c4a6e);
+            color: white;
+            font-weight: 700;
+            text-align: left;
+        }
+        #catTableWrap thead tr.cat-col-header-1 th,
+        #catTableWrap thead tr.cat-col-header-2 th {
+            padding: 4px 2px;
+            font-size: 9px;
+            line-height: 1.1;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: #1e3a5f;
+            color: white;
+            border-bottom: 2px solid #0e7490;
+            text-align: right;
+        }
+        #catTableWrap tbody tr td {
+            padding: 4px 3px !important;
+            font-size: 10px !important;
+            white-space: normal;
+            word-break: break-word;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+        #catTableWrap thead th:nth-child(1),
+        #catTableWrap tbody td:nth-child(1) {
+            text-align: left;
+        }
+        #catTableWrap td.c-right {
+            text-align: right;
+            font-family: Arial, sans-serif;
+        }
+        #catTableWrap th.c-right { text-align: right; }
+        #catTableWrap tbody tr:hover td { background: #f8faff !important; }
+        #catTableWrap th.c-left,  #catTableWrap td.c-left  { text-align: left; }
+        #catTableWrap td.c-bp-be { background: rgba(14,116,144,0.06); }
+        #catTableWrap th.c-bp-be { background: #0e7490 !important; color: white !important; }
+
+                #paretoTableWrap { width: 100%; overflow-x: auto; }
 
         #paretoTableWrap table {
             border-collapse: collapse;
@@ -601,10 +780,11 @@
                     <strong>Depo:</strong> <span id="depoName">TANJUNG</span> - 
                     <strong>Region:</strong> KALIMANTAN
                 </span>
+                <span id="tgUpdateDisplay" style="display:none; font-size:11px; color:#555; margin-left:10px;">📅 Update: <span id="tgDayClosing">-</span></span>
             </div>
             <div class="header-center">
                 <span class="header-title">MAP - Monthly Account Plan</span><br>
-                <span style="font-size: 11px; color: #666; font-weight: normal;">(Last Update: <span id="dashboardLastUpdate">-</span>)</span>
+                <span id="dashboardLastUpdate" style="display:none;"></span>
             </div>
             <div class="header-right">
                 <span class="tg-info" id="tgDisplay">Time Gone: 0.0%</span>
@@ -645,7 +825,6 @@
             <div id="summarySubTabDepo" class="sub-tab-content active">
                 <div class="report-container">
                     <div id="loadingSummaryDepo" class="loading">⏳ Memuat data...</div>
-                    <div id="summaryRegionalInfo" style="display:none;padding:7px 14px;margin-bottom:8px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;color:#166534;line-height:1.6;"></div>
                     <table id="tableSummaryDepo">
                         <thead id="tableHeaderSummaryDepo"></thead>
                         <tbody id="tableBodySummaryDepo"></tbody>
@@ -697,7 +876,7 @@
                 <select id="paretoSalesmanSelect" onchange="filterPareto()">
                     <option value="">-- All Salesman --</option>
                 </select>
-                <span style="margin-left: 20px; font-size: 11px; color: #999;">v15.1.1-compact</span>
+                <span id="paretoTipeSales" style="margin-left: 20px; font-size: 12px; color: #555; font-weight: 600;"></span>
             </div>
             <div class="report-container">
                 <div id="loadingPareto" class="loading">⏳ Pilih salesman untuk melihat 30 Pareto Outlet...</div>
@@ -720,48 +899,136 @@
                 <div id="projTableWrap"></div>
             </div>
         </div>
-        <div id="tabUpload" class="tab-content">
-            <div style="max-width: 800px; margin: 20px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                <h2 style="color: #667eea; margin-bottom: 20px;">📤 Upload Data ke GitHub</h2>
-                
-                <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
-                    <h3 style="margin: 0 0 10px 0; color: #1976d2;">ℹ️ Informasi Penting:</h3>
-                    <ul style="margin: 0; padding-left: 20px; color: #555;">
-                        <li><strong>Upload langsung ke GitHub repository</strong></li>
-                        <li>Data yang diupload akan <strong>menggantikan</strong> data lama untuk depo Anda</li>
-                        <li>Nama file <strong>HARUS</strong> sesuai: <code id="expectedFilename" style="background: #fff; padding: 2px 6px; border-radius: 3px;">-</code></li>
-                        <li>Admin dapat <strong>memonitor</strong> siapa yang sudah upload dan kapan</li>
-                        <li><strong>Tanggung jawab update data ada pada masing-masing depo</strong></li>
-                    </ul>
+        <div id="tabCategory" class="tab-content">
+            <div class="report-container">
+                <div style="padding:8px 0 10px 0; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                    <label style="font-size:13px; font-weight:600; color:#334155;">Pilih Salesman:</label>
+                    <select id="catSalesmanSelect" onchange="filterCategory()"
+                            style="padding:5px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px; min-width:200px;">
+                        <option value="">-- All Salesman --</option>
+                    </select>
+                    <span id="catSalesmanTipe" style="font-size:12px; color:#555; font-weight:600;"></span>
+                    <div style="margin-left:auto; display:flex; gap:8px;" id="catToggleBtns" style="display:none;">
+                        <button onclick="toggleCatAll(true)"
+                                style="padding:5px 14px; font-size:12px; font-weight:600; border:1px solid #667eea; border-radius:6px; background:white; color:#667eea; cursor:pointer;">
+                            ▼ Expand All
+                        </button>
+                        <button onclick="toggleCatAll(false)"
+                                style="padding:5px 14px; font-size:12px; font-weight:600; border:1px solid #94a3b8; border-radius:6px; background:white; color:#64748b; cursor:pointer;">
+                            ▶ Collapse All
+                        </button>
+                        <button onclick="exportCategoryExcel()"
+                                style="padding:5px 14px; font-size:12px; font-weight:600; border:1px solid #16a34a; border-radius:6px; background:white; color:#16a34a; cursor:pointer; display:flex; align-items:center; gap:5px;">
+                            📊 Export Excel
+                        </button>
+                        <button onclick="saveCategoryImage()"
+                                style="padding:5px 14px; font-size:12px; font-weight:600; border:1px solid #0e7490; border-radius:6px; background:white; color:#0e7490; cursor:pointer; display:flex; align-items:center; gap:5px;">
+                            🖼️ Save Image
+                        </button>
+                    </div>
                 </div>
-
-                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
-                    <h3 style="margin: 0 0 10px 0; color: #f57c00;">⚠️ Cara Export Data:</h3>
-                    <ol style="margin: 0; padding-left: 20px; color: #555;">
-                        <li>Jalankan: <code style="background: #fff; padding: 2px 6px; border-radius: 3px;">python excel_to_json_depo.py</code></li>
-                        <li>File akan dibuat dengan nama yang sesuai untuk depo Anda</li>
-                        <li>Upload file tersebut menggunakan form di bawah</li>
-                    </ol>
-                </div>
-
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #333;">
-                        Pilih File JSON:
-                    </label>
-                    <input type="file" id="fileInput" accept=".json" 
-                           style="padding: 10px; border: 2px solid #ddd; border-radius: 5px; width: 100%; cursor: pointer;">
-                </div>
-
-                <button onclick="uploadJSON()" 
-                        style="width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                               color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; 
-                               cursor: pointer; transition: transform 0.2s;">
-                    📤 Upload ke GitHub
-                </button>
-
-                <div id="uploadStatus" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;"></div>
+                <div id="loadingCategory" style="padding:20px; color:#888; font-size:13px;">⏳ Memuat data Category...</div>
+                <div id="catTableWrap" style="overflow-x:auto;"></div>
             </div>
         </div>
+
+        <div id="tabTrend" class="tab-content">
+            <div class="report-container" style="padding:12px;">
+                <div id="loadingTrend" style="padding:20px; color:#888; font-size:13px;">⏳ Memuat data Trend...</div>
+                <div id="trendChartWrap"></div>
+            </div>
+        </div>
+
+
+        <!-- Tab Content: Summary Dashboard -->
+        <div id="tabSummaryDash" class="tab-content">
+            <div id="summaryDashWrap" style="padding:12px; background:#f1f5f9; min-height:calc(100vh - 110px);">
+                <div id="loadingSummaryDash" style="text-align:center;padding:60px;color:#888;font-size:13px;">
+                    ⏳ Memuat Summary Dashboard...
+                </div>
+            </div>
+        </div>
+
+        <div id="tabUpload" class="tab-content">
+            <div style="max-width:860px; margin:20px auto; padding:30px; background:white; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+                <h2 style="color:#667eea; margin-bottom:6px;">📤 Upload Data ke GitHub</h2>
+                <p style="color:#888; font-size:13px; margin-bottom:18px;">Pilih folder tempat file JSON disimpan — aplikasi akan otomatis mendeteksi ke-4 file yang dibutuhkan.</p>
+
+                <!-- Step 1: Pilih Folder -->
+                <div style="background:#f0f4ff; border:2px dashed #667eea; border-radius:10px; padding:20px; text-align:center; margin-bottom:18px;">
+                    <div style="font-size:36px; margin-bottom:8px;">📁</div>
+                    <div style="font-weight:700; color:#334155; font-size:14px; margin-bottom:6px;">Langkah 1 — Pilih Folder</div>
+                    <div style="color:#64748b; font-size:12px; margin-bottom:14px;">Arahkan ke folder tempat file JSON berada, contoh: <code style="background:#e8eeff;padding:1px 6px;border-radius:3px;">C:\One Sheet</code></div>
+                    <button onclick="pickFolder()" id="btnPickFolder"
+                            style="padding:10px 28px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">
+                        📂 Pilih Folder...
+                    </button>
+                    <div id="folderName" style="margin-top:10px; font-size:12px; color:#667eea; font-weight:600;"></div>
+                </div>
+
+                <!-- Step 2: Deteksi file -->
+                <div id="uploadDetectSection" style="display:none;">
+                    <div style="font-weight:700; color:#334155; font-size:13px; margin-bottom:12px;">Langkah 2 — Status Deteksi File</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;">
+                        <div class="upload-slot">
+                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#667eea,#764ba2);">
+                                <span>📊</span><span>Data OneSheet</span>
+                            </div>
+                            <div class="upload-slot-body">
+                                <div class="upload-expected-name" id="label-data">—</div>
+                                <div class="upload-detect-status" id="detect-data">⏳ Menunggu folder...</div>
+                            </div>
+                        </div>
+                        <div class="upload-slot">
+                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#1e3a5f,#2d6a9f);">
+                                <span>🏆</span><span>Data BTI</span>
+                            </div>
+                            <div class="upload-slot-body">
+                                <div class="upload-expected-name" id="label-bti">—</div>
+                                <div class="upload-detect-status" id="detect-bti">⏳ Menunggu folder...</div>
+                            </div>
+                        </div>
+                        <div class="upload-slot">
+                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#16a085,#1abc9c);">
+                                <span>📋</span><span>Data Project</span>
+                            </div>
+                            <div class="upload-slot-body">
+                                <div class="upload-expected-name" id="label-project">—</div>
+                                <div class="upload-detect-status" id="detect-project">⏳ Menunggu folder...</div>
+                            </div>
+                        </div>
+                        <div class="upload-slot">
+                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#d35400,#e67e22);">
+                                <span>⏱️</span><span>Data TG (Time Gone)</span>
+                            </div>
+                            <div class="upload-slot-body">
+                                <div class="upload-expected-name" id="label-tg">TG.json</div>
+                                <div class="upload-detect-status" id="detect-tg">⏳ Menunggu folder...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="uploadSummaryBar" style="display:none; border-radius:8px; padding:10px 16px; margin-bottom:14px; font-size:13px; border:1px solid #e0e0e0;"></div>
+
+                    <button id="btnUploadAll" onclick="uploadAllFiles()"
+                            style="width:100%; padding:14px; background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+                                   color:white; border:none; border-radius:8px; font-size:15px; font-weight:700;
+                                   cursor:pointer; transition:opacity 0.2s; display:none;">
+                        📤 Upload File ke GitHub
+                    </button>
+                </div>
+
+                <div id="uploadStatus" style="margin-top:16px; padding:14px; border-radius:8px; display:none; font-size:13px; line-height:2;"></div>
+            </div>
+        </div>
+
+        <style>
+        .upload-slot { border:1px solid #e0e0e0; border-radius:10px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.06); }
+        .upload-slot-header { display:flex; align-items:center; gap:8px; padding:10px 14px; color:white; font-weight:700; font-size:13px; }
+        .upload-slot-body { padding:12px 14px; background:#fafbff; }
+        .upload-expected-name { font-size:11px; color:#667eea; font-weight:700; background:#eef0ff; border-radius:4px; padding:3px 8px; margin-bottom:8px; font-family:"Courier New",monospace; word-break:break-all; }
+        .upload-detect-status { font-size:12px; padding:6px 4px; }
+        </style>
     </div>
 
     <script>
@@ -778,6 +1045,7 @@
         let currentTab = 'weekly';
         let tgData = null;
         let projectData = null;
+        let catData = null;
 
         // Load TG data on page load
         async function loadTGData() {
@@ -792,8 +1060,13 @@
                 
                 // Update dashboard header (if visible)
                 const dashboardUpdateEl = document.getElementById('dashboardLastUpdate');
-                if (dashboardUpdateEl) {
-                    dashboardUpdateEl.textContent = dayClosing;
+                if (dashboardUpdateEl) dashboardUpdateEl.textContent = dayClosing;
+                
+                // Show TG Day Closing in header-left
+                const tgDCEl = document.getElementById('tgDayClosing');
+                if (tgDCEl) {
+                    tgDCEl.textContent = dayClosing;
+                    document.getElementById('tgUpdateDisplay').style.display = '';
                 }
                 
                 console.log('TG Data loaded:', tgData);
@@ -841,79 +1114,633 @@
             }
         }
         
-        async function uploadJSON() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            
-            if (!file) {
-                showUploadStatus('error', '❌ Pilih file JSON terlebih dahulu!');
-                return;
-            }
-            
-            if (!file.name.endsWith('.json')) {
-                showUploadStatus('error', '❌ File harus berformat .json');
-                return;
-            }
-            
-            // Validate filename matches depo
-            const expectedFilename = `${selectedDepo}.json`;
-            if (file.name !== expectedFilename) {
-                showUploadStatus('error', `❌ Nama file harus: ${expectedFilename}<br>File Anda: ${file.name}`);
-                return;
-            }
-            
-            showUploadStatus('info', '⏳ Membaca file...');
-            
-            const reader = new FileReader();
-            
-            reader.onload = async function(e) {
-                try {
-                    const jsonData = JSON.parse(e.target.result);
-                    
-                    // Validate JSON structure
-                    if (!jsonData.data || !Array.isArray(jsonData.data)) {
-                        showUploadStatus('error', '❌ Format JSON tidak valid! Harus memiliki property "data" yang berisi array.');
-                        return;
-                    }
-                    
-                    // Get depo name from metadata
-                    let depoName = '';
-                    if (jsonData.metadata && jsonData.metadata.depo) {
-                        depoName = jsonData.metadata.depo;
-                    }
-                    
-                    showUploadStatus('info', `⏳ Mengupload ke GitHub...<br>File: ${file.name}<br>Records: ${jsonData.data.length}`);
-                    
-                    // Upload to GitHub
-                    const uploadSuccess = await uploadToGitHub(file.name, JSON.stringify(jsonData, null, 2));
-                    
-                    if (uploadSuccess) {
-                        // Log upload activity
-                        await logUploadActivity(file.name, jsonData.data.length, depoName);
-                        
-                        showUploadStatus('success', `✅ Data berhasil diupload ke GitHub!<br>File: ${file.name}<br>Records: ${jsonData.data.length}<br>Depo: ${depoName || 'Unknown'}<br><br>Dashboard akan reload dalam 3 detik...`);
-                        
-                        // Reload dashboard after 3 seconds
-                        setTimeout(() => {
-                            location.reload();
-                        }, 3000);
-                    } else {
-                        showUploadStatus('error', '❌ Gagal upload ke GitHub! Periksa koneksi atau hubungi admin.');
-                    }
-                    
-                } catch (error) {
-                    showUploadStatus('error', `❌ Error: ${error.message}`);
-                }
-            };
-            
-            reader.onerror = function() {
-                showUploadStatus('error', '❌ Error membaca file!');
-            };
-            
-            reader.readAsText(file);
+        // ============================================================
+        //  UPLOAD FUNCTIONS - FOLDER AUTO-DETECT
+        // ============================================================
+
+        let folderHandle    = null;   // DirectoryHandle dari showDirectoryPicker
+        let detectedFiles   = {};     // { data: FileHandle, bti: FileHandle, project: FileHandle, tg: FileHandle }
+
+        function setUploadExpectedFilenames() {
+            const depoSuffix = selectedDepo.replace('data_DEPO_', '');
+            document.getElementById('label-data').textContent    = 'data_DEPO_'    + depoSuffix + '.json';
+            document.getElementById('label-bti').textContent     = 'bti_DEPO_'     + depoSuffix + '.json';
+            document.getElementById('label-project').textContent = 'project_DEPO_' + depoSuffix + '.json';
+            document.getElementById('label-tg').textContent      = 'TG.json';
+            // Reset state saat depo berubah
+            folderHandle  = null;
+            detectedFiles = {};
+            document.getElementById('folderName').textContent = '';
+            document.getElementById('uploadDetectSection').style.display = 'none';
+            document.getElementById('uploadStatus').style.display = 'none';
         }
-        
-        async function uploadToGitHub(filename, content) {
+
+        async function pickFolder() {
+            // Cek dukungan browser
+            if (!window.showDirectoryPicker) {
+                showUploadStatus('error',
+                    '❌ Browser Anda tidak mendukung fitur pilih folder otomatis.<br>' +
+                    'Gunakan <strong>Google Chrome</strong> atau <strong>Microsoft Edge</strong> versi terbaru.');
+                return;
+            }
+            try {
+                folderHandle = await window.showDirectoryPicker({ mode: 'read' });
+                document.getElementById('folderName').textContent = '📁 ' + folderHandle.name;
+                document.getElementById('uploadDetectSection').style.display = 'block';
+                document.getElementById('uploadStatus').style.display = 'none';
+                await scanFolder();
+            } catch(e) {
+                if (e.name !== 'AbortError') {
+                    showUploadStatus('error', '❌ Gagal membuka folder: ' + e.message);
+                }
+            }
+        }
+
+        async function scanFolder() {
+            if (!folderHandle) return;
+            detectedFiles = {};
+
+            const slots = [
+                { key: 'data',    icon: '📊' },
+                { key: 'bti',     icon: '🏆' },
+                { key: 'project', icon: '📋' },
+                { key: 'tg',      icon: '⏱️'  }
+            ];
+
+            let foundCount   = 0;
+            let missingNames = [];
+
+            for (const s of slots) {
+                const expectedName = document.getElementById('label-' + s.key).textContent.trim();
+                const detectEl     = document.getElementById('detect-' + s.key);
+                detectEl.innerHTML = '<span style="color:#94a3b8;">🔍 Mencari...</span>';
+                try {
+                    const fileHandle = await folderHandle.getFileHandle(expectedName);
+                    detectedFiles[s.key] = fileHandle;
+                    const file = await fileHandle.getFile();
+                    const sizeKB = (file.size / 1024).toFixed(1);
+                    detectEl.innerHTML =
+                        '<span style="color:#16a34a; font-weight:600;">✅ Ditemukan</span>' +
+                        '<span style="color:#94a3b8; font-size:11px; margin-left:8px;">' + sizeKB + ' KB · ' +
+                        new Date(file.lastModified).toLocaleString("id-ID") + '</span>';
+                    foundCount++;
+                } catch(e) {
+                    detectedFiles[s.key] = null;
+                    missingNames.push('<code style="background:#fee2e2;padding:1px 5px;border-radius:3px;">' + expectedName + '</code>');
+                    detectEl.innerHTML =
+                        '<span style="color:#dc2626; font-weight:600;">⚠️ Tidak ditemukan</span>' +
+                        '<span style="color:#94a3b8; font-size:11px; margin-left:8px;">File tidak ada di folder ini</span>';
+                }
+            }
+
+            // Summary bar
+            const bar = document.getElementById('uploadSummaryBar');
+            const btn = document.getElementById('btnUploadAll');
+            if (foundCount === 0) {
+                bar.style.cssText = 'display:block; border-radius:8px; padding:10px 16px; margin-bottom:14px; font-size:13px; background:#fff5f5; border:1px solid #fca5a5; color:#dc2626;';
+                bar.innerHTML = '❌ Tidak ada file yang cocok ditemukan di folder ini. Pastikan folder yang dipilih benar.';
+                btn.style.display = 'none';
+            } else {
+                const warningHtml = missingNames.length > 0
+                    ? '<br><span style="color:#b45309;">⚠️ File tidak ditemukan: ' + missingNames.join(', ') + ' — tidak akan diupload.</span>'
+                    : '';
+                bar.style.cssText = 'display:block; border-radius:8px; padding:10px 16px; margin-bottom:14px; font-size:13px; background:#f0fdf4; border:1px solid #86efac; color:#166534;';
+                bar.innerHTML = '✅ <strong>' + foundCount + ' dari 4 file</strong> siap diupload.' + warningHtml;
+                btn.style.display = 'block';
+                btn.textContent = '📤 Upload ' + foundCount + ' File ke GitHub';
+            }
+        }
+
+        async function uploadAllFiles() {
+            const slots = [
+                { key: 'data',    label: 'Data OneSheet' },
+                { key: 'bti',     label: 'Data BTI'      },
+                { key: 'project', label: 'Data Project'  },
+                { key: 'tg',      label: 'TG (Time Gone)' }
+            ];
+
+            const toUpload = slots.filter(s => detectedFiles[s.key]);
+            if (toUpload.length === 0) {
+                showUploadStatus('error', '❌ Tidak ada file yang terdeteksi. Pilih folder terlebih dahulu.');
+                return;
+            }
+
+            document.getElementById('btnUploadAll').disabled = true;
+            showUploadStatus('info', '⏳ Memulai upload ' + toUpload.length + ' file...');
+
+            let successCount = 0, failCount = 0;
+            const results = [];
+
+            for (const s of toUpload) {
+                const detectEl = document.getElementById('detect-' + s.key);
+                detectEl.innerHTML = '<span style="color:#f39c12;">⏳ Mengupload...</span>';
+                try {
+                    const fileHandle = detectedFiles[s.key];
+                    const file       = await fileHandle.getFile();
+                    const text       = await file.text();
+                    const jsonData   = JSON.parse(text);
+                    const content    = JSON.stringify(jsonData, null, 2);
+                    const recordCount = Array.isArray(jsonData.data) ? jsonData.data.length
+                                      : (typeof jsonData.data === 'object' ? Object.keys(jsonData.data).length : 0);
+                    const depoMeta   = (jsonData.metadata && jsonData.metadata.depo) ? jsonData.metadata.depo : '';
+
+                    const ok = await uploadToGitHub(file.name, content);
+                    if (ok) {
+                        await logUploadActivity(file.name, recordCount, depoMeta);
+                        detectEl.innerHTML = '<span style="color:#16a34a; font-weight:600;">✅ Upload berhasil</span><span style="color:#94a3b8; font-size:11px; margin-left:8px;">' + recordCount + ' records</span>';
+                        results.push('✅ <strong>' + file.name + '</strong> — ' + recordCount + ' records');
+                        successCount++;
+                    } else {
+                        detectEl.innerHTML = '<span style="color:#dc2626;">❌ Gagal upload</span>';
+                        results.push('❌ <strong>' + file.name + '</strong> — Gagal upload ke GitHub');
+                        failCount++;
+                    }
+                } catch(e) {
+                    const label = document.getElementById('label-' + s.key).textContent;
+                    document.getElementById('detect-' + s.key).innerHTML = '<span style="color:#dc2626;">❌ Error: ' + e.message + '</span>';
+                    results.push('❌ <strong>' + label + '</strong> — ' + e.message);
+                    failCount++;
+                }
+            }
+
+            document.getElementById('btnUploadAll').disabled = false;
+            const type = failCount === 0 ? 'success' : (successCount === 0 ? 'error' : 'info');
+            const summary = (successCount > 0 ? '✅ <strong>' + successCount + ' file berhasil diupload</strong>' : '')
+                          + (failCount > 0 ? (successCount > 0 ? ' &nbsp;|&nbsp; ' : '') + '❌ <strong>' + failCount + ' file gagal</strong>' : '')
+                          + '<br><br>' + results.join('<br>');
+            showUploadStatus(type, summary + (successCount > 0 ? '<br><br>⏳ Dashboard akan reload dalam 3 detik...' : ''));
+
+            if (successCount > 0) setTimeout(() => location.reload(), 3000);
+        }
+
+        async function uploadJSON() { await uploadAllFiles(); }
+
+                // ============================================================
+        //  CATEGORY TAB FUNCTIONS
+        // ============================================================
+
+        async function loadCategoryData() {
+            const loading = document.getElementById('loadingCategory');
+            loading.style.display = 'block';
+            loading.textContent = '⏳ Memuat data Category...';
+            document.getElementById('catTableWrap').innerHTML = '';
+            try {
+                const depoSuffix = selectedDepo.replace('data_DEPO_', '');
+                // Load cat data
+                const resCat = await fetch('cat_DEPO_' + depoSuffix + '.json');
+                if (!resCat.ok) throw new Error('cat_DEPO_' + depoSuffix + '.json tidak ditemukan');
+                catData = (await resCat.json()).data || [];
+                // Load bti data untuk BP per salesman
+                try {
+                    const resBti = await fetch('bti_DEPO_' + depoSuffix + '.json');
+                    if (resBti.ok) window.catBtiData = (await resBti.json()).data || [];
+                } catch(e2) { window.catBtiData = []; }
+                // Load bp_DEPO untuk BP All Salesman & kontribusi distribusi
+                try {
+                    const resBp = await fetch('bp_DEPO_' + depoSuffix + '.json');
+                    if (resBp.ok) window.catBpData = (await resBp.json()).data || [];
+                } catch(e4) { window.catBpData = []; }
+                // Load data_DEPO untuk BE
+                try {
+                    const resRaw = await fetch('data_DEPO_' + depoSuffix + '.json');
+                    if (resRaw.ok) window.catRawData = (await resRaw.json()).data || [];
+                } catch(e3) { window.catRawData = rawData || []; }
+                loading.style.display = 'none';
+                loadCatSalesmanList();
+                renderCategoryTab('');
+            } catch(e) {
+                loading.textContent = '❌ ' + e.message;
+            }
+        }
+
+        function loadCatSalesmanList() {
+            const sel = document.getElementById('catSalesmanSelect');
+            while (sel.options.length > 1) sel.remove(1);
+            const map = {};
+            catData.forEach(r => {
+                const sm = r['Nama Salesman'] || '';
+                const tipe = r['Tim'] || '';
+                if (sm) map[sm] = tipe || map[sm] || '';
+            });
+            Object.keys(map).sort().forEach(sm => {
+                const opt = document.createElement('option');
+                opt.value = sm; opt.textContent = sm;
+                opt.dataset.tipe = map[sm];
+                sel.appendChild(opt);
+            });
+        }
+
+        function filterCategory() {
+            const sel = document.getElementById('catSalesmanSelect');
+            const sm  = sel.value;
+            const tipeSpan = document.getElementById('catSalesmanTipe');
+            tipeSpan.textContent = (sm && sel.selectedIndex > 0)
+                ? (sel.options[sel.selectedIndex].dataset.tipe ? 'Tipe Salesman: ' + sel.options[sel.selectedIndex].dataset.tipe : '')
+                : '';
+            renderCategoryTab(sm);
+        }
+
+        function renderCategoryTab(filterSalesman) {
+            const wrap = document.getElementById('catTableWrap');
+            document.getElementById('catToggleBtns').style.display = 'flex';
+            if (!catData || catData.length === 0) { wrap.innerHTML = '<p style="color:#888;padding:20px;">Tidak ada data.</p>'; return; }
+
+            const SALES_COLS = ['LY','LM2','LM1','LM','L3M'];
+            const ALL_COLS   = ['LY','LM2','LM1','LM','L3M','BP','BE','MTD'];
+
+            // Number formatter (millions)
+            const fmt = (n, dark) => {
+                if (n === null || n === undefined || isNaN(n) || n === 0) return '<span style="color:#b0b8c9;">-</span>';
+                const abs = Math.abs(n), neg = n < 0;
+                const v   = abs / 1e6;
+                let s;
+                if (v >= 1000)      s = v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'jt';
+                else if (v >= 1)    s = v.toFixed(1) + 'jt';
+                else if (abs >= 1000) s = (abs/1e3).toFixed(0) + 'rb';
+                else                 s = abs.toFixed(0);
+                const color = neg ? '#e53e3e' : (dark ? '#e2e8f0' : '#1a202c');
+                return '<span style="color:' + color + ';">' + (neg ? '-' : '') + s + '</span>';
+            };
+
+            // --- BUILD SALES TREE from cat data ---
+            const catRows = filterSalesman ? catData.filter(r => (r['Nama Salesman']||'') === filterSalesman) : catData;
+            const tree = {};
+            catRows.forEach(r => {
+                const pr = r.Principle || 'Unknown';
+                const gr = r.PwC_Grp3  || 'Unknown';
+                const tp = r.TYPE      || 'Unknown';
+                // MTD selalu pakai key 'MTD'; LM1/LM2/LM pakai Periode1; sisanya pakai Periode
+                const basePe = r.Periode || '';
+                const pe = (basePe === 'MTD') ? 'MTD' : (r.Periode1 || basePe);
+                const v  = parseFloat(r.NetSalesPKD || 0);
+                if (!tree[pr])         tree[pr] = {};
+                if (!tree[pr][gr])     tree[pr][gr] = {};
+                if (!tree[pr][gr][tp]) tree[pr][gr][tp] = {};
+                tree[pr][gr][tp][pe] = (tree[pr][gr][tp][pe] || 0) + v;
+                // Akumulasi ke L3M jika baris ini adalah bagian dari L3M period
+                if (basePe === 'L3M' && pe !== 'L3M') {
+                    tree[pr][gr][tp]['L3M'] = (tree[pr][gr][tp]['L3M'] || 0) + v;
+                }
+            });
+
+            // =====================================================================
+            // BP LOGIC
+            // =====================================================================
+            const bpRows = window.catBpData || [];
+
+            // Dapatkan Tim salesman (scope luar agar bisa dipakai di filter Principle)
+            const smTim = filterSalesman ? (() => {
+                const row = catData.find(r => (r['Nama Salesman'] || '') === filterSalesman);
+                return (row && row['Tim']) ? row['Tim'].trim() : '';
+            })() : '';
+            const validTims = ['Bima', 'Arjuna'];
+            const useTimFilter = validTims.includes(smTim);
+
+            // --- BE TOTAL dari data_DEPO field "BE", filter by salesman jika ada ---
+            const rawRows = filterSalesman
+                ? (window.catRawData||[]).filter(r => (r['Nama Salesman']||'') === filterSalesman)
+                : (window.catRawData||[]);
+            const beTotal = rawRows.reduce((s, r) => s + parseFloat(r.BE || 0), 0);
+
+            // --- Build L3M sums untuk distribusi BE ---
+            const l3mTree  = {};
+            const l3mByPr  = {};
+            const l3mByGr  = {};
+            let   l3mTotal = 0;
+            catRows.forEach(r => {
+                if ((r.Periode || '') !== 'L3M') return;
+                const pr = r.Principle || 'Unknown';
+                const gr = r.PwC_Grp3  || 'Unknown';
+                const tp = r.TYPE      || 'Unknown';
+                const v  = parseFloat(r.NetSalesPKD || 0);
+                if (!l3mTree[pr])      l3mTree[pr] = {};
+                if (!l3mTree[pr][gr])  l3mTree[pr][gr] = {};
+                l3mTree[pr][gr][tp] = (l3mTree[pr][gr][tp] || 0) + v;
+                l3mByPr[pr]         = (l3mByPr[pr]         || 0) + v;
+                l3mByGr[pr+'||'+gr] = (l3mByGr[pr+'||'+gr] || 0) + v;
+                l3mTotal += v;
+            });
+
+
+            if (!filterSalesman) {
+                // ---- ALL SALESMAN: BP & MTD langsung dari bp_DEPO ----
+                // Aggregasi T.BP dan MTD per (Principle, PwC_Grp3, TYPE)
+                const bpByType = {}; // "pr||gr||tp" → { BP, MTDfromBP }
+                bpRows.forEach(r => {
+                    const pr = r.Principle || 'Unknown';
+                    const gr = r.PwC_Grp3  || 'Unknown';
+                    const tp = r.TYPE      || 'Unknown';
+                    const key = pr + '||' + gr + '||' + tp;
+                    if (!bpByType[key]) bpByType[key] = { BP: 0, MTDfromBP: 0 };
+                    bpByType[key].BP        += parseFloat(r['T.BP'] || 0);
+                    bpByType[key].MTDfromBP += parseFloat(r.MTD     || 0);
+                });
+
+                // Override MTD di tree dari bp_DEPO (All Salesman)
+                Object.keys(tree).forEach(pr => {
+                    Object.keys(tree[pr]).forEach(gr => {
+                        Object.keys(tree[pr][gr]).forEach(tp => {
+                            const key = pr + '||' + gr + '||' + tp;
+                            if (bpByType[key]) {
+                                tree[pr][gr][tp]['MTD'] = bpByType[key].MTDfromBP;
+                            }
+                        });
+                    });
+                });
+
+                var getAlloc = (pr, gr, tp) => {
+                    const key = pr + '||' + gr + '||' + tp;
+                    return { BP: bpByType[key]?.BP || 0, BE: l3mTotal > 0 ? beTotal * ((l3mTree[pr]?.[gr]?.[tp] || 0) / l3mTotal) : 0 };
+                };
+                var getAllocGr = (pr, gr) => {
+                    let bp = 0, be = 0;
+                    const grL3M = l3mByGr[pr + '||' + gr] || 0;
+                    if (tree[pr] && tree[pr][gr]) {
+                        Object.keys(tree[pr][gr]).forEach(tp => {
+                            const key = pr + '||' + gr + '||' + tp;
+                            bp += bpByType[key]?.BP || 0;
+                        });
+                    }
+                    be = l3mTotal > 0 ? beTotal * (grL3M / l3mTotal) : 0;
+                    return { BP: bp, BE: be };
+                };
+
+            } else {
+                // ---- PER SALESMAN: BP Principle dari bti, distribusi dari bp_DEPO ----
+
+                // BP Principle dari bti filtered by salesman
+                const btiRows = (window.catBtiData||[]).filter(r => (r.szName||'') === filterSalesman);
+                const btiByPr = {};
+                btiRows.forEach(r => {
+                    const pr = r.LOB || r.szPrincipalGroupId || 'Unknown';
+                    if (!btiByPr[pr]) btiByPr[pr] = { BP: 0 };
+                    btiByPr[pr].BP += parseFloat(r.decTargetAdjustment || 0);
+                });
+
+                // smTim, validTims, useTimFilter sudah dideklarasikan di scope luar
+
+                // Build kontribusi dari bp_DEPO
+                // bpContrib[pr][gr][tp] = T.BP (filtered by Tim jika applicable)
+                // bpContribPr[pr] = total T.BP untuk Principle (filtered by Tim)
+                const bpContrib  = {}; // pr → gr → tp → T.BP
+                const bpContribPrGr = {}; // pr||gr → T.BP
+                const bpContribPr  = {}; // pr → T.BP
+
+                bpRows.forEach(r => {
+                    const rTim = (r.Tim || '').trim();
+                    const pr   = r.Principle || 'Unknown';
+                    const gr   = r.PwC_Grp3  || 'Unknown';
+                    const tp   = r.TYPE      || 'Unknown';
+                    const v    = parseFloat(r['T.BP'] || 0);
+
+                    // Filter by Tim jika salesman bukan Yudistira
+                    if (useTimFilter && rTim !== smTim) return;
+
+                    if (!bpContrib[pr])       bpContrib[pr] = {};
+                    if (!bpContrib[pr][gr])   bpContrib[pr][gr] = {};
+                    bpContrib[pr][gr][tp]  = (bpContrib[pr][gr][tp]  || 0) + v;
+                    bpContribPrGr[pr+'||'+gr] = (bpContribPrGr[pr+'||'+gr] || 0) + v;
+                    bpContribPr[pr]           = (bpContribPr[pr]           || 0) + v;
+                });
+
+                // getAlloc: BP Type = BP_Principle × (T.BP type / T.BP principle)
+                var getAlloc = (pr, gr, tp) => {
+                    const prBP    = btiByPr[pr]?.BP || 0;
+                    const prTotal = bpContribPr[pr] || 0;
+                    const tpVal   = bpContrib[pr]?.[gr]?.[tp] || 0;
+                    const bp      = prTotal > 0 ? prBP * (tpVal / prTotal) : 0;
+                    const be      = l3mTotal > 0 ? beTotal * ((l3mTree[pr]?.[gr]?.[tp] || 0) / l3mTotal) : 0;
+                    return { BP: bp, BE: be };
+                };
+                // getAllocGr: BP Category = BP_Principle × (T.BP category / T.BP principle)
+                var getAllocGr = (pr, gr) => {
+                    const prBP    = btiByPr[pr]?.BP || 0;
+                    const prTotal = bpContribPr[pr] || 0;
+                    const grVal   = bpContribPrGr[pr+'||'+gr] || 0;
+                    const bp      = prTotal > 0 ? prBP * (grVal / prTotal) : 0;
+                    const grL3M   = l3mByGr[pr+'||'+gr] || 0;
+                    const be      = l3mTotal > 0 ? beTotal * (grL3M / l3mTotal) : 0;
+                    return { BP: bp, BE: be };
+                };
+            }
+
+
+            // Helper: aggregate sales cols for a level
+            const agg = (data) => {
+                const s = {};
+                SALES_COLS.forEach(c => { s[c] = 0; });
+                Object.values(data).forEach(child => {
+                    if (typeof child === 'object') {
+                        SALES_COLS.forEach(c => { s[c] += (child[c] || 0); });
+                    }
+                });
+                return s;
+            };
+            const aggGrp = (grpData) => {
+                const s = {};
+                ALL_COLS.forEach(c => { s[c] = 0; });
+                Object.values(grpData).forEach(tpData => {
+                    ALL_COLS.forEach(c => { s[c] += (tpData[c] || 0); });
+                });
+                return s;
+            };
+
+            // --- MERGE: RANS, GSJ, Others → satu baris OTHERS ---
+            const OTHERS_MERGE = ['RANS', 'GSJ', 'Others'];
+            const othersData = {}; // gr → tp → col data (merged)
+            OTHERS_MERGE.forEach(pr => {
+                if (!tree[pr]) return;
+                Object.keys(tree[pr]).forEach(gr => {
+                    Object.keys(tree[pr][gr]).forEach(tp => {
+                        if (!othersData[gr]) othersData[gr] = {};
+                        if (!othersData[gr][tp]) othersData[gr][tp] = {};
+                        ALL_COLS.forEach(c => {
+                            othersData[gr][tp][c] = (othersData[gr][tp][c] || 0) + (tree[pr][gr][tp][c] || 0);
+                        });
+                    });
+                });
+                delete tree[pr];
+            });
+            if (Object.keys(othersData).length > 0) tree['OTHERS'] = othersData;
+
+            // --- FILTER Principle sesuai Tim (khusus per salesman, bukan Yudistira) ---
+            if (filterSalesman && useTimFilter) {
+                // Kumpulkan Principle yang ada di bp_DEPO untuk Tim ini
+                const validPrinciples = new Set();
+                bpRows.forEach(r => {
+                    if ((r.Tim || '').trim() === smTim) {
+                        validPrinciples.add(r.Principle || 'Unknown');
+                    }
+                });
+                // Tambahkan OTHERS jika salah satu dari OTHERS_MERGE ada di validPrinciples
+                const othersInBp = OTHERS_MERGE.some(p => validPrinciples.has(p));
+                if (othersInBp) validPrinciples.add('OTHERS');
+                // Hapus Principle dari tree yang tidak ada di bp_DEPO untuk Tim ini
+                Object.keys(tree).forEach(pr => {
+                    if (!validPrinciples.has(pr)) delete tree[pr];
+                });
+            }
+
+            // --- RENDER ---
+            let html = '<table>';
+            html += '<colgroup>';
+            html += '<col style="width:130px;">';  // label
+            ['LY','LM2','LM1','LM','L3M','BP','BE','MTD'].forEach(() => { html += '<col style="width:55px;">'; });
+            ['Gap BP','Gap BE','vs BP','vs BE','BE vs BP'].forEach(() => { html += '<col style="width:50px;">'; });
+            html += '</colgroup>';
+
+            const TH      = 'padding:5px 3px; font-size:9px; font-weight:700; text-transform:uppercase; background:#1e3a5f; color:white; border-bottom:2px solid #0e7490; position:sticky; top:0; z-index:10; text-align:center;';
+            const TH_BPBE = TH.replace('#1e3a5f','#0e7490');
+            const TH_GAP  = TH.replace('#1e3a5f','#374151');
+            const TH_VS   = TH.replace('#1e3a5f','#065f46');
+            const TH_BEVSBP = TH.replace('#1e3a5f','#4c1d95');
+            html += '<thead><tr>';
+            html += '<th style="' + TH + ' text-align:left;">PRINCIPLE / CATEGORY / TYPE</th>';
+            ['LY','LM2','LM1','LM'].forEach(c => { html += '<th style="' + TH + '">' + c + '</th>'; });
+            html += '<th style="' + TH + '">L3M<br><span style="font-size:7px;opacity:0.8;">avg/bln</span></th>';
+            html += '<th style="' + TH_BPBE + '">BP</th>';
+            html += '<th style="' + TH_BPBE + '">BE</th>';
+            html += '<th style="' + TH + '">MTD</th>';
+            html += '<th style="' + TH_GAP + '">Gap BP</th>';
+            html += '<th style="' + TH_GAP + '">Gap BE</th>';
+            html += '<th style="' + TH_VS  + '">vs BP</th>';
+            html += '<th style="' + TH_VS  + '">vs BE</th>';
+            html += '<th style="' + TH_BEVSBP + '">BE vs BP</th>';
+            html += '</tr></thead><tbody>';
+
+            // --- Gap formatter ---
+            const fmtGap = (mtd, target) => {
+                const gap = mtd - target;
+                if (!target && !mtd) return '<span style="color:#b0b8c9;">-</span>';
+                const abs = Math.abs(gap), neg = gap < 0;
+                const v = abs / 1e6;
+                let s = abs >= 1e6 ? v.toFixed(1)+'jt' : abs >= 1e3 ? (abs/1e3).toFixed(0)+'rb' : abs.toFixed(0);
+                const color = neg ? '#dc2626' : '#16a34a';
+                return '<span style="color:' + color + ';font-weight:600;">' + (neg ? '-' : '+') + s + '</span>';
+            };
+            // --- vs % formatter ---
+            const fmtVs = (a, b) => {
+                if (!b) return '<span style="color:#b0b8c9;">-</span>';
+                const pct = a / b * 100;
+                let bg, color;
+                if (pct >= 100)     { bg = '#16a34a'; color = 'white'; }
+                else if (pct >= 90) { bg = '#fef08a'; color = '#713f12'; }
+                else                { bg = '#fee2e2'; color = '#dc2626'; }
+                return '<span style="background:' + bg + ';color:' + color + ';padding:1px 4px;border-radius:3px;font-weight:700;font-size:9px;">' + pct.toFixed(1) + '%</span>';
+            };
+
+            // Helper: render satu set kolom angka
+            const fmtRow = (data, bp, be, style) => {
+                const mtd = data['MTD'] || 0;
+                let s = '';
+                ['LY','LM2','LM1','LM'].forEach(c => { s += '<td class="c-right" style="' + style + '">' + fmt(data[c] || 0) + '</td>'; });
+                s += '<td class="c-right" style="' + style + '">' + fmt((data['L3M'] || 0) / 3) + '</td>';
+                s += '<td class="c-right c-bp-be" style="' + style + '">' + fmt(bp) + '</td>';
+                s += '<td class="c-right c-bp-be" style="' + style + '">' + fmt(be) + '</td>';
+                s += '<td class="c-right" style="' + style + '">' + fmt(mtd) + '</td>';
+                s += '<td class="c-right" style="' + style + 'padding:3px;">' + fmtGap(mtd, bp) + '</td>';
+                s += '<td class="c-right" style="' + style + 'padding:3px;">' + fmtGap(mtd, be) + '</td>';
+                s += '<td class="c-right" style="padding:3px; text-align:center;">' + fmtVs(mtd, bp) + '</td>';
+                s += '<td class="c-right" style="padding:3px; text-align:center;">' + fmtVs(mtd, be) + '</td>';
+                s += '<td class="c-right" style="padding:3px; text-align:center;">' + fmtVs(be, bp) + '</td>';
+                return s;
+            };
+
+            // --- Hitung Grand Total dulu ---
+            const grandTot = {};
+            ALL_COLS.forEach(c => { grandTot[c] = 0; });
+            let grandBP = 0, grandBE = beTotal;
+            Object.keys(tree).sort().forEach(pr => {
+                Object.values(tree[pr]).forEach(grpData => {
+                    Object.values(grpData).forEach(tpData => {
+                        ALL_COLS.forEach(c => { grandTot[c] += (tpData[c] || 0); });
+                    });
+                });
+                // grandBP = sum semua getAllocGr across all gr
+                Object.keys(tree[pr]).forEach(gr => { grandBP += getAllocGr(pr, gr).BP; });
+            });
+
+            // GRAND TOTAL — baris pertama setelah header
+            html += '<tr style="background:#FFC715; color:white; border-bottom:2px solid #0e7490;">';
+            html += '<td class="c-left" style="padding:7px 8px 7px 10px; font-weight:700; font-size:11px; color:white; border-left:3px solid #38bdf8; white-space:nowrap;">All Exc. Seasonal/ABBOTT/Flora</td>';
+            html += fmtRow(grandTot, grandBP, grandBE, 'font-weight:700; color:white;');
+            html += '</tr>';
+
+            // --- Render tiap Principle ---
+            let rowNum = 0;
+            Object.keys(tree).sort().forEach(pr => {
+                const prData   = tree[pr];
+                const prTotSls = {};
+                ALL_COLS.forEach(c => { prTotSls[c] = 0; });
+                Object.values(prData).forEach(grpData => {
+                    Object.values(grpData).forEach(tpData => {
+                        ALL_COLS.forEach(c => { prTotSls[c] += (tpData[c] || 0); });
+                    });
+                });
+                // BP Principle = sum dari semua Category BP, BE = sum dari semua TYPE BE
+                let prBP = 0, prBE = 0;
+                Object.keys(prData).forEach(gr => {
+                    prBP += getAllocGr(pr, gr).BP;
+                    Object.keys(prData[gr]).forEach(tp => { prBE += getAlloc(pr, gr, tp).BE; });
+                });
+                const prId = 'cat-pr-' + (rowNum++);
+
+                html += '<tr data-gid="' + prId + '" style="background:white; cursor:pointer; border-bottom:1px solid #e2e8f0;" onclick="toggleCatGroup(this.dataset.gid)">';
+                html += '<td class="c-left" style="padding:7px 8px 7px 10px; font-weight:700; font-size:11px; color:#1e293b; border-left:3px solid #0e7490;">';
+                html += '<span id="ico-' + prId + '" style="margin-right:6px; color:#0e7490; font-size:10px;">▶</span>' + pr + '</td>';
+                html += fmtRow(prTotSls, prBP, prBE, 'font-weight:700; color:#1e293b;');
+                html += '</tr>';
+
+                Object.keys(prData).sort().forEach(gr => {
+                    const grData   = prData[gr];
+                    const grTotSls = aggGrp(grData);
+                    const grBpBe   = getAllocGr(pr, gr);
+
+                    html += '<tr class="' + prId + '" style="display:none; background:#dbeafe; border-bottom:1px solid #bfdbfe;">';
+                    html += '<td class="c-left" style="padding:5px 8px 5px 18px; font-weight:700; font-size:11px; color:#1e3a5f;">▸ ' + gr + '</td>';
+                    html += fmtRow(grTotSls, grBpBe.BP, grBpBe.BE, 'color:#334155; font-weight:600;');
+                    html += '</tr>';
+
+                    Object.keys(grData).sort().forEach(tp => {
+                        const tpData = grData[tp];
+                        const tpBpBe = getAlloc(pr, gr, tp);
+                        html += '<tr class="' + prId + '" style="display:none; background:white; border-bottom:1px solid #f1f5f9;">';
+                        html += '<td class="c-left" style="padding:4px 8px 4px 34px; font-size:10px; color:#64748b;">↳ ' + tp + '</td>';
+                        html += fmtRow(tpData, tpBpBe.BP, tpBpBe.BE, 'color:#475569; font-size:10px;');
+                        html += '</tr>';
+                    });
+                });
+            });
+
+            html += '</tbody></table>';
+            wrap.innerHTML = html;
+        }
+
+        function toggleCatAll(expand) {
+            document.querySelectorAll('[data-gid^="cat-pr-"]').forEach(tr => {
+                const gid = tr.dataset.gid;
+                const ico = document.getElementById('ico-' + gid);
+                if (!ico) return;
+                const isOpen = ico.textContent === '▼';
+                if (expand && !isOpen) {
+                    ico.textContent = '▼';
+                    document.querySelectorAll('tr.' + gid).forEach(r => r.style.display = '');
+                } else if (!expand && isOpen) {
+                    ico.textContent = '▶';
+                    document.querySelectorAll('tr.' + gid).forEach(r => r.style.display = 'none');
+                }
+            });
+        }
+
+        function toggleCatGroup(groupId) {
+            const ico  = document.getElementById('ico-' + groupId);
+            const rows = document.querySelectorAll('tr.' + groupId);
+            const isOpen = ico && ico.textContent === '▼';
+            if (ico) ico.textContent = isOpen ? '▶' : '▼';
+            rows.forEach(r => { r.style.display = isOpen ? 'none' : ''; });
+        }
+
+                async function uploadToGitHub(filename, content) {
             try {
                 // Check if file exists (to get SHA for update)
                 const checkUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${filename}`;
@@ -1161,8 +1988,544 @@
             location.reload();
         }
 
+        // ===== SUMMARY DASHBOARD =====
+        let _summaryCharts = {};
+        function destroySummaryChart(id) {
+            if (_summaryCharts[id]) { try { _summaryCharts[id].destroy(); } catch(e){} delete _summaryCharts[id]; }
+        }
+
+        function renderSummaryDash() {
+            const wrap = document.getElementById('summaryDashWrap');
+            if (!rawData || rawData.length === 0) {
+                wrap.innerHTML = '<div style="text-align:center;padding:60px;color:#888;">⚠️ Data belum tersedia. Silakan upload data terlebih dahulu.</div>';
+                return;
+            }
+            // Destroy semua chart sebelum rebuild HTML
+            Object.keys(_summaryCharts).forEach(k => destroySummaryChart(k));
+            document.getElementById('loadingSummaryDash').style.display = 'none';
+
+            // ── Aggregate totals ───────────────────────────────────────────────
+            let totLY=0, totLM=0, totL3M=0, totBE=0, totBP=0, totMTD=0;
+            const crSet=new Set(), caSet=new Set();
+            rawData.forEach(r => {
+                totLY  += Number(r.LY  || 0);
+                totLM  += Number(r.LM  || 0);
+                totL3M += Number(r.L3M || 0);
+                totBE  += Number(r.BE  || 0);
+                totBP  += Number(r.BP  || 0);
+                totMTD += Number(r.MTD || r.Act || 0);
+                const id = r['Id Pelanggan'] || r['ID Pelanggan'] || '';
+                if (id) { crSet.add(id); if (Number(r.CA||0)>0) caSet.add(id); }
+            });
+
+            const achBE = totBE > 0 ? (totMTD/totBE*100) : 0;
+            const achBP = totBP > 0 ? (totMTD/totBP*100) : 0;
+            const achLY = totLY > 0 ? (totMTD/totLY*100) : 0;
+            const gapBE = totMTD - totBE;
+            const gapBP = totMTD - totBP;
+
+            // ── Weekly data ────────────────────────────────────────────────────
+            // Pastikan weeks dari getWeeksForMonth (tidak bergantung tab Weekly sudah dibuka)
+            const _weeksCfg = getWeeksForMonth();
+            if (WEEKS_CONFIG.length === 0) {
+                WEEKS_CONFIG = _weeksCfg.map(w => `W${w.num}`);
+                WEEKS_CONFIG.push('MTD');
+            }
+            const weeks = _weeksCfg;
+            const wLabels=[], wMTD=[], wBE=[], wBP=[];
+            weeks.forEach(w => {
+                const n = String(w.num);
+                let wm=0, wb=0, wbp=0;
+                rawData.forEach(r => {
+                    wm  += Number(r['MTDW'+n] || 0);
+                    wb  += Number(r['BEW'+n]  || 0);
+                    wbp += Number(r['BPW'+n]  || 0);
+                });
+                wLabels.push('W'+n);
+                wMTD.push(wm); wBE.push(wb); wBP.push(wbp);
+            });
+
+            // ── Channel breakdown ──────────────────────────────────────────────
+            const chMap={};
+            rawData.forEach(r => {
+                const ch=(r.Channel||r.channel||'Other').toUpperCase();
+                if(!chMap[ch]) chMap[ch]={MTD:0,BE:0};
+                chMap[ch].MTD += Number(r.MTD||0);
+                chMap[ch].BE  += Number(r.BE ||0);
+            });
+            const chOrder=['WHOLESALER','RETAIL','MT','INSTITUTION','FS'];
+            const chLabels=[],chMTD=[],chBE=[];
+            chOrder.forEach(ch=>{ if(chMap[ch]){chLabels.push(ch);chMTD.push(chMap[ch].MTD);chBE.push(chMap[ch].BE);} });
+            Object.keys(chMap).forEach(ch=>{ if(!chOrder.includes(ch)){chLabels.push(ch);chMTD.push(chMap[ch].MTD);chBE.push(chMap[ch].BE);} });
+
+            // ── Top Principle: MTD & BP dari bp_DEPO (sama dgn Category All Salesman) ──
+            const prMap={};
+            (window.catBpData||[]).forEach(r=>{
+                const pr=r.Principle||'Other';
+                if(!prMap[pr]) prMap[pr]={MTD:0,BP:0};
+                prMap[pr].MTD += Number(r.MTD    ||0);
+                prMap[pr].BP  += Number(r['T.BP']||0);
+            });
+            const topPr = Object.entries(prMap).filter(([,v])=>v.MTD>0||v.BP>0).sort((a,b)=>b[1].BP-a[1].BP).slice(0,7);
+
+            // ── Top Category (PwC_Grp3): sama dari bp_DEPO ──────────────────────
+            const catGrMap2={};
+            (window.catBpData||[]).forEach(r=>{
+                const gr=r.PwC_Grp3||'Other';
+                if(!catGrMap2[gr]) catGrMap2[gr]={MTD:0,BP:0};
+                catGrMap2[gr].MTD += Number(r.MTD    ||0);
+                catGrMap2[gr].BP  += Number(r['T.BP']||0);
+            });
+            const topCat = Object.entries(catGrMap2).filter(([,v])=>v.MTD>0||v.BP>0).sort((a,b)=>b[1].BP-a[1].BP).slice(0,8);
+
+            // ── Semua Salesman sorted by % Ach BP tertinggi ke terendah ──────────
+            const smMap={};
+            rawData.forEach(r=>{
+                const sm=r['Nama Salesman']||r.Salesman||'';
+                if(!sm) return;
+                if(!smMap[sm]) smMap[sm]={MTD:0,BP:0,BE:0};
+                smMap[sm].MTD+=Number(r.MTD||0);
+                smMap[sm].BP +=Number(r.BP ||0);
+                smMap[sm].BE +=Number(r.BE ||0);
+            });
+            const topSm = Object.entries(smMap)
+                .filter(([,v])=>v.MTD>0||v.BP>0)
+                .sort((a,b)=>{
+                    const achA = a[1].BP>0?a[1].MTD/a[1].BP:0;
+                    const achB = b[1].BP>0?b[1].MTD/b[1].BP:0;
+                    return achB - achA;
+                });
+
+            // ── Funnel data: LY→LM→BE→BP→MTD ─────────────────────────────────
+            const funnelVals = [totLY,totLM,totBE,totBP,totMTD];
+            const funnelLabels = ['LY','LM','BE','BP','MTD'];
+            const funnelBase = funnelVals[0]||1;
+
+            // ── Helpers ────────────────────────────────────────────────────────
+            const jt = v => { const m=v/1e6; return Math.abs(m)>=1000?m.toFixed(0).replace(/\B(?=(\d{3})+\b)/g,'.')+' jt':m.toFixed(1)+' jt'; };
+            const pct = v => v.toFixed(1)+'%';
+            const colAch = p => p>=100?'#16a34a':p>=90?'#ca8a04':'#dc2626';
+            const bgAch  = p => p>=100?'#dcfce7':p>=90?'#fef9c3':'#fee2e2';
+            const arrow  = (curr,prev) => curr>=prev
+                ? '<span style="color:#16a34a;font-size:11px;">▲ '+pct(prev>0?(curr-prev)/prev*100:0)+'</span>'
+                : '<span style="color:#dc2626;font-size:11px;">▼ '+pct(prev>0?(prev-curr)/prev*100:0)+'</span>';
+
+            // ── Build HTML ─────────────────────────────────────────────────────
+            const cardStyle = 'background:white;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:14px 16px;';
+            const titleStyle = 'font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;';
+            const bigNum = (val,color='#1e293b') => `<div style="font-size:24px;font-weight:800;color:${color};line-height:1.1;">${val}</div>`;
+            const subRow = (label,val,col='#64748b') => `<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:3px;"><span style="color:#94a3b8;">${label}</span><span style="color:${col};font-weight:600;">${val}</span></div>`;
+
+            wrap.innerHTML = `
+<div style="display:grid;grid-template-columns:220px 1fr 260px;gap:12px;height:calc(100vh-130px);">
+
+  <!-- ═══ LEFT METRICS ═══ -->
+  <div style="display:flex;flex-direction:column;gap:10px;">
+
+    <!-- MTD Card -->
+    <div style="${cardStyle}">
+      <div style="${titleStyle}">📦 MTD Achievement</div>
+      ${bigNum(jt(totMTD),'#0e7490')}
+      <div style="margin-top:6px;background:#e0f2fe;border-radius:6px;height:6px;">
+        <div style="width:${Math.min(achBE,100)}%;background:#0e7490;height:6px;border-radius:6px;transition:width .5s;"></div>
+      </div>
+      ${subRow('vs BE', pct(achBE), colAch(achBE))}
+      ${subRow('vs BP', pct(achBP), colAch(achBP))}
+      ${subRow('vs LY', pct(achLY), achLY>=100?'#16a34a':'#dc2626')}
+    </div>
+
+    <!-- BE & BP Card -->
+    <div style="${cardStyle}">
+      <div style="${titleStyle}">🎯 Target</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:#f0f9ff;border-radius:8px;padding:8px;text-align:center;">
+          <div style="font-size:9px;color:#64748b;font-weight:600;">BE</div>
+          <div style="font-size:16px;font-weight:800;color:#0284c7;">${jt(totBE)}</div>
+          <div style="font-size:9px;color:${gapBE>=0?'#16a34a':'#dc2626'};font-weight:600;">Gap: ${gapBE>=0?'+':''}${jt(gapBE)}</div>
+        </div>
+        <div style="background:#fdf4ff;border-radius:8px;padding:8px;text-align:center;">
+          <div style="font-size:9px;color:#64748b;font-weight:600;">BP</div>
+          <div style="font-size:16px;font-weight:800;color:#7c3aed;">${jt(totBP)}</div>
+          <div style="font-size:9px;color:${gapBP>=0?'#16a34a':'#dc2626'};font-weight:600;">Gap: ${gapBP>=0?'+':''}${jt(gapBP)}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historical Card -->
+    <div style="${cardStyle}">
+      <div style="${titleStyle}">📅 Historical</div>
+      ${subRow('LY', jt(totLY),'#1e293b')}
+      ${subRow('LM', jt(totLM),'#1e293b')}
+      ${subRow('L3M/Bln', jt(totL3M),'#1e293b')}
+      <div style="margin-top:6px;border-top:1px solid #f1f5f9;padding-top:6px;">
+        <div style="font-size:9px;color:#94a3b8;">MTD vs LM</div>
+        <div style="font-size:14px;font-weight:700;color:${totMTD>=totLM?'#16a34a':'#dc2626'};">
+          ${arrow(totMTD,totLM)} ${totLM>0?pct(Math.abs(totMTD-totLM)/totLM*100):'—'}
+        </div>
+      </div>
+    </div>
+
+    <!-- Outlet Card -->
+    <div style="${cardStyle}">
+      <div style="${titleStyle}">🏪 Outlet</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:center;">
+        <div style="background:#f8fafc;border-radius:8px;padding:8px;">
+          <div style="font-size:9px;color:#64748b;font-weight:600;">CR</div>
+          <div style="font-size:18px;font-weight:800;color:#334155;">${crSet.size.toLocaleString('id-ID')}</div>
+        </div>
+        <div style="background:#f0fdf4;border-radius:8px;padding:8px;">
+          <div style="font-size:9px;color:#64748b;font-weight:600;">CA</div>
+          <div style="font-size:18px;font-weight:800;color:#16a34a;">${caSet.size.toLocaleString('id-ID')}</div>
+        </div>
+      </div>
+      ${subRow('Hit Rate', crSet.size>0?pct(caSet.size/crSet.size*100):'—', '#0e7490')}
+    </div>
+
+  </div><!-- end left -->
+
+  <!-- ═══ CENTER CHARTS ═══ -->
+  <div style="display:flex;flex-direction:column;gap:10px;">
+
+    <!-- Toggle buttons -->
+    <div style="display:flex;gap:8px;">
+      <button id="sdChartBtn1" onclick="switchSummaryDashChart('weekly')"
+        style="padding:6px 16px;border-radius:20px;border:2px solid #0e7490;background:#0e7490;color:#fff;font-size:11px;font-weight:700;cursor:pointer;">
+        📊 Progress Mingguan
+      </button>
+      <button id="sdChartBtn2" onclick="switchSummaryDashChart('daily')"
+        style="padding:6px 16px;border-radius:20px;border:2px solid #0e7490;background:#fff;color:#0e7490;font-size:11px;font-weight:700;cursor:pointer;">
+        📅 Trend Harian
+      </button>
+    </div>
+
+    <!-- Weekly Bar Chart -->
+    <div id="sdChartWeekly" style="${cardStyle}flex:1;min-height:0;">
+      <div style="${titleStyle}">📊 PROGRESS PER MINGGU — ACTUAL VS BE VS BP</div>
+      <div style="position:relative;height:calc(100% - 28px);min-height:200px;">
+        <canvas id="summaryWeekChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Daily Trend Chart -->
+    <div id="sdChartDaily" style="${cardStyle}flex:1;min-height:0;display:none;">
+      <div style="${titleStyle}">📅 TREND HARIAN — SO / DO VS BP</div>
+      <div id="sdDailyLoading" style="font-size:12px;color:#888;padding:6px 0;">⏳ Memuat data harian...</div>
+      <div style="position:relative;height:calc(100% - 28px);min-height:200px;">
+        <canvas id="summaryDailyChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Channel Radial Cards -->
+    <div style="${cardStyle}">
+      <div style="${titleStyle}">🏬 Channel Breakdown</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:4px;">
+        ${(()=>{
+          const chOrder=['WHOLESALER','RETAIL','MT','FS','INSTITUTION'];
+          const allCh = [...chOrder.filter(ch=>chMap[ch]), ...Object.keys(chMap).filter(ch=>!chOrder.includes(ch))];
+          const chColors=['#0e7490','#0284c7','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c'];
+          return allCh.map((ch,i)=>{
+            const v=chMap[ch]; if(!v) return '';
+            const achPct = v.BE>0?(v.MTD/v.BE*100):0;
+            const fillDeg = Math.min(achPct,100)/100*360;
+            const col = achPct>=100?'#16a34a':achPct>=90?'#ca8a04':'#dc2626';
+            const conic = 'conic-gradient('+col+' 0deg '+fillDeg.toFixed(1)+'deg, #e2e8f0 '+fillDeg.toFixed(1)+'deg 360deg)';
+            return '<div style="text-align:center;background:#f8fafc;border-radius:10px;padding:8px 4px;">'
+              + '<div style="font-size:9px;font-weight:700;color:#475569;margin-bottom:4px;">'+ch+'</div>'
+              + '<div style="position:relative;width:64px;height:64px;margin:0 auto;">'
+              +   '<div style="width:64px;height:64px;border-radius:50%;background:'+conic+';"></div>'
+              +   '<div style="position:absolute;inset:8px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;">'
+              +     '<span style="font-size:10px;font-weight:800;color:'+col+';">'+achPct.toFixed(1)+'%</span>'
+              +   '</div>'
+              + '</div>'
+              + '<div style="font-size:9px;font-weight:700;color:#0e7490;margin-top:3px;">'+jt(v.MTD)+'</div>'
+              + '<div style="font-size:8px;color:#94a3b8;">BE '+jt(v.BE)+'</div>'
+              + '</div>';
+          }).join('');
+        })()}
+      </div>
+    </div>
+
+  </div><!-- end center -->
+
+  <!-- ═══ RIGHT PANEL ═══ -->
+  <div style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 40px);">
+
+    <!-- Top Principles -->
+    <div style="${cardStyle}">
+      <div style="${titleStyle}">🏆 Top Principle (by BP)</div>
+      ${topPr.map(([pr,v],i)=>{
+        const clrs=['#0e7490','#0284c7','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c'];
+        const fillW = v.BP>0?Math.min(v.MTD/v.BP*100,100).toFixed(1):0;
+        const ach   = v.BP>0?(v.MTD/v.BP*100).toFixed(1):0;
+        return '<div style="margin-bottom:7px;">'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;margin-bottom:2px;">'
+          +   '<span style="font-weight:600;color:#334155;">'+(i+1)+'. '+(pr.length>16?pr.slice(0,15)+'…':pr)+'</span>'
+          +   '<span style="display:flex;gap:4px;align-items:center;">'
+          +     '<span style="color:#64748b;font-size:9px;">'+jt(v.MTD)+'</span>'
+          +     '<span style="background:'+bgAch(Number(ach))+';color:'+colAch(Number(ach))+';border-radius:3px;padding:1px 5px;font-size:9px;font-weight:700;">'+ach+'%</span>'
+          +   '</span>'
+          + '</div>'
+          + '<div style="background:#e2e8f0;border-radius:4px;height:5px;">'
+          +   '<div style="width:'+fillW+'%;background:'+clrs[i%clrs.length]+';height:5px;border-radius:4px;transition:width .4s;"></div>'
+          + '</div>'
+          + '<div style="font-size:9px;color:#94a3b8;text-align:right;margin-top:1px;">BP '+jt(v.BP)+'</div>'
+          + '</div>';
+      }).join('')}
+    </div>
+
+    <!-- Top Category -->
+    <div style="${cardStyle}">
+      <div style="${titleStyle}">📦 Top Category (by BP)</div>
+      <div style="max-height:340px;overflow-y:auto;">
+      ${topCat.map(([gr,v],i)=>{
+        const clrs=['#0e7490','#0284c7','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c','#0891b2'];
+        const fillW = v.BP>0?Math.min(v.MTD/v.BP*100,100).toFixed(1):0;
+        const ach   = v.BP>0?(v.MTD/v.BP*100).toFixed(1):0;
+        return '<div style="margin-bottom:7px;">'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;margin-bottom:2px;">'
+          +   '<span style="font-weight:600;color:#334155;">'+(i+1)+'. '+(gr.length>16?gr.slice(0,15)+'…':gr)+'</span>'
+          +   '<span style="display:flex;gap:4px;align-items:center;">'
+          +     '<span style="color:#64748b;font-size:9px;">'+jt(v.MTD)+'</span>'
+          +     '<span style="background:'+bgAch(Number(ach))+';color:'+colAch(Number(ach))+';border-radius:3px;padding:1px 5px;font-size:9px;font-weight:700;">'+ach+'%</span>'
+          +   '</span>'
+          + '</div>'
+          + '<div style="background:#e2e8f0;border-radius:4px;height:5px;">'
+          +   '<div style="width:'+fillW+'%;background:'+clrs[i%clrs.length]+';height:5px;border-radius:4px;transition:width .4s;"></div>'
+          + '</div>'
+          + '<div style="font-size:9px;color:#94a3b8;text-align:right;margin-top:1px;">BP '+jt(v.BP)+'</div>'
+          + '</div>';
+      }).join('')}
+      </div>
+    </div>
+
+    <!-- Semua Salesman -->
+    <div style="${cardStyle}">
+      <div style="${titleStyle}">👤 Semua Salesman (MTD vs BP)</div>
+      <div style="max-height:240px;overflow-y:auto;">
+      ${topSm.map(([sm,v],i)=>{
+        const smAch = v.BP>0?v.MTD/v.BP*100:0;
+        return '<div style="display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid #f1f5f9;font-size:10px;">'
+          + '<span style="width:16px;color:#94a3b8;font-weight:600;flex-shrink:0;">'+(i+1)+'</span>'
+          + '<span style="flex:1;font-weight:600;color:#334155;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">'+sm+'</span>'
+          + '<span style="color:#0e7490;font-weight:700;white-space:nowrap;font-size:9px;">'+jt(v.MTD)+'</span>'
+          + '<span style="background:'+bgAch(smAch)+';color:'+colAch(smAch)+';border-radius:3px;padding:1px 5px;font-weight:700;font-size:9px;white-space:nowrap;flex-shrink:0;">'+smAch.toFixed(1)+'%</span>'
+          + '</div>';
+      }).join('')}
+      </div>
+    </div>
+
+  </div><!-- end right -->
+
+</div><!-- end grid -->`;
+
+            // ── Draw Charts ────────────────────────────────────────────────────
+            destroySummaryChart('week');
+
+            // Weekly bar chart
+            const weekCtx = document.getElementById('summaryWeekChart');
+            if (weekCtx && wLabels.length > 0) {
+                _summaryCharts.week = new Chart(weekCtx, {
+                    type:'bar',
+                    data:{
+                        labels: wLabels,
+                        datasets:[
+                            { label:'MTD Actual', data:wMTD, backgroundColor:'#0e7490', borderRadius:4, order:1 },
+                            { label:'BE', data:wBE, type:'line', borderColor:'#f97316', borderWidth:2, borderDash:[5,3], pointRadius:4, fill:false, tension:0.3, order:0 },
+                            { label:'BP', data:wBP, type:'line', borderColor:'#7c3aed', borderWidth:2, borderDash:[3,3], pointRadius:4, fill:false, tension:0.3, order:0 },
+                        ]
+                    },
+                    options:{
+                        responsive:true, maintainAspectRatio:false,
+                        interaction:{mode:'index',intersect:false},
+                        plugins:{legend:{labels:{font:{size:10},boxWidth:14}},
+                            tooltip:{callbacks:{label:ctx=>' '+ctx.dataset.label+': '+jt(ctx.raw)}}},
+                        scales:{
+                            y:{ticks:{callback:v=>jt(v),font:{size:9}},grid:{color:'#f1f5f9'}},
+                            x:{ticks:{font:{size:10}}}
+                        }
+                    }
+                });
+            }
+
+            // ── Load daily chart async (non-blocking) ─────────────────────────
+            const _sdSuffix = selectedDepo.replace(/^data_DEPO_/i, '');
+            destroySummaryChart('daily');
+            (async () => {
+                const loadEl = document.getElementById('sdDailyLoading');
+                try {
+                    if (!window._trendDailyData || window._trendDailyData._depo !== _sdSuffix) {
+                        const res = await fetch('trend_DEPO_' + _sdSuffix + '.json');
+                        if (!res.ok) throw new Error('trend_DEPO_' + _sdSuffix + '.json tidak ditemukan');
+                        const json = await res.json();
+                        window._trendDailyData       = json.daily  || [];
+                        window._trendDailyData._depo = _sdSuffix;
+                        window._trendWeeklyData      = json.weekly || [];
+                    }
+                    const dData = window._trendDailyData;
+                    if (loadEl) loadEl.style.display = 'none';
+                    if (!dData.length) throw new Error('data harian kosong');
+
+                    const dailyCtx = document.getElementById('summaryDailyChart');
+                    if (!dailyCtx) return;
+                    const fmtDay = s => { const p=(s||'').split('/'); return p.length===3?parseInt(p[1])+'/'+parseInt(p[0]):s; };
+                    const fullDates = dData.map(r => r.Date || '');
+                    _summaryCharts.daily = new Chart(dailyCtx, {
+                        type:'line',
+                        data:{ labels:dData.map(r=>fmtDay(r.Date)), datasets:[
+                            { label:'SO', data:dData.map(r=>Number(r.SO||0)), borderColor:'#0e7490', backgroundColor:'rgba(14,116,144,0.10)', borderWidth:2.5, pointRadius:4, fill:true, tension:0.3 },
+                            { label:'DO', data:dData.map(r=>Number(r.DO||0)), borderColor:'#16a34a', backgroundColor:'rgba(22,163,74,0.08)', borderWidth:2, pointRadius:3, fill:true, tension:0.3 },
+                            { label:'BP', data:dData.map(r=>Number(r.BP||0)), borderColor:'#f97316', backgroundColor:'transparent', borderWidth:2, borderDash:[6,4], pointRadius:3, fill:false, tension:0.3 }
+                        ]},
+                        options:{ responsive:true, maintainAspectRatio:false,
+                            interaction:{mode:'index',intersect:false},
+                            plugins:{ legend:{labels:{font:{size:10},boxWidth:14}},
+                                tooltip:{callbacks:{ title:items=>fullDates[items[0].dataIndex]||items[0].label, label:ctx=>' '+ctx.dataset.label+': '+jt(ctx.raw) }}},
+                            scales:{ y:{ticks:{callback:v=>jt(v),font:{size:9}},grid:{color:'#f1f5f9'}}, x:{ticks:{font:{size:10}}} }
+                        }
+                    });
+                } catch(e) {
+                    if (loadEl) { loadEl.style.display=''; loadEl.textContent='⚠️ '+e.message; }
+                }
+            })();
+        }
+
+        // ── Toggle Progress Mingguan ↔ Trend Harian ──────────────────────────
+        window._sdChartView = 'weekly';
+        function switchSummaryDashChart(view) {
+            window._sdChartView = view;
+            const wCard=document.getElementById('sdChartWeekly'), dCard=document.getElementById('sdChartDaily');
+            const btn1=document.getElementById('sdChartBtn1'),    btn2=document.getElementById('sdChartBtn2');
+            if (wCard) wCard.style.display = view==='weekly' ? '' : 'none';
+            if (dCard) dCard.style.display = view==='daily'  ? '' : 'none';
+            if (btn1) { btn1.style.background=view==='weekly'?'#0e7490':'#fff'; btn1.style.color=view==='weekly'?'#fff':'#0e7490'; }
+            if (btn2) { btn2.style.background=view==='daily'?'#0e7490':'#fff';  btn2.style.color=view==='daily'?'#fff':'#0e7490'; }
+            setTimeout(()=>{ if(view==='weekly'&&_summaryCharts.week) _summaryCharts.week.resize(); if(view==='daily'&&_summaryCharts.daily) _summaryCharts.daily.resize(); }, 50);
+        }
+
+        // ===== WK-DETAIL TOGGLE =====
+        // ===== PER-WEEK DETAIL TOGGLE =====
+        window._wkColsState = {}; // { '1': false, '2': true, ... } — true = hidden
+
+        function toggleWeekCols(wNum) {
+            const isHidden = !window._wkColsState[wNum];
+            window._wkColsState[wNum] = isHidden;
+
+            // Toggle TD cells with matching data-w
+            document.querySelectorAll(`td.wk-detail[data-w="${wNum}"]`).forEach(el => {
+                el.classList.toggle('wk-hidden', isHidden);
+            });
+            // Toggle TH sub-header cells for this week
+            document.querySelectorAll(`th.wk-detail[data-col][class*=" w${wNum} "], th.wk-detail[data-col]`).forEach(el => {
+                // Match only cells that belong to this week class
+            });
+            // More reliable: toggle sub-header TH with week class wN
+            ['tableHeaderWeekly','tableHeaderSalesman','tableHeaderSummaryDepo','tableHeaderSummaryTipe'].forEach(id => {
+                const hdr = document.getElementById(id);
+                if (!hdr) return;
+                hdr.querySelectorAll(`th.w${wNum}.wk-detail`).forEach(el => {
+                    el.classList.toggle('wk-hidden', isHidden);
+                });
+                // Update colspan of the week group TH
+                const grpTh = hdr.querySelector(`th[data-week="${wNum}"]`);
+                if (grpTh) {
+                    grpTh.setAttribute('colspan', isHidden
+                        ? parseInt(grpTh.dataset.small || 4)
+                        : parseInt(grpTh.dataset.full  || 9));
+                }
+                // Update button text
+                hdr.querySelectorAll(`.wk-per-btn[data-wnum="${wNum}"]`).forEach(btn => {
+                    btn.textContent = isHidden ? '+' : '−';
+                    btn.classList.toggle('collapsed', isHidden);
+                });
+            });
+        }
+
+        // Global toggle all weeks at once
+        let wkDetailVisible = true;
+
+        function toggleWeekDetail() {
+            wkDetailVisible = !wkDetailVisible;
+            // Get all week numbers from config
+            const weekNums = (WEEKS_CONFIG || []).filter(w => w !== 'MTD').map(w => w.replace('W',''));
+            weekNums.forEach(n => {
+                window._wkColsState[n] = !wkDetailVisible;
+                document.querySelectorAll(`td.wk-detail[data-w="${n}"]`).forEach(el => {
+                    el.classList.toggle('wk-hidden', !wkDetailVisible);
+                });
+                ['tableHeaderWeekly','tableHeaderSalesman','tableHeaderSummaryDepo','tableHeaderSummaryTipe'].forEach(id => {
+                    const hdr = document.getElementById(id);
+                    if (!hdr) return;
+                    hdr.querySelectorAll(`th.w${n}.wk-detail`).forEach(el => el.classList.toggle('wk-hidden', !wkDetailVisible));
+                    const grpTh = hdr.querySelector(`th[data-week="${n}"]`);
+                    if (grpTh) grpTh.setAttribute('colspan', wkDetailVisible ? parseInt(grpTh.dataset.full||9) : parseInt(grpTh.dataset.small||4));
+                    hdr.querySelectorAll(`.wk-per-btn[data-wnum="${n}"]`).forEach(btn => {
+                        btn.textContent = wkDetailVisible ? '−' : '+';
+                        btn.classList.toggle('collapsed', !wkDetailVisible);
+                    });
+                });
+            });
+            // Update global toggle button
+            document.querySelectorAll('.wk-toggle-btn').forEach(btn => {
+                btn.innerHTML = wkDetailVisible ? '− All' : '+ All';
+                btn.classList.toggle('collapsed', !wkDetailVisible);
+            });
+        }
+
+        // ===== FLOATING COL SETTINGS =====
+        function toggleColSettings() {
+            const panel = document.getElementById('colSettingsPanel');
+            panel.classList.toggle('open');
+        }
+
+        function applyColWidth(varName, value) {
+            document.documentElement.style.setProperty(varName, value);
+        }
+
+        function resetColWidths() {
+            const defaults = {
+                '--col-sticky': '100px',
+                '--col-detail': '52px',
+                '--col-result': '45px',
+                '--col-mtd':    '45px'
+            };
+            const vals = ['100', '52', '45', '45'];
+            Object.entries(defaults).forEach(([k, v]) => {
+                document.documentElement.style.setProperty(k, v);
+            });
+            // Reset sliders & labels
+            const panel = document.getElementById('colSettingsPanel');
+            if (panel) {
+                const inputs = panel.querySelectorAll('input[type=range]');
+                const spans  = panel.querySelectorAll('span');
+                inputs[0].value = 100; spans[0].textContent = '100px';
+                inputs[1].value = 52;  spans[1].textContent = '52px';
+                inputs[2].value = 45;  spans[2].textContent = '45px';
+                inputs[3].value = 45;  spans[3].textContent = '45px';
+            }
+        }
+
+        function hardRefresh() {
+            // Hapus semua cache service worker jika ada
+            if ('caches' in window) {
+                caches.keys().then(names => names.forEach(name => caches.delete(name)));
+            }
+            // Force reload bypass cache (Ctrl+F5 effect)
+            location.reload(true);
+        }
+
         function switchTab(tab) {
             currentTab = tab;
+            
+            // Show floating col settings button only on weekly/salesman tabs
+            const floatBtn = document.getElementById('colSettingsFloat');
+            if (floatBtn) {
+                if (tab === 'weekly' || tab === 'salesman') {
+                    floatBtn.classList.add('visible');
+                } else {
+                    floatBtn.classList.remove('visible');
+                    document.getElementById('colSettingsPanel').classList.remove('open');
+                }
+            }
             
             // Update tab buttons
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1182,6 +2545,21 @@
                     document.getElementById('loadingSummaryTipe').style.display = 'none';
                     processSummaryByTipe();
                 }
+            } else if (tab === 'summaryDash') {
+                document.getElementById('tabSummaryDash').classList.add('active');
+                // Pastikan catData & catBpData loaded, dan WEEKS_CONFIG terisi
+                if (WEEKS_CONFIG.length === 0) {
+                    // generate weeks config tanpa perlu render table
+                    const _weeks = getWeeksForMonth();
+                    WEEKS_CONFIG = _weeks.map(w => `W${w.num}`);
+                    WEEKS_CONFIG.push('MTD');
+                }
+                if (!catData) {
+                    // Load catData dulu, render setelah selesai
+                    loadCategoryData().then(() => renderSummaryDash()).catch(() => renderSummaryDash());
+                } else {
+                    renderSummaryDash();
+                }
             } else if (tab === 'weekly') {
                 document.getElementById('tabWeekly').classList.add('active');
                 // Process weekly if not already processed
@@ -1193,17 +2571,19 @@
                 document.getElementById('tabSalesman').classList.add('active');
             } else if (tab === 'pareto') {
                 document.getElementById('tabPareto').classList.add('active');
-                // Load pareto salesman list if not loaded
                 if (document.getElementById('paretoSalesmanSelect').options.length === 1) {
                     loadParetoSalesmanList();
                 }
+                filterPareto();
+            } else if (tab === 'category') {
+                document.getElementById('tabCategory').classList.add('active');
+                if (!catData) loadCategoryData();
             } else if (tab === 'upload') {
                 document.getElementById('tabUpload').classList.add('active');
-                // Set expected filename
-                const expectedFilenameEl = document.getElementById('expectedFilename');
-                if (expectedFilenameEl) {
-                    expectedFilenameEl.textContent = `${selectedDepo}.json`;
-                }
+                setUploadExpectedFilenames();
+            } else if (tab === 'trend') {
+                document.getElementById('tabTrend').classList.add('active');
+                if (!window.trendLoaded) loadTrendData();
             } else if (tab === 'project') {
                 document.getElementById('tabProject').classList.add('active');
                 if (!projectData) {
@@ -1269,21 +2649,26 @@
             
             let html = '<tr><th rowspan="2" class="sticky-col">CHANNEL</th>';
             weeks.forEach(w => {
-                html += `<th colspan="9" class="${w.class}">W${w.num} (${w.start}-${w.end} ${monthName})</th>`;
+                html += `<th colspan="9" class="${w.class}" data-week="${w.num}" data-full="9" data-small="4" style="cursor:default;">W${w.num} (${w.start}-${w.end} ${monthName})<button class="wk-per-btn" data-wnum="${w.num}" onclick="event.stopPropagation();toggleWeekCols(${w.num})" title="Sembunyikan/tampilkan kolom detail W${w.num}">−</button></th>`;
             });
             html += '<th colspan="13" class="mtd">MTD</th></tr>';
             
             html += '<tr class="sub-header">';
-            const weekCols = ['LY', 'LM', 'BE', 'BP', 'Act', '%BP', 'G-BP', '%BE', 'G-BE'];
+            const weekCols = [
+                ['LY','ly'], ['LM','lm'], ['BE','be'], ['BP','bp'], ['Act','act'],
+                ['%BP','pct-bp'], ['G-BP','gap-bp'], ['%BE','pct-be'], ['G-BE','gap-be']
+            ];
+            const detailSet = new Set(['ly','lm','be','bp','act']);
             const mtdCols = ['CR', 'CA', '%', 'LY', 'LM', 'L3M', 'BE', 'BP', 'Act', '%BP', 'G-BP', '%BE', 'G-BE'];
             
             weeks.forEach(w => {
-                weekCols.forEach(col => {
-                    html += `<th class="${w.class}">${col}</th>`;
+                weekCols.forEach(([col, dcol]) => {
+                    const extraCls = detailSet.has(dcol) ? ' wk-detail' : ' wk-result';
+                    html += `<th class="${w.class}${extraCls}" data-col="${dcol}">${col}</th>`;
                 });
             });
             mtdCols.forEach(col => {
-                html += `<th class="mtd">${col}</th>`;
+                html += `<th class="mtd wk-mtd-cell">${col}</th>`;
             });
             html += '</tr>';
             
@@ -1312,6 +2697,18 @@
                     <div class="tab" onclick="switchTab('weekly')">Dashboard Weekly</div>
                     <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
                     <div class="tab" onclick="switchTab('project')">📋 Project</div>
+                    <button onclick="hardRefresh()" title="Bersihkan cache dan muat ulang data terbaru"
+                        style="margin-left:8px; padding:7px 14px; background:white; border:1.5px solid #cbd5e1;
+                               border-radius:8px; cursor:pointer; font-size:12px; font-weight:600; color:#475569;
+                               display:flex; align-items:center; gap:5px; transition:all 0.2s;
+                               box-shadow:0 1px 3px rgba(0,0,0,0.08);"
+                        onmouseover="this.style.background='#f0fdf4';this.style.borderColor='#16a34a';this.style.color='#16a34a';"
+                        onmouseout="this.style.background='white';this.style.borderColor='#cbd5e1';this.style.color='#475569';">
+                        🔄 Refresh
+                    </button>
+                    <button class="wk-toggle-btn" id="wkToggleBtn" onclick="toggleWeekDetail()" title="Sembunyikan kolom LY/LM/BE/BP/Act">
+                        − All
+                    </button>
                 `;
                 document.getElementById('mainTabs').innerHTML = tabsHtml;
                 
@@ -1326,15 +2723,33 @@
                 const tabsHtml = `
                     <div class="tab active" onclick="switchTab('weekly')">Dashboard Weekly</div>
                     <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
+                    <div class="tab" onclick="switchTab('summaryDash')">📊 Summary</div>
                     <div class="tab" onclick="switchTab('pareto')">📊 30 Pareto Outlet</div>
                     <div class="tab" onclick="switchTab('project')">📋 Project</div>
+                    <div class="tab" onclick="switchTab('category')">📦 Category</div>
+                    <div class="tab" onclick="switchTab('trend')">📈 Trend By Week</div>
                     <div class="tab" onclick="switchTab('upload')">📤 Upload Data</div>
+                    <button onclick="hardRefresh()" title="Bersihkan cache dan muat ulang data terbaru"
+                        style="margin-left:8px; padding:7px 14px; background:white; border:1.5px solid #cbd5e1;
+                               border-radius:8px; cursor:pointer; font-size:12px; font-weight:600; color:#475569;
+                               display:flex; align-items:center; gap:5px; transition:all 0.2s;
+                               box-shadow:0 1px 3px rgba(0,0,0,0.08);"
+                        onmouseover="this.style.background='#f0fdf4';this.style.borderColor='#16a34a';this.style.color='#16a34a';"
+                        onmouseout="this.style.background='white';this.style.borderColor='#cbd5e1';this.style.color='#475569';">
+                        🔄 Refresh
+                    </button>
+                    <button class="wk-toggle-btn" id="wkToggleBtn" onclick="toggleWeekDetail()" title="Sembunyikan kolom LY/LM/BE/BP/Act">
+                        − All
+                    </button>
                 `;
                 document.getElementById('mainTabs').innerHTML = tabsHtml;
                 
                 // Show Weekly tab by default
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 document.getElementById('tabWeekly').classList.add('active');
+                // Show floating settings button
+                const fb = document.getElementById('colSettingsFloat');
+                if (fb) fb.classList.add('visible');
             }
 
             try {
@@ -1366,96 +2781,11 @@
             let json;
             
             try {
-                if (isSummaryRegional) {
-                    // ── Summary Regional: fetch semua depo, pisahkan fresh vs stale ──
-                    const loadingEl = document.getElementById('loadingSummaryDepo');
-                    loadingEl.style.display = 'block';
-                    loadingEl.textContent = '⏳ Memuat daftar Depo...';
-
-                    // Tentukan cutoff dari TG.json Day Closing
-                    let cutoffDate = null;
-                    if (tgData && (tgData['Day Closing'] || tgData['Day_Closing'])) {
-                        const dc = tgData['Day Closing'] || tgData['Day_Closing'];
-                        // Support M/D/YYYY, MM/DD/YYYY, YYYY-MM-DD
-                        const parts = dc.includes('/') ? dc.split('/') : dc.split('-');
-                        if (parts.length === 3) {
-                            if (dc.includes('/')) {
-                                // M/D/YYYY format
-                                cutoffDate = new Date(parseInt(parts[2]), parseInt(parts[0])-1, parseInt(parts[1]));
-                            } else {
-                                // YYYY-MM-DD format
-                                cutoffDate = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
-                            }
-                            cutoffDate.setHours(0,0,0,0);
-                        }
-                    }
-                    if (!cutoffDate) cutoffDate = new Date(); // fallback ke hari ini
-
-                    // Ambil daftar depo
-                    let depoNames = [];
-                    try {
-                        const dlRes = await fetch('depo_list.json');
-                        const dlData = await dlRes.json();
-                        depoNames = (dlData.depos || []).map(d =>
-                            d.toUpperCase().trim().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_')
-                        );
-                    } catch(e) {
-                        loadingEl.textContent = '❌ depo_list.json tidak ditemukan';
-                        return;
-                    }
-
-                    loadingEl.textContent = `⏳ Memuat data ${depoNames.length} Depo...`;
-
-                    // Fetch semua file parallel
-                    const results = await Promise.allSettled(
-                        depoNames.map(d => fetch(`data_DEPO_${d}.json`).then(r => r.ok ? r.json() : null))
-                    );
-
-                    // Klasifikasi fresh vs stale
-                    rawData = [];
-                    window.depoMeta = {}; // { depoKey: { name, lastUpdated, isFresh } }
-
-                    results.forEach((res, i) => {
-                        const key = depoNames[i];
-                        if (res.status === 'fulfilled' && res.value) {
-                            const jd = res.value;
-                            const records = jd.data || [];
-                            const lastUpd = (jd.metadata && jd.metadata.last_updated) || '';
-                            const depoLabel = (jd.metadata && jd.metadata.depo) || ('DEPO ' + key.replace(/_/g,' '));
-
-                            // Parse last_updated: "2026-03-08 22:34:06"
-                            let updDate = null;
-                            if (lastUpd) {
-                                const dp = lastUpd.split(' ')[0].split('-');
-                                if (dp.length === 3) updDate = new Date(parseInt(dp[0]), parseInt(dp[1])-1, parseInt(dp[2]));
-                                if (updDate) updDate.setHours(0,0,0,0);
-                            }
-
-                            const isFresh = updDate ? (updDate >= cutoffDate) : false;
-
-                            window.depoMeta[key] = {
-                                name: depoLabel,
-                                lastUpdated: lastUpd ? lastUpd.split(' ')[0] : '-',
-                                isFresh
-                            };
-
-                            if (isFresh) rawData.push(...records);
-                        } else {
-                            window.depoMeta[key] = { name: 'DEPO ' + key.replace(/_/g,' '), lastUpdated: '-', isFresh: false, notFound: true };
-                        }
-                    });
-
-                    window.cutoffDateStr = cutoffDate.toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'});
-                    json = { metadata: {} };
-
-                } else {
-                    // ── Per-Depo: fetch single file ───────────────────────────────
-                    const res = await fetch(fileName);
-                    if (!res.ok) throw new Error('File not found');
-                    json = await res.json();
-                    rawData = json.data || [];
-                    console.log('Data loaded from GitHub');
-                }
+                const res = await fetch(fileName);
+                if (!res.ok) throw new Error('File not found');
+                json = await res.json();
+                rawData = json.data || [];
+                console.log('Data loaded from GitHub');
             } catch (error) {
                 console.error('Error loading data:', error);
                 alert(`Error loading data: ${error.message}`);
@@ -1473,7 +2803,7 @@
                         updateSpan.style.marginLeft = '15px';
                         updateSpan.style.fontSize = '11px';
                         updateSpan.style.color = '#666';
-                        updateSpan.textContent = `📅 Update: ${json.metadata.last_updated}`;
+                        //updateSpan.textContent = `📅 Update: ${json.metadata.last_updated}`;
                         headerInfo.appendChild(updateSpan);
                     }
                 }
@@ -1655,37 +2985,68 @@
         
         function loadParetoSalesmanList() {
             const salesmanSelect = document.getElementById('paretoSalesmanSelect');
-            const salesmen = new Set();
-            
-            // Collect all salesmen from data
+            const salesmenMap = {};
+
+            // Collect all salesmen + tipe from data
             rawData.forEach(row => {
                 const salesman = row['Nama Salesman'] || row['nama salesman'] || row.Salesman || row.salesman || '';
-                if (salesman) {
-                    salesmen.add(salesman);
-                }
+                const tipe     = row['Tipe Sales']    || row['tipe sales']    || row.TipeSales || row.tipesales || '';
+                if (salesman) salesmenMap[salesman] = tipe || salesmenMap[salesman] || '';
             });
-            
-            // Sort and populate
-            const sortedSalesmen = Array.from(salesmen).sort();
-            sortedSalesmen.forEach(salesman => {
+
+            // Sort and populate with data-tipe attribute
+            Object.keys(salesmenMap).sort().forEach(salesman => {
                 const option = document.createElement('option');
                 option.value = salesman;
                 option.textContent = salesman;
+                option.dataset.tipe = salesmenMap[salesman];
                 salesmanSelect.appendChild(option);
             });
-            
-            console.log('Loaded Pareto salesmen:', sortedSalesmen.length);
+
+            console.log('Loaded Pareto salesmen:', Object.keys(salesmenMap).length);
         }
         
         function filterPareto() {
-            const selectedSalesman = document.getElementById('paretoSalesmanSelect').value;
-            const loading = document.getElementById('loadingPareto');
-            const wrap = document.getElementById('paretoTableWrap');
+            const salesmanSelect  = document.getElementById('paretoSalesmanSelect');
+            const selectedSalesman = salesmanSelect.value;
+            const tipeSpan        = document.getElementById('paretoTipeSales');
+            const loading         = document.getElementById('loadingPareto');
+            const wrap            = document.getElementById('paretoTableWrap');
+
+            // Tampilkan Tipe Salesman
+            if (selectedSalesman && salesmanSelect.selectedIndex > 0) {
+                const tipe = salesmanSelect.options[salesmanSelect.selectedIndex].dataset.tipe || '';
+                tipeSpan.textContent = tipe ? 'Tipe: ' + tipe : '';
+            } else {
+                tipeSpan.textContent = '';
+            }
 
             if (!selectedSalesman) {
-                loading.style.display = 'block';
-                loading.textContent = '⏳ Pilih salesman untuk melihat 30 Pareto Outlet...';
-                wrap.innerHTML = '';
+                loading.style.display = 'none';
+                // All Salesman: aggregate semua salesman, ambil top 30 by BE
+                const customerMap = {};
+                rawData.forEach(row => {
+                    const key = row['Nama Pelanggan'] || row['Customer'] || row.Pelanggan || 'Unknown';
+                    if (!customerMap[key]) {
+                        customerMap[key] = {
+                            nama: key,
+                            hari: row['Hari Kunj'] || row['JKS'] || '',
+                            channel: row['CC1'] || row['Channel'] || '',
+                            salesman: row['Nama Salesman'] || '',
+                            LY: 0, L3M: 0, LM: 0, MTD: 0, BP: 0, BE: 0
+                        };
+                    }
+                    customerMap[key].LY  += parseFloat(row.LY  || 0);
+                    customerMap[key].L3M += parseFloat(row.L3M || 0);
+                    customerMap[key].LM  += parseFloat(row.LM  || 0);
+                    customerMap[key].MTD += parseFloat(row.MTD || row.Act || 0);
+                    customerMap[key].BP  += parseFloat(row.BP  || 0);
+                    customerMap[key].BE  += parseFloat(row.BE  || 0);
+                });
+                const top30 = Object.values(customerMap)
+                    .sort((a, b) => b.BE - a.BE)
+                    .slice(0, 30);
+                renderParetoTable(top30);
                 return;
             }
 
@@ -1823,105 +3184,47 @@
 
         function processSummaryByDepo() {
             const weeks = WEEKS_CONFIG.length > 0 ? WEEKS_CONFIG : ['W1', 'W2', 'W3', 'W4', 'MTD'];
-            const meta  = window.depoMeta || {};
-            const bodyEl = document.getElementById('tableBodySummaryDepo');
-
-            // ── Kelompokkan rawData (hanya fresh) by Depo ─────────────────────
+            
+            // Group by Depo
             const depoGroups = {};
+            
             rawData.forEach(row => {
                 const depo = row.Depo || 'Unknown';
-                if (!depoGroups[depo]) depoGroups[depo] = [];
+                
+                if (!depoGroups[depo]) {
+                    depoGroups[depo] = [];
+                }
                 depoGroups[depo].push(row);
             });
-
-            // ── Aggregate fresh depos ─────────────────────────────────────────
+            
+            // Aggregate each depo
             const depoResults = {};
             Object.keys(depoGroups).forEach(depo => {
                 depoResults[depo] = aggregateData(depoGroups[depo], weeks);
             });
-
-            // Sort by %BP MTD desc
+            
+            // Sort by %BP MTD (highest first)
             const sortedDepos = Object.keys(depoResults).sort((a, b) => {
-                const pA = depoResults[a]['MTD'].BP > 0 ? depoResults[a]['MTD'].Actual / depoResults[a]['MTD'].BP * 100 : 0;
-                const pB = depoResults[b]['MTD'].BP > 0 ? depoResults[b]['MTD'].Actual / depoResults[b]['MTD'].BP * 100 : 0;
-                return pB - pA;
+                const aBP = depoResults[a]['MTD'].BP || 0;
+                const aAct = depoResults[a]['MTD'].Actual || 0;
+                const aPct = aBP > 0 ? (aAct / aBP * 100) : 0;
+                
+                const bBP = depoResults[b]['MTD'].BP || 0;
+                const bAct = depoResults[b]['MTD'].Actual || 0;
+                const bPct = bBP > 0 ? (bAct / bBP * 100) : 0;
+                
+                return bPct - aPct; // Descending (highest first)
             });
-            sortedDepos.forEach((d, i) => { depoResults[d].rank = i + 1; });
-
-            // ── Stale depos (from meta where isFresh===false) ─────────────────
-            const staleKeys = Object.keys(meta).filter(k => !meta[k].isFresh && !meta[k].notFound);
-            const notFoundKeys = Object.keys(meta).filter(k => meta[k].notFound);
-
-            // ── Build info banner ─────────────────────────────────────────────
-            const freshCount = sortedDepos.length;
-            const staleCount = staleKeys.length;
-            const cutoffStr  = window.cutoffDateStr || '-';
-            const infoEl = document.getElementById('summaryRegionalInfo');
-            if (infoEl) {
-                infoEl.style.display = '';
-                infoEl.innerHTML =
-                    `✅ <b>${freshCount} Depo</b> data terkini (≥ ${cutoffStr}) &nbsp;|&nbsp; ` +
-                    (staleCount > 0 ? `⚠️ <b>${staleCount} Depo</b> belum update &nbsp;|&nbsp; ` : '') +
-                    `📊 Total regional dihitung dari <b>${freshCount} Depo</b> terkini`;
-            }
-
-            // ── Render fresh section ──────────────────────────────────────────
-            let html = '';
-
-            // Section header fresh
-            html += `<tr><td colspan="999" style="background:#dcfce7;color:#166534;font-weight:700;font-size:11px;padding:6px 12px;border-top:2px solid #16a34a;">
-                ✅ DATA TERKINI — ${freshCount} DEPO (Update ≥ ${cutoffStr})
-            </td></tr>`;
-
-            sortedDepos.forEach(key => {
-                const rank = depoResults[key].rank;
-                const medal = rank===1?'🥇 ':rank===2?'🥈 ':rank===3?'🥉 ':'';
-                // last updated info
-                const metaKey = Object.keys(meta).find(k => meta[k].name && meta[k].name.toUpperCase().includes(key.replace('DEPO ','').toUpperCase())) || '';
-                const updStr  = metaKey && meta[metaKey] ? meta[metaKey].lastUpdated : '';
-                const updBadge = updStr ? `<span style="font-size:9px;color:#15803d;margin-left:4px;">(${updStr})</span>` : '';
-                html += `<tr><td class="sticky-col row-channel">${medal}${key}${updBadge}</td>`;
-                weeks.forEach(w => html += renderCells(depoResults[key][w], w === 'MTD'));
-                html += '</tr>';
+            
+            // Create sorted results with ranking
+            const sortedResults = {};
+            sortedDepos.forEach((depo, index) => {
+                sortedResults[depo] = depoResults[depo];
+                sortedResults[depo].rank = index + 1; // Add rank (1, 2, 3, ...)
             });
-
-            // ── Render stale section ──────────────────────────────────────────
-            if (staleKeys.length > 0) {
-                html += `<tr><td colspan="999" style="background:#fef9c3;color:#854d0e;font-weight:700;font-size:11px;padding:6px 12px;border-top:2px solid #ca8a04;">
-                    ⚠️ BELUM UPDATE — ${staleCount} DEPO (Data lebih lama dari ${cutoffStr}) — Tidak termasuk dalam total regional
-                </td></tr>`;
-
-                staleKeys.forEach(key => {
-                    const m = meta[key];
-                    html += `<tr style="opacity:0.55;background:#fffbeb;">
-                        <td class="sticky-col row-channel" style="color:#92400e;">
-                            ⚠️ ${m.name}
-                            <span style="font-size:9px;color:#b45309;margin-left:4px;">(Update: ${m.lastUpdated})</span>
-                        </td>`;
-                    // Tampilkan sel kosong dengan tanda —
-                    weeks.forEach(() => {
-                        html += `<td colspan="8" style="text-align:center;color:#d97706;font-size:10px;font-style:italic;">— menunggu upload —</td>`;
-                    });
-                    html += '</tr>';
-                });
-            }
-
-            // Not found section
-            if (notFoundKeys.length > 0) {
-                html += `<tr><td colspan="999" style="background:#fee2e2;color:#991b1b;font-weight:700;font-size:11px;padding:6px 12px;border-top:2px solid #dc2626;">
-                    ❌ FILE TIDAK DITEMUKAN — ${notFoundKeys.length} DEPO
-                </td></tr>`;
-                notFoundKeys.forEach(key => {
-                    html += `<tr style="opacity:0.4;background:#fef2f2;">
-                        <td class="sticky-col row-channel" style="color:#b91c1c;">❌ ${meta[key].name}</td>`;
-                    weeks.forEach(() => {
-                        html += `<td colspan="8" style="text-align:center;color:#ef4444;font-size:10px;">— file tidak ada —</td>`;
-                    });
-                    html += '</tr>';
-                });
-            }
-
-            bodyEl.innerHTML = html;
+            
+            // Render table
+            renderSummaryTable(sortedResults, weeks, 'Depo', sortedDepos);
         }
         
         function processSummaryByTipe() {
@@ -1953,31 +3256,27 @@
         function aggregateData(rows, weeks) {
             const result = {};
             weeks.forEach(w => {
-                result[w] = { CR: new Set(), CA: 0, LY: 0, LM: 0, L3M: 0, BE: 0, BP: 0, Actual: 0 };
+                result[w] = { CR: new Set(), CA: new Set(), LY: 0, LM: 0, L3M: 0, BE: 0, BP: 0, Actual: 0 };
             });
-            
             rows.forEach(row => {
                 weeks.forEach(w => {
                     const wNum = w.replace('W', '').replace('MTD', '');
                     const isMTD = w === 'MTD';
-                    
                     const idPelanggan = row['Id Pelanggan'] || row['ID Pelanggan'] || '';
                     if (idPelanggan) result[w].CR.add(idPelanggan);
-                    
-                    result[w].CA += Number(row.CA || 0);
-                    result[w].LY += Number(row[isMTD ? 'LY' : `LYW${wNum}`] || 0);
-                    result[w].LM += Number(row[isMTD ? 'LM' : `LMW${wNum}`] || 0);
-                    result[w].L3M += Number(row.L3M || row.l3m || 0);
-                    result[w].BE += Number(row[isMTD ? 'BE' : `BEW${wNum}`] || 0);
-                    result[w].BP += Number(row[isMTD ? 'BP' : `BPW${wNum}`] || 0);
+                    if (idPelanggan && Number(row.CA || 0) > 0) result[w].CA.add(idPelanggan);
+                    result[w].LY     += Number(row[isMTD ? 'LY'  : `LYW${wNum}`]  || 0);
+                    result[w].LM     += Number(row[isMTD ? 'LM'  : `LMW${wNum}`]  || 0);
+                    result[w].L3M    += Number(row.L3M || row.l3m || 0);
+                    result[w].BE     += Number(row[isMTD ? 'BE'  : `BEW${wNum}`]  || 0);
+                    result[w].BP     += Number(row[isMTD ? 'BP'  : `BPW${wNum}`]  || 0);
                     result[w].Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
                 });
             });
-            
             weeks.forEach(w => {
                 result[w].CR = result[w].CR.size;
+                result[w].CA = result[w].CA.size;
             });
-            
             return result;
         }
         
@@ -1998,12 +3297,28 @@
                 }
                 
                 html += `<tr><td class="sticky-col row-channel">${medalIcon}${key}</td>`;
-                weeks.forEach(w => html += renderCells(results[key][w], w === 'MTD'));
+                weeks.forEach(w => html += renderCells(results[key][w], w === 'MTD', w));
                 html += '</tr>';
             });
             
             const bodyId = tableType === 'Depo' ? 'tableBodySummaryDepo' : 'tableBodySummaryTipe';
             document.getElementById(bodyId).innerHTML = html;
+        }
+
+        // CC3 → Kategori mapping
+        const CC3_SCHOOL_MAP = {
+            'DIDALAM SEKOLAH': 'School',
+            'DISEKITAR LINGKUNGAN SEKOLAH': 'School',
+            'BADAN USAHA': 'Non School',
+            'PASAR': 'Non School',
+            'PERUMAHAN': 'Non School',
+            'TRANSPORTASI': 'Non School'
+        };
+        function getCC3Kategori(cc3) {
+            return CC3_SCHOOL_MAP[(cc3 || '').toUpperCase().trim()] || 'Non School';
+        }
+        function makeEmptyBucket() {
+            return { CR: new Set(), CA: new Set(), LY: 0, LM: 0, L3M: 0, BE: 0, BP: 0, Actual: 0 };
         }
 
         function processAndRender(target, dataToProcess = null) {
@@ -2024,30 +3339,16 @@
             weeks.forEach(w => {
                 result[w] = {};
                 Object.keys(channels).forEach(ch => {
-                    result[w][ch] = { 
-                        CR: new Set(),
-                        CA: 0, 
-                        LY: 0, 
-                        LM: 0,
-                        L3M: 0,
-                        BE: 0, 
-                        BP: 0, 
-                        Actual: 0, 
-                        classes: {} 
-                    };
+                    result[w][ch] = { CR: new Set(), CA: new Set(), LY: 0, LM: 0, L3M: 0, BE: 0, BP: 0, Actual: 0, classes: {} };
                     channels[ch].forEach(cls => {
-                        result[w][ch].classes[cls] = { 
-                            CR: new Set(), 
-                            CA: 0, 
-                            LY: 0, 
-                            LM: 0,
-                            L3M: 0,
-                            BE: 0, 
-                            BP: 0, 
-                            Actual: 0 
-                        };
+                        result[w][ch].classes[cls] = { CR: new Set(), CA: new Set(), LY: 0, LM: 0, L3M: 0, BE: 0, BP: 0, Actual: 0 };
                     });
                 });
+                // School / Non School buckets — khusus RETAIL
+                result[w]['RETAIL'].schoolCats = {
+                    'School':     makeEmptyBucket(),
+                    'Non School': makeEmptyBucket()
+                };
             });
 
             data.forEach(row => {
@@ -2063,103 +3364,150 @@
                     
                     if (channels[ch]) {
                         if (idPelanggan) result[w][ch].CR.add(idPelanggan);
-                        
-                        result[w][ch].CA += Number(row.CA || 0);
-                        result[w][ch].LY += Number(row[isMTD ? 'LY' : `LYW${wNum}`] || 0);
-                        result[w][ch].LM += Number(row[isMTD ? 'LM' : `LMW${wNum}`] || 0);
-                        result[w][ch].L3M += Number(row.L3M || row.l3m || 0);
-                        result[w][ch].BE += Number(row[isMTD ? 'BE' : `BEW${wNum}`] || 0);
-                        result[w][ch].BP += Number(row[isMTD ? 'BP' : `BPW${wNum}`] || 0);
+                        if (idPelanggan && Number(row.CA || 0) > 0) result[w][ch].CA.add(idPelanggan);
+                        result[w][ch].LY     += Number(row[isMTD ? 'LY'  : `LYW${wNum}`]  || 0);
+                        result[w][ch].LM     += Number(row[isMTD ? 'LM'  : `LMW${wNum}`]  || 0);
+                        result[w][ch].L3M    += Number(row.L3M || row.l3m || 0);
+                        result[w][ch].BE     += Number(row[isMTD ? 'BE'  : `BEW${wNum}`]  || 0);
+                        result[w][ch].BP     += Number(row[isMTD ? 'BP'  : `BPW${wNum}`]  || 0);
                         result[w][ch].Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
 
                         if (cls && result[w][ch].classes[cls]) {
                             if (idPelanggan) result[w][ch].classes[cls].CR.add(idPelanggan);
-                            result[w][ch].classes[cls].CA += Number(row.CA || 0);
-                            result[w][ch].classes[cls].LY += Number(row[isMTD ? 'LY' : `LYW${wNum}`] || 0);
-                            result[w][ch].classes[cls].LM += Number(row[isMTD ? 'LM' : `LMW${wNum}`] || 0);
-                            result[w][ch].classes[cls].L3M += Number(row.L3M || row.l3m || 0);
-                            result[w][ch].classes[cls].BE += Number(row[isMTD ? 'BE' : `BEW${wNum}`] || 0);
-                            result[w][ch].classes[cls].BP += Number(row[isMTD ? 'BP' : `BPW${wNum}`] || 0);
+                            if (idPelanggan && Number(row.CA || 0) > 0) result[w][ch].classes[cls].CA.add(idPelanggan);
+                            result[w][ch].classes[cls].LY     += Number(row[isMTD ? 'LY'  : `LYW${wNum}`]  || 0);
+                            result[w][ch].classes[cls].LM     += Number(row[isMTD ? 'LM'  : `LMW${wNum}`]  || 0);
+                            result[w][ch].classes[cls].L3M    += Number(row.L3M || row.l3m || 0);
+                            result[w][ch].classes[cls].BE     += Number(row[isMTD ? 'BE'  : `BEW${wNum}`]  || 0);
+                            result[w][ch].classes[cls].BP     += Number(row[isMTD ? 'BP'  : `BPW${wNum}`]  || 0);
                             result[w][ch].classes[cls].Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
+                        }
+
+                        // School / Non School — hanya untuk RETAIL
+                        if (ch === 'RETAIL') {
+                            const kat = getCC3Kategori(row.CC3 || row.cc3 || '');
+                            const bkt = result[w]['RETAIL'].schoolCats[kat];
+                            if (idPelanggan) bkt.CR.add(idPelanggan);
+                            if (idPelanggan && Number(row.CA || 0) > 0) bkt.CA.add(idPelanggan);
+                            bkt.LY     += Number(row[isMTD ? 'LY'  : `LYW${wNum}`]  || 0);
+                            bkt.LM     += Number(row[isMTD ? 'LM'  : `LMW${wNum}`]  || 0);
+                            bkt.L3M    += Number(row.L3M || row.l3m || 0);
+                            bkt.BE     += Number(row[isMTD ? 'BE'  : `BEW${wNum}`]  || 0);
+                            bkt.BP     += Number(row[isMTD ? 'BP'  : `BPW${wNum}`]  || 0);
+                            bkt.Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
                         }
                         
                         if (ch === 'NKA' || ch === 'MTI') {
                             if (idPelanggan) result[w]['MT'].CR.add(idPelanggan);
-                            result[w]['MT'].CA += Number(row.CA || 0);
-                            result[w]['MT'].LY += Number(row[isMTD ? 'LY' : `LYW${wNum}`] || 0);
-                            result[w]['MT'].LM += Number(row[isMTD ? 'LM' : `LMW${wNum}`] || 0);
-                            result[w]['MT'].L3M += Number(row.L3M || row.l3m || 0);
-                            result[w]['MT'].BE += Number(row[isMTD ? 'BE' : `BEW${wNum}`] || 0);
-                            result[w]['MT'].BP += Number(row[isMTD ? 'BP' : `BPW${wNum}`] || 0);
+                            if (idPelanggan && Number(row.CA || 0) > 0) result[w]['MT'].CA.add(idPelanggan);
+                            result[w]['MT'].LY     += Number(row[isMTD ? 'LY'  : `LYW${wNum}`]  || 0);
+                            result[w]['MT'].LM     += Number(row[isMTD ? 'LM'  : `LMW${wNum}`]  || 0);
+                            result[w]['MT'].L3M    += Number(row.L3M || row.l3m || 0);
+                            result[w]['MT'].BE     += Number(row[isMTD ? 'BE'  : `BEW${wNum}`]  || 0);
+                            result[w]['MT'].BP     += Number(row[isMTD ? 'BP'  : `BPW${wNum}`]  || 0);
                             result[w]['MT'].Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
                         }
                     }
                 });
             });
 
+            // Convert Sets → sizes
             weeks.forEach(w => {
                 Object.keys(channels).forEach(ch => {
                     result[w][ch].CR = result[w][ch].CR.size;
+                    result[w][ch].CA = result[w][ch].CA.size;
                     Object.keys(result[w][ch].classes).forEach(cls => {
                         result[w][ch].classes[cls].CR = result[w][ch].classes[cls].CR.size;
+                        result[w][ch].classes[cls].CA = result[w][ch].classes[cls].CA.size;
                     });
+                });
+                ['School', 'Non School'].forEach(kat => {
+                    const bkt = result[w]['RETAIL'].schoolCats[kat];
+                    bkt.CR = bkt.CR.size;
+                    bkt.CA = bkt.CA.size;
                 });
             });
 
             renderTable(result, weeks, channels, target);
         }
 
+        // Cek apakah bucket kosong di semua weeks (LY, LM, BE, BP, Actual, CR semuanya 0)
+        function isBucketEmpty(bucketFn, weeks) {
+            return weeks.every(w => {
+                const d = bucketFn(w);
+                return !d || (d.LY === 0 && d.LM === 0 && d.BE === 0 && d.BP === 0 && d.Actual === 0 && d.CR === 0);
+            });
+        }
+
         function renderTable(result, weeks, channels, target) {
+            const hideEmpty = (target === 'Salesman'); // sembunyikan sub-channel kosong di Dashboard by Salesman
             let html = '';
 
             html += '<tr><td class="sticky-col row-total">GT ext PS</td>';
             weeks.forEach(w => {
                 const gt = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'INSTITUTION', 'FS']);
-                html += renderCells(gt, w === 'MTD');
+                html += renderCells(gt, w === 'MTD', w);
             });
             html += '</tr>';
 
             ['WHOLESALER', 'RETAIL'].forEach(ch => {
                 html += `<tr><td class="sticky-col row-channel">${ch}</td>`;
-                weeks.forEach(w => html += renderCells(result[w][ch], w === 'MTD'));
+                weeks.forEach(w => html += renderCells(result[w][ch], w === 'MTD', w));
                 html += '</tr>';
 
                 channels[ch].forEach(cls => {
+                    if (hideEmpty && isBucketEmpty(w => result[w][ch].classes[cls], weeks)) return;
                     html += `<tr><td class="sticky-col row-subitem">${cls}</td>`;
-                    weeks.forEach(w => html += renderCells(result[w][ch].classes[cls], w === 'MTD'));
+                    weeks.forEach(w => html += renderCells(result[w][ch].classes[cls], w === 'MTD', w));
                     html += '</tr>';
                 });
+
+                // Baris School / Non School — hanya untuk RETAIL
+                if (ch === 'RETAIL') {
+                    ['School', 'Non School'].forEach(kat => {
+                        if (hideEmpty && isBucketEmpty(w => result[w]['RETAIL'].schoolCats[kat], weeks)) return;
+                        html += `<tr><td class="sticky-col row-school-cat">${kat}</td>`;
+                        weeks.forEach(w => html += renderCells(result[w]['RETAIL'].schoolCats[kat], w === 'MTD', w));
+                        html += '</tr>';
+                    });
+                }
             });
 
             html += `<tr><td class="sticky-col row-mt">MT</td>`;
-            weeks.forEach(w => html += renderCells(result[w]['MT'], w === 'MTD'));
+            weeks.forEach(w => html += renderCells(result[w]['MT'], w === 'MTD', w));
             html += '</tr>';
-            
-            html += `<tr><td class="sticky-col row-mt-sub">NKA</td>`;
-            weeks.forEach(w => html += renderCells(result[w]['NKA'], w === 'MTD'));
-            html += '</tr>';
-            
-            html += `<tr><td class="sticky-col row-mt-sub">MTI</td>`;
-            weeks.forEach(w => html += renderCells(result[w]['MTI'], w === 'MTD'));
-            html += '</tr>';
+
+            // NKA — sembunyikan jika kosong di mode Salesman
+            if (!hideEmpty || !isBucketEmpty(w => result[w]['NKA'], weeks)) {
+                html += `<tr><td class="sticky-col row-mt-sub">NKA</td>`;
+                weeks.forEach(w => html += renderCells(result[w]['NKA'], w === 'MTD', w));
+                html += '</tr>';
+            }
+
+            // MTI — sembunyikan jika kosong di mode Salesman
+            if (!hideEmpty || !isBucketEmpty(w => result[w]['MTI'], weeks)) {
+                html += `<tr><td class="sticky-col row-mt-sub">MTI</td>`;
+                weeks.forEach(w => html += renderCells(result[w]['MTI'], w === 'MTD', w));
+                html += '</tr>';
+            }
 
             ['INSTITUTION', 'FS'].forEach(ch => {
                 html += `<tr><td class="sticky-col row-channel">${ch}</td>`;
-                weeks.forEach(w => html += renderCells(result[w][ch], w === 'MTD'));
+                weeks.forEach(w => html += renderCells(result[w][ch], w === 'MTD', w));
                 html += '</tr>';
             });
 
             html += '<tr><td class="sticky-col row-total">ALL Channel Exc. NKA</td>';
             weeks.forEach(w => {
                 const all = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'MTI', 'INSTITUTION', 'FS']);
-                html += renderCells(all, w === 'MTD');
+                html += renderCells(all, w === 'MTD', w);
             });
             html += '</tr>';
 
             html += '<tr><td class="sticky-col row-total">ALL Channel</td>';
             weeks.forEach(w => {
                 const all = sumChannels(result[w], ['WHOLESALER', 'RETAIL', 'NKA', 'MTI', 'INSTITUTION', 'FS']);
-                html += renderCells(all, w === 'MTD');
+                html += renderCells(all, w === 'MTD', w);
             });
             html += '</tr>';
 
@@ -2181,7 +3529,8 @@
             return sum;
         }
 
-        function renderCells(d, isMTD) {
+        function renderCells(d, isMTD, wStr) {
+            const wNum = (wStr && wStr !== 'MTD') ? wStr.replace('W','') : '';
             const caVsCR = d.CR > 0 ? (d.CA / d.CR * 100).toFixed(1) : '0.0';
             const vsBP = d.BP > 0 ? (d.Actual / d.BP * 100).toFixed(1) : '0.0';
             const gapBP = d.Actual - d.BP;
@@ -2200,18 +3549,21 @@
                 : `<span class="neg">${fmtM(gapBE)}</span>`;
             
             if (!isMTD) {
-                return `<td>${fmtM(d.LY)}</td><td>${fmtM(d.LM)}</td><td>${fmtM(d.BE)}</td><td>${fmtM(d.BP)}</td>` +
-                       `<td>${fmtM(d.Actual)}</td>` +
-                       `<td class="${bpClass}">${vsBP}%</td><td>${gapBPFmt}</td>` +
-                       `<td class="${beClass}">${vsBE}%</td><td>${gapBEFmt}</td>`;
+                const dw = wNum ? ` data-w="${wNum}"` : '';
+                // Check if this week is currently hidden, apply class if so
+                const hidCls = (window._wkColsState && window._wkColsState[wNum]) ? ' wk-hidden' : '';
+                return `<td class="wk-detail${hidCls}" data-col="ly"${dw}>${fmtM(d.LY)}</td><td class="wk-detail${hidCls}" data-col="lm"${dw}>${fmtM(d.LM)}</td><td class="wk-detail${hidCls}" data-col="be"${dw}>${fmtM(d.BE)}</td><td class="wk-detail${hidCls}" data-col="bp"${dw}>${fmtM(d.BP)}</td>` +
+                       `<td class="wk-detail${hidCls}" data-col="act"${dw}>${fmtM(d.Actual)}</td>` +
+                       `<td class="wk-result ${bpClass}" data-col="pct-bp">${vsBP}%</td><td class="wk-result" data-col="gap-bp">${gapBPFmt}</td>` +
+                       `<td class="wk-result ${beClass}" data-col="pct-be">${vsBE}%</td><td class="wk-result" data-col="gap-be">${gapBEFmt}</td>`;
             }
             
-            return `<td>${fmtN(d.CR)}</td><td>${fmtN(d.CA)}</td><td>${caVsCR}%</td>` +
-                   `<td>${fmtM(d.LY)}</td><td>${fmtM(d.LM)}</td><td>${fmtM(d.L3M)}</td>` +
-                   `<td>${fmtM(d.BE)}</td><td>${fmtM(d.BP)}</td>` +
-                   `<td>${fmtM(d.Actual)}</td>` +
-                   `<td class="${bpClass}">${vsBP}%</td><td>${gapBPFmt}</td>` +
-                   `<td class="${beClass}">${vsBE}%</td><td>${gapBEFmt}</td>`;
+            return `<td class="wk-mtd-cell">${fmtN(d.CR)}</td><td class="wk-mtd-cell">${fmtN(d.CA)}</td><td class="wk-mtd-cell">${caVsCR}%</td>` +
+                   `<td class="wk-mtd-cell">${fmtM(d.LY)}</td><td class="wk-mtd-cell">${fmtM(d.LM)}</td><td class="wk-mtd-cell">${fmtM(d.L3M)}</td>` +
+                   `<td class="wk-mtd-cell">${fmtM(d.BE)}</td><td class="wk-mtd-cell">${fmtM(d.BP)}</td>` +
+                   `<td class="wk-mtd-cell">${fmtM(d.Actual)}</td>` +
+                   `<td class="wk-mtd-cell ${bpClass}">${vsBP}%</td><td class="wk-mtd-cell">${gapBPFmt}</td>` +
+                   `<td class="wk-mtd-cell ${beClass}">${vsBE}%</td><td class="wk-mtd-cell">${gapBEFmt}</td>`;
         }
 
         function fmtN(n) {
@@ -2235,14 +3587,22 @@
             loading.textContent = '⏳ Memuat data Project...';
             wrap.innerHTML = '';
             try {
-                const res = await fetch('Project.json');
-                if (!res.ok) throw new Error('Project.json tidak ditemukan');
+                // Gunakan file per-depo jika depo spesifik dipilih, bukan Project.json global
+                let projectFile;
+                if (viewType === 'summary') {
+                    projectFile = 'Project.json';
+                } else {
+                    const depoSuffix = selectedDepo.replace('data_DEPO_', '');
+                    projectFile = `project_DEPO_${depoSuffix}.json`;
+                }
+                const res = await fetch(projectFile);
+                if (!res.ok) throw new Error(`${projectFile} tidak ditemukan`);
                 const json = await res.json();
                 projectData = json.data || [];
                 loading.style.display = 'none';
                 renderProjectTab();
             } catch(e) {
-                loading.textContent = '❌ Gagal memuat Project.json: ' + e.message;
+                loading.textContent = '❌ Gagal memuat data Project: ' + e.message;
             }
         }
 
@@ -2258,7 +3618,7 @@
 
             const fpct = (v) => {
                 if (v === null || v === undefined || isNaN(v)) return '-';
-                const pct = v > 1 ? v : v * 100;
+                const pct = v * 100;
                 return pct.toFixed(1) + '%';
             };
 
@@ -2303,10 +3663,14 @@
                 card.style.cursor = 'pointer';
                 card.title = `Klik untuk lihat detail ${proj}`;
                 card.onclick = () => switchProjectSubTab(proj);
+                const isCs = proj.toUpperCase().includes('SC');
+                const fcCard = isCs
+                    ? (n) => { const v = Math.round(Number(n||0)); return v === 0 ? '0 cs' : v.toLocaleString('id-ID') + ' cs'; }
+                    : fc;
                 card.innerHTML = `
                     <div class="proj-metric-label">Ach MTD — ${proj}</div>
                     <div class="proj-metric-value ${valueClass}">${achMtdPct.toFixed(1)}%</div>
-                    <div style="font-size:10px;color:#aaa;margin-top:3px;">${rows.length} outlet · ${fc(tAMtd)} / ${fc(tTMtd)}</div>
+                    <div style="font-size:10px;color:#aaa;margin-top:3px;">${rows.length} outlet · ${fcCard(tAMtd)} / ${fcCard(tTMtd)}</div>
                 `;
                 metricsRow.appendChild(card);
             });
@@ -2343,9 +3707,25 @@
         function renderProjectTable(projName) {
             const wrap = document.getElementById('projTableWrap');
             const rows = (window._projGroups || {})[projName] || [];
-            const fc = window._projFc;
             const achBadge = window._projAchBadge;
-            const gapFmt = window._projGapFmt;
+
+            // Format angka: ITG SC pakai cs (integer + separator), lainnya pakai jt/rb
+            const isCs = projName.toUpperCase().includes('SC');
+            const fc = isCs
+                ? (n) => {
+                    if (n === null || n === undefined || isNaN(n)) return '-';
+                    const v = Math.round(Number(n));
+                    if (v === 0) return '0 cs';
+                    return v.toLocaleString('id-ID') + ' cs';
+                  }
+                : window._projFc;
+
+            const gapFmt = (v) => {
+                if (v === null || isNaN(v)) return '-';
+                const cls = v >= 0 ? 'p-gap-pos' : 'p-gap-neg';
+                const sign = v >= 0 ? '+' : '';
+                return `<span class="${cls}">${sign}${fc(v)}</span>`;
+            };
 
             // Sort by A.QRT descending (Pareto style)
             const sorted = [...rows].sort((a, b) => parseFloat(b['A.QRT'] || 0) - parseFloat(a['A.QRT'] || 0));
@@ -2408,8 +3788,9 @@
             sorted.forEach((r, i) => {
                 const achQrt = parseFloat(r['Ach_Qrt'] || 0);
                 const achMtd = parseFloat(r['Ach_MTD'] || 0);
-                const achQrtPct = achQrt > 1 ? achQrt : achQrt * 100;
-                const achMtdPct = achMtd > 1 ? achMtd : achMtd * 100;
+                // Data selalu dalam format desimal (0.66 = 66%, 1.6 = 160%), selalu × 100
+                const achQrtPct = achQrt * 100;
+                const achMtdPct = achMtd * 100;
                 html += `
                     <tr>
                         <td class="p-center"><span class="proj-rank-badge">${i+1}</span></td>
@@ -2431,7 +3812,302 @@
 
             html += '</tbody></table>';
             wrap.innerHTML = html;
+
+            // Auto-calculate sticky top values based on actual rendered heights
+            requestAnimationFrame(() => {
+                const table = wrap.querySelector('table');
+                if (!table) return;
+                const secRow = table.querySelector('tr.proj-section-header');
+                const colRow = table.querySelector('tr.proj-col-header');
+                const totRow = table.querySelector('tr.proj-total');
+                const secH = secRow ? secRow.getBoundingClientRect().height : 0;
+                const colH = colRow ? colRow.getBoundingClientRect().height : 0;
+                if (colRow) colRow.querySelectorAll('th').forEach(th => th.style.top = secH + 'px');
+                if (totRow) totRow.querySelectorAll('td').forEach(td => td.style.top = (secH + colH) + 'px');
+            });
         }
     </script>
+
+    <!-- Chart.js untuk Trend By Week -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script>
+        let trendChart = null;
+        let trendDayChart = null;
+
+        async function loadTrendData() {
+            const loading = document.getElementById('loadingTrend');
+            if (loading) { loading.style.display='block'; loading.textContent='⏳ Memuat data Trend...'; }
+            try {
+                const depoSuffix = selectedDepo.replace(/^data_DEPO_/i, '');
+                const res = await fetch('trend_DEPO_' + depoSuffix + '.json');
+                if (!res.ok) throw new Error('trend_DEPO_' + depoSuffix + '.json tidak ditemukan');
+                const json = await res.json();
+                // Support format baru {weekly[], daily[]} dan format lama {data[]}
+                if (json.weekly !== undefined || json.daily !== undefined) {
+                    window._trendWeeklyData      = json.weekly || [];
+                    window._trendDailyData       = json.daily  || [];
+                    window._trendDailyData._depo = depoSuffix;
+                } else {
+                    window._trendWeeklyData = json.data || [];
+                    window._trendDailyData  = [];
+                }
+                window.trendLoaded = true;
+                if (loading) loading.style.display = 'none';
+                renderTrendChart();
+            } catch(e) {
+                if (loading) loading.textContent = '❌ ' + e.message;
+            }
+        }
+
+        function renderTrendChart() {
+            const wrap = document.getElementById('trendChartWrap');
+            if (!wrap) return;
+
+            const weeklyRaw = window._trendWeeklyData || [];
+            const dailyData = window._trendDailyData  || [];
+
+            const fmtJt = v => {
+                if (!v && v!==0) return '0';
+                const n=Number(v), jt=n/1e6;
+                return Math.abs(jt)>=1000 ? jt.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' jt'
+                     : Math.abs(jt)>=1    ? jt.toFixed(1)+' jt'
+                     : (n/1e3).toFixed(0)+' rb';
+            };
+            const fmtDay = s => { const p=(s||'').split('/'); return p.length===3?parseInt(p[1])+'/'+parseInt(p[0]):s; };
+
+            // Aggregate weekly: group by Bulan+Week, sum Week_Report
+            const moIdx = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Mei:4,Jun:5,Jul:6,Aug:7,Agu:7,Sep:8,Oct:9,Okt:9,Nov:10,Dec:11,Des:11};
+            const aggMap = {};
+            weeklyRaw.forEach(r => {
+                const bulan = String(r.Bulan||'').trim();
+                const week  = String(r.Week ||'').trim();
+                if (!bulan||!week) return;
+                const key = bulan+' '+week;
+                if (!aggMap[key]) aggMap[key] = { bulan, week, val:0 };
+                aggMap[key].val += Number(r.Week_Report||r.NetSalesPKD||0);
+            });
+            // Parse bulan: support format "Mar-25", "Mar-2025", "Mar 25", "Mar 2025"
+            const parseBulan = (bulan) => {
+                const norm = bulan.replace(/\s+/g, '-');
+                const parts = norm.split('-');
+                const mo = parts[0] || '';
+                let yr = parseInt(parts[1] || '0');
+                if (yr > 0 && yr < 100) yr += 2000; // 25 → 2025
+                return { mo, yr };
+            };
+            const sortedKeys = Object.keys(aggMap).sort((a,b) => {
+                const ra=aggMap[a], rb=aggMap[b];
+                const {mo:ma, yr:ya} = parseBulan(ra.bulan);
+                const {mo:mb, yr:yb} = parseBulan(rb.bulan);
+                const yi = ya - yb; if(yi!==0) return yi;
+                const mi=(moIdx[ma]??99)-(moIdx[mb]??99); if(mi!==0) return mi;
+                return parseInt(ra.week.replace('W',''))-parseInt(rb.week.replace('W',''));
+            });
+            const wValues = sortedKeys.map(k=>aggMap[k].val);
+
+            // Color bulan ini vs lainnya
+            const now=new Date();
+            const curM = now.toLocaleString('en-US',{month:'short'})+'-'+String(now.getFullYear()).slice(2);
+            const barColors    = sortedKeys.map(k=>aggMap[k].bulan===curM?'rgba(14,116,144,0.85)':'rgba(148,197,218,0.55)');
+            const borderColors = sortedKeys.map(k=>aggMap[k].bulan===curM?'#0e7490':'#93c5d5');
+
+            // Avg line per bulan
+            const mAvg={};
+            sortedKeys.forEach(k=>{ const bl=aggMap[k].bulan; if(!mAvg[bl]) mAvg[bl]={sum:0,n:0}; mAvg[bl].sum+=aggMap[k].val; mAvg[bl].n++; });
+            const avgLine=sortedKeys.map(k=>{ const bl=aggMap[k].bulan; return mAvg[bl]?mAvg[bl].sum/mAvg[bl].n:null; });
+
+            wrap.innerHTML = `
+                <div style="background:white;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:14px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <h3 style="margin:0;font-size:14px;font-weight:700;color:#1e293b;">📈 Trend Penjualan By Week</h3>
+                        <span style="font-size:11px;color:#94a3b8;">${sortedKeys.length} minggu · bar=aktual/week · garis=rata-rata/bulan</span>
+                    </div>
+                    <div style="height:320px;position:relative;"><canvas id="trendCanvas"></canvas></div>
+                </div>
+                ${dailyData.length ? `
+                <div style="background:white;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+                    <h3 style="margin:0 0 12px;font-size:14px;font-weight:700;color:#1e293b;">📅 Trend Harian — SO / DO vs BP</h3>
+                    <div style="height:260px;position:relative;"><canvas id="trendDayCanvas"></canvas></div>
+                </div>` : ''}`;
+
+            // Weekly chart
+            if (trendChart) trendChart.destroy();
+            const wCtx = document.getElementById('trendCanvas');
+            if (wCtx) trendChart = new Chart(wCtx.getContext('2d'), {
+                data:{ labels:sortedKeys, datasets:[
+                    { type:'bar',  label:'Actual/Week', data:wValues,  backgroundColor:barColors, borderColor:borderColors, borderWidth:1, borderRadius:4, order:2 },
+                    { type:'line', label:'Avg/Bulan',   data:avgLine,  borderColor:'#f97316', backgroundColor:'transparent', borderWidth:2, pointRadius:0, borderDash:[5,3], order:1 }
+                ]},
+                options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
+                    plugins:{ legend:{display:true,position:'top',labels:{font:{size:11},boxWidth:14}},
+                        tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+fmtJt(ctx.parsed.y)}}},
+                    scales:{
+                        x:{ticks:{font:{size:10},maxRotation:45,callback:(val,idx)=>{ const l=sortedKeys[idx]||''; return l.includes('W1')?l:l.split(' ').pop(); }},grid:{display:false}},
+                        y:{ticks:{font:{size:10},callback:v=>fmtJt(v)},grid:{color:'rgba(0,0,0,0.05)'}}
+                    }
+                }
+            });
+
+            // Daily chart
+            if (trendDayChart) trendDayChart.destroy();
+            const dCtx = document.getElementById('trendDayCanvas');
+            if (dCtx && dailyData.length) {
+                const fullDates = dailyData.map(r=>r.Date||'');
+                trendDayChart = new Chart(dCtx.getContext('2d'), {
+                    type:'line',
+                    data:{ labels:dailyData.map(r=>fmtDay(r.Date)), datasets:[
+                        { label:'SO', data:dailyData.map(r=>Number(r.SO||0)), borderColor:'#0e7490', backgroundColor:'rgba(14,116,144,0.10)', borderWidth:2.5, pointRadius:3, fill:true, tension:0.3 },
+                        { label:'DO', data:dailyData.map(r=>Number(r.DO||0)), borderColor:'#16a34a', backgroundColor:'rgba(22,163,74,0.08)', borderWidth:2, pointRadius:3, fill:true, tension:0.3 },
+                        { label:'BP', data:dailyData.map(r=>Number(r.BP||0)), borderColor:'#f97316', backgroundColor:'transparent', borderWidth:2, borderDash:[6,4], pointRadius:3, fill:false, tension:0.3 }
+                    ]},
+                    options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
+                        plugins:{ legend:{labels:{font:{size:10},boxWidth:14}},
+                            tooltip:{callbacks:{title:items=>fullDates[items[0].dataIndex]||items[0].label, label:ctx=>' '+ctx.dataset.label+': '+fmtJt(ctx.raw)}}},
+                        scales:{ y:{ticks:{callback:v=>fmtJt(v),font:{size:9}},grid:{color:'#f1f5f9'}}, x:{ticks:{font:{size:10}}} }
+                    }
+                });
+            }
+        }
+    </script>
+    <!-- SheetJS untuk Export Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- html2canvas untuk Save Image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // =====================================================================
+        // EXPORT CATEGORY TO EXCEL
+        // =====================================================================
+        function exportCategoryExcel() {
+            const table = document.querySelector('#catTableWrap table');
+            if (!table) { alert('Tidak ada data untuk diekspor.'); return; }
+
+            // Expand all rows dulu agar semua baris visible
+            toggleCatAll(true);
+
+            // Kumpulkan data dari semua baris yang visible
+            const rows = [];
+            const headers = [];
+
+            // Header
+            table.querySelectorAll('thead tr').forEach(tr => {
+                const row = [];
+                tr.querySelectorAll('th').forEach(th => row.push(th.innerText.trim().replace(/\n/g,' ')));
+                if (row.some(c => c)) headers.push(row);
+            });
+
+            // Data rows (termasuk yang di-hidden saat collapse — kita paksa baca semua)
+            table.querySelectorAll('tbody tr').forEach(tr => {
+                const row = [];
+                tr.querySelectorAll('td').forEach(td => {
+                    // Ambil text bersih, strip spans
+                    row.push(td.innerText.trim().replace(/\n/g,' '));
+                });
+                if (row.length > 0) rows.push(row);
+            });
+
+            // Buat workbook
+            const wb = XLSX.utils.book_new();
+            const wsData = [...headers, ...rows];
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+            // Auto column width
+            const colWidths = wsData[0] ? wsData[0].map((_, ci) => ({
+                wch: Math.min(40, Math.max(10, ...wsData.map(r => (r[ci]||'').toString().length)))
+            })) : [];
+            ws['!cols'] = colWidths;
+
+            // Nama sheet berdasarkan salesman yang dipilih
+            const sm = document.getElementById('catSalesmanSelect').value || 'All Salesman';
+            const sheetName = ('Category_' + sm).replace(/[\\\/\?\*\[\]:]/g,'_').substring(0,31);
+
+            XLSX.utils.book_append_sheet(wb, ws, sheetName);
+
+            // Filename
+            const now = new Date();
+            const ts = now.getFullYear() + ('0'+(now.getMonth()+1)).slice(-2) + ('0'+now.getDate()).slice(-2);
+            XLSX.writeFile(wb, `Category_${sm.replace(/\s+/g,'_')}_${ts}.xlsx`);
+        }
+
+        // =====================================================================
+        // SAVE CATEGORY AS IMAGE (full table, not just viewport)
+        // =====================================================================
+        async function saveCategoryImage() {
+            const wrap = document.getElementById('catTableWrap');
+            if (!wrap || !wrap.querySelector('table')) { alert('Tidak ada data untuk disimpan.'); return; }
+
+            // Tidak expand — capture sesuai tampilan saat ini
+            wrap.scrollTop = 0;
+            wrap.scrollLeft = 0;
+
+            // Simpan max-height sementara, set ke none agar full
+            const origMaxH = wrap.style.maxHeight;
+            const origOverflow = wrap.style.overflowY;
+            wrap.style.maxHeight = 'none';
+            wrap.style.overflowY = 'visible';
+
+            const btn = event.target;
+            btn.textContent = '⏳ Memproses...';
+            btn.disabled = true;
+
+            try {
+                const canvas = await html2canvas(wrap, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    scrollX: 0,
+                    scrollY: 0,
+                    windowWidth: wrap.scrollWidth + 40,
+                    windowHeight: wrap.scrollHeight + 40
+                });
+
+                const sm = document.getElementById('catSalesmanSelect').value || 'All_Salesman';
+                const now = new Date();
+                const ts = now.getFullYear() + ('0'+(now.getMonth()+1)).slice(-2) + ('0'+now.getDate()).slice(-2);
+                const link = document.createElement('a');
+                link.download = `Category_${sm.replace(/\s+/g,'_')}_${ts}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } finally {
+                wrap.style.maxHeight = origMaxH;
+                wrap.style.overflowY = origOverflow;
+                btn.textContent = '🖼️ Save Image';
+                btn.disabled = false;
+            }
+        }
+    </script>
+
+    <!-- ===== FLOATING COLUMN WIDTH SETTINGS ===== -->
+    <div id="colSettingsFloat">
+        <div id="colSettingsPanel">
+            <h4>⚙️ Pengaturan Lebar Kolom</h4>
+            <div class="col-setting-row">
+                <label>Channel (sticky)</label>
+                <input type="range" min="70" max="200" value="100" step="5"
+                    oninput="applyColWidth('--col-sticky', this.value+'px'); this.nextElementSibling.textContent=this.value+'px'">
+                <span>100px</span>
+            </div>
+            <div class="col-setting-row">
+                <label>LY / LM / BE / BP / Act</label>
+                <input type="range" min="30" max="90" value="52" step="2"
+                    oninput="applyColWidth('--col-detail', this.value+'px'); this.nextElementSibling.textContent=this.value+'px'">
+                <span>52px</span>
+            </div>
+            <div class="col-setting-row">
+                <label>%BP / G-BP / %BE / G-BE</label>
+                <input type="range" min="30" max="90" value="45" step="2"
+                    oninput="applyColWidth('--col-result', this.value+'px'); this.nextElementSibling.textContent=this.value+'px'">
+                <span>45px</span>
+            </div>
+            <div class="col-setting-row">
+                <label>Kolom MTD (semua)</label>
+                <input type="range" min="25" max="90" value="45" step="2"
+                    oninput="applyColWidth('--col-mtd', this.value+'px'); this.nextElementSibling.textContent=this.value+'px'">
+                <span>45px</span>
+            </div>
+            <button class="reset-btn" onclick="resetColWidths()">↺ Reset Default</button>
+        </div>
+        <button id="colSettingsToggleBtn" onclick="toggleColSettings()" title="Pengaturan lebar kolom">⚙️</button>
+    </div>
+
 </body>
 </html>
