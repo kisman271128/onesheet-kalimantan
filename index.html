@@ -1906,7 +1906,10 @@
         }
 
         window.onload = async () => {
-            await loadConfig(); // Load GitHub config dari config.json
+            // Hanya load config jika di localhost (config.json tidak perlu ada di GitHub)
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                await loadConfig();
+            }
             loadDepoList();
             await loadTGData(); // Tunggu TG data selesai sebelum showDashboard
             if (sessionStorage.getItem('user')) {
@@ -2728,7 +2731,7 @@
                     <div class="tab" onclick="switchTab('project')">📋 Project</div>
                     <div class="tab" onclick="switchTab('category')">📦 Category</div>
                     <div class="tab" onclick="switchTab('trend')">📈 Trend By Week</div>
-                    <div class="tab" onclick="switchTab('upload')">📤 Upload Data</div>
+                    ${window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '<div class="tab" onclick="switchTab(\'upload\')">📤 Upload Data</div>' : ''}
                     <button onclick="hardRefresh()" title="Bersihkan cache dan muat ulang data terbaru"
                         style="margin-left:8px; padding:7px 14px; background:white; border:1.5px solid #cbd5e1;
                                border-radius:8px; cursor:pointer; font-size:12px; font-weight:600; color:#475569;
