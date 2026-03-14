@@ -2072,31 +2072,46 @@
         // ═══════════════════════════════════════════════════════════════
         // SUMMARY REGIONAL — Agregasi semua data dari seluruh depo
         // ═══════════════════════════════════════════════════════════════
+        // Normalisasi nama depo dari depo_list.json → nama file
+        // "Depo Tanjung" → "TANJUNG", "KUTAI KARTANEGARA" → "KUTAI_KARTANEGARA"
+        function normalizeDepoName(raw) {
+            let s = String(raw).trim().toUpperCase();
+            if (s.startsWith('DEPO ')) s = s.slice(5);
+            return s.replace(/\s+/g, '_').replace(/\//g, '_');
+        }
+
         async function loadSummaryRegionalData() {
             // Ambil daftar depo dari depo_list.json
-            let depos = [];
+            let rawDepos = [];
             try {
                 const res = await fetch('depo_list.json');
                 if (res.ok) {
                     const dl = await res.json();
-                    depos = dl.depos || [];
+                    rawDepos = dl.depos || [];
                 }
             } catch(e) { console.warn('depo_list.json error:', e); }
 
-            if (depos.length === 0) {
-                // Fallback: pakai rawData yang sudah ada (data_SUMMARY.json)
+            if (rawDepos.length === 0) {
                 console.warn('depo_list kosong, pakai rawData existing');
                 return;
             }
 
-            console.log('Summary Regional: loading', depos.length, 'depos...');
+            // Normalisasi nama depo ke format file
+            const depos = rawDepos.map(normalizeDepoName);
+            console.log('Summary Regional: loading', depos.length, 'depos:', depos);
 
-            // Fetch semua file secara paralel
+            // Tampilkan loading panel status depo
+            const loadingEl = document.getElementById('loadingSummaryDash');
+            if (loadingEl) loadingEl.innerHTML = '⏳ Memuat data ' + depos.length + ' depo...';
+
+            // Fetch dengan tracking status per depo
             const fetchJSON = async (url) => {
                 try {
                     const r = await fetch(url);
-                    return r.ok ? ((await r.json()).data || []) : [];
-                } catch(e) { return []; }
+                    if (!r.ok) return null; // null = tidak ditemukan
+                    const j = await r.json();
+                    return { data: j.data || [], meta: j.metadata || {} };
+                } catch(e) { return null; }
             };
 
             const results = await Promise.all(depos.map(depo => Promise.all([
@@ -2107,23 +2122,33 @@
                 fetchJSON('project_DEPO_'+ depo + '.json'),
             ])));
 
-            // Agregasi — tambahkan kolom Depo ke setiap baris agar bisa diidentifikasi
-            const aggData    = [], aggBp  = [], aggCat = [];
-            const aggBti     = [], aggProj = [];
-            const depoAchMap = {}; // untuk Klasemen Depo
+            // Agregasi + tracking status
+            const aggData = [], aggBp = [], aggCat = [], aggBti = [], aggProj = [];
+            const depoAchMap  = {};
+            const depoStatus  = {}; // { TANJUNG: { found: true, lastUpdate: '...', hasData: true } }
 
-            results.forEach(([data, bp, cat, bti, proj], idx) => {
-                const depo = depos[idx];
-                // Tambahkan field _depo ke tiap baris
-                data.forEach(r  => aggData.push({...r,  _depo: depo}));
-                bp.forEach(r    => aggBp.push({...r,    _depo: depo}));
-                cat.forEach(r   => aggCat.push({...r,   _depo: depo}));
-                bti.forEach(r   => aggBti.push({...r,   _depo: depo}));
-                proj.forEach(r  => aggProj.push({...r,  _depo: depo}));
+            results.forEach(([dataR, bpR, catR, btiR, projR], idx) => {
+                const depo     = depos[idx];
+                const rawDepo  = rawDepos[idx];
+                const hasData  = dataR !== null;
+                const hasBP    = bpR   !== null;
+                const lastUpd  = (bpR?.meta?.last_updated) || (dataR?.meta?.last_updated) || null;
 
-                // Hitung MTD & BP per depo untuk Klasemen Depo
+                depoStatus[depo] = {
+                    label:      rawDepo,
+                    found:      hasData || hasBP,
+                    lastUpdate: lastUpd,
+                };
+
+                if (hasData) dataR.data.forEach(r => aggData.push({...r, _depo: depo}));
+                if (hasBP)   bpR.data.forEach(r   => aggBp.push({...r,  _depo: depo}));
+                if (catR)    catR.data.forEach(r   => aggCat.push({...r, _depo: depo}));
+                if (btiR)    btiR.data.forEach(r   => aggBti.push({...r, _depo: depo}));
+                if (projR)   projR.data.forEach(r  => aggProj.push({...r,_depo: depo}));
+
+                // Klasemen Depo — dari bp
                 let dMTD=0, dBP=0, dBE=0, dLY=0, dLM=0;
-                bp.forEach(r => {
+                if (hasBP) bpR.data.forEach(r => {
                     dMTD += Number(r.MTD    || 0);
                     dBP  += Number(r['T.BP']|| 0);
                     dBE  += Number(r.BE     || 0);
@@ -2131,20 +2156,68 @@
                     dLM  += Number(r.LM     || 0);
                 });
                 if (dMTD > 0 || dBP > 0) {
-                    depoAchMap[depo] = { MTD: dMTD, BP: dBP, BE: dBE, LY: dLY, LM: dLM };
+                    depoAchMap[depo] = { label: rawDepo, MTD: dMTD, BP: dBP, BE: dBE, LY: dLY, LM: dLM };
                 }
             });
 
-            // Set global data
-            rawData              = aggData;
-            window.catBpData     = aggBp;
-            catData              = aggCat;
-            window.catBtiData    = aggBti;
-            window.catRawData    = aggData;
-            window._projectData  = aggProj;
-            window._depoAchMap   = depoAchMap; // untuk Klasemen Depo di renderSummaryDash
+            // Hitung statistik
+            const found   = Object.values(depoStatus).filter(d => d.found).length;
+            const missing = Object.values(depoStatus).filter(d => !d.found).length;
 
-            console.log('Summary Regional loaded:', aggData.length, 'rows data,', aggBp.length, 'rows BP');
+            // Set global data
+            rawData             = aggData;
+            window.catBpData    = aggBp;
+            catData             = aggCat;
+            window.catBtiData   = aggBti;
+            window.catRawData   = aggData;
+            window._projectData = aggProj;
+            window._depoAchMap  = depoAchMap;
+            window._depoStatus  = depoStatus;
+
+            console.log('Summary Regional loaded:', found, 'depos found,', missing, 'not found');
+        }
+
+        function renderDepoStatusPanel() {
+            const status = window._depoStatus || {};
+            const entries = Object.values(status);
+            if (entries.length === 0) return '';
+
+            const found   = entries.filter(d => d.found);
+            const missing = entries.filter(d => !d.found);
+
+            const fmtDate = (s) => {
+                if (!s) return '—';
+                // Format: "2026-03-14 10:00:00" → "14 Mar 2026"
+                try {
+                    const d = new Date(s.replace(' ', 'T'));
+                    return d.toLocaleDateString('id-ID', {day:'2-digit',month:'short',year:'numeric'});
+                } catch { return s; }
+            };
+
+            const foundRows = found.map(d =>
+                '<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid #f0fdf4;font-size:10px;">'
+                + '<span style="color:#16a34a;font-size:11px;">✅</span>'
+                + '<span style="flex:1;font-weight:600;color:#334155;">' + d.label + '</span>'
+                + '<span style="color:#94a3b8;font-size:9px;">' + fmtDate(d.lastUpdate) + '</span>'
+                + '</div>'
+            ).join('');
+
+            const missingRows = missing.map(d =>
+                '<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid #fff7ed;font-size:10px;">'
+                + '<span style="color:#f97316;font-size:11px;">⚠️</span>'
+                + '<span style="flex:1;font-weight:600;color:#9a3412;">' + d.label + '</span>'
+                + '<span style="color:#fdba74;font-size:9px;">Belum upload</span>'
+                + '</div>'
+            ).join('');
+
+            return '<div style="background:white;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:14px 16px;">'
+                + '<div style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">'
+                + '🏢 Status Data Depo ('+ found.length +'/'+ entries.length +' tersedia)</div>'
+                + (foundRows || '')
+                + (missing.length > 0
+                    ? '<div style="margin-top:8px;padding-top:6px;border-top:1px dashed #fed7aa;">' + missingRows + '</div>'
+                    : '')
+                + '</div>';
         }
 
         function renderSummaryDash() {
@@ -2488,10 +2561,11 @@
       <div style="${titleStyle}">${isRegional ? '🏢 Klasemen Depo (MTD vs BP)' : '👤 Semua Salesman (MTD vs BP)'}</div>
       <div style="max-height:240px;overflow-y:auto;">
       ${topSm.map(([sm,v],i)=>{
-        const smAch = v.BP>0?v.MTD/v.BP*100:0;
+        const smAch  = v.BP>0?v.MTD/v.BP*100:0;
+        const smLabel = v.label || sm; // pakai label asli depo jika ada
         return '<div style="display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid #f1f5f9;font-size:10px;">'
           + '<span style="width:16px;color:#94a3b8;font-weight:600;flex-shrink:0;">'+(i+1)+'</span>'
-          + '<span style="flex:1;font-weight:600;color:#334155;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">'+sm+'</span>'
+          + '<span style="flex:1;font-weight:600;color:#334155;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">'+smLabel+'</span>'
           + '<span style="color:#0e7490;font-weight:700;white-space:nowrap;font-size:9px;">'+jt(v.MTD)+'</span>'
           + '<span style="background:'+bgAch(smAch)+';color:'+colAch(smAch)+';border-radius:3px;padding:1px 5px;font-weight:700;font-size:9px;white-space:nowrap;flex-shrink:0;">'+smAch.toFixed(1)+'%</span>'
           + '</div>';
