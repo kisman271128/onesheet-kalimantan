@@ -2052,6 +2052,8 @@
         }
 
         function changeDepo() {
+            const fl = document.getElementById('depoStatusFloat');
+            if (fl) fl.remove();
             sessionStorage.removeItem('depo');
             sessionStorage.removeItem('view');
             showPage('selectionPage');
@@ -2178,16 +2180,25 @@
         }
 
         function renderDepoStatusPanel() {
-            const status = window._depoStatus || {};
+            return ''; // Diganti float button - lihat initDepoStatusFloat()
+        }
+
+        function initDepoStatusFloat() {
+            const old = document.getElementById('depoStatusFloat');
+            if (old) old.remove();
+
+            const status  = window._depoStatus || {};
             const entries = Object.values(status);
-            if (entries.length === 0) return '';
+            if (entries.length === 0) return;
 
             const found   = entries.filter(d => d.found);
             const missing = entries.filter(d => !d.found);
+            const allOk   = missing.length === 0;
+            const btnBg   = allOk ? '#16a34a' : '#f97316';
+            const badge   = missing.length > 0 ? String(missing.length) : '\u2713';
 
             const fmtDate = (s) => {
-                if (!s) return '—';
-                // Format: "2026-03-14 10:00:00" → "14 Mar 2026"
+                if (!s) return '\u2014';
                 try {
                     const d = new Date(s.replace(' ', 'T'));
                     return d.toLocaleDateString('id-ID', {day:'2-digit',month:'short',year:'numeric'});
@@ -2195,30 +2206,48 @@
             };
 
             const foundRows = found.map(d =>
-                '<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid #f0fdf4;font-size:10px;">'
-                + '<span style="color:#16a34a;font-size:11px;">✅</span>'
+                '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f1f5f9;font-size:11px;">'
+                + '<span style="color:#16a34a;font-size:12px;">\u2705</span>'
                 + '<span style="flex:1;font-weight:600;color:#334155;">' + d.label + '</span>'
-                + '<span style="color:#94a3b8;font-size:9px;">' + fmtDate(d.lastUpdate) + '</span>'
+                + '<span style="color:#94a3b8;font-size:10px;white-space:nowrap;">' + fmtDate(d.lastUpdate) + '</span>'
                 + '</div>'
             ).join('');
 
             const missingRows = missing.map(d =>
-                '<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid #fff7ed;font-size:10px;">'
-                + '<span style="color:#f97316;font-size:11px;">⚠️</span>'
+                '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #fff7ed;font-size:11px;">'
+                + '<span style="font-size:12px;">\u26a0\ufe0f</span>'
                 + '<span style="flex:1;font-weight:600;color:#9a3412;">' + d.label + '</span>'
-                + '<span style="color:#fdba74;font-size:9px;">Belum upload</span>'
+                + '<span style="color:#f97316;font-size:10px;">Belum upload</span>'
                 + '</div>'
             ).join('');
 
-            return '<div style="background:white;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:14px 16px;">'
-                + '<div style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">'
-                + '🏢 Status Data Depo ('+ found.length +'/'+ entries.length +' tersedia)</div>'
-                + (foundRows || '')
-                + (missing.length > 0
-                    ? '<div style="margin-top:8px;padding-top:6px;border-top:1px dashed #fed7aa;">' + missingRows + '</div>'
-                    : '')
-                + '</div>';
+            const wrap = document.createElement('div');
+            wrap.id = 'depoStatusFloat';
+            wrap.innerHTML =
+              '<button id="depoStatusBtn" onclick="var p=document.getElementById(\'depoStatusPopup\');p.style.display=p.style.display===\'none\'?\'\':\'none\';" '
+              + 'style="position:fixed;bottom:24px;right:24px;z-index:9999;background:' + btnBg + ';color:white;border:none;border-radius:50px;'
+              + 'padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;'
+              + 'box-shadow:0 4px 16px rgba(0,0,0,0.2);display:flex;align-items:center;gap:7px;transition:transform 0.15s;"'
+              + ' onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">'
+              + '\ud83c\udfe2 Status Depo '
+              + '<span style="background:white;color:' + btnBg + ';border-radius:20px;padding:1px 8px;font-size:11px;font-weight:800;">' + badge + '</span>'
+              + '</button>'
+              + '<div id="depoStatusPopup" style="display:none;position:fixed;bottom:72px;right:24px;z-index:9998;'
+              + 'width:300px;max-height:420px;overflow-y:auto;background:white;border-radius:12px;'
+              + 'box-shadow:0 8px 30px rgba(0,0,0,0.18);padding:14px 16px;">'
+              + '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px;'
+              + 'margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">'
+              + '<span>\ud83c\udfe2 Status Depo (' + found.length + '/' + entries.length + ')</span>'
+              + '<span onclick="document.getElementById(\'depoStatusPopup\').style.display=\'none\'" '
+              + 'style="cursor:pointer;color:#94a3b8;font-size:15px;line-height:1;">\u00d7</span>'
+              + '</div>'
+              + foundRows
+              + (missing.length > 0 ? '<div style="margin-top:8px;padding-top:8px;border-top:2px dashed #fed7aa;">' + missingRows + '</div>' : '')
+              + '</div>';
+
+            document.body.appendChild(wrap);
         }
+
 
         function renderSummaryDash() {
             const wrap = document.getElementById('summaryDashWrap');
@@ -2577,6 +2606,9 @@ ${isRegional ? renderDepoStatusPanel() : ''}
   </div><!-- end right -->
 
 </div><!-- end grid -->`;
+
+            // ── Init float button status depo (hanya Summary Regional) ─────────
+            if (isRegional) initDepoStatusFloat();
 
             // ── Draw Charts ────────────────────────────────────────────────────
             destroySummaryChart('week');
