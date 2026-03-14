@@ -1033,6 +1033,24 @@
                                 <div class="upload-detect-status" id="detect-trend">⏳ Menunggu folder...</div>
                             </div>
                         </div>
+                        <div class="upload-slot">
+                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#0369a1,#0ea5e9);">
+                                <span>🏪</span><span>Outlet</span>
+                            </div>
+                            <div class="upload-slot-body">
+                                <div class="upload-expected-name" id="label-outlet">—</div>
+                                <div class="upload-detect-status" id="detect-outlet">⏳ Menunggu folder...</div>
+                            </div>
+                        </div>
+                        <div class="upload-slot">
+                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#6d28d9,#8b5cf6);">
+                                <span>🛒</span><span>SKU</span>
+                            </div>
+                            <div class="upload-slot-body">
+                                <div class="upload-expected-name" id="label-sku">—</div>
+                                <div class="upload-detect-status" id="detect-sku">⏳ Menunggu folder...</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div id="uploadSummaryBar" style="display:none; border-radius:8px; padding:10px 16px; margin-bottom:14px; font-size:13px; border:1px solid #e0e0e0;"></div>
@@ -1186,6 +1204,8 @@
             document.getElementById('label-cat').textContent     = 'cat_DEPO_'     + depoSuffix + '.json';
             document.getElementById('label-bp').textContent      = 'bp_DEPO_'      + depoSuffix + '.json';
             document.getElementById('label-trend').textContent   = 'trend_DEPO_'   + depoSuffix + '.json';
+            document.getElementById('label-outlet').textContent  = 'outlet_DEPO_'  + depoSuffix + '.json';
+            document.getElementById('label-sku').textContent     = 'sku_DEPO_'     + depoSuffix + '.json';
             // Reset state saat depo berubah
             folderHandle  = null;
             detectedFiles = {};
@@ -1226,7 +1246,9 @@
                 { key: 'tg',      icon: '⏱️'  },
                 { key: 'cat',     icon: '📦' },
                 { key: 'bp',      icon: '🎯' },
-                { key: 'trend',   icon: '📈' }
+                { key: 'trend',   icon: '📈' },
+                { key: 'outlet',  icon: '🏪' },
+                { key: 'sku',     icon: '🛒' }
             ];
 
             let foundCount   = 0;
@@ -1267,7 +1289,7 @@
                     ? '<br><span style="color:#b45309;">⚠️ File tidak ditemukan: ' + missingNames.join(', ') + ' — tidak akan diupload.</span>'
                     : '';
                 bar.style.cssText = 'display:block; border-radius:8px; padding:10px 16px; margin-bottom:14px; font-size:13px; background:#f0fdf4; border:1px solid #86efac; color:#166534;';
-                bar.innerHTML = '✅ <strong>' + foundCount + ' dari 7 file</strong> siap diupload.' + warningHtml;
+                bar.innerHTML = '✅ <strong>' + foundCount + ' dari 9 file</strong> siap diupload.' + warningHtml;
                 btn.style.display = 'block';
                 btn.textContent = '📤 Upload ' + foundCount + ' File ke GitHub';
             }
@@ -1281,7 +1303,9 @@
                 { key: 'tg',      label: 'TG (Time Gone)' },
                 { key: 'cat',     label: 'Data Category'  },
                 { key: 'bp',      label: 'Data BP'        },
-                { key: 'trend',   label: 'Data Trend'     }
+                { key: 'trend',   label: 'Data Trend'     },
+                { key: 'outlet',  label: 'Pareto Outlet'  },
+                { key: 'sku',     label: 'Pareto SKU'     }
             ];
 
             const toUpload = slots.filter(s => detectedFiles[s.key]);
