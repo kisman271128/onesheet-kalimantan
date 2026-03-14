@@ -1346,6 +1346,13 @@
 
         async function loadCategoryData() {
             const loading = document.getElementById('loadingCategory');
+            // Jika Summary Regional, data sudah di-load oleh loadSummaryRegionalData()
+            if (selectedDepo === 'data_SUMMARY' && catData && catData.length > 0) {
+                loading.style.display = 'none';
+                loadCatSalesmanList();
+                renderCategoryTab('');
+                return;
+            }
             loading.style.display = 'block';
             loading.textContent = '⏳ Memuat data Category...';
             document.getElementById('catTableWrap').innerHTML = '';
@@ -2061,6 +2068,85 @@
             if (_summaryCharts[id]) { try { _summaryCharts[id].destroy(); } catch(e){} delete _summaryCharts[id]; }
         }
 
+
+        // ═══════════════════════════════════════════════════════════════
+        // SUMMARY REGIONAL — Agregasi semua data dari seluruh depo
+        // ═══════════════════════════════════════════════════════════════
+        async function loadSummaryRegionalData() {
+            // Ambil daftar depo dari depo_list.json
+            let depos = [];
+            try {
+                const res = await fetch('depo_list.json');
+                if (res.ok) {
+                    const dl = await res.json();
+                    depos = dl.depos || [];
+                }
+            } catch(e) { console.warn('depo_list.json error:', e); }
+
+            if (depos.length === 0) {
+                // Fallback: pakai rawData yang sudah ada (data_SUMMARY.json)
+                console.warn('depo_list kosong, pakai rawData existing');
+                return;
+            }
+
+            console.log('Summary Regional: loading', depos.length, 'depos...');
+
+            // Fetch semua file secara paralel
+            const fetchJSON = async (url) => {
+                try {
+                    const r = await fetch(url);
+                    return r.ok ? ((await r.json()).data || []) : [];
+                } catch(e) { return []; }
+            };
+
+            const results = await Promise.all(depos.map(depo => Promise.all([
+                fetchJSON('data_DEPO_'    + depo + '.json'),
+                fetchJSON('bp_DEPO_'     + depo + '.json'),
+                fetchJSON('cat_DEPO_'    + depo + '.json'),
+                fetchJSON('bti_DEPO_'    + depo + '.json'),
+                fetchJSON('project_DEPO_'+ depo + '.json'),
+            ])));
+
+            // Agregasi — tambahkan kolom Depo ke setiap baris agar bisa diidentifikasi
+            const aggData    = [], aggBp  = [], aggCat = [];
+            const aggBti     = [], aggProj = [];
+            const depoAchMap = {}; // untuk Klasemen Depo
+
+            results.forEach(([data, bp, cat, bti, proj], idx) => {
+                const depo = depos[idx];
+                // Tambahkan field _depo ke tiap baris
+                data.forEach(r  => aggData.push({...r,  _depo: depo}));
+                bp.forEach(r    => aggBp.push({...r,    _depo: depo}));
+                cat.forEach(r   => aggCat.push({...r,   _depo: depo}));
+                bti.forEach(r   => aggBti.push({...r,   _depo: depo}));
+                proj.forEach(r  => aggProj.push({...r,  _depo: depo}));
+
+                // Hitung MTD & BP per depo untuk Klasemen Depo
+                let dMTD=0, dBP=0, dBE=0, dLY=0, dLM=0;
+                bp.forEach(r => {
+                    dMTD += Number(r.MTD    || 0);
+                    dBP  += Number(r['T.BP']|| 0);
+                    dBE  += Number(r.BE     || 0);
+                    dLY  += Number(r.LY     || 0);
+                    dLM  += Number(r.LM     || 0);
+                });
+                if (dMTD > 0 || dBP > 0) {
+                    depoAchMap[depo] = { MTD: dMTD, BP: dBP, BE: dBE, LY: dLY, LM: dLM };
+                }
+            });
+
+            // Set global data
+            rawData              = aggData;
+            window.catBpData     = aggBp;
+            catData              = aggCat;
+            window.catBtiData    = aggBti;
+            window.catRawData    = aggData;
+            window._projectData  = aggProj;
+            window._depoAchMap   = depoAchMap; // untuk Klasemen Depo di renderSummaryDash
+
+            console.log('Summary Regional loaded:', aggData.length, 'rows data,', aggBp.length, 'rows BP');
+        }
+
         function renderSummaryDash() {
             const wrap = document.getElementById('summaryDashWrap');
             if (!rawData || rawData.length === 0) {
@@ -2163,23 +2249,37 @@
             });
             const topCat = Object.entries(catGrMap2).filter(([,v])=>v.MTD>0||v.BP>0).sort((a,b)=>b[1].BP-a[1].BP).slice(0,8);
 
-            // ── Semua Salesman sorted by % Ach BP tertinggi ke terendah ──────────
-            const smMap={};
-            rawData.forEach(r=>{
-                const sm=r['Nama Salesman']||r.Salesman||'';
-                if(!sm) return;
-                if(!smMap[sm]) smMap[sm]={MTD:0,BP:0,BE:0};
-                smMap[sm].MTD+=Number(r.MTD||0);
-                smMap[sm].BP +=Number(r.BP ||0);
-                smMap[sm].BE +=Number(r.BE ||0);
-            });
-            const topSm = Object.entries(smMap)
-                .filter(([,v])=>v.MTD>0||v.BP>0)
-                .sort((a,b)=>{
-                    const achA = a[1].BP>0?a[1].MTD/a[1].BP:0;
-                    const achB = b[1].BP>0?b[1].MTD/b[1].BP:0;
-                    return achB - achA;
+            // ── Klasemen Depo (Summary Regional) atau Semua Salesman (per Depo) ───
+            const isRegional = (selectedDepo === 'data_SUMMARY');
+            let topSm = [];
+            if (isRegional && window._depoAchMap) {
+                // Klasemen Depo — dari _depoAchMap yang sudah dihitung saat agregasi
+                topSm = Object.entries(window._depoAchMap)
+                    .filter(([,v])=>v.MTD>0||v.BP>0)
+                    .sort((a,b)=>{
+                        const achA = a[1].BP>0?a[1].MTD/a[1].BP:0;
+                        const achB = b[1].BP>0?b[1].MTD/b[1].BP:0;
+                        return achB - achA;
+                    });
+            } else {
+                // Semua Salesman — dari rawData (per depo)
+                const smMap={};
+                rawData.forEach(r=>{
+                    const sm=r['Nama Salesman']||r.Salesman||'';
+                    if(!sm) return;
+                    if(!smMap[sm]) smMap[sm]={MTD:0,BP:0,BE:0};
+                    smMap[sm].MTD+=Number(r.MTD||0);
+                    smMap[sm].BP +=Number(r.BP ||0);
+                    smMap[sm].BE +=Number(r.BE ||0);
                 });
+                topSm = Object.entries(smMap)
+                    .filter(([,v])=>v.MTD>0||v.BP>0)
+                    .sort((a,b)=>{
+                        const achA = a[1].BP>0?a[1].MTD/a[1].BP:0;
+                        const achB = b[1].BP>0?b[1].MTD/b[1].BP:0;
+                        return achB - achA;
+                    });
+            }
 
             // ── Funnel data: LY→LM→BE→BP→MTD ─────────────────────────────────
             const funnelVals = [totLY,totLM,totBE,totBP,totMTD];
@@ -2383,9 +2483,9 @@
       </div>
     </div>
 
-    <!-- Semua Salesman -->
+    <!-- Klasemen Depo / Semua Salesman -->
     <div style="${cardStyle}">
-      <div style="${titleStyle}">👤 Semua Salesman (MTD vs BP)</div>
+      <div style="${titleStyle}">${isRegional ? '🏢 Klasemen Depo (MTD vs BP)' : '👤 Semua Salesman (MTD vs BP)'}</div>
       <div style="max-height:240px;overflow-y:auto;">
       ${topSm.map(([sm,v],i)=>{
         const smAch = v.BP>0?v.MTD/v.BP*100:0;
@@ -2866,23 +2966,30 @@
             }
 
             const fileName = `${selectedDepo}.json`;
-            
-            let json;
-            
-            try {
-                const res = await fetch(fileName);
-                if (!res.ok) throw new Error('File not found');
-                json = await res.json();
-                rawData = json.data || [];
-                console.log('Data loaded from GitHub');
-            } catch (error) {
-                console.error('Error loading data:', error);
-                alert(`Error loading data: ${error.message}`);
-                return;
+
+            if (isSummaryRegional) {
+                // Agregasi data dari semua depo
+                const loadingEl = document.getElementById('loadingSummaryDash');
+                if (loadingEl) loadingEl.textContent = '⏳ Memuat data semua depo...';
+                await loadSummaryRegionalData();
+            } else {
+                let json;
+                try {
+                    const res = await fetch(fileName);
+                    if (!res.ok) throw new Error('File not found');
+                    json = await res.json();
+                    rawData = json.data || [];
+                    console.log('Data loaded from GitHub');
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    alert(`Error loading data: ${error.message}`);
+                    return;
+                }
             }
+            const json = { metadata: null }; // dummy agar kode metadata tidak error
             
-            // Show last update from metadata
-            if (json.metadata && json.metadata.last_updated) {
+            // Show last update from metadata (hanya untuk per-depo)
+            if (!isSummaryRegional && json.metadata && json.metadata.last_updated) {
                 const headerInfo = document.querySelector('.header-info');
                 if (headerInfo && !isSummaryRegional) {
                     const existingUpdate = headerInfo.querySelector('.last-update-info');
@@ -2922,9 +3029,9 @@
                 }
                 
                 if (isSummaryRegional) {
-                    // Process Summary tab - only first sub-tab (By Depo)
+                    // Data sudah di-load oleh loadSummaryRegionalData() di atas
                     document.getElementById('loadingSummaryDepo').style.display = 'none';
-                    processSummaryByDepo();
+                    renderSummaryDash();
                 } else {
                     // Process Weekly tab
                     document.getElementById('loadingWeekly').style.display = 'none';
