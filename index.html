@@ -2134,11 +2134,12 @@
                 const rawDepo  = rawDepos[idx];
                 const hasData  = dataR !== null;
                 const hasBP    = bpR   !== null;
-                const lastUpd  = (bpR?.meta?.last_updated) || (dataR?.meta?.last_updated) || null;
+                // Status & tanggal HANYA dari bp_DEPO — jika tidak ada = belum upload
+                const lastUpd  = hasBP ? (bpR?.meta?.last_updated || null) : null;
 
                 depoStatus[depo] = {
                     label:      rawDepo,
-                    found:      hasData || hasBP,
+                    found:      hasBP,
                     lastUpdate: lastUpd,
                 };
 
