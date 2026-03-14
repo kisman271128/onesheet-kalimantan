@@ -137,7 +137,9 @@ def export_data():
                 (filename.startswith('project_')) or
                 (filename.startswith('cat_'))     or
                 (filename.startswith('trend_'))   or
-                (filename.startswith('bp_'))    or
+                (filename.startswith('bp_'))      or
+                (filename.startswith('outlet_'))  or
+                (filename.startswith('sku_'))     or
                 (filename.startswith('TG_DEPO_'))
             )
             if should_delete:
@@ -765,6 +767,166 @@ def export_bp(excel_file):
         return False
 
 
+def export_outlet(excel_file):
+    """Export sheet 25 Pareto Outlet ke outlet_DEPO_<n>.json per Depo"""
+    try:
+        print("📊 Membaca Sheet 25 Pareto Outlet...")
+        df = pd.read_excel(excel_file, sheet_name="25 Pareto Outlet", engine='pyxlsb', header=0)
+        df.columns = df.columns.str.strip()
+        df = df.replace([np.nan, np.inf, -np.inf], None)
+        df = df.where(pd.notnull(df), None)
+
+        if df.empty:
+            print("⚠️  Sheet 25 Pareto Outlet kosong")
+            return False
+
+        if 'Depo' not in df.columns:
+            print(f"❌ Kolom 'Depo' tidak ditemukan. Available: {', '.join(df.columns)}")
+            return False
+
+        # Hapus file lama
+        deleted = 0
+        for filename in os.listdir('.'):
+            if filename.startswith('outlet_DEPO_') and filename.endswith('.json'):
+                try:
+                    os.remove(filename)
+                    deleted += 1
+                except:
+                    pass
+        if deleted:
+            print(f"🗑️  {deleted} file outlet_DEPO lama dihapus")
+
+        depo_groups = df.groupby('Depo')
+        created_files = []
+
+        for depo_name, depo_data in depo_groups:
+            if not depo_name or (isinstance(depo_name, float) and math.isnan(depo_name)):
+                continue
+
+            depo_records = depo_data.to_dict('records')
+            for record in depo_records:
+                for key, value in record.items():
+                    if isinstance(value, float) and (math.isnan(value) or math.isinf(value)):
+                        record[key] = None
+
+            safe_name = str(depo_name).strip()
+            if safe_name.upper().startswith('DEPO '):
+                safe_name = safe_name[5:]
+            safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
+
+            json_data = {
+                "metadata": {
+                    "source": excel_file,
+                    "sheet_name": "25 Pareto Outlet",
+                    "depo": depo_name,
+                    "total_records": len(depo_records),
+                    "columns": list(depo_data.columns),
+                    "last_updated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+                },
+                "data": depo_records
+            }
+
+            filename = f"outlet_DEPO_{safe_name}.json"
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(json_data, f, ensure_ascii=False, indent=2, allow_nan=False)
+                f.flush()
+                os.fsync(f.fileno())
+
+            current_time = time.time()
+            os.utime(filename, (current_time, current_time))
+            created_files.append(filename)
+            print(f"  ✅ {filename} - {len(depo_records)} records")
+
+        print(f"✅ {len(created_files)} file outlet per-Depo dibuat")
+        return True
+
+    except Exception as e:
+        print(f"⚠️  Gagal export outlet: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+def export_sku(excel_file):
+    """Export sheet 25 Pareto SKU ke sku_DEPO_<n>.json per Depo"""
+    try:
+        print("📊 Membaca Sheet 25 Pareto SKU...")
+        df = pd.read_excel(excel_file, sheet_name="25 Pareto SKU", engine='pyxlsb', header=0)
+        df.columns = df.columns.str.strip()
+        df = df.replace([np.nan, np.inf, -np.inf], None)
+        df = df.where(pd.notnull(df), None)
+
+        if df.empty:
+            print("⚠️  Sheet 25 Pareto SKU kosong")
+            return False
+
+        if 'Depo' not in df.columns:
+            print(f"❌ Kolom 'Depo' tidak ditemukan. Available: {', '.join(df.columns)}")
+            return False
+
+        # Hapus file lama
+        deleted = 0
+        for filename in os.listdir('.'):
+            if filename.startswith('sku_DEPO_') and filename.endswith('.json'):
+                try:
+                    os.remove(filename)
+                    deleted += 1
+                except:
+                    pass
+        if deleted:
+            print(f"🗑️  {deleted} file sku_DEPO lama dihapus")
+
+        depo_groups = df.groupby('Depo')
+        created_files = []
+
+        for depo_name, depo_data in depo_groups:
+            if not depo_name or (isinstance(depo_name, float) and math.isnan(depo_name)):
+                continue
+
+            depo_records = depo_data.to_dict('records')
+            for record in depo_records:
+                for key, value in record.items():
+                    if isinstance(value, float) and (math.isnan(value) or math.isinf(value)):
+                        record[key] = None
+
+            safe_name = str(depo_name).strip()
+            if safe_name.upper().startswith('DEPO '):
+                safe_name = safe_name[5:]
+            safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
+
+            json_data = {
+                "metadata": {
+                    "source": excel_file,
+                    "sheet_name": "25 Pareto SKU",
+                    "depo": depo_name,
+                    "total_records": len(depo_records),
+                    "columns": list(depo_data.columns),
+                    "last_updated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+                },
+                "data": depo_records
+            }
+
+            filename = f"sku_DEPO_{safe_name}.json"
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(json_data, f, ensure_ascii=False, indent=2, allow_nan=False)
+                f.flush()
+                os.fsync(f.fileno())
+
+            current_time = time.time()
+            os.utime(filename, (current_time, current_time))
+            created_files.append(filename)
+            print(f"  ✅ {filename} - {len(depo_records)} records")
+
+        print(f"✅ {len(created_files)} file SKU per-Depo dibuat")
+        return True
+
+    except Exception as e:
+        print(f"⚠️  Gagal export SKU: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
 def export_depo_list(excel_file):
     """Generate depo_list.json dari daftar depo di sheet OneSheet"""
     try:
@@ -831,6 +993,12 @@ if __name__ == "__main__":
         print()
         # Export trend_DEPO_*.json dari sheet Trend By Week & Trend By Day
         export_trend("OneSheetDepo.xlsb")
+        print()
+        # Export outlet_DEPO_*.json dari sheet 25 Pareto Outlet
+        export_outlet("OneSheetDepo.xlsb")
+        print()
+        # Export sku_DEPO_*.json dari sheet 25 Pareto SKU
+        export_sku("OneSheetDepo.xlsb")
         print()
         # Generate depo_list.json
         export_depo_list("OneSheetDepo.xlsb")
