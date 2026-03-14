@@ -2197,11 +2197,16 @@
             const btnBg   = allOk ? '#16a34a' : '#f97316';
             const badge   = missing.length > 0 ? String(missing.length) : '\u2713';
 
-            // Cari tanggal paling baru dari semua depo yang ditemukan
-            const timestamps = found
-                .map(d => d.lastUpdate ? new Date(d.lastUpdate.replace(' ','T')).getTime() : 0)
-                .filter(t => t > 0);
-            const maxTs = timestamps.length > 0 ? Math.max(...timestamps) : 0;
+            // Ambil tanggal saja (tanpa jam) untuk perbandingan
+            const toDateStr = (s) => {
+                if (!s) return null;
+                try { return new Date(s.replace(' ','T')).toISOString().slice(0,10); }
+                catch { return null; }
+            };
+
+            // Cari tanggal terbaru (date string, YYYY-MM-DD)
+            const datestrs = found.map(d => toDateStr(d.lastUpdate)).filter(Boolean);
+            const maxDate  = datestrs.length > 0 ? datestrs.reduce((a,b) => a > b ? a : b) : null;
 
             const fmtDate = (s) => {
                 if (!s) return '\u2014';
@@ -2212,11 +2217,9 @@
             };
 
             const dateColor = (s) => {
-                if (!s) return '#94a3b8';
-                try {
-                    const t = new Date(s.replace(' ','T')).getTime();
-                    return t === maxTs ? '#16a34a' : '#dc2626';
-                } catch { return '#94a3b8'; }
+                const ds = toDateStr(s);
+                if (!ds || !maxDate) return '#94a3b8';
+                return ds === maxDate ? '#16a34a' : '#dc2626';
             };
 
             const foundRows = found.map(d =>
@@ -2231,7 +2234,7 @@
                 '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #fff7ed;font-size:11px;">'
                 + '<span style="font-size:12px;">\u26a0\ufe0f</span>'
                 + '<span style="flex:1;font-weight:600;color:#9a3412;">' + d.label + '</span>'
-                + '<span style="color:#f97316;font-size:10px;">Belum upload</span>'
+                + '<span style="color:#f97316;font-size:10px;">Belum upload data</span>'
                 + '</div>'
             ).join('');
 
@@ -2261,6 +2264,7 @@
 
             document.body.appendChild(wrap);
         }
+
 
 
 
