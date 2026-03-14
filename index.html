@@ -515,7 +515,7 @@
         .proj-subtab.active { color: #667eea; border-bottom-color: #667eea; }
         .proj-subtab-content { display: none; }
         .proj-subtab-content.active { display: block; }
-        #projTableWrap { width: 100%; overflow-x: auto; overflow-y: auto; max-height: calc(100vh - 260px); }
+        #projTableWrap { width: 100%; overflow-x: auto; overflow-y: auto; max-height: calc(100vh - 260px); position: relative; }
         #projTableWrap table { width: auto; min-width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
         #projTableWrap .proj-section-header th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -531,7 +531,7 @@
         }
         #projTableWrap tbody tr td { padding: 6px 10px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; white-space: nowrap; }
         #projTableWrap tbody tr:hover td { background: #f8faff; }
-        #projTableWrap tbody tr.proj-total td {
+        #projTableWrap thead tr.proj-total td {
             background: #e8edf5; font-weight: 700;
             border-top: 2px solid #94a3b8; border-bottom: 2px solid #94a3b8;
             position: sticky; z-index: 10;
@@ -570,10 +570,13 @@
         .p25-filter-btn:hover { border-color:#667eea; color:#667eea; }
         .p25-filter-btn.active { background:#667eea; border-color:#667eea; color:white; }
         /* Pareto25 table — wrap in scrollable div, auto width */
-        .p25-table-wrap { overflow-x:auto; }
+        .p25-table-wrap { overflow:visible; }
         #tabPareto25 table { width:auto; min-width:100%; border-collapse:collapse; font-size:12px; table-layout:auto; }
+        #tabPareto25 thead { position:sticky; top:0; z-index:3; }
+        #tabPareto25 .p25-total-row { position:sticky; top:0; z-index:2; }
+        #tabPareto25 .p25-total-row td { background:#2d4f7c; font-weight:700; padding:6px 12px; white-space:nowrap; box-shadow:inset 0 -2px 0 #1e3a5f; }
         #tabPareto25 thead th { background:#1e3a5f; color:white; padding:6px 12px; text-align:center;
-            position:sticky; top:0; z-index:2; white-space:nowrap; font-size:11px; }
+            position:sticky; top:0; z-index:3; white-space:nowrap; font-size:11px; box-shadow:0 2px 4px rgba(0,0,0,0.2); }
         #tabPareto25 thead th.p25-name { text-align:left; width:1px; white-space:nowrap; }
         #tabPareto25 thead th.p25-nick { text-align:left; width:1px; white-space:nowrap; }
         #tabPareto25 thead th.p25-num  { width:1px; }
@@ -943,26 +946,41 @@
             </div>
 
             <!-- Sub-tab: Outlet -->
+            <!-- Sub-tab: Outlet -->
             <div id="pareto25SubTabOutlet" class="sub-tab-content active">
-                <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;flex-wrap:wrap;">
-                    <label style="font-size:12px;font-weight:600;color:#334155;">Filter Principle:</label>
-                    <button class="p25-filter-btn active" data-pr="" onclick="filterPareto25Outlet(this)">All</button>
+                <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;flex-wrap:wrap;border-bottom:1px solid #f1f5f9;">
+                    <label style="font-size:11px;font-weight:600;color:#334155;">Filter:</label>
+                    <button class="p25-filter-btn active" data-pr="ALL" onclick="filterPareto25Outlet(this)">All</button>
                     <button class="p25-filter-btn" data-pr="GPPJ" onclick="filterPareto25Outlet(this)">GPPJ</button>
                     <button class="p25-filter-btn" data-pr="GEN" onclick="filterPareto25Outlet(this)">GEN</button>
                     <button class="p25-filter-btn" data-pr="GBS" onclick="filterPareto25Outlet(this)">GBS</button>
                     <button class="p25-filter-btn" data-pr="MBR" onclick="filterPareto25Outlet(this)">MBR</button>
                     <span id="pareto25OutletCount" style="margin-left:auto;font-size:11px;color:#64748b;"></span>
+                    <button onclick="savePareto25Excel('outlet',this)"
+                        style="padding:4px 10px;background:white;border:1.5px solid #16a34a;color:#16a34a;
+                               border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">
+                        &#128202; Save Excel
+                    </button>
                 </div>
-                <div class="report-container" style="overflow:auto;max-height:calc(100vh - 200px);">
-                    <div id="loadingPareto25Outlet" style="padding:20px;color:#888;font-size:13px;">⏳ Memuat data...</div>
+                <div style="padding:0 12px 8px;height:calc(100vh - 260px);min-height:300px;overflow-x:auto;overflow-y:auto;">
+                    <div id="loadingPareto25Outlet" style="padding:20px;color:#888;font-size:13px;">&#9203; Memuat data...</div>
                     <div id="pareto25OutletWrap"></div>
                 </div>
             </div>
 
             <!-- Sub-tab: SKU -->
             <div id="pareto25SubTabSku" class="sub-tab-content">
-                <div class="report-container" style="overflow:auto;max-height:calc(100vh - 200px);">
-                    <div id="loadingPareto25Sku" style="padding:20px;color:#888;font-size:13px;">⏳ Memuat data...</div>
+                <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid #f1f5f9;">
+                    <span style="font-size:11px;font-weight:600;color:#334155;">25 Pareto SKU</span>
+                    <span id="pareto25SkuCount" style="margin-left:auto;font-size:11px;color:#64748b;"></span>
+                    <button onclick="savePareto25Excel('sku',this)"
+                        style="padding:4px 10px;background:white;border:1.5px solid #16a34a;color:#16a34a;
+                               border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">
+                        &#128202; Save Excel
+                    </button>
+                </div>
+                <div style="padding:0 12px 8px;height:calc(100vh - 260px);min-height:300px;overflow-x:auto;overflow-y:auto;">
+                    <div id="loadingPareto25Sku" style="padding:20px;color:#888;font-size:13px;">&#9203; Memuat data...</div>
                     <div id="pareto25SkuWrap"></div>
                 </div>
             </div>
@@ -3021,9 +3039,14 @@ ${isRegional ? renderDepoStatusPanel() : ''}
         // ===================================================================
         let _pareto25OutletData = null;
         let _pareto25SkuData    = null;
-        let _pareto25ActivePr   = '';   // '' = All
+        let _pareto25ActivePr   = 'ALL';   // 'ALL' = tampilkan baris Principle ALL
 
         async function loadPareto25Data() {
+            _pareto25ActivePr = 'ALL'; // Reset ke All saat load data baru
+            // Reset tombol filter
+            document.querySelectorAll('.p25-filter-btn').forEach(b => b.classList.remove('active'));
+            const allBtn = document.querySelector('.p25-filter-btn[data-pr="ALL"]');
+            if (allBtn) allBtn.classList.add('active');
             const suffix = selectedDepo.replace(/^data_DEPO_/i, '')
                                        .replace(/^data_SUMMARY$/i, '');
 
@@ -3124,7 +3147,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const prLight    = { GPPJ:'#f5f3ff', GEN:'#e0f2fe', GBS:'#dcfce7', MBR:'#fee2e2' };
 
             principles.forEach(pr => {
-                const rows = outletData.filter(r => r.Principle === pr);
+                const rows = outletData.filter(r => r.Principle === pr && r.Principle !== 'ALL');
                 if (rows.length === 0) return;
 
                 const totMTD = rows.reduce((s,r) => s + (r.MTD||0), 0);
@@ -3179,7 +3202,8 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             loading.style.display = 'none';
 
             let data = _pareto25OutletData || [];
-            if (_pareto25ActivePr) data = data.filter(r => r.Principle === _pareto25ActivePr);
+            // Filter: 'ALL' → tampilkan baris Principle=ALL, lainnya → filter per principle
+            data = data.filter(r => r.Principle === _pareto25ActivePr);
 
             // Sort by L3M desc, take top 25
             data = [...data].sort((a,b) => (b.L3M||0)-(a.L3M||0)).slice(0, 25);
@@ -3228,7 +3252,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 + '<th>vs LY</th>'
                 + '<th>vs L3M</th>'
                 + '<th>vs LM</th>'
-                + '</tr></thead><tbody>';
+                + '</tr>';
 
             // Hitung total & rata-rata
             const tot = { L3M:0, LY:0, LM:0, MTD:0 };
@@ -3254,7 +3278,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             };
 
             // Total row (dark header style)
-            html += '<tr style="position:sticky;top:0;z-index:1;">'
+            html += '<tr class="p25-total-row">'
                 + '<td style="' + totStyle + 'text-align:center;color:#94a3b8;">Σ</td>'
                 + '<td style="' + totStyle + 'text-align:left;">' + data.length + ' outlet</td>'
                 + '<td style="' + totStyle + 'text-align:center;color:#94a3b8;">—</td>'
@@ -3266,7 +3290,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 + '<td style="' + totValStyle + '">' + pctTot(tot.MTD, tot.LY)  + '</td>'
                 + '<td style="' + totValStyle + '">' + pctTot(tot.MTD, tot.L3M) + '</td>'
                 + '<td style="' + totValStyle + '">' + pctTot(tot.MTD, tot.LM)  + '</td>'
-                + '</tr>';
+                + '</tr></thead><tbody>';
 
             data.forEach((r, i) => {
                 html += '<tr>'
@@ -3344,7 +3368,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 + '<th>vs L3M</th>'
                 + '<th>vs LM</th>'
                 + '<th>OFR</th>'
-                + '</tr></thead><tbody>';
+                + '</tr>';
 
             // Hitung total & rata-rata SKU
             const tots = { L3M:0, LY:0, LM:0, MTD:0 };
@@ -3371,7 +3395,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 return '<span style="color:white;">' + s + '</span>';
             };
 
-            html += '<tr style="position:sticky;top:0;z-index:1;">'
+            html += '<tr class="p25-total-row">'
                 + '<td style="' + totStyleS + 'text-align:center;color:#94a3b8;">Σ</td>'
                 + '<td style="' + totStyleS + 'text-align:left;">' + data.length + ' SKU</td>'
                 + '<td style="' + totStyleS + 'text-align:center;color:#94a3b8;">—</td>'
@@ -3384,7 +3408,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 + '<td style="' + totValStyleS + '">' + pctTotS(tots.MTD, tots.L3M) + '</td>'
                 + '<td style="' + totValStyleS + '">' + pctTotS(tots.MTD, tots.LM)  + '</td>'
                 + '<td style="' + totValStyleS + 'color:#7dd3fc;">' + (avgOfr*100).toFixed(1) + '% avg</td>'
-                + '</tr>';
+                + '</tr></thead><tbody>';
 
             data.forEach((r, i) => {
                 html += '<tr>'
@@ -4598,8 +4622,6 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                         <th class="p-right"  style="width:30px;">LM</th>
                         <th class="p-right"  style="width:30px;">LY</th>
                     </tr>
-                </thead>
-                <tbody>
                     <tr class="proj-total">
                         <td class="p-center">—</td>
                         <td class="p-left"><strong>TOTAL (${sorted.length} Outlet)</strong></td>
@@ -4614,7 +4636,9 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                         <td class="p-right">${gapFmt(tGapMtd)}</td>
                         <td class="p-right"><strong>${fc(tLM)}</strong></td>
                         <td class="p-right"><strong>${fc(tLY)}</strong></td>
-                    </tr>`;
+                    </tr>
+                </thead>
+                <tbody>`;
 
             sorted.forEach((r, i) => {
                 const achQrt = parseFloat(r['Ach_Qrt'] || 0);
@@ -4654,6 +4678,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 const secH = secRow ? secRow.getBoundingClientRect().height : 0;
                 const colH = colRow ? colRow.getBoundingClientRect().height : 0;
                 if (colRow) colRow.querySelectorAll('th').forEach(th => th.style.top = secH + 'px');
+                // proj-total sekarang di dalam thead, top = secH + colH (tanpa gap)
                 if (totRow) totRow.querySelectorAll('td').forEach(td => td.style.top = (secH + colH) + 'px');
             });
         }
@@ -4862,6 +4887,153 @@ ${isRegional ? renderDepoStatusPanel() : ''}
         // =====================================================================
         // SAVE CATEGORY AS IMAGE (full table, not just viewport)
         // =====================================================================
+        function savePareto25Excel(type, btn) {
+            const isOutlet  = type === 'outlet';
+            const data      = isOutlet ? (_pareto25OutletData || []) : (_pareto25SkuData || []);
+            const issueEl   = document.getElementById(isOutlet ? 'p25OutletIssue' : 'p25SkuIssue');
+            const planEl    = document.getElementById(isOutlet ? 'p25OutletPlan'  : 'p25SkuPlan');
+
+            if (!data.length) { alert('Tidak ada data.'); return; }
+
+            const issue     = issueEl && issueEl.value.trim() ? issueEl.value.trim() : '';
+            const plan      = planEl  && planEl.value.trim()  ? planEl.value.trim()  : '';
+            const depoLabel = document.getElementById('depoName')?.textContent || '';
+            const titleFile = isOutlet ? '25_Pareto_Outlet' : '25_Pareto_SKU';
+            const prFile    = isOutlet ? ('_' + (_pareto25ActivePr || 'ALL')) : '';
+            const now = new Date();
+            const ts  = now.getFullYear() + ('0'+(now.getMonth()+1)).slice(-2) + ('0'+now.getDate()).slice(-2);
+
+            // Filter data sama seperti tampilan
+            let rows = isOutlet
+                ? (_pareto25OutletData || []).filter(r => r.Principle === _pareto25ActivePr)
+                : [...(_pareto25SkuData || [])];
+            rows = [...rows].sort((a,b) => (b.L3M||0)-(a.L3M||0)).slice(0,25);
+
+            if (!rows.length) { alert('Tidak ada data.'); return; }
+
+            // ── Build worksheet data ─────────────────────────────────────────
+            const wsData = [];
+
+            if (isOutlet) {
+                // Header
+                wsData.push(['#','Nama Pelanggan','ID Pelanggan','Principle',
+                    'L3M','LY','LM','MTD','Gap vs L3M',
+                    'vs LY (%)','vs L3M (%)','vs LM (%)']);
+                // Total row
+                const tot = rows.reduce((acc,r)=>({
+                    L3M: acc.L3M+(r.L3M||0), LY: acc.LY+(r.LY||0),
+                    LM:  acc.LM +(r.LM ||0), MTD:acc.MTD+(r.MTD||0)
+                }), {L3M:0,LY:0,LM:0,MTD:0});
+                const totGap = tot.MTD - tot.L3M;
+                wsData.push(['TOTAL', rows.length + ' outlet', '', '',
+                    tot.L3M, tot.LY, tot.LM, tot.MTD, totGap,
+                    tot.LY  > 0 ? +(tot.MTD/tot.LY  *100).toFixed(2) : '',
+                    tot.L3M > 0 ? +(tot.MTD/tot.L3M *100).toFixed(2) : '',
+                    tot.LM  > 0 ? +(tot.MTD/tot.LM  *100).toFixed(2) : ''
+                ]);
+                // Data rows
+                rows.forEach((r,i) => {
+                    const gap = (r.MTD||0) - (r.L3M||0);
+                    wsData.push([
+                        i+1,
+                        r['Nama Pelanggan'] || '',
+                        r['SzCustId'] || '',
+                        r.Principle || '',
+                        r.L3M  || 0,
+                        r.LY   || 0,
+                        r.LM   || 0,
+                        r.MTD  || 0,
+                        gap,
+                        r.LY  > 0 ? +(((r.MTD||0)/r.LY )*100).toFixed(2) : '',
+                        r.L3M > 0 ? +(((r.MTD||0)/r.L3M)*100).toFixed(2) : '',
+                        r.LM  > 0 ? +(((r.MTD||0)/r.LM )*100).toFixed(2) : ''
+                    ]);
+                });
+            } else {
+                // Header SKU
+                wsData.push(['#','Nama SKU','Nick',
+                    'L3M','LY','LM','MTD','Gap vs L3M',
+                    'vs LY (%)','vs L3M (%)','vs LM (%)','OFR (%)']);
+                // Total row
+                const tots = rows.reduce((acc,r)=>({
+                    L3M: acc.L3M+(r.L3M||0), LY: acc.LY+(r.LY||0),
+                    LM:  acc.LM +(r.LM ||0), MTD:acc.MTD+(r.MTD||0)
+                }), {L3M:0,LY:0,LM:0,MTD:0});
+                const totGapS = tots.MTD - tots.L3M;
+                const avgOfr  = rows.length > 0 ? rows.reduce((s,r)=>s+(r.OFR2||0),0)/rows.length : 0;
+                wsData.push(['TOTAL', rows.length + ' SKU', '',
+                    tots.L3M, tots.LY, tots.LM, tots.MTD, totGapS,
+                    tots.LY  > 0 ? +(tots.MTD/tots.LY  *100).toFixed(2) : '',
+                    tots.L3M > 0 ? +(tots.MTD/tots.L3M *100).toFixed(2) : '',
+                    tots.LM  > 0 ? +(tots.MTD/tots.LM  *100).toFixed(2) : '',
+                    +(avgOfr*100).toFixed(2)
+                ]);
+                // Data rows
+                rows.forEach((r,i) => {
+                    const gap = (r.MTD||0) - (r.L3M||0);
+                    wsData.push([
+                        i+1,
+                        r.SzName     || '',
+                        r.SzNickName || '',
+                        r.L3M  || 0,
+                        r.LY   || 0,
+                        r.LM   || 0,
+                        r.MTD  || 0,
+                        gap,
+                        r.LY  > 0 ? +(((r.MTD||0)/r.LY )*100).toFixed(2) : '',
+                        r.L3M > 0 ? +(((r.MTD||0)/r.L3M)*100).toFixed(2) : '',
+                        r.LM  > 0 ? +(((r.MTD||0)/r.LM )*100).toFixed(2) : '',
+                        r.OFR2 != null ? +(r.OFR2*100).toFixed(2) : ''
+                    ]);
+                });
+            }
+
+            // Append Issue & Activity Plan jika ada
+            if (issue || plan) {
+                wsData.push([]);
+                if (issue) { wsData.push(['Issue:']); issue.split('\n').forEach(l => wsData.push(['', l])); }
+                if (plan)  { wsData.push([]); wsData.push(['Activity Plan:']); plan.split('\n').forEach(l => wsData.push(['', l])); }
+            }
+
+            // ── Build workbook ───────────────────────────────────────────────
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+            // Format number columns
+            const numCols = isOutlet ? [4,5,6,7,8] : [3,4,5,6,7]; // 0-indexed
+            const pctCols = isOutlet ? [9,10,11] : [8,9,10,11];
+            const range   = XLSX.utils.decode_range(ws['!ref']);
+            for (let R = 1; R <= range.e.r; R++) {
+                numCols.forEach(C => {
+                    const cell = ws[XLSX.utils.encode_cell({r:R, c:C})];
+                    if (cell && typeof cell.v === 'number') cell.z = '#,##0';
+                });
+                pctCols.forEach(C => {
+                    const cell = ws[XLSX.utils.encode_cell({r:R, c:C})];
+                    if (cell && typeof cell.v === 'number') cell.z = '0.00"%"';
+                });
+            }
+
+            // Column widths
+            const colW = wsData[0].map((_,ci) => ({
+                wch: Math.min(40, Math.max(8, ...wsData.map(r => (r[ci]||'').toString().length)))
+            }));
+            ws['!cols'] = colW;
+
+            const sheetName = (isOutlet ? ('Outlet_'+(_pareto25ActivePr||'ALL')) : 'SKU')
+                .replace(/[\\/\?\*\[\]:]/g,'_').substring(0,31);
+            XLSX.utils.book_append_sheet(wb, ws, sheetName);
+
+            const origText = btn ? btn.textContent : '';
+            if (btn) { btn.textContent = 'Menyimpan...'; btn.disabled = true; }
+            try {
+                XLSX.writeFile(wb, titleFile + prFile + '_' + depoLabel.replace(/\s+/g,'') + '_' + ts + '.xlsx');
+            } finally {
+                if (btn) { btn.textContent = origText; btn.disabled = false; }
+            }
+        }
+
+
         async function saveCategoryImage() {
             const wrap = document.getElementById('catTableWrap');
             if (!wrap || !wrap.querySelector('table')) { alert('Tidak ada data untuk disimpan.'); return; }
