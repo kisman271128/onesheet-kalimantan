@@ -2375,6 +2375,7 @@
             const subRow = (label,val,col='#64748b') => `<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:3px;"><span style="color:#94a3b8;">${label}</span><span style="color:${col};font-weight:600;">${val}</span></div>`;
 
             wrap.innerHTML = `
+${isRegional ? renderDepoStatusPanel() : ''}
 <div style="display:grid;grid-template-columns:220px 1fr 260px;gap:12px;height:calc(100vh-130px);">
 
   <!-- ═══ LEFT METRICS ═══ -->
@@ -2954,11 +2955,12 @@
             if (isSummaryRegional) {
                 document.getElementById('depoName').textContent = 'SUMMARY REGIONAL';
                 
-                // Show Summary tab for Summary Regional
+                // Tab layout Summary Regional — sama seperti Depo
                 const tabsHtml = `
-                    <div class="tab active" onclick="switchTab('summary')">Summary</div>
+                    <div class="tab active" onclick="switchTab('summaryDash')">📊 Summary</div>
                     <div class="tab" onclick="switchTab('weekly')">Dashboard Weekly</div>
                     <div class="tab" onclick="switchTab('salesman')">Dashboard by Salesman</div>
+                    <div class="tab" onclick="switchTab('summary')">📋 By Depo / Tipe</div>
                     <div class="tab" onclick="switchTab('project')">📋 Project</div>
                     <button onclick="hardRefresh()" title="Bersihkan cache dan muat ulang data terbaru"
                         style="margin-left:8px; padding:7px 14px; background:white; border:1.5px solid #cbd5e1;
@@ -2975,9 +2977,9 @@
                 `;
                 document.getElementById('mainTabs').innerHTML = tabsHtml;
                 
-                // Show Summary tab by default
+                // Default: buka tabSummaryDash (dashboard visual, bukan tabel)
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                document.getElementById('tabSummary').classList.add('active');
+                document.getElementById('tabSummaryDash').classList.add('active');
             } else {
                 const depoName = selectedDepo.replace('data_DEPO_', '').replace(/_/g, ' ');
                 document.getElementById('depoName').textContent = depoName;
