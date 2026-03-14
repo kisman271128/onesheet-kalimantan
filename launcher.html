@@ -15,9 +15,6 @@
     .bar { height: 8px; border-radius: 20px; background: linear-gradient(90deg,#667eea,#764ba2);
            width: 0%; transition: width 0.4s; }
     .status { font-size: 12px; color: #64748b; min-height: 18px; }
-    .offline-btn { margin-top: 16px; padding: 8px 20px; background: #f1f5f9;
-                   border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer;
-                   font-size: 12px; color: #475569; display: none; }
   </style>
 </head>
 <body>
@@ -26,40 +23,53 @@
   <h2>MAP - Monthly Account Plan</h2>
   <p>Region Kalimantan</p>
   <div class="bar-wrap"><div class="bar" id="bar"></div></div>
-  <div class="status" id="status">Memeriksa versi terbaru...</div>
-  <button class="offline-btn" id="offlineBtn" onclick="loadLocal()">▶ Buka Versi Lokal</button>
+  <div class="status" id="status">Memuat aplikasi...</div>
 </div>
 
 <script>
-  const RAW_URL = 'https://raw.githubusercontent.com/kisman271128/onesheet-kalimantan/master/index.html';
-  const CACHE_KEY = 'map_index_html';
+  const RAW_URL   = 'https://raw.githubusercontent.com/kisman271128/onesheet-kalimantan/master/index.html';
+  const LOCAL_URL = 'index.html';
+  const CACHE_KEY      = 'map_index_html';
   const CACHE_TIME_KEY = 'map_index_time';
-  const CACHE_TTL = 60 * 60 * 1000; // 1 jam cache
+  const CACHE_TTL      = 60 * 60 * 1000; // 1 jam
 
-  const bar = document.getElementById('bar');
+  const bar    = document.getElementById('bar');
   const status = document.getElementById('status');
-  const offlineBtn = document.getElementById('offlineBtn');
 
   function setBar(pct) { bar.style.width = pct + '%'; }
   function setStatus(msg) { status.textContent = msg; }
 
   function renderHTML(html) {
-    // Tulis konten ke dokumen saat ini
     document.open();
     document.write(html);
     document.close();
   }
 
-  function loadLocal() {
-    setStatus('Membuka versi lokal...');
-    window.location.href = 'index.html';
-  }
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
 
   async function loadApp() {
-    // Cek cache dulu
-    const cached = localStorage.getItem(CACHE_KEY);
+
+    // ── LOCALHOST: langsung pakai index.html lokal ─────────────────────────
+    if (isLocal) {
+      setBar(40);
+      setStatus('Mode lokal — memuat index.html...');
+      try {
+        const res = await fetch(LOCAL_URL + '?t=' + Date.now());
+        if (!res.ok) throw new Error('index.html tidak ditemukan');
+        setBar(90);
+        const html = await res.text();
+        setBar(100);
+        renderHTML(html);
+      } catch(e) {
+        setStatus('❌ ' + e.message);
+      }
+      return;
+    }
+
+    // ── ONLINE: fetch dari GitHub, cache 1 jam ─────────────────────────────
+    const cached     = localStorage.getItem(CACHE_KEY);
     const cachedTime = parseInt(localStorage.getItem(CACHE_TIME_KEY) || '0');
-    const now = Date.now();
+    const now        = Date.now();
 
     if (cached && (now - cachedTime) < CACHE_TTL) {
       setBar(80);
@@ -68,45 +78,37 @@
       return;
     }
 
-    // Fetch dari GitHub
     setBar(20);
     setStatus('Mengunduh versi terbaru dari server...');
 
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000); // 10 detik timeout
-
-      const res = await fetch(RAW_URL + '?t=' + now, { signal: controller.signal });
+      const timeout    = setTimeout(() => controller.abort(), 10000);
+      const res        = await fetch(RAW_URL + '?t=' + now, { signal: controller.signal });
       clearTimeout(timeout);
-
       if (!res.ok) throw new Error('HTTP ' + res.status);
 
       setBar(70);
       setStatus('Memproses...');
       const html = await res.text();
 
-      // Simpan ke cache
       try {
         localStorage.setItem(CACHE_KEY, html);
         localStorage.setItem(CACHE_TIME_KEY, String(now));
-      } catch(e) { /* storage penuh, skip */ }
+      } catch(e) { /* storage penuh */ }
 
       setBar(100);
-      setStatus('Siap!');
       setTimeout(() => renderHTML(html), 150);
 
     } catch(err) {
-      // Gagal fetch — coba cache lama
       if (cached) {
         setBar(80);
-        setStatus('⚠️ Offline — menggunakan versi terakhir tersimpan');
+        setStatus('⚠️ Offline — menggunakan versi tersimpan');
         setTimeout(() => renderHTML(cached), 800);
       } else {
-        // Tidak ada cache — fallback ke index.html lokal
         setBar(50);
-        setStatus('⚠️ Tidak ada koneksi. Mencoba versi lokal...');
-        offlineBtn.style.display = 'inline-block';
-        setTimeout(() => loadLocal(), 2000);
+        setStatus('⚠️ Tidak ada koneksi, mencoba lokal...');
+        setTimeout(() => { location.href = LOCAL_URL; }, 1500);
       }
     }
   }
