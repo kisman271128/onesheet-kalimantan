@@ -1068,100 +1068,88 @@
                     <div id="folderName" style="margin-top:10px; font-size:12px; color:#667eea; font-weight:600;"></div>
                 </div>
 
-                <!-- Step 2: Deteksi file -->
+                <!-- Step 2: Deteksi file — tampilan tabel kompak -->
                 <div id="uploadDetectSection" style="display:none;">
-                    <div style="font-weight:700; color:#334155; font-size:13px; margin-bottom:12px;">Langkah 2 — Status Deteksi File</div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;">
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#667eea,#764ba2);">
-                                <span>📊</span><span>Data OneSheet</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-data">—</div>
-                                <div class="upload-detect-status" id="detect-data">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#1e3a5f,#2d6a9f);">
-                                <span>🏆</span><span>Data BTI</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-bti">—</div>
-                                <div class="upload-detect-status" id="detect-bti">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#16a085,#1abc9c);">
-                                <span>📋</span><span>Data Project</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-project">—</div>
-                                <div class="upload-detect-status" id="detect-project">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#d35400,#e67e22);">
-                                <span>⏱️</span><span>Data TG (Time Gone)</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-tg">TG_DEPO_....json</div>
-                                <div class="upload-detect-status" id="detect-tg">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">
-                                <span>📦</span><span>Data Category</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-cat">—</div>
-                                <div class="upload-detect-status" id="detect-cat">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#0f766e,#14b8a6);">
-                                <span>🎯</span><span>Data BP</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-bp">—</div>
-                                <div class="upload-detect-status" id="detect-bp">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#b45309,#f59e0b);">
-                                <span>📈</span><span>Data Trend</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-trend">—</div>
-                                <div class="upload-detect-status" id="detect-trend">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#0369a1,#0ea5e9);">
-                                <span>🏪</span><span>Outlet</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-outlet">—</div>
-                                <div class="upload-detect-status" id="detect-outlet">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                        <div class="upload-slot">
-                            <div class="upload-slot-header" style="background:linear-gradient(135deg,#6d28d9,#8b5cf6);">
-                                <span>🛒</span><span>SKU</span>
-                            </div>
-                            <div class="upload-slot-body">
-                                <div class="upload-expected-name" id="label-sku">—</div>
-                                <div class="upload-detect-status" id="detect-sku">⏳ Menunggu folder...</div>
-                            </div>
-                        </div>
-                    </div>
+                    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;">
+                        <thead>
+                            <tr style="background:#1e3a5f;color:white;">
+                                <th style="padding:7px 12px;text-align:left;font-weight:600;">File</th>
+                                <th style="padding:7px 12px;text-align:left;font-weight:600;">Nama File</th>
+                                <th style="padding:7px 12px;text-align:center;font-weight:600;">Status</th>
+                                <th style="padding:7px 12px;text-align:right;font-weight:600;">Upload</th>
+                            </tr>
+                        </thead>
+                        <tbody id="uploadTableBody">
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">📊 OneSheet</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-data">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-data">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-data">—</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;background:#fafafa;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">🏆 BTI</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-bti">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-bti">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-bti">—</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">📋 Project</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-project">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-project">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-project">—</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;background:#fafafa;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">⏱️ TG</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-tg">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-tg">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-tg">—</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">📦 Category</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-cat">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-cat">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-cat">—</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;background:#fafafa;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">🎯 BP</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-bp">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-bp">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-bp">—</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">📈 Trend</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-trend">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-trend">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-trend">—</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;background:#fafafa;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">🏪 Outlet</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-outlet">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-outlet">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-outlet">—</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #f1f5f9;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">🛒 SKU</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-sku">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-sku">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-sku">—</td>
+                            </tr>
+                            <tr style="background:#fafafa;">
+                                <td style="padding:6px 12px;font-weight:600;color:#334155;">⚙️ Proses</td>
+                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-proses">—</td>
+                                <td style="padding:6px 12px;text-align:center;" id="detect-proses">⏳</td>
+                                <td style="padding:6px 12px;text-align:right;" id="upload-proses">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                    <div id="uploadSummaryBar" style="display:none; border-radius:8px; padding:10px 16px; margin-bottom:14px; font-size:13px; border:1px solid #e0e0e0;"></div>
+                    <div id="uploadSummaryBar" style="display:none; border-radius:8px; padding:8px 14px; margin-bottom:10px; font-size:12px; border:1px solid #e0e0e0;"></div>
 
                     <button id="btnUploadAll" onclick="uploadAllFiles()"
-                            style="width:100%; padding:14px; background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-                                   color:white; border:none; border-radius:8px; font-size:15px; font-weight:700;
+                            style="width:100%; padding:11px; background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+                                   color:white; border:none; border-radius:8px; font-size:14px; font-weight:700;
                                    cursor:pointer; transition:opacity 0.2s; display:none;">
-                        📤 Upload File ke GitHub
+                        📤 Upload Semua File ke GitHub
                     </button>
                 </div>
 
@@ -1308,6 +1296,7 @@
             document.getElementById('label-trend').textContent   = 'trend_DEPO_'   + depoSuffix + '.json';
             document.getElementById('label-outlet').textContent  = 'outlet_DEPO_'  + depoSuffix + '.json';
             document.getElementById('label-sku').textContent     = 'sku_DEPO_'     + depoSuffix + '.json';
+            document.getElementById('label-proses').textContent  = 'proses_DEPO_'  + depoSuffix + '.json';
             // Reset state saat depo berubah
             folderHandle  = null;
             detectedFiles = {};
@@ -1350,7 +1339,8 @@
                 { key: 'bp',      icon: '🎯' },
                 { key: 'trend',   icon: '📈' },
                 { key: 'outlet',  icon: '🏪' },
-                { key: 'sku',     icon: '🛒' }
+                { key: 'sku',     icon: '🛒' },
+                { key: 'proses',  icon: '⚙️'  }
             ];
 
             let foundCount   = 0;
@@ -1365,17 +1355,12 @@
                     detectedFiles[s.key] = fileHandle;
                     const file = await fileHandle.getFile();
                     const sizeKB = (file.size / 1024).toFixed(1);
-                    detectEl.innerHTML =
-                        '<span style="color:#16a34a; font-weight:600;">✅ Ditemukan</span>' +
-                        '<span style="color:#94a3b8; font-size:11px; margin-left:8px;">' + sizeKB + ' KB · ' +
-                        new Date(file.lastModified).toLocaleString("id-ID") + '</span>';
+                    detectEl.innerHTML = '<span style="color:#16a34a;font-weight:700;">✅</span> <span style="color:#64748b;font-size:10px;">' + sizeKB + ' KB</span>';
                     foundCount++;
                 } catch(e) {
                     detectedFiles[s.key] = null;
                     missingNames.push('<code style="background:#fee2e2;padding:1px 5px;border-radius:3px;">' + expectedName + '</code>');
-                    detectEl.innerHTML =
-                        '<span style="color:#dc2626; font-weight:600;">⚠️ Tidak ditemukan</span>' +
-                        '<span style="color:#94a3b8; font-size:11px; margin-left:8px;">File tidak ada di folder ini</span>';
+                    detectEl.innerHTML = '<span style="color:#dc2626;font-weight:700;">⚠️</span>';
                 }
             }
 
@@ -1391,7 +1376,7 @@
                     ? '<br><span style="color:#b45309;">⚠️ File tidak ditemukan: ' + missingNames.join(', ') + ' — tidak akan diupload.</span>'
                     : '';
                 bar.style.cssText = 'display:block; border-radius:8px; padding:10px 16px; margin-bottom:14px; font-size:13px; background:#f0fdf4; border:1px solid #86efac; color:#166534;';
-                bar.innerHTML = '✅ <strong>' + foundCount + ' dari 9 file</strong> siap diupload.' + warningHtml;
+                bar.innerHTML = '✅ <strong>' + foundCount + ' dari 10 file</strong> siap diupload.' + warningHtml;
                 btn.style.display = 'block';
                 btn.textContent = '📤 Upload ' + foundCount + ' File ke GitHub';
             }
@@ -1407,7 +1392,8 @@
                 { key: 'bp',      label: 'Data BP'        },
                 { key: 'trend',   label: 'Data Trend'     },
                 { key: 'outlet',  label: 'Pareto Outlet'  },
-                { key: 'sku',     label: 'Pareto SKU'     }
+                { key: 'sku',     label: 'Pareto SKU'     },
+                { key: 'proses',  label: 'Proses'         }
             ];
 
             const toUpload = slots.filter(s => detectedFiles[s.key]);
@@ -1424,7 +1410,7 @@
 
             for (const s of toUpload) {
                 const detectEl = document.getElementById('detect-' + s.key);
-                detectEl.innerHTML = '<span style="color:#f39c12;">⏳ Mengupload...</span>';
+                detectEl.innerHTML = '<span style="color:#f39c12;">⏳</span>';
                 try {
                     const fileHandle = detectedFiles[s.key];
                     const file       = await fileHandle.getFile();
@@ -1435,14 +1421,17 @@
                                       : (typeof jsonData.data === 'object' ? Object.keys(jsonData.data).length : 0);
                     const depoMeta   = (jsonData.metadata && jsonData.metadata.depo) ? jsonData.metadata.depo : '';
 
+                    const uploadCell = document.getElementById('upload-' + s.key);
                     const ok = await uploadToGitHub(file.name, content);
                     if (ok) {
                         await logUploadActivity(file.name, recordCount, depoMeta);
-                        detectEl.innerHTML = '<span style="color:#16a34a; font-weight:600;">✅ Upload berhasil</span><span style="color:#94a3b8; font-size:11px; margin-left:8px;">' + recordCount + ' records</span>';
+                        detectEl.innerHTML = '<span style="color:#16a34a;font-weight:700;">✅</span>';
+                        if (uploadCell) uploadCell.innerHTML = '<span style="color:#16a34a;font-size:10px;font-weight:700;">✅ OK</span>';
                         results.push('✅ <strong>' + file.name + '</strong> — ' + recordCount + ' records');
                         successCount++;
                     } else {
-                        detectEl.innerHTML = '<span style="color:#dc2626;">❌ Gagal upload</span>';
+                        detectEl.innerHTML = '<span style="color:#dc2626;font-weight:700;">❌</span>';
+                        if (uploadCell) uploadCell.innerHTML = '<span style="color:#dc2626;font-size:10px;">❌ Gagal</span>';
                         results.push('❌ <strong>' + file.name + '</strong> — Gagal upload ke GitHub');
                         failCount++;
                     }
