@@ -999,7 +999,7 @@ def export_proses(excel_file):
             created_files.append(filename)
             print(f"  ✅ {filename} - {len(depo_records)} records")
 
-        print(f"✅ {len(created_files)} file Proses per-Depo dibuat")
+        print(f"✅ {len(created_files)} file proses per-Depo dibuat")
         return True
 
     except Exception as e:
