@@ -106,9 +106,10 @@
             display: flex; align-items: center; justify-content: center;
         }
         .login-split-left {
-            flex: 0 0 45%; max-width: 520px; min-width: 320px;
+            flex: 0 0 42%; max-width: 480px; min-width: 300px;
             display: flex; flex-direction: column; justify-content: center;
-            padding: 60px 56px; background: white;
+            padding: 28px 48px; background: white;
+            overflow: hidden;
         }
         .login-split-right {
             flex: 1; background: #0f2057; position: relative;
@@ -147,24 +148,24 @@
         .login-dot.active { background: white; }
 
         /* Login form styles */
-        .login-logo-wrap { margin-bottom: 12px; }
-        .login-logo-wrap img { height: 56px; }
-        .login-hello { font-size: 28px; font-weight: 700; color: #0f2057; margin: 0 0 4px; }
-        .login-sub { font-size: 14px; color: #64748b; margin: 0 0 32px; }
-        .login-label { font-size: 13px; font-weight: 600; color: #334155; display: block; margin-bottom: 6px; }
+        .login-logo-wrap { margin-bottom: 8px; text-align: center; }
+        .login-logo-wrap img { height: 130px; }
+        .login-hello { font-size: 24px; font-weight: 700; color: #0f2057; margin: 0 0 2px; }
+        .login-sub { font-size: 13px; color: #64748b; margin: 0 0 18px; }
+        .login-label { font-size: 13px; font-weight: 600; color: #334155; display: block; margin-bottom: 5px; }
         .login-input {
-            width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0;
+            width: 100%; padding: 10px 13px; border: 1.5px solid #e2e8f0;
             border-radius: 8px; font-size: 14px; color: #1e293b;
             background: #f8fafc; box-sizing: border-box; outline: none;
             transition: border-color 0.2s, background 0.2s;
         }
         .login-input:focus { border-color: #1d3a8a; background: white; }
-        .login-form-group { margin-bottom: 18px; }
+        .login-form-group { margin-bottom: 14px; }
         .login-btn {
-            width: 100%; padding: 13px; background: #1d3a8a;
+            width: 100%; padding: 11px; background: #1d3a8a;
             color: white; border: none; border-radius: 8px;
             font-size: 15px; font-weight: 700; cursor: pointer;
-            margin-top: 8px; transition: background 0.2s;
+            margin-top: 4px; transition: background 0.2s;
         }
         .login-btn:hover { background: #162d6e; }
 
@@ -946,11 +947,10 @@
         <!-- LEFT: Form -->
         <div class="login-split-left">
             <div class="login-logo-wrap">
-                <img src="logo.png" alt="MAP Logo" style="height:240px;object-fit:contain;" onerror="this.style.display='none'">
+                <img src="logo.png" alt="MAP Logo" style="height:130px;object-fit:contain;" onerror="this.style.display='none'">
             </div>
             <div class="login-hello">Hello,</div>
             <div class="login-sub">Welcome Back to MAP Kalimantan</div>
-
             <form id="loginForm">
                 <div class="login-form-group">
                     <label class="login-label">User ID</label>
@@ -1265,103 +1265,175 @@
         </div>
 
         <div id="tabUpload" class="tab-content">
-            <div style="max-width:860px; margin:20px auto; padding:30px; background:white; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
-                <h2 style="color:#667eea; margin-bottom:6px;">📤 Upload Data ke GitHub</h2>
-                <p style="color:#888; font-size:13px; margin-bottom:18px;">Pilih folder tempat file JSON disimpan — aplikasi akan otomatis mendeteksi ke-4 file yang dibutuhkan.</p>
+            <div style="max-width:880px; margin:14px auto; padding:20px 24px; background:white; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+                <h2 style="color:#667eea; margin-bottom:4px; font-size:18px;">📤 Upload Data ke GitHub</h2>
+                <p style="color:#888; font-size:12px; margin-bottom:14px;">Pilih folder tempat file JSON disimpan — aplikasi akan otomatis mendeteksi ke-10 file yang dibutuhkan.</p>
 
                 <!-- Step 1: Pilih Folder -->
-                <div style="background:#f0f4ff; border:2px dashed #667eea; border-radius:10px; padding:20px; text-align:center; margin-bottom:18px;">
-                    <div style="font-size:36px; margin-bottom:8px;">📁</div>
-                    <div style="font-weight:700; color:#334155; font-size:14px; margin-bottom:6px;">Langkah 1 — Pilih Folder</div>
-                    <div style="color:#64748b; font-size:12px; margin-bottom:14px;">Arahkan ke folder tempat file JSON berada, contoh: <code style="background:#e8eeff;padding:1px 6px;border-radius:3px;">C:\One Sheet</code></div>
+                <div style="background:#f0f4ff; border:2px dashed #667eea; border-radius:10px; padding:12px 16px; margin-bottom:14px; display:flex; align-items:center; gap:14px;">
+                    <div style="font-size:28px; flex-shrink:0;">📁</div>
+                    <div style="flex:1; min-width:0;">
+                        <div style="font-weight:700; color:#334155; font-size:13px; margin-bottom:2px;">Langkah 1 — Pilih Folder JSON</div>
+                        <div style="color:#64748b; font-size:11px;">Contoh: <code style="background:#e8eeff;padding:1px 5px;border-radius:3px;">C:\One Sheet</code></div>
+                        <div id="folderName" style="margin-top:4px; font-size:12px; color:#667eea; font-weight:600;"></div>
+                    </div>
                     <button onclick="pickFolder()" id="btnPickFolder"
-                            style="padding:10px 28px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">
+                            style="flex-shrink:0; padding:8px 18px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap;">
                         📂 Pilih Folder...
                     </button>
-                    <div id="folderName" style="margin-top:10px; font-size:12px; color:#667eea; font-weight:600;"></div>
                 </div>
 
-                <!-- Step 2: Deteksi file — tampilan tabel kompak -->
+                <!-- Step 2: Deteksi file — tampilan metric cards -->
                 <div id="uploadDetectSection" style="display:none;">
-                    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;">
-                        <thead>
-                            <tr style="background:#1e3a5f;color:white;">
-                                <th style="padding:7px 12px;text-align:left;font-weight:600;">File</th>
-                                <th style="padding:7px 12px;text-align:left;font-weight:600;">Nama File</th>
-                                <th style="padding:7px 12px;text-align:center;font-weight:600;">Status</th>
-                                <th style="padding:7px 12px;text-align:right;font-weight:600;">Upload</th>
-                            </tr>
-                        </thead>
-                        <tbody id="uploadTableBody">
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">📊 OneSheet</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-data">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-data">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-data">—</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;background:#fafafa;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">🏆 BTI</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-bti">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-bti">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-bti">—</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">📋 Project</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-project">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-project">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-project">—</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;background:#fafafa;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">⏱️ TG</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-tg">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-tg">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-tg">—</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">📦 Category</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-cat">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-cat">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-cat">—</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;background:#fafafa;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">🎯 BP</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-bp">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-bp">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-bp">—</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">📈 Trend</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-trend">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-trend">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-trend">—</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;background:#fafafa;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">🏪 Outlet</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-outlet">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-outlet">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-outlet">—</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #f1f5f9;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">🛒 SKU</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-sku">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-sku">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-sku">—</td>
-                            </tr>
-                            <tr style="background:#fafafa;">
-                                <td style="padding:6px 12px;font-weight:600;color:#334155;">⚙️ Proses</td>
-                                <td style="padding:6px 12px;color:#64748b;font-size:11px;" id="label-proses">—</td>
-                                <td style="padding:6px 12px;text-align:center;" id="detect-proses">⏳</td>
-                                <td style="padding:6px 12px;text-align:right;" id="upload-proses">—</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="upl-cards-grid">
+                        <!-- OneSheet -->
+                        <div class="upl-card" id="card-data">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#667eea,#764ba2);">📊</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">OneSheet</div>
+                                <div class="upl-card-file" id="label-data">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-data"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-data"></div>
+                            </div>
+                        </div>
+                        <!-- BTI -->
+                        <div class="upl-card" id="card-bti">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);">🏆</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">BTI</div>
+                                <div class="upl-card-file" id="label-bti">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-bti"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-bti"></div>
+                            </div>
+                        </div>
+                        <!-- Project -->
+                        <div class="upl-card" id="card-project">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">📋</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">Project</div>
+                                <div class="upl-card-file" id="label-project">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-project"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-project"></div>
+                            </div>
+                        </div>
+                        <!-- TG -->
+                        <div class="upl-card" id="card-tg">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#10b981,#059669);">⏱️</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">TG</div>
+                                <div class="upl-card-file" id="label-tg">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-tg"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-tg"></div>
+                            </div>
+                        </div>
+                        <!-- Category -->
+                        <div class="upl-card" id="card-cat">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">📦</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">Category</div>
+                                <div class="upl-card-file" id="label-cat">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-cat"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-cat"></div>
+                            </div>
+                        </div>
+                        <!-- BP -->
+                        <div class="upl-card" id="card-bp">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626);">🎯</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">BP</div>
+                                <div class="upl-card-file" id="label-bp">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-bp"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-bp"></div>
+                            </div>
+                        </div>
+                        <!-- Trend -->
+                        <div class="upl-card" id="card-trend">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#f97316,#ea580c);">📈</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">Trend</div>
+                                <div class="upl-card-file" id="label-trend">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-trend"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-trend"></div>
+                            </div>
+                        </div>
+                        <!-- Outlet -->
+                        <div class="upl-card" id="card-outlet">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">🏪</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">Outlet</div>
+                                <div class="upl-card-file" id="label-outlet">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-outlet"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-outlet"></div>
+                            </div>
+                        </div>
+                        <!-- SKU -->
+                        <div class="upl-card" id="card-sku">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488);">🛒</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">SKU</div>
+                                <div class="upl-card-file" id="label-sku">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-sku"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-sku"></div>
+                            </div>
+                        </div>
+                        <!-- Proses -->
+                        <div class="upl-card" id="card-proses">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#6b7280,#4b5563);">⚙️</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">Proses</div>
+                                <div class="upl-card-file" id="label-proses">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-proses"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-proses"></div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div id="uploadSummaryBar" style="display:none; border-radius:8px; padding:8px 14px; margin-bottom:10px; font-size:12px; border:1px solid #e0e0e0;"></div>
+                    <div id="uploadSummaryBar" style="display:none; border-radius:10px; padding:10px 16px; margin-bottom:12px; font-size:13px; border:1px solid #e0e0e0;"></div>
 
                     <button id="btnUploadAll" onclick="uploadAllFiles()"
-                            style="width:100%; padding:11px; background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-                                   color:white; border:none; border-radius:8px; font-size:14px; font-weight:700;
-                                   cursor:pointer; transition:opacity 0.2s; display:none;">
+                            style="width:100%; padding:12px; background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+                                   color:white; border:none; border-radius:10px; font-size:14px; font-weight:700;
+                                   cursor:pointer; transition:opacity 0.2s; display:none; letter-spacing:0.3px;">
                         📤 Upload Semua File ke GitHub
                     </button>
                 </div>
@@ -1371,11 +1443,67 @@
         </div>
 
         <style>
-        .upload-slot { border:1px solid #e0e0e0; border-radius:10px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.06); }
-        .upload-slot-header { display:flex; align-items:center; gap:8px; padding:10px 14px; color:white; font-weight:700; font-size:13px; }
-        .upload-slot-body { padding:12px 14px; background:#fafbff; }
-        .upload-expected-name { font-size:11px; color:#667eea; font-weight:700; background:#eef0ff; border-radius:4px; padding:3px 8px; margin-bottom:8px; font-family:"Courier New",monospace; word-break:break-all; }
-        .upload-detect-status { font-size:12px; padding:6px 4px; }
+        .upl-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        @media (max-width: 540px) {
+            .upl-cards-grid { grid-template-columns: 1fr; }
+        }
+        .upl-card {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: white;
+            border: 1.5px solid #e8edf5;
+            border-radius: 10px;
+            padding: 8px 11px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .upl-card.found  { border-color: #86efac; background: #f0fdf4; }
+        .upl-card.missing{ border-color: #fca5a5; background: #fff5f5; }
+        .upl-card.uploading { border-color: #fcd34d; background: #fffbeb; }
+        .upl-card.done   { border-color: #6ee7b7; background: #ecfdf5; box-shadow: 0 1px 6px rgba(16,185,129,0.15); }
+        .upl-card-left { flex-shrink: 0; }
+        .upl-card-icon {
+            width: 32px; height: 32px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px; flex-shrink: 0;
+        }
+        .upl-card-body {
+            flex: 1; min-width: 0;
+        }
+        .upl-card-title {
+            font-size: 12px; font-weight: 700; color: #1e293b; line-height: 1.2;
+        }
+        .upl-card-file {
+            font-size: 9px; color: #667eea; font-family: 'Courier New', monospace;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            margin-top: 1px; max-width: 150px;
+        }
+        .upl-card-right {
+            flex-shrink: 0; display: flex; flex-direction: column;
+            align-items: flex-end; gap: 2px;
+        }
+        .upl-detect-badge {
+            display: flex; align-items: center; gap: 4px;
+            font-size: 10px; font-weight: 600; color: #94a3b8;
+            white-space: nowrap;
+        }
+        .upl-upload-badge {
+            font-size: 10px; font-weight: 700; min-height: 13px;
+        }
+        .upl-dot {
+            width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0;
+        }
+        .upl-dot-wait    { background: #cbd5e1; }
+        .upl-dot-found   { background: #22c55e; box-shadow: 0 0 0 2px rgba(34,197,94,0.2); }
+        .upl-dot-missing { background: #ef4444; box-shadow: 0 0 0 2px rgba(239,68,68,0.2); }
+        .upl-dot-loading { background: #f59e0b; animation: upl-pulse 0.8s infinite alternate; }
+        @keyframes upl-pulse { from { opacity:0.4; } to { opacity:1; } }
         </style>
     </div>
 
@@ -1535,6 +1663,15 @@
             document.getElementById('folderName').textContent = '';
             document.getElementById('uploadDetectSection').style.display = 'none';
             document.getElementById('uploadStatus').style.display = 'none';
+            // Reset semua card ke state awal
+            ['data','bti','project','tg','cat','bp','trend','outlet','sku','proses'].forEach(k => {
+                const c = document.getElementById('card-' + k);
+                if (c) { c.classList.remove('found','missing','uploading','done'); }
+                const d = document.getElementById('detect-' + k);
+                if (d) d.innerHTML = '<span class="upl-dot upl-dot-wait"></span>Menunggu';
+                const u = document.getElementById('upload-' + k);
+                if (u) u.innerHTML = '';
+            });
         }
 
         async function pickFolder() {
@@ -1581,18 +1718,22 @@
             for (const s of slots) {
                 const expectedName = document.getElementById('label-' + s.key).textContent.trim();
                 const detectEl     = document.getElementById('detect-' + s.key);
-                detectEl.innerHTML = '<span style="color:#94a3b8;">🔍 Mencari...</span>';
+                detectEl.innerHTML = '<span class="upl-dot upl-dot-loading"></span><span style="color:#94a3b8;">Mencari...</span>';
+                const cardEl = document.getElementById('card-' + s.key);
+                if (cardEl) { cardEl.classList.remove('found','missing','uploading','done'); }
                 try {
                     const fileHandle = await folderHandle.getFileHandle(expectedName);
                     detectedFiles[s.key] = fileHandle;
                     const file = await fileHandle.getFile();
                     const sizeKB = (file.size / 1024).toFixed(1);
-                    detectEl.innerHTML = '<span style="color:#16a34a;font-weight:700;">✅</span> <span style="color:#64748b;font-size:10px;">' + sizeKB + ' KB</span>';
+                    detectEl.innerHTML = '<span class="upl-dot upl-dot-found"></span><span style="color:#16a34a;">Ditemukan</span> <span style="color:#94a3b8;font-size:10px;">' + sizeKB + ' KB</span>';
+                    if (cardEl) cardEl.classList.add('found');
                     foundCount++;
                 } catch(e) {
                     detectedFiles[s.key] = null;
                     missingNames.push('<code style="background:#fee2e2;padding:1px 5px;border-radius:3px;">' + expectedName + '</code>');
-                    detectEl.innerHTML = '<span style="color:#dc2626;font-weight:700;">⚠️</span>';
+                    detectEl.innerHTML = '<span class="upl-dot upl-dot-missing"></span><span style="color:#dc2626;">Tidak ada</span>';
+                    if (cardEl) cardEl.classList.add('missing');
                 }
             }
 
@@ -1642,7 +1783,9 @@
 
             for (const s of toUpload) {
                 const detectEl = document.getElementById('detect-' + s.key);
-                detectEl.innerHTML = '<span style="color:#f39c12;">⏳</span>';
+                const cardEl2  = document.getElementById('card-' + s.key);
+                detectEl.innerHTML = '<span class="upl-dot upl-dot-loading"></span><span style="color:#f59e0b;">Mengupload...</span>';
+                if (cardEl2) { cardEl2.classList.remove('found','missing','done'); cardEl2.classList.add('uploading'); }
                 try {
                     const fileHandle = detectedFiles[s.key];
                     const file       = await fileHandle.getFile();
@@ -1657,19 +1800,22 @@
                     const ok = await uploadToGitHub(file.name, content);
                     if (ok) {
                         await logUploadActivity(file.name, recordCount, depoMeta);
-                        detectEl.innerHTML = '<span style="color:#16a34a;font-weight:700;">✅</span>';
-                        if (uploadCell) uploadCell.innerHTML = '<span style="color:#16a34a;font-size:10px;font-weight:700;">✅ OK</span>';
+                        detectEl.innerHTML = '<span class="upl-dot upl-dot-found"></span><span style="color:#16a34a;">Uploaded</span>';
+                        if (uploadCell) uploadCell.innerHTML = '<span style="color:#16a34a;font-weight:700;">✅ ' + recordCount + ' rec</span>';
+                        if (cardEl2) { cardEl2.classList.remove('uploading'); cardEl2.classList.add('done'); }
                         results.push('✅ <strong>' + file.name + '</strong> — ' + recordCount + ' records');
                         successCount++;
                     } else {
-                        detectEl.innerHTML = '<span style="color:#dc2626;font-weight:700;">❌</span>';
-                        if (uploadCell) uploadCell.innerHTML = '<span style="color:#dc2626;font-size:10px;">❌ Gagal</span>';
+                        detectEl.innerHTML = '<span class="upl-dot upl-dot-missing"></span><span style="color:#dc2626;">Gagal</span>';
+                        if (uploadCell) uploadCell.innerHTML = '<span style="color:#dc2626;font-weight:700;">❌ Gagal</span>';
+                        if (cardEl2) { cardEl2.classList.remove('uploading'); cardEl2.classList.add('missing'); }
                         results.push('❌ <strong>' + file.name + '</strong> — Gagal upload ke GitHub');
                         failCount++;
                     }
                 } catch(e) {
                     const label = document.getElementById('label-' + s.key).textContent;
-                    document.getElementById('detect-' + s.key).innerHTML = '<span style="color:#dc2626;">❌ Error: ' + e.message + '</span>';
+                    document.getElementById('detect-' + s.key).innerHTML = '<span class="upl-dot upl-dot-missing"></span><span style="color:#dc2626;">Error</span>';
+                    if (cardEl2) { cardEl2.classList.remove('uploading'); cardEl2.classList.add('missing'); }
                     results.push('❌ <strong>' + label + '</strong> — ' + e.message);
                     failCount++;
                 }
@@ -2789,7 +2935,6 @@ ${isRegional ? renderDepoStatusPanel() : ''}
       </div>
       ${subRow('vs BE', pct(achBE), colAch(achBE))}
       ${subRow('vs BP', pct(achBP), colAch(achBP))}
-      ${subRow('vs LY', pct(achLY), achLY>=100?'#16a34a':'#dc2626')}
     </div>
 
     <!-- BE & BP Card -->
@@ -2812,20 +2957,22 @@ ${isRegional ? renderDepoStatusPanel() : ''}
     <!-- Historical Card -->
     <div style="${cardStyle}">
       <div style="${titleStyle}">📅 Historical</div>
-      ${subRow('LY', jt(totLY),'#1e293b')}
-      ${subRow('LM', jt(totLM),'#1e293b')}
-      ${subRow('L3M', jt(totL3M),'#1e293b')}
-      <div style="margin-top:6px;border-top:1px solid #f1f5f9;padding-top:6px;">
-        <div style="font-size:9px;color:#94a3b8;">MTD vs LM</div>
-        <div style="font-size:14px;font-weight:700;color:${totMTD>=totLM?'#16a34a':'#dc2626'};">
-          ${arrow(totMTD,totLM)} ${totLM>0?pct(Math.abs(totMTD-totLM)/totLM*100):'—'}
-        </div>
-      </div>
+      ${[['LY',totLY],['LM',totLM],['L3M',totL3M]].map(([lbl,val])=>{
+        const diff = val>0 ? Math.abs(totMTD-val)/val*100 : 0;
+        const up   = totMTD >= val;
+        const col  = up ? '#16a34a' : '#dc2626';
+        const arr  = up ? '▲' : '▼';
+        return '<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-top:4px;">'
+          + '<span style="color:#94a3b8;">'+lbl+'</span>'
+          + '<span style="color:#1e293b;font-weight:600;">'+jt(val)+'</span>'
+          + '<span style="color:'+col+';font-weight:700;font-size:10px;">'+arr+' '+(val>0?pct(diff):'—')+'</span>'
+          + '</div>';
+      }).join('')}
     </div>
 
     <!-- Outlet Card -->
     <div style="${cardStyle}">
-      <div style="${titleStyle}">🏪 Outlet</div>
+      <div style="${titleStyle}">🏪 CA vs CR Depo</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:center;">
         <div style="background:#f8fafc;border-radius:8px;padding:8px;">
           <div style="font-size:9px;color:#64748b;font-weight:600;">CR</div>
@@ -2924,11 +3071,11 @@ ${isRegional ? renderDepoStatusPanel() : ''}
   </div><!-- end center -->
 
   <!-- ═══ RIGHT PANEL ═══ -->
-  <div style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 40px);">
+  <div style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 80px);">
 
     <!-- Top Principles -->
     <div style="${cardStyle}">
-      <div style="${titleStyle}">🏆 Top Principle (by BP)</div>
+      <div style="${titleStyle}">🏆 Top Principle (vs BP)</div>
       ${topPr.map(([pr,v],i)=>{
         const clrs=['#0e7490','#0284c7','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c'];
         const fillW = v.BP>0?Math.min(v.MTD/v.BP*100,100).toFixed(1):0;
@@ -2951,7 +3098,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
     <!-- Top Category -->
     <div style="${cardStyle}">
-      <div style="${titleStyle}">📦 Top Category (by BP)</div>
+      <div style="${titleStyle}">📦 Top Category (vs BP)</div>
       <div style="max-height:340px;overflow-y:auto;">
       ${topCat.map(([gr,v],i)=>{
         const clrs=['#0e7490','#0284c7','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c','#0891b2'];
@@ -2976,7 +3123,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
     <!-- Klasemen Depo / Semua Salesman -->
     <div style="${cardStyle}">
-      <div style="${titleStyle}">${isRegional ? '🏢 Klasemen Depo (MTD vs BP)' : '👤 Semua Salesman (MTD vs BP)'}</div>
+      <div style="${titleStyle}">${isRegional ? '🏢 Klasemen Depo (MTD vs BP)' : '👤 All Salesman (MTD vs BTI)'}</div>
       <div style="max-height:240px;overflow-y:auto;">
       ${topSm.map(([sm,v],i)=>{
         const smAch  = v.BP>0?v.MTD/v.BP*100:0;
@@ -3088,7 +3235,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             window._prosesLoaded = true;
 
             try {
-                const depoSuffix = (window.selectedDepo || '')
+                const depoSuffix = (selectedDepo || '')
                                     .replace(/^data_DEPO_/i, '')
                                     .trim()
                                     .toUpperCase()
@@ -3099,57 +3246,63 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 const rows = json.data || [];
                 if (!rows.length) { wrap.innerHTML = '<span style="color:#94a3b8;">Tidak ada data Proses.</span>'; return; }
 
-                // % columns to show
+                // Kolom % yang ditampilkan sebagai donut
                 const pctCols = [
-                    { key: '%CR',    label: 'CR',    desc: 'Call Rate' },
-                    { key: '%CA',    label: 'CA',    desc: 'Call Achievement' },
-                    { key: '%PC',    label: 'PC',    desc: 'Productive Call' },
-                    { key: '%AC',    label: 'AC',    desc: 'Active Call' },
-                    { key: '%EC',    label: 'EC',    desc: 'Effective Call' },
-                    { key: '%ECIns', label: 'ECIns', desc: 'EC Insight' },
-                    { key: '%SKU',   label: 'AvgSKU',desc: 'Avg SKU' },
-                    { key: '%GS',    label: 'GS',    desc: 'Gross Sales' },
+                    { key: '%CR',    label: 'CR',     desc: 'Call Rate' },
+                    { key: '%CA',    label: 'CA',     desc: 'Call Achievement' },
+                    { key: '%PC',    label: 'PC',     desc: 'Productive Call' },
+                    { key: '%AC',    label: 'AC',     desc: 'Active Call' },
+                    { key: '%EC',    label: 'EC',     desc: 'Effective Call' },
+                    { key: '%ECIns', label: 'ECIns',  desc: 'EC Insight' },
+                    { key: '%SKU',   label: 'AvgSKU', desc: 'Avg SKU' },
+                    { key: '%GS',    label: 'GS',     desc: 'Gross Sales' },
+                    { key: 'ARColl', label: 'ARColl', desc: 'AR Collection', isAR: true },
                 ];
 
-                // Avg per kolom (summary depo)
+                // Hitung rata-rata per kolom
                 const avgPct = {};
                 pctCols.forEach(c => {
                     const vals = rows.map(r => r[c.key]).filter(v => v != null && !isNaN(v));
                     avgPct[c.key] = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
                 });
 
-                const pctFmt = v => v == null ? '—' : (v * 100).toFixed(1) + '%';
-                const col = v => {
+                const colFn = v => {
                     if (v == null) return '#94a3b8';
                     return v >= 1.0 ? '#16a34a' : v >= 0.85 ? '#ca8a04' : '#dc2626';
                 };
-                const bg = v => {
-                    if (v == null) return '#f8fafc';
-                    return v >= 1.0 ? '#dcfce7' : v >= 0.85 ? '#fef9c3' : '#fee2e2';
+
+                // Helper donut item — sama persis dengan Channel tab
+                const donutItem = (label, v) => {
+                    const achPct   = v != null ? v * 100 : 0;
+                    const fillDeg  = Math.min(achPct, 100) / 100 * 360;
+                    const col      = colFn(v);
+                    const conic    = 'conic-gradient(' + col + ' 0deg ' + fillDeg.toFixed(1) + 'deg, #e2e8f0 ' + fillDeg.toFixed(1) + 'deg 360deg)';
+                    const dispPct  = v == null ? '—' : achPct.toFixed(1) + '%';
+                    return '<div style="text-align:center;background:#f8fafc;border-radius:10px;padding:8px 4px;">'
+                        + '<div style="font-size:9px;font-weight:700;color:#475569;margin-bottom:4px;">' + label + '</div>'
+                        + '<div style="position:relative;width:64px;height:64px;margin:0 auto;">'
+                        +   '<div style="width:64px;height:64px;border-radius:50%;background:' + conic + ';"></div>'
+                        +   '<div style="position:absolute;inset:8px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;">'
+                        +     '<span style="font-size:10px;font-weight:800;color:' + col + ';">' + dispPct + '</span>'
+                        +   '</div>'
+                        + '</div>'
+                        + ''
+                        + '</div>';
                 };
 
                 let html = '<div style="margin-bottom:6px;font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;">Avg % Depo (' + rows.length + ' Salesman)</div>';
-                html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">';
-                pctCols.forEach(c => {
-                    const v = avgPct[c.key];
-                    html += '<div style="background:' + bg(v) + ';border-radius:8px;padding:6px 8px;text-align:center;">'
-                        + '<div style="font-size:9px;color:#64748b;font-weight:600;margin-bottom:2px;">' + c.label + '</div>'
-                        + '<div style="font-size:15px;font-weight:800;color:' + col(v) + ';">' + pctFmt(v) + '</div>'
-                        + '</div>';
-                });
-                html += '</div>';
-
-                // ARColl separately
-                const arVals = rows.map(r => r.ARColl).filter(v => v != null && !isNaN(v));
-                const arAvg  = arVals.length ? arVals.reduce((a,b)=>a+b,0)/arVals.length : null;
-                html += '<div style="margin-top:6px;background:' + bg(arAvg) + ';border-radius:8px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center;">'
-                    + '<div style="font-size:10px;font-weight:700;color:#334155;">ARColl</div>'
-                    + '<div style="font-size:14px;font-weight:800;color:' + col(arAvg) + ';">' + pctFmt(arAvg) + '</div>'
-                    + '</div>';
+                // Bagi ke baris maks 5 per baris
+                const chunkSize = 5;
+                for (let i = 0; i < pctCols.length; i += chunkSize) {
+                    const chunk = pctCols.slice(i, i + chunkSize);
+                    html += '<div style="display:grid;grid-template-columns:repeat(' + chunk.length + ',1fr);gap:5px;margin-bottom:5px;">';
+                    chunk.forEach(c => { html += donutItem(c.label, avgPct[c.key]); });
+                    html += '</div>';
+                }
 
                 wrap.innerHTML = html;
             } catch(e) {
-                wrap.innerHTML = '<span style="color:#94a3b8;font-size:11px;">⚠️ File proses_DEPO_' + (window.selectedDepo||'').replace(/^data_DEPO_/i,'').trim().toUpperCase().replace(/\s+/g,'_') + '.json tidak ditemukan.</span>';
+                wrap.innerHTML = '<span style="color:#94a3b8;font-size:11px;">⚠️ File proses_DEPO_' + (selectedDepo||'').replace(/^data_DEPO_/i,'').trim().toUpperCase().replace(/\s+/g,'_') + '.json tidak ditemukan.</span>';
             }
         }
 
