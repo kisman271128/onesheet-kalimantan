@@ -1107,27 +1107,70 @@
 
         <!-- Tab Content: Dashboard by Salesman -->
         <div id="tabSalesman" class="tab-content">
-            <div class="salesman-filter">
-                <label>Pilih Tipe Sales:</label>
-                <select id="tipeSalesSelect" onchange="filterByTipeSales()">
-                    <option value="">-- All Tipe Sales --</option>
-                </select>
-                
-                <!-- Show Nama Salesman ONLY for specific Depo (not Summary Regional) -->
-                <span id="salesmanComboContainer" style="display: none;">
-                    <label style="margin-left: 20px;">Pilih Salesman:</label>
-                    <select id="salesmanSelect" onchange="filterBySalesman()">
-                        <option value="">-- All Salesman --</option>
+
+            <!-- Sub-tab buttons -->
+            <div class="sub-tabs-container">
+                <div class="sub-tabs">
+                    <div class="sub-tab active" id="smSubBtnChannel" onclick="switchSalesmanSubTab('channel')">📊 By Channel</div>
+                    <div class="sub-tab"         id="smSubBtnProses"  onclick="switchSalesmanSubTab('proses')">⚙️ Proses</div>
+                </div>
+            </div>
+
+            <!-- Sub-tab: By Channel (existing content) -->
+            <div id="smSubTabChannel" class="sub-tab-content active">
+                <div class="salesman-filter">
+                    <label>Pilih Tipe Sales:</label>
+                    <select id="tipeSalesSelect" onchange="filterByTipeSales()">
+                        <option value="">-- All Tipe Sales --</option>
                     </select>
-                </span>
+                    <span id="salesmanComboContainer" style="display: none;">
+                        <label style="margin-left: 20px;">Pilih Salesman:</label>
+                        <select id="salesmanSelect" onchange="filterBySalesman()">
+                            <option value="">-- All Salesman --</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="report-container">
+                    <div id="loadingSalesman" class="loading">⏳ Pilih filter untuk melihat data...</div>
+                    <table id="tableSalesman">
+                        <thead id="tableHeaderSalesman"></thead>
+                        <tbody id="tableBodySalesman"></tbody>
+                    </table>
+                </div>
             </div>
-            <div class="report-container">
-                <div id="loadingSalesman" class="loading">⏳ Pilih filter untuk melihat data...</div>
-                <table id="tableSalesman">
-                    <thead id="tableHeaderSalesman"></thead>
-                    <tbody id="tableBodySalesman"></tbody>
-                </table>
+
+            <!-- Sub-tab: Proses -->
+            <div id="smSubTabProses" class="sub-tab-content">
+                <div style="display:flex;gap:12px;padding:12px;height:calc(100vh - 200px);min-height:400px;">
+
+                    <!-- Frame Kiri: Tabel Proses per Tipe Salesman -->
+                    <div style="flex:1;min-width:0;background:white;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.08);display:flex;flex-direction:column;overflow:hidden;">
+                        <div style="padding:10px 14px;border-bottom:1px solid #f1f5f9;font-size:12px;font-weight:800;color:#1e293b;flex-shrink:0;">
+                            By Tipe Salesman
+                        </div>
+                        <div id="smProsesTipeWrap" style="width:100%;overflow-y:auto;overflow-x:hidden;">
+                            <span style="padding:12px;display:block;color:#94a3b8;font-size:11px;">⏳ Memuat...</span>
+                        </div>
+                    </div>
+
+                    <!-- Frame Kanan: Donut per Salesman -->
+                    <div style="flex:1;min-width:0;background:white;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.08);display:flex;flex-direction:column;overflow:hidden;">
+                        <div style="padding:10px 14px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+                            <span style="font-size:12px;font-weight:800;color:#1e293b;white-space:nowrap;">By Nama Salesman</span>
+                            <select id="smProsesSalesmanSelect" onchange="renderSmProsesDonut()"
+                                style="padding:5px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:12px;color:#334155;outline:none;cursor:pointer;flex:1;min-width:0;">
+                                <option value="">-- Pilih Salesman --</option>
+                            </select>
+                        </div>
+                        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:8px;position:relative;overflow:hidden;">
+                            <canvas id="smProsesSmChart" style="display:none;max-width:100%;max-height:100%;"></canvas>
+                            <div id="smProsesSmPlaceholder" style="color:#94a3b8;font-size:12px;position:absolute;">Pilih salesman untuk melihat chart.</div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
         </div>
 
         <!-- Tab Content: 30 Pareto Outlet -->
@@ -3306,20 +3349,280 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             }
         }
 
-        function switchSummaryDashChart(view) {
-            window._sdChartView = view;
-            const wCard=document.getElementById('sdChartWeekly'), dCard=document.getElementById('sdChartDaily');
-            const btn1=document.getElementById('sdChartBtn1'),    btn2=document.getElementById('sdChartBtn2');
-            if (wCard) wCard.style.display = view==='weekly' ? '' : 'none';
-            if (dCard) dCard.style.display = view==='daily'  ? '' : 'none';
-            if (btn1) { btn1.style.background=view==='weekly'?'#0e7490':'#fff'; btn1.style.color=view==='weekly'?'#fff':'#0e7490'; }
-            if (btn2) { btn2.style.background=view==='daily'?'#0e7490':'#fff';  btn2.style.color=view==='daily'?'#fff':'#0e7490'; }
-            setTimeout(()=>{ if(view==='weekly'&&_summaryCharts.week) _summaryCharts.week.resize(); if(view==='daily'&&_summaryCharts.daily) _summaryCharts.daily.resize(); }, 50);
+        // ===== SALESMAN SUB-TAB: CHANNEL / PROSES =====
+        function switchSalesmanSubTab(tab) {
+            const isChannel = tab === 'channel';
+            document.getElementById('smSubTabChannel').classList.toggle('active', isChannel);
+            document.getElementById('smSubTabProses').classList.toggle('active', !isChannel);
+            document.getElementById('smSubBtnChannel').classList.toggle('active', isChannel);
+            document.getElementById('smSubBtnProses').classList.toggle('active', !isChannel);
+            if (!isChannel && !window._smProsesLoaded) loadSmProsesData();
         }
 
-        // ===== WK-DETAIL TOGGLE =====
-        // ===== PER-WEEK DETAIL TOGGLE =====
-        window._wkColsState = {}; // { '1': false, '2': true, ... } — true = hidden
+        // Shared proses cols
+        const _smProsesCols = [
+            { key: 'ARColl', label: 'ARColl' },
+            { key: '%CR',    label: '%CR'    },
+            { key: '%CA',    label: '%CA'    },
+            { key: '%PC',    label: '%PC'    },
+            { key: '%AC',    label: '%AC'    },
+            { key: '%EC',    label: '%EC'    },
+            { key: '%ECIns', label: '%ECIns' },
+            { key: '%SKU',   label: '%SKU'   },
+            { key: '%GS',    label: '%GS'    },
+        ];
+
+        function _prosesColFn(v) {
+            if (v == null) return '#cbd5e1';
+            return v >= 1.0 ? '#16a34a' : v >= 0.85 ? '#f59e0b' : '#ef4444';
+        }
+
+        function _buildProsesChart(canvasId, placeholderId, _unused, values) {
+            const placeholder = document.getElementById(placeholderId);
+            const canvas      = document.getElementById(canvasId);
+
+            if (!values) {
+                if (placeholder) placeholder.style.display = '';
+                if (canvas) canvas.style.display = 'none';
+                return;
+            }
+            if (placeholder) placeholder.style.display = 'none';
+            if (canvas) canvas.style.display = '';
+
+            if (window['_chart_' + canvasId]) { window['_chart_' + canvasId].destroy(); }
+
+            const rawVals = _smProsesCols.map(c => values[c.key] != null ? values[c.key] : null);
+            const colors  = rawVals.map(v => _prosesColFn(v));
+            const labels  = _smProsesCols.map(c => c.label);
+            const dispPct = rawVals.map(v => v != null ? (v * 100).toFixed(1) + '%' : '—');
+
+            window['_chart_' + canvasId] = new Chart(canvas, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: _smProsesCols.map(() => 1),
+                        backgroundColor: colors,
+                        borderColor: 'white',
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    layout: { padding: 44 },
+                    cutout: '42%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => ' ' + ctx.label + ': ' + dispPct[ctx.dataIndex]
+                            }
+                        }
+                    }
+                },
+                plugins: [{
+                    id: 'prosesLabels',
+                    afterDraw(chart) {
+                        const { ctx, chartArea: { top, bottom, left, right } } = chart;
+                        const cx = (left + right) / 2, cy = (top + bottom) / 2;
+                        const meta = chart.getDatasetMeta(0);
+                        ctx.save();
+                        meta.data.forEach((arc, i) => {
+                            const angle = (arc.startAngle + arc.endAngle) / 2;
+                            const rInner = arc.innerRadius, rOuter = arc.outerRadius;
+
+                            // Value inside segment
+                            const rMid = (rInner + rOuter) / 2;
+                            const xi = cx + rMid * Math.cos(angle);
+                            const yi = cy + rMid * Math.sin(angle);
+                            ctx.fillStyle = 'white';
+                            ctx.font = 'bold 9px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(dispPct[i], xi, yi);
+
+                            // Label outside
+                            const rLabel = rOuter + 16;
+                            const xl = cx + rLabel * Math.cos(angle);
+                            const yl = cy + rLabel * Math.sin(angle);
+                            ctx.fillStyle = '#334155';
+                            ctx.font = 'bold 9px sans-serif';
+                            ctx.textAlign = xl > cx ? 'left' : 'right';
+                            ctx.fillText(labels[i], xl, yl);
+                        });
+                        ctx.restore();
+                    }
+                }]
+            });
+        }
+
+
+        async function loadSmProsesData() {
+            window._smProsesLoaded = true;
+            const tipeWrap = document.getElementById('smProsesTipeWrap');
+            const smSel    = document.getElementById('smProsesSalesmanSelect');
+
+            try {
+                const depoSuffix = (selectedDepo || '')
+                    .replace(/^data_DEPO_/i, '').trim().toUpperCase().replace(/\s+/g, '_');
+                const res = await fetch('proses_DEPO_' + depoSuffix + '.json');
+                if (!res.ok) throw new Error('not found');
+                const json = await res.json();
+                const rows = json.data || [];
+                if (!rows.length) { tipeWrap.innerHTML='<span style="padding:12px;color:#94a3b8;">Tidak ada data.</span>'; return; }
+
+                window._smProsesRows = rows;
+
+                // Populate salesman select
+                smSel.innerHTML = '<option value="">-- Pilih Salesman --</option>';
+                rows.forEach(r => {
+                    const nm = r.szname || r['Nama Salesman'] || '';
+                    if (!nm) return;
+                    const opt = document.createElement('option');
+                    opt.value = nm; opt.textContent = nm;
+                    smSel.appendChild(opt);
+                });
+
+                // Build tipe map
+                const tipeMap = {};
+                rows.forEach(r => {
+                    const tipe = r['Tipe Salesman'] || r['Tipe Sales'] || 'LAINNYA';
+                    if (!tipeMap[tipe]) tipeMap[tipe] = [];
+                    tipeMap[tipe].push(r);
+                });
+                window._smProsesTipeMap = tipeMap;
+
+                // Build tabel
+                const colFn  = v => v == null ? '#94a3b8' : v >= 1.0 ? '#16a34a' : v >= 0.85 ? '#f59e0b' : '#ef4444';
+                const bgFn   = v => v == null ? 'transparent' : v >= 1.0 ? '#dcfce7' : v >= 0.85 ? '#fef9c3' : '#fee2e2';
+                const pctFmt = v => v == null ? '—' : (v*100).toFixed(0)+'%';
+                const dot    = v => '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colFn(v)+';margin-right:3px;vertical-align:middle;"></span>';
+                const avg    = (arr, key) => { const vals=arr.map(r=>r[key]).filter(v=>v!=null&&!isNaN(v)); return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null; };
+                const shorten = t => t.replace(/Sales Representative/gi,'SR');
+
+                const thS = 'padding:4px 2px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:center;position:sticky;top:0;z-index:1;overflow:hidden;';
+                const thL = 'padding:4px 6px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:left;position:sticky;top:0;z-index:1;';
+                const tdS = (v) => 'padding:3px 2px;font-size:9px;font-weight:700;text-align:center;background:'+bgFn(v)+';overflow:hidden;';
+                const tdL = 'padding:3px 6px;font-size:9px;font-weight:600;color:#334155;text-align:left;overflow:hidden;';
+
+                let html = '<table style="width:100%;border-collapse:collapse;table-layout:auto;min-width:400px;">';
+                html += '<thead><tr>';
+                html += '<th style="'+thL+'">Tipe Salesman</th>';
+                _smProsesCols.forEach(c => { html += '<th style="'+thS+'">'+c.label+'</th>'; });
+                html += '</tr></thead><tbody>';
+
+                Object.entries(tipeMap).sort().forEach(([tipe, arr], idx) => {
+                    const bg = idx%2===0 ? '#ffffff' : '#f8fafc';
+                    html += '<tr style="background:'+bg+';">';
+                    html += '<td style="'+tdL+'">'+shorten(tipe)+'</td>';
+                    _smProsesCols.forEach(c => {
+                        const v = avg(arr, c.key);
+                        html += '<td style="'+tdS(v)+'">'+dot(v)+pctFmt(v)+'</td>';
+                    });
+                    html += '</tr>';
+                });
+
+                // Grand Total
+                html += '<tr style="background:#f0f9ff;border-top:2px solid #0e7490;">';
+                html += '<td style="'+tdL+'font-weight:800;color:#0e7490;">Grand Total</td>';
+                _smProsesCols.forEach(c => {
+                    const v = avg(rows, c.key);
+                    html += '<td style="'+tdS(v)+'font-weight:800;">'+dot(v)+pctFmt(v)+'</td>';
+                });
+                html += '</tr>';
+                html += '</tbody></table>';
+
+                // ── Tabel Target Std & Actual (digabung) ─────────────────────
+                const mergedCols = [
+                    { key: 'CR',       label: 'CR',       grp: 'std' },
+                    { key: 'PC',       label: 'PC',       grp: 'std' },
+                    { key: 'AC',       label: 'AC',       grp: 'std' },
+                    { key: 'EC',       label: 'EC',       grp: 'std' },
+                    { key: 'ET',       label: 'ET',       grp: 'std' },
+                    { key: 'AvgSKU',   label: 'AvgSKU',   grp: 'std' },
+                    { key: 'GS',       label: 'GS',       grp: 'std' },
+                    { key: 'A_CR',     label: 'A_CR',     grp: 'act' },
+                    { key: 'A_PC',     label: 'A_PC',     grp: 'act' },
+                    { key: 'A_AC',     label: 'A_AC',     grp: 'act' },
+                    { key: 'A_EC',     label: 'A_EC',     grp: 'act' },
+                    { key: 'A_ET',     label: 'A_ET',     grp: 'act' },
+                    { key: 'A_AvgSKU', label: 'A_AvgSKU', grp: 'act' },
+                    { key: 'A_GS',     label: 'A_GS',     grp: 'act' },
+                ];
+                const numFmt  = v => v == null ? '—' : Number.isInteger(v) ? v.toLocaleString('id-ID') : v.toFixed(1);
+                const sumNum  = (arr, key) => arr.reduce((s,r)=>s+(r[key]||0),0);
+                const thStd   = 'padding:4px 3px;font-size:8px;font-weight:700;color:white;background:#f59e0b;text-align:center;';
+                const thAct   = 'padding:4px 3px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:center;';
+                const thGrpStd= 'padding:4px 6px;font-size:9px;font-weight:800;color:white;background:#f59e0b;text-align:center;border-bottom:1px solid rgba(255,255,255,0.3);';
+                const thGrpAct= 'padding:4px 6px;font-size:9px;font-weight:800;color:white;background:#0e7490;text-align:center;border-bottom:1px solid rgba(255,255,255,0.3);';
+                const tdN     = 'padding:3px 4px;font-size:9px;text-align:center;color:#334155;';
+                const stdLen  = mergedCols.filter(c=>c.grp==='std').length;
+                const actLen  = mergedCols.filter(c=>c.grp==='act').length;
+
+                html += '<div style="margin-top:14px;">';
+                html += '<table style="width:100%;border-collapse:collapse;table-layout:auto;min-width:400px;">';
+                // Row 1: group headers
+                html += '<thead>';
+                html += '<tr>';
+                html += '<th style="background:#e2e8f0;padding:4px 6px;" rowspan="2"></th>';
+                html += '<th style="background:#e2e8f0;padding:4px 6px;font-size:8px;font-weight:700;color:#475569;text-align:center;" rowspan="2">#Sls</th>';
+                html += '<th style="'+thGrpStd+'" colspan="'+stdLen+'">Target Std</th>';
+                html += '<th style="'+thGrpAct+'" colspan="'+actLen+'">Actual</th>';
+                html += '</tr>';
+                // Row 2: col headers
+                html += '<tr>';
+                mergedCols.forEach(c => {
+                    html += '<th style="'+(c.grp==='std'?thStd:thAct)+'">'+c.label+'</th>';
+                });
+                html += '</tr></thead><tbody>';
+
+                // SUM keys
+                const sumKeys = new Set(['CR','A_CR','GS','A_GS']);
+                const calcVal = (arr, key) => {
+                    if (sumKeys.has(key)) return sumNum(arr, key);
+                    const vals = arr.map(r => r[key]).filter(v => v != null && !isNaN(v));
+                    return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+                };
+
+                Object.entries(tipeMap).sort().forEach(([tipe, arr], idx) => {
+                    const bg = idx%2===0 ? '#ffffff' : '#f8fafc';
+                    html += '<tr style="background:'+bg+';">';
+                    html += '<td style="'+tdL+'">'+shorten(tipe)+'</td>';
+                    html += '<td style="'+tdN+'text-align:center;font-weight:600;color:#0e7490;">'+arr.length+'</td>';
+                    mergedCols.forEach(c => { html += '<td style="'+tdN+'">'+numFmt(calcVal(arr, c.key))+'</td>'; });
+                    html += '</tr>';
+                });
+                // Grand Total
+                html += '<tr style="background:#f0f9ff;border-top:2px solid #334155;">';
+                html += '<td style="'+tdL+'font-weight:800;color:#334155;">Grand Total</td>';
+                html += '<td style="'+tdN+'text-align:center;font-weight:800;color:#0e7490;">'+rows.length+'</td>';
+                mergedCols.forEach(c => {
+                    const col = c.grp==='std' ? '#f59e0b' : '#0e7490';
+                    html += '<td style="'+tdN+'font-weight:800;color:'+col+';">'+numFmt(calcVal(rows, c.key))+'</td>';
+                });
+                html += '</tr></tbody></table></div>';
+
+                tipeWrap.innerHTML = html;
+
+            } catch(e) {
+                tipeWrap.innerHTML = '<span style="padding:12px;display:block;color:#94a3b8;font-size:11px;">⚠️ File proses tidak ditemukan.</span>';
+            }
+        }
+
+        function renderSmProsesTipeChart() { /* unused */ }
+
+        function renderSmProsesDonut() {
+            const sel    = document.getElementById('smProsesSalesmanSelect');
+            const smName = sel.value;
+            const rows   = window._smProsesRows || [];
+            if (!smName) { _buildProsesChart('smProsesSmChart','smProsesSmPlaceholder',null,null); return; }
+            const row = rows.find(r => (r.szname || r['Nama Salesman'] || '') === smName);
+            if (!row) return;
+            _buildProsesChart('smProsesSmChart','smProsesSmPlaceholder',null, row);
+        }
+
 
         function toggleWeekCols(wNum) {
             const isHidden = !window._wkColsState[wNum];
@@ -3521,6 +3824,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
         async function loadPareto25Data() {
             _pareto25ActivePr = 'ALL'; // Reset ke All saat load data baru
             window._prosesLoaded = false; // Reset proses cache
+            window._smProsesLoaded = false; window._smProsesRows = null; // Reset salesman proses cache
             // Reset tombol filter
             document.querySelectorAll('.p25-filter-btn').forEach(b => b.classList.remove('active'));
             const allBtn = document.querySelector('.p25-filter-btn[data-pr="ALL"]');
