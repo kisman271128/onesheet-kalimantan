@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OneSheet Region Kalimantan</title>
+    <link rel="icon" href="data:,">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -1599,11 +1600,15 @@
                 if (res.ok) jsonDepo = await res.json();
             } catch(e) { /* tidak ada */ }
 
-            // Fetch TG.json (format lama)
+            // Fetch TG.json (format lama) — 404 dibiarkan silent, file opsional
             try {
                 const res2 = await fetch('TG.json');
-                if (res2.ok) jsonLama = await res2.json();
-            } catch(e) { /* tidak ada */ }
+                if (res2.ok) {
+                    jsonLama = await res2.json();
+                } else if (res2.status !== 404) {
+                    console.warn('TG.json fetch error:', res2.status);
+                }
+            } catch(e) { /* network error, diabaikan */ }
 
             // Pilih yang paling update
             if (jsonDepo && jsonLama) {
@@ -3261,6 +3266,25 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
         // ── Toggle Progress Mingguan ↔ Trend Harian ──────────────────────────
         window._sdChartView = 'weekly';
+        function switchSummaryDashChart(type) {
+            const isWeekly = type === 'weekly';
+            const wEl = document.getElementById('sdChartWeekly');
+            const dEl = document.getElementById('sdChartDaily');
+            if (wEl) wEl.style.display = isWeekly ? '' : 'none';
+            if (dEl) dEl.style.display  = isWeekly ? 'none' : '';
+
+            const btn1 = document.getElementById('sdChartBtn1');
+            const btn2 = document.getElementById('sdChartBtn2');
+            if (btn1) {
+                btn1.style.background = isWeekly ? '#0e7490' : '#fff';
+                btn1.style.color      = isWeekly ? '#fff'    : '#0e7490';
+            }
+            if (btn2) {
+                btn2.style.background = isWeekly ? '#fff'    : '#0e7490';
+                btn2.style.color      = isWeekly ? '#0e7490' : '#fff';
+            }
+        }
+
         function switchSdBottomTab(tab) {
             const isChannel = tab === 'channel';
             document.getElementById('sdTabChannel').style.display = isChannel ? '' : 'none';
