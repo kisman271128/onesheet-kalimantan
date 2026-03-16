@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "BP",
     "depo": "Depo Balikpapan",
-    "total_records": 61,
+    "total_records": 56,
     "columns": [
       "szPrincipalGroupId",
       "Tim",
@@ -18,65 +18,9 @@
       "LM",
       "BE"
     ],
-    "last_updated": "2026-03-16 22:30:47"
+    "last_updated": "2026-03-16 22:58:33"
   },
   "data": [
-    {
-      "szPrincipalGroupId": "ABBOTT",
-      "Tim": "Arjuna",
-      "Depo": "Depo Balikpapan",
-      "Principle": "ABBOTT",
-      "PwC_Grp3": "LIQUID MILK",
-      "TYPE": "STERILLIZED",
-      "T.BP": 10894813.046260003,
-      "MTD": 3759313.51,
-      "LY": 0,
-      "L3M": 14595444.143333336,
-      "LM": 15912345.070000004,
-      "BE": 1075327.3797609382
-    },
-    {
-      "szPrincipalGroupId": "ABBOTT",
-      "Tim": "Arjuna",
-      "Depo": "Depo Balikpapan",
-      "Principle": "ABBOTT",
-      "PwC_Grp3": "POWDER MILK",
-      "TYPE": "GUMP",
-      "T.BP": 321672402.50464,
-      "MTD": 35741048.63,
-      "LY": 0,
-      "L3M": 274436532.9433333,
-      "LM": 280468968.38,
-      "BE": 20219262.5988313
-    },
-    {
-      "szPrincipalGroupId": "FLORA",
-      "Tim": "Arjuna",
-      "Depo": "Depo Balikpapan",
-      "Principle": "FLORA",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "OIL & FATS",
-      "T.BP": null,
-      "MTD": 16483.78,
-      "LY": 0,
-      "L3M": 1125290809.214515,
-      "LM": 1742702282.2074468,
-      "BE": 82906419.6648253
-    },
-    {
-      "szPrincipalGroupId": "FLORA",
-      "Tim": "Bima",
-      "Depo": "Depo Balikpapan",
-      "Principle": "FLORA",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "OIL & FATS",
-      "T.BP": null,
-      "MTD": 319382307.1400001,
-      "LY": 0,
-      "L3M": 1125290809.214515,
-      "LM": 1742702282.2074468,
-      "BE": 82906419.6648253
-    },
     {
       "szPrincipalGroupId": "GBS",
       "Tim": "Bima",
@@ -85,11 +29,11 @@
       "PwC_Grp3": "BIG CUP",
       "TYPE": "KOKO DRINK BIG",
       "T.BP": 6986758.08688,
-      "MTD": 539436.014322,
+      "MTD": 1381778.346122,
       "LY": 0,
       "L3M": 9103156.301602,
       "LM": 5120162.930166998,
-      "BE": 670680.0503790871
+      "BE": 7895749.269073377
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -98,12 +42,12 @@
       "Principle": "GBS",
       "PwC_Grp3": "BIG CUP",
       "TYPE": "OKKY JELLY DRINK BIG",
-      "T.BP": 57619871.40250001,
-      "MTD": 18762699.04066801,
+      "T.BP": 57619871.402499996,
+      "MTD": 34714845.02909096,
       "LY": 81007723.53791097,
       "L3M": 76967855.77584474,
       "LM": 70590038.78282794,
-      "BE": 5670649.133007798
+      "BE": 66759140.549671
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -112,12 +56,12 @@
       "Principle": "GBS",
       "PwC_Grp3": "PET",
       "TYPE": "MOUNTEA",
-      "T.BP": 14731660.522259999,
-      "MTD": 1518779.231965,
+      "T.BP": 14731660.522260003,
+      "MTD": 3240261.151764002,
       "LY": 0,
       "L3M": 13639305.418481663,
       "LM": 16759459.505832005,
-      "BE": 1004883.3330032148
+      "BE": 11830241.316376507
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -127,11 +71,11 @@
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "T.BP": 99957308.33461997,
-      "MTD": 30814980.285828,
+      "MTD": 77931699.30262911,
       "LY": 101550448.60672605,
       "L3M": 81792648.72419442,
       "LM": 90586971.81421922,
-      "BE": 6026118.408768599
+      "BE": 70943991.84005895
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -140,12 +84,12 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "MOUNTEA",
-      "T.BP": 98669526.37057999,
-      "MTD": 39090916.432470016,
+      "T.BP": 98669526.37058002,
+      "MTD": 90693340.81186418,
       "LY": 89807128.88437803,
       "L3M": 72998902.00450535,
       "LM": 83700374.42025596,
-      "BE": 5378234.279618351
+      "BE": 63316613.276627906
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -154,12 +98,12 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "OKKY JELLY DRINK",
-      "T.BP": 75922270.63520001,
-      "MTD": 86406540.78623101,
+      "T.BP": 75922270.63519996,
+      "MTD": 173460768.0588312,
       "LY": 256362840.70384973,
       "L3M": 188084404.2917349,
       "LM": 206974963.12196338,
-      "BE": 13857221.997133242
+      "BE": 163137624.8531755
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -168,12 +112,12 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "BREAD/SOFT CAKE",
-      "T.BP": 38610652.286580056,
-      "MTD": 6889459.5116179995,
+      "T.BP": 38610652.28658004,
+      "MTD": 17306240.707196992,
       "LY": 37580178.78322599,
       "L3M": 67674121.90316978,
       "LM": 59867995.3540968,
-      "BE": 4985928.175196874
+      "BE": 58698091.17284969
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -182,12 +126,12 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "COOKIES",
-      "T.BP": 20515825.848099988,
-      "MTD": 3452072.0529719996,
+      "T.BP": 20515825.848100007,
+      "MTD": 7523910.800538999,
       "LY": 17860156.044862,
       "L3M": 17383381.114857335,
       "LM": 17771654.02837401,
-      "BE": 1280730.1704596302
+      "BE": 15077717.462404137
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -196,12 +140,12 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SANDWICH",
-      "T.BP": 59532472.674840055,
-      "MTD": 3833198.2679220005,
+      "T.BP": 59532472.67484002,
+      "MTD": 11210921.781332996,
       "LY": 33634483.53336999,
       "L3M": 37161325.88958233,
       "LM": 40138073.30751301,
-      "BE": 2737881.1363914143
+      "BE": 32232393.03040759
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -210,12 +154,12 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR HALF ENROBE",
-      "T.BP": 17900109.917580016,
-      "MTD": 3244684.7135119997,
+      "T.BP": 17900109.917580005,
+      "MTD": 9535373.054494001,
       "LY": 30230269.476561993,
       "L3M": 40626923.6906297,
       "LM": 37081441.89611911,
-      "BE": 2993210.96165115
+      "BE": 35238327.499500096
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -224,12 +168,12 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR ORIGINAL",
-      "T.BP": 13486517.203060009,
-      "MTD": 27589189.198732,
+      "T.BP": 13486517.203060001,
+      "MTD": 31763243.254758,
       "LY": 10188893.989726,
       "L3M": 35056727.68400434,
       "LM": 33218018.038627993,
-      "BE": 2582823.705344517
+      "BE": 30406940.49583327
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -238,12 +182,12 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE ENROBE",
-      "T.BP": 61052243.08765992,
-      "MTD": 29529054.148372,
+      "T.BP": 61052243.08766003,
+      "MTD": 49206870.39467001,
       "LY": 136494764.14616397,
       "L3M": 86303746.27168031,
       "LM": 77159716.67012994,
-      "BE": 6358476.0032306835
+      "BE": 74856755.06010959
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -252,278 +196,292 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "DRAGEE",
-      "T.BP": 5629623.738200009,
-      "MTD": 3359459.422597,
+      "T.BP": 5629623.738200001,
+      "MTD": 5588468.403397,
       "LY": 6734377.961709,
       "L3M": 10978739.592271773,
       "LM": 33203786.332220316,
-      "BE": 808864.681533361
+      "BE": 9522562.530951122
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-A",
       "Tim": "Arjuna",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CHOCOLATE EXTRUDE",
       "T.BP": 9605185.986440003,
-      "MTD": 4333421.634133999,
+      "MTD": 9876466.756920993,
       "LY": 0,
       "L3M": 50399259.15037531,
       "LM": 51646651.182708986,
-      "BE": 3713193.1547845486
+      "BE": 43714498.62158084
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-A",
       "Tim": "Arjuna",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CRACKER",
       "T.BP": 53502650.67576003,
-      "MTD": 5908865.096559999,
+      "MTD": 11997936.493384987,
       "LY": 6033918.734563,
       "L3M": 27842975.008043993,
       "LM": 22522336.194809984,
-      "BE": 2051346.506904682
+      "BE": 24149991.748455793
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-A",
       "Tim": "Arjuna",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "MALKIST",
-      "T.BP": 409104804.11877954,
-      "MTD": 43480537.665887974,
+      "T.BP": 409104804.11877936,
+      "MTD": 90626594.11130486,
       "LY": 287799502.67234623,
       "L3M": 400855506.0634866,
       "LM": 306890568.052229,
-      "BE": 29533250.017258443
+      "BE": 347687600.2280459
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-A",
       "Tim": "Arjuna",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SNACK SEREAL",
-      "T.BP": 173995671.9401998,
-      "MTD": 21000532.375919994,
+      "T.BP": 173995671.94019955,
+      "MTD": 46045499.11589396,
       "LY": 106613844.10080498,
       "L3M": 115741650.01610596,
       "LM": 100281357.59660704,
-      "BE": 8527329.762546185
+      "BE": 100390130.43807568
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-A",
       "Tim": "Arjuna",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM",
-      "T.BP": 15829602.732679997,
-      "MTD": 1956531.530177,
+      "T.BP": 15829602.732679995,
+      "MTD": 4095398.170077,
       "LY": 24584830.098547995,
       "L3M": 13166830.348723667,
       "LM": 9771266.671499996,
-      "BE": 970073.4722154362
+      "BE": 11420433.491145538
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-A",
       "Tim": "Arjuna",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM ENROBED",
-      "T.BP": 72759290.32415989,
-      "MTD": 10539786.540522004,
+      "T.BP": 72759290.32415994,
+      "MTD": 23573116.36779998,
       "LY": 52372817.86544999,
       "L3M": 61799876.64289399,
       "LM": 55221885.217775956,
-      "BE": 4553139.92279616
+      "BE": 53602982.81883649
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-A",
       "Tim": "Arjuna",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER STICK",
-      "T.BP": 769669939.9994,
-      "MTD": 147243938.06901702,
+      "T.BP": 769669939.9994016,
+      "MTD": 307246880.6514163,
       "LY": 840546607.311491,
       "L3M": 1023272430.7585177,
       "LM": 878267526.1776401,
-      "BE": 75390159.48697689
+      "BE": 887549579.4576931
     },
     {
-      "szPrincipalGroupId": "GPPJ",
-      "Tim": "Arjuna",
-      "Depo": "Depo Balikpapan",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "PEANUTS",
-      "TYPE": "COATED BAKED",
-      "T.BP": 249500188.68148023,
-      "MTD": 54354991.06710399,
-      "LY": 264890338.6061813,
-      "L3M": 339538524.35293204,
-      "LM": 303343856.33680844,
-      "BE": 25015687.64436025
-    },
-    {
-      "szPrincipalGroupId": "GPPJ",
-      "Tim": "Arjuna",
-      "Depo": "Depo Balikpapan",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "PEANUTS",
-      "TYPE": "COATED FRIED",
-      "T.BP": 126229906.13574018,
-      "MTD": 22093225.156661004,
-      "LY": 164605546.21311492,
-      "L3M": 160355178.3217103,
-      "LM": 147419120.27751285,
-      "BE": 11814256.013205629
-    },
-    {
-      "szPrincipalGroupId": "GPPJ",
-      "Tim": "Arjuna",
-      "Depo": "Depo Balikpapan",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "PEANUTS",
-      "TYPE": "ROASTED",
-      "T.BP": 186493359.25703996,
-      "MTD": 44513177.454402,
-      "LY": 211357841.27254495,
-      "L3M": 287508206.87026983,
-      "LM": 242222669.1954476,
-      "BE": 21182325.36930289
-    },
-    {
-      "szPrincipalGroupId": "GPPJ",
-      "Tim": "Arjuna",
-      "Depo": "Depo Balikpapan",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "SNACK FOOD",
-      "TYPE": "PELLET",
-      "T.BP": 126774987.72510007,
-      "MTD": 37955882.156282976,
-      "LY": 116149826.56033297,
-      "L3M": 145428697.52446505,
-      "LM": 125816618.2773471,
-      "BE": 10714539.325784018
-    },
-    {
-      "szPrincipalGroupId": "GPPJ",
-      "Tim": "Arjuna",
-      "Depo": "Depo Balikpapan",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "SNACK FOOD",
-      "TYPE": "PILUS",
-      "T.BP": 215055893.87391979,
-      "MTD": 22641186.692125004,
-      "LY": 195929223.68346798,
-      "L3M": 257320111.03085956,
-      "LM": 198548540.94090876,
-      "BE": 18958200.794526413
-    },
-    {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-B",
       "Tim": "Bima",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "T.BP": 89461971.39307997,
-      "MTD": 9386126.044754997,
+      "T.BP": 89461971.39307994,
+      "MTD": 25862324.122837,
       "LY": 38431371.55666501,
       "L3M": 79932013.83894977,
       "LM": 85705010.88095021,
-      "BE": 5889035.109610771
+      "BE": 69330144.28560166
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-B",
       "Tim": "Bima",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE",
       "T.BP": 31254330.098199982,
-      "MTD": 1217567.5675630001,
+      "MTD": 5191207.197550001,
       "LY": 15374512.897808997,
       "L3M": 25958053.340926662,
       "LM": 12965434.260776008,
-      "BE": 1912473.8657263238
+      "BE": 22515078.7158428
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-B",
       "Tim": "Bima",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTD",
-      "T.BP": 11588087.730120005,
-      "MTD": 983144.1100000001,
+      "T.BP": 11588087.730120003,
+      "MTD": 2597576.54,
       "LY": 10134639.140531,
       "L3M": 18211821.573827676,
       "LM": 12937708.074579008,
-      "BE": 1341765.977200697
+      "BE": 15796276.820462698
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-B",
       "Tim": "Bima",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTS",
-      "T.BP": 189122948.7362596,
-      "MTD": 37665594.87943,
+      "T.BP": 189122948.73626,
+      "MTD": 87155962.80425802,
       "LY": 153005905.64279094,
       "L3M": 303253509.9113825,
       "LM": 326336212.28791237,
-      "BE": 22342369.236174542
+      "BE": 263031150.94325674
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-B",
       "Tim": "Bima",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "LIQUID MILK",
       "TYPE": "CLEVO",
-      "T.BP": 278469543.4963201,
-      "MTD": 17921282.796926994,
+      "T.BP": 278469543.49632025,
+      "MTD": 75500066.48376201,
       "LY": 140882911.661638,
       "L3M": 186576192.76260898,
       "LM": 133561043.68851282,
-      "BE": 13746103.682691198
+      "BE": 161829456.59986225
     },
     {
-      "szPrincipalGroupId": "GPPJ",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Tim": "Arjuna",
+      "Depo": "Depo Balikpapan",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "TYPE": "COATED BAKED",
+      "T.BP": 249500188.6814807,
+      "MTD": 128489200.1661709,
+      "LY": 264890338.6061813,
+      "L3M": 339538524.35293204,
+      "LM": 303343856.33680844,
+      "BE": 294503463.0472204
+    },
+    {
+      "szPrincipalGroupId": "GPPJ-A",
+      "Tim": "Arjuna",
+      "Depo": "Depo Balikpapan",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "TYPE": "COATED FRIED",
+      "T.BP": 126229906.13573964,
+      "MTD": 40549174.68431496,
+      "LY": 164605546.21311492,
+      "L3M": 160355178.3217103,
+      "LM": 147419120.27751285,
+      "BE": 139086294.9154195
+    },
+    {
+      "szPrincipalGroupId": "GPPJ-A",
+      "Tim": "Arjuna",
+      "Depo": "Depo Balikpapan",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "TYPE": "ROASTED",
+      "T.BP": 186493359.2570401,
+      "MTD": 74148902.61034594,
+      "LY": 211357841.27254495,
+      "L3M": 287508206.87026983,
+      "LM": 242222669.1954476,
+      "BE": 249374243.2884551
+    },
+    {
+      "szPrincipalGroupId": "GPPJ-B",
       "Tim": "Bima",
       "Depo": "Depo Balikpapan",
       "Principle": "GPPJ",
       "PwC_Grp3": "SAUCE & SEASONING",
       "TYPE": "RTC",
-      "T.BP": 2121136.735520001,
+      "T.BP": 2121136.7355200015,
       "MTD": null,
       "LY": 0,
       "L3M": 323993.39333333337,
       "LM": 0,
-      "BE": 23870.391561336917
+      "BE": 281020.1773802429
     },
     {
-      "szPrincipalGroupId": "GSJ",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Tim": "Arjuna",
+      "Depo": "Depo Balikpapan",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PELLET",
+      "T.BP": 126774987.7250998,
+      "MTD": 83280754.36147095,
+      "LY": 116149826.56033297,
+      "L3M": 145428697.52446505,
+      "LM": 125816618.2773471,
+      "BE": 126139604.12599008
+    },
+    {
+      "szPrincipalGroupId": "GPPJ-A",
+      "Tim": "Arjuna",
+      "Depo": "Depo Balikpapan",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "T.BP": 215055893.87391964,
+      "MTD": 67899628.43990606,
+      "LY": 195929223.68346798,
+      "L3M": 257320111.03085956,
+      "LM": 198548540.94090876,
+      "BE": 223190178.35959148
+    },
+    {
+      "szPrincipalGroupId": null,
+      "Tim": null,
+      "Depo": "Depo Balikpapan",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "POPCORN",
+      "T.BP": null,
+      "MTD": -13513.515405,
+      "LY": 1168918.9151340001,
+      "L3M": 1177596.0822823334,
+      "LM": -47297.28891600001,
+      "BE": 1021404.3456892107
+    },
+    {
+      "szPrincipalGroupId": "OTHERS",
       "Tim": "Bima",
       "Depo": "Depo Balikpapan",
       "Principle": "GSJ",
       "PwC_Grp3": "OBAT TRADISIONAL",
       "TYPE": "HERBAL",
-      "T.BP": 8680244.006500008,
+      "T.BP": 8680244.00650001,
       "MTD": null,
       "LY": 1915967.1954940006,
       "L3M": 50540.54177133334,
       "LM": 0,
-      "BE": 3723.602229637536
+      "BE": 43837.04206851317
     },
     {
       "szPrincipalGroupId": "HGJ",
@@ -533,11 +491,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER",
       "T.BP": null,
-      "MTD": -31744.14,
+      "MTD": -173669.36000000002,
       "LY": 3401990.899545,
       "L3M": 603414.7266666666,
       "LM": -158720.72,
-      "BE": 44456.91207225157
+      "BE": 523380.1583949502
     },
     {
       "szPrincipalGroupId": "HGJ",
@@ -546,12 +504,12 @@
       "Principle": "HGJ",
       "PwC_Grp3": "BOTTLE",
       "TYPE": "CHUNCKY",
-      "T.BP": 17996896.341600005,
-      "MTD": 1633143.2400000002,
+      "T.BP": 17996896.341600012,
+      "MTD": 6194959.4546839995,
       "LY": 24592914.994497,
       "L3M": 17605938.947896335,
       "LM": 17003955.798286997,
-      "BE": 1297127.2412919293
+      "BE": 15270756.095305014
     },
     {
       "szPrincipalGroupId": "HGJ",
@@ -561,11 +519,11 @@
       "PwC_Grp3": "BOTTLE",
       "TYPE": "CREAMY",
       "T.BP": 20722528.89542,
-      "MTD": 13166355.880899994,
+      "MTD": 19605294.640899986,
       "LY": 26960528.522332,
       "L3M": 24977628.506810997,
       "LM": 22788517.089904,
-      "BE": 1840240.526502885
+      "BE": 21664693.59546561
     },
     {
       "szPrincipalGroupId": "HGJ",
@@ -575,11 +533,11 @@
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "EXTRUDED SNACK",
       "T.BP": null,
-      "MTD": -61675.69,
+      "MTD": -114539.65,
       "LY": 827026.957296,
       "L3M": 261808.70087066662,
       "LM": 186981.07999999973,
-      "BE": 19288.9001212383
+      "BE": 227083.41920624045
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -589,11 +547,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "BIG BLOK 2 KG",
       "T.BP": 88690796.24614003,
-      "MTD": 29560018.042159997,
+      "MTD": 77781685.61080801,
       "LY": 198129489.919812,
       "L3M": 185138138.4506527,
       "LM": 170179221.62909096,
-      "BE": 13640154.23983466
+      "BE": 160582140.18494818
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -603,11 +561,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "MOZZARELLA 160 G",
       "T.BP": 37906786.3889,
-      "MTD": null,
+      "MTD": -3440660.359188,
       "LY": 54487680.826028,
       "L3M": 58540611.40445632,
       "LM": 67885342.26682892,
-      "BE": 4313011.762640379
+      "BE": 50776013.76859819
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -617,11 +575,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "QM 160 G",
       "T.BP": 21222046.97162,
-      "MTD": 57872.07,
+      "MTD": 8571945.035854,
       "LY": 0,
       "L3M": 40502761.550856,
       "LM": 41019347.716023006,
-      "BE": 2984063.2476715553
+      "BE": 35130633.74011773
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -631,11 +589,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "QM SLICE 5S",
       "T.BP": 20810989.081080005,
-      "MTD": 4745827.943960999,
+      "MTD": 14514115.346838996,
       "LY": 30494777.908008993,
       "L3M": 44005057.704312325,
       "LM": 27893575.700976994,
-      "BE": 3242096.844241704
+      "BE": 38168399.03575093
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -645,11 +603,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "SLICE 10S",
       "T.BP": 28845560.4437,
-      "MTD": 7504857.665491999,
+      "MTD": 31533928.866204996,
       "LY": 39100770.54872199,
       "L3M": 50047164.629076995,
       "LM": 43909792.837459005,
-      "BE": 3687252.397155132
+      "BE": 43409104.53989329
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -659,11 +617,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "SLICE 5S",
       "T.BP": 4531278.323000001,
-      "MTD": 2011438.7507170003,
+      "MTD": 3301041.4583720006,
       "LY": 6443412.345756,
       "L3M": 6122969.684222666,
       "LM": 7058022.503678999,
-      "BE": 451113.16121875186
+      "BE": 5310842.9435899705
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -672,12 +630,12 @@
       "Principle": "MBR",
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "SMALL BLOK 160 G",
-      "T.BP": 40057603.32728,
-      "MTD": 22860011.774942003,
+      "T.BP": 40057603.32728001,
+      "MTD": 47746833.36231801,
       "LY": 37451333.879857,
       "L3M": 40600818.342965335,
       "LM": 52677945.10135899,
-      "BE": 2991287.635795082
+      "BE": 35215684.66300353
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -687,11 +645,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "TOPCHIZ",
       "T.BP": 178569628.53311998,
-      "MTD": -134375.67,
+      "MTD": 47331185.540165,
       "LY": 127814594.973972,
       "L3M": 94638448.95551999,
       "LM": 94058137.36263297,
-      "BE": 6972539.810408044
+      "BE": 82085975.3924343
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -701,11 +659,11 @@
       "PwC_Grp3": "GOLD",
       "TYPE": "BIG BLOK 2 KG",
       "T.BP": 79594640.16460001,
-      "MTD": 10521819.804953,
+      "MTD": 93164255.845761,
       "LY": 87783404.38621199,
       "L3M": 116019627.30422534,
       "LM": 116394568.43269102,
-      "BE": 8547809.892231243
+      "BE": 100631237.90638326
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -715,11 +673,11 @@
       "PwC_Grp3": "GOLD",
       "TYPE": "SLICE 12S",
       "T.BP": 35569070.803859994,
-      "MTD": 20109529.72981301,
+      "MTD": 58999339.65809201,
       "LY": 33054305.45249899,
       "L3M": 51919374.92690331,
       "LM": 61951864.14347892,
-      "BE": 3825188.521205361
+      "BE": 45032992.18950031
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -729,11 +687,11 @@
       "PwC_Grp3": "GOLD",
       "TYPE": "SLICE 2S",
       "T.BP": 34070117.59183999,
-      "MTD": 2354533.3062100005,
+      "MTD": 5132399.0280059995,
       "LY": 9008947.914189,
       "L3M": 17821796.813467655,
       "LM": 12853748.497531006,
-      "BE": 1313030.6883337665
+      "BE": 15457983.418207133
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -742,12 +700,12 @@
       "Principle": "MBR",
       "PwC_Grp3": "GOLD",
       "TYPE": "SMALL BLOK 160 G",
-      "T.BP": 194356120.72403997,
-      "MTD": 69134896.337705,
+      "T.BP": 194356120.72403994,
+      "MTD": 198215310.71732405,
       "LY": 389044843.4964761,
       "L3M": 296412808.0430477,
       "LM": 335948658.91781586,
-      "BE": 21838376.761292435
+      "BE": 257097773.00407448
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -756,12 +714,12 @@
       "Principle": "MBR",
       "PwC_Grp3": "GOLD",
       "TYPE": "SMALL BLOK 60 G",
-      "T.BP": 5484826.333579999,
-      "MTD": 840882.8836020001,
+      "T.BP": 5484826.333579995,
+      "MTD": 1284170.273602,
       "LY": 1244782.763691,
       "L3M": 3159760.327589667,
       "LM": 2899821.6001760005,
-      "BE": 232797.08108721997
+      "BE": 2740662.081417038
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -771,11 +729,11 @@
       "PwC_Grp3": "ORIGINAL",
       "TYPE": "POUCH",
       "T.BP": 39009436.96716002,
-      "MTD": 10573090.043509994,
+      "MTD": 30976101.73152198,
       "LY": 25510400.603586003,
       "L3M": 26825156.65058899,
       "LM": 29663717.93278198,
-      "BE": 1976358.1792699527
+      "BE": 23267172.835359626
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -784,12 +742,12 @@
       "Principle": "MBR",
       "PwC_Grp3": "SNACK",
       "TYPE": "CRACKER",
-      "T.BP": 27282728.24881999,
-      "MTD": 58369.369189,
+      "T.BP": 27282728.24882001,
+      "MTD": 155407.209189,
       "LY": 0,
       "L3M": 2809619.80233,
       "LM": 1231887.400899,
-      "BE": 207000.2851913188
+      "BE": 2436962.825379277
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -799,11 +757,11 @@
       "PwC_Grp3": "SPREADABLE",
       "TYPE": "BIG BLOK 2 KG",
       "T.BP": 67294662.04801999,
-      "MTD": 2705257.659368,
+      "MTD": 8945154.055584,
       "LY": 46452787.343238994,
       "L3M": 101927455.25389765,
       "LM": 123629859.45188598,
-      "BE": 7509561.360894781
+      "BE": 88408196.41620806
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -813,67 +771,39 @@
       "PwC_Grp3": "SPREADABLE",
       "TYPE": "SMALL BLOK 160 G",
       "T.BP": 120924472.51522002,
-      "MTD": 42930316.20657102,
+      "MTD": 43404049.544319,
       "LY": 130596529.45447798,
       "L3M": 188953262.98542163,
       "LM": 150045579.23663905,
-      "BE": 13921235.639560934
+      "BE": 163891241.52944827
     },
     {
-      "szPrincipalGroupId": "Others",
-      "Tim": "Bima",
-      "Depo": "Depo Balikpapan",
-      "Principle": "Others",
-      "PwC_Grp3": "Others",
-      "TYPE": "ULTAHKU",
-      "T.BP": null,
-      "MTD": 52702.7,
-      "LY": 235225.2,
-      "L3M": 125225.22333333333,
-      "LM": 104054.04999999999,
-      "BE": 9226.037245911322
-    },
-    {
-      "szPrincipalGroupId": "QI",
-      "Tim": "Bima",
+      "szPrincipalGroupId": null,
+      "Tim": null,
       "Depo": "Depo Balikpapan",
       "Principle": "QI",
       "PwC_Grp3": "BASIC FOOD",
       "TYPE": "DRINK CEREAL",
       "T.BP": null,
-      "MTD": 18623382.830000006,
+      "MTD": 34792026.05000002,
       "LY": 0,
       "L3M": 35914314.078964986,
       "LM": 107742942.23689497,
-      "BE": 2646006.854959931
+      "BE": 31150779.986976158
     },
     {
-      "szPrincipalGroupId": "RANS",
+      "szPrincipalGroupId": "OTHERS",
       "Tim": "Bima",
       "Depo": "Depo Balikpapan",
       "Principle": "RANS",
       "PwC_Grp3": "SEAWEED SNACK",
       "TYPE": "SEAWEED",
-      "T.BP": null,
-      "MTD": 1956531.7000000004,
+      "T.BP": 43382377.12291996,
+      "MTD": 11122403.439999979,
       "LY": 26034322.104401007,
       "L3M": 31657729.85907938,
       "LM": 24509662.94366506,
-      "BE": 2332400.6699784314
-    },
-    {
-      "szPrincipalGroupId": "RANS",
-      "Tim": "Bima",
-      "Depo": "Depo Balikpapan",
-      "Principle": "RANS",
-      "PwC_Grp3": "SEAWEED SNACK",
-      "TYPE": "SEAWEED",
-      "T.BP": 43382377.12292008,
-      "MTD": 2081718.2000000002,
-      "LY": 26034322.104401007,
-      "L3M": 31657729.85907938,
-      "LM": 24509662.94366506,
-      "BE": 2332400.6699784314
+      "BE": 27458772.442626245
     }
   ]
 }
