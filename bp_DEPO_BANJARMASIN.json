@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "BP",
     "depo": "Depo Banjarmasin",
-    "total_records": 57,
+    "total_records": 56,
     "columns": [
       "szPrincipalGroupId",
       "Tim",
@@ -12,9 +12,13 @@
       "PwC_Grp3",
       "TYPE",
       "T.BP",
-      "MTD"
+      "MTD",
+      "LY",
+      "L3M",
+      "LM",
+      "BE"
     ],
-    "last_updated": "2026-03-16 10:03:08"
+    "last_updated": "2026-03-16 16:33:38"
   },
   "data": [
     {
@@ -25,7 +29,11 @@
       "PwC_Grp3": "BIG CUP",
       "TYPE": "KOKO DRINK BIG",
       "T.BP": 21788061.88459999,
-      "MTD": 4883160.236837001
+      "MTD": 4883160.236837001,
+      "LY": 0,
+      "L3M": 25615421.373917315,
+      "LM": 12479084.293755995,
+      "BE": 1592008.4165164107
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -35,7 +43,11 @@
       "PwC_Grp3": "BIG CUP",
       "TYPE": "OKKY JELLY DRINK BIG",
       "T.BP": 180395305.34321994,
-      "MTD": 103086474.10720123
+      "MTD": 103086474.10720123,
+      "LY": 221026695.355137,
+      "L3M": 259722140.4862424,
+      "LM": 168092114.41305223,
+      "BE": 16141832.202330189
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -45,7 +57,11 @@
       "PwC_Grp3": "PET",
       "TYPE": "MOUNTEA",
       "T.BP": 13454252.181480002,
-      "MTD": 6283731.203055
+      "MTD": 6283731.203055,
+      "LY": 0,
+      "L3M": 15754634.682678679,
+      "LM": 5395996.360757007,
+      "BE": 979156.6825250372
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -55,7 +71,11 @@
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "T.BP": 293443287.23776,
-      "MTD": 60456420.05117506
+      "MTD": 60456420.05117506,
+      "LY": 107528538.44832714,
+      "L3M": 110543325.54540808,
+      "LM": 79644330.80844583,
+      "BE": 6870310.743246229
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -65,7 +85,11 @@
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "MOUNTEA",
       "T.BP": 291766964.7486,
-      "MTD": 86654965.08374803
+      "MTD": 86654965.08374803,
+      "LY": 214030340.20658025,
+      "L3M": 139536434.02479273,
+      "LM": 97989341.48165984,
+      "BE": 8672243.729097983
     },
     {
       "szPrincipalGroupId": "GBS",
@@ -75,7 +99,11 @@
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "OKKY JELLY DRINK",
       "T.BP": 206776164.89266002,
-      "MTD": 140803490.31680813
+      "MTD": 140803490.31680813,
+      "LY": 317122329.08008,
+      "L3M": 267924435.00583568,
+      "LM": 195479715.73324183,
+      "BE": 16651608.001811482
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -85,7 +113,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "BREAD/SOFT CAKE",
       "T.BP": 87916381.19285999,
-      "MTD": 91216264.06761603
+      "MTD": 91216264.06761603,
+      "LY": 147927591.7656011,
+      "L3M": 194322914.78740716,
+      "LM": 167215068.26855463,
+      "BE": 12077244.849798195
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -95,7 +127,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "COOKIES",
       "T.BP": 52652378.89582001,
-      "MTD": 11487552.978647
+      "MTD": 11487552.978647,
+      "LY": 44330425.85007999,
+      "L3M": 65689762.86220201,
+      "LM": 48667471.72062202,
+      "BE": 4082644.3504099087
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -105,7 +141,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SANDWICH",
       "T.BP": 148042619.08436006,
-      "MTD": 26084857.934109993
+      "MTD": 26084857.934109993,
+      "LY": 116478411.54481612,
+      "L3M": 121678398.72081202,
+      "LM": 108715716.64018607,
+      "BE": 7562359.87860887
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -115,7 +155,11 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR HALF ENROBE",
       "T.BP": 42127944.91598,
-      "MTD": 23385768.966822997
+      "MTD": 23385768.966822997,
+      "LY": 57084607.23194898,
+      "L3M": 88755000.15386252,
+      "LM": 71487191.50738885,
+      "BE": 5516157.832825685
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -125,7 +169,11 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR ORIGINAL",
       "T.BP": 27592860.153539997,
-      "MTD": 18462655.891131
+      "MTD": 18462655.891131,
+      "LY": 114864.86,
+      "L3M": 30664346.035228014,
+      "LM": 25250300.971562013,
+      "BE": 1905801.0509545251
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -135,7 +183,11 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE ENROBE",
       "T.BP": 147780760.44666007,
-      "MTD": 63425271.369060986
+      "MTD": 63425271.369060986,
+      "LY": 231473969.0565552,
+      "L3M": 158626471.70128238,
+      "LM": 147449658.66046187,
+      "BE": 9858697.006947739
     },
     {
       "szPrincipalGroupId": "GEN",
@@ -145,7 +197,11 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "DRAGEE",
       "T.BP": 12484102.19122,
-      "MTD": 12209462.881923998
+      "MTD": 12209462.881923998,
+      "LY": 7479304.027830998,
+      "L3M": 8462646.19566141,
+      "LM": 25793794.435002234,
+      "BE": 525956.7575652655
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -155,7 +211,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CHOCOLATE EXTRUDE",
       "T.BP": 15364980.101679998,
-      "MTD": 78224493.845462
+      "MTD": 78224493.845462,
+      "LY": 0,
+      "L3M": 148995462.9360813,
+      "LM": 185585034.67892325,
+      "BE": 9260126.060566362
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -165,7 +225,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CRACKER",
       "T.BP": 103353631.00656003,
-      "MTD": 52826033.29170497
+      "MTD": 52826033.29170497,
+      "LY": 44562026.53268,
+      "L3M": 134295293.23381954,
+      "LM": 113456247.55147177,
+      "BE": 8346504.787326253
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -174,8 +238,12 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "MALKIST",
-      "T.BP": 704866404.1957994,
-      "MTD": 225473261.4176421
+      "T.BP": 704866404.1957992,
+      "MTD": 225473261.4176421,
+      "LY": 617755856.6467352,
+      "L3M": 750011045.8214194,
+      "LM": 596483668.262791,
+      "BE": 46613478.65406499
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -185,7 +253,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SNACK SEREAL",
       "T.BP": 328024742.16093993,
-      "MTD": 74778633.027031
+      "MTD": 74778633.027031,
+      "LY": 241669414.71461812,
+      "L3M": 318544193.1814956,
+      "LM": 207145817.32278898,
+      "BE": 19797645.69064424
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -195,7 +267,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM",
       "T.BP": 27650472.733180005,
-      "MTD": 7433873.968894
+      "MTD": 7433873.968894,
+      "LY": 47253577.64578407,
+      "L3M": 24163276.53808501,
+      "LM": 18058200.16066003,
+      "BE": 1501757.0493068176
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -205,7 +281,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM ENROBED",
       "T.BP": 117587242.80973983,
-      "MTD": 72004310.81727998
+      "MTD": 72004310.81727998,
+      "LY": 128672848.4562578,
+      "L3M": 139955107.37790334,
+      "LM": 94932229.40266362,
+      "BE": 8698264.44108213
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -215,7 +295,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER STICK",
       "T.BP": 1386597796.6893795,
-      "MTD": 678665045.1580714
+      "MTD": 678665045.1580714,
+      "LY": 1412252374.9132261,
+      "L3M": 1413869223.4440582,
+      "LM": 1078107647.2077036,
+      "BE": 87872522.98993659
     },
     {
       "szPrincipalGroupId": "GPPJ-B",
@@ -225,7 +309,11 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
       "T.BP": 126314005.04249999,
-      "MTD": 46649189.03895799
+      "MTD": 46649189.03895799,
+      "LY": 106823643.37792191,
+      "L3M": 118733566.4447604,
+      "LM": 92377247.42654261,
+      "BE": 7379337.405534229
     },
     {
       "szPrincipalGroupId": "GPPJ-B",
@@ -235,7 +323,11 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE",
       "T.BP": 51513981.81226,
-      "MTD": 23903554.47541601
+      "MTD": 23903554.47541601,
+      "LY": 52080660.060873985,
+      "L3M": 61985681.90831357,
+      "LM": 41275281.906702936,
+      "BE": 3852434.2762530562
     },
     {
       "szPrincipalGroupId": "GPPJ-B",
@@ -245,7 +337,11 @@
       "PwC_Grp3": "DRINK",
       "TYPE": "RTD",
       "T.BP": 15774121.06336001,
-      "MTD": 8311022.581346001
+      "MTD": 8311022.581346001,
+      "LY": 19654088.81079601,
+      "L3M": 32681155.595028315,
+      "LM": 24513635.331154004,
+      "BE": 2031146.550715938
     },
     {
       "szPrincipalGroupId": "GPPJ-B",
@@ -254,8 +350,12 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTS",
-      "T.BP": 386236411.06446016,
-      "MTD": 276626670.9708277
+      "T.BP": 386236411.0644602,
+      "MTD": 276626670.9708277,
+      "LY": 331098511.63967776,
+      "L3M": 811267426.5055122,
+      "LM": 955891724.6917434,
+      "BE": 50420586.57514369
     },
     {
       "szPrincipalGroupId": "GPPJ-B",
@@ -265,7 +365,11 @@
       "PwC_Grp3": "LIQUID MILK",
       "TYPE": "CLEVO",
       "T.BP": 454695095.7234398,
-      "MTD": 173819679.7852881
+      "MTD": 173819679.7852881,
+      "LY": 219800895.09454527,
+      "L3M": 227973606.6790327,
+      "LM": 312756333.58380437,
+      "BE": 14168648.459016891
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -275,7 +379,11 @@
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED BAKED",
       "T.BP": 615357263.5881004,
-      "MTD": 529758797.43097836
+      "MTD": 529758797.43097836,
+      "LY": 862341819.0902115,
+      "L3M": 983804290.8127044,
+      "LM": 948099089.8368332,
+      "BE": 61143819.901146695
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -285,7 +393,11 @@
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED FRIED",
       "T.BP": 276371302.7680001,
-      "MTD": 90004934.42781
+      "MTD": 90004934.42781,
+      "LY": 206143621.1223159,
+      "L3M": 175599662.63311127,
+      "LM": 130353388.70286378,
+      "BE": 10913587.435028926
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -295,7 +407,11 @@
       "PwC_Grp3": "PEANUTS",
       "TYPE": "ROASTED",
       "T.BP": 330412947.04989994,
-      "MTD": 128740788.68122499
+      "MTD": 128740788.68122499,
+      "LY": 172349672.96201912,
+      "L3M": 167406659.04239824,
+      "LM": 168704293.8438286,
+      "BE": 10404389.070396692
     },
     {
       "szPrincipalGroupId": "GPPJ-B",
@@ -305,7 +421,11 @@
       "PwC_Grp3": "SAUCE & SEASONING",
       "TYPE": "RTC",
       "T.BP": 2447908.3820399996,
-      "MTD": 109953.16
+      "MTD": 109953.16,
+      "LY": 1690029.6481080006,
+      "L3M": 2500168.78066,
+      "LM": 705809.934324,
+      "BE": 155386.46362363527
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -314,8 +434,12 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PELLET",
-      "T.BP": 339105078.07021976,
-      "MTD": 147314110.28970388
+      "T.BP": 339105078.0702197,
+      "MTD": 147314110.28970388,
+      "LY": 515510652.4945451,
+      "L3M": 464079964.78349423,
+      "LM": 424034009.9596259,
+      "BE": 28842750.58712322
     },
     {
       "szPrincipalGroupId": "GPPJ-A",
@@ -324,8 +448,12 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PILUS",
-      "T.BP": 419341640.172398,
-      "MTD": 185072072.83347207
+      "T.BP": 419341640.1723979,
+      "MTD": 185072072.83347207,
+      "LY": 426170187.054061,
+      "L3M": 470146504.80477524,
+      "LM": 377515749.78497344,
+      "BE": 29219788.41258125
     },
     {
       "szPrincipalGroupId": null,
@@ -335,7 +463,11 @@
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "POPCORN",
       "T.BP": null,
-      "MTD": 534797.310002
+      "MTD": 534797.310002,
+      "LY": 9202702.633782,
+      "L3M": 4459459.459106,
+      "LM": 1013513.5583909997,
+      "BE": 277157.1425032061
     },
     {
       "szPrincipalGroupId": "OTHERS",
@@ -345,7 +477,11 @@
       "PwC_Grp3": "OBAT TRADISIONAL",
       "TYPE": "HERBAL",
       "T.BP": 16392264.500479998,
-      "MTD": null
+      "MTD": null,
+      "LY": 6629023.939997007,
+      "L3M": 191831.834474,
+      "LM": 197117.122972,
+      "BE": 11922.423237954608
     },
     {
       "szPrincipalGroupId": "HGJ",
@@ -355,7 +491,11 @@
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER",
       "T.BP": null,
-      "MTD": -542265.79
+      "MTD": -542265.79,
+      "LY": 19197073.478696004,
+      "L3M": 10599712.956181003,
+      "LM": 26155617.120000005,
+      "BE": 658776.2891958848
     },
     {
       "szPrincipalGroupId": "HGJ",
@@ -365,7 +505,11 @@
       "PwC_Grp3": "BOTTLE",
       "TYPE": "CHUNCKY",
       "T.BP": 19395350.691200003,
-      "MTD": 8796891.889999999
+      "MTD": 8796891.889999999,
+      "LY": 7466280.125587998,
+      "L3M": 14878781.959247334,
+      "LM": 17707172.939999998,
+      "BE": 924722.0945876582
     },
     {
       "szPrincipalGroupId": "HGJ",
@@ -375,7 +519,11 @@
       "PwC_Grp3": "BOTTLE",
       "TYPE": "CREAMY",
       "T.BP": 36706398.27250001,
-      "MTD": 17380502.73693599
+      "MTD": 17380502.73693599,
+      "LY": 21648559.315134,
+      "L3M": 30794342.926302332,
+      "LM": 25727747.707748003,
+      "BE": 1913880.4083732564
     },
     {
       "szPrincipalGroupId": "HGJ",
@@ -385,7 +533,11 @@
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "EXTRUDED SNACK",
       "T.BP": null,
-      "MTD": -44052.26
+      "MTD": -44052.26,
+      "LY": 25654531.13221501,
+      "L3M": -1082504.8033333337,
+      "LM": -683010.8300000001,
+      "BE": -67278.09520170152
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -395,7 +547,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "BIG BLOK 2 KG",
       "T.BP": 445059.6475600002,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -405,7 +561,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "MOZZARELLA 160 G",
       "T.BP": 752010.70032,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -415,7 +575,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "QM 160 G",
       "T.BP": 572468.8054800002,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -425,7 +589,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "QM SLICE 5S",
       "T.BP": 364720.06427999993,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -435,7 +603,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "SLICE 10S",
       "T.BP": 435822.66552000004,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -445,7 +617,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "SLICE 5S",
       "T.BP": 97871.74231999999,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -455,7 +631,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "SMALL BLOK 160 G",
       "T.BP": 809241.0374400001,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -465,7 +645,11 @@
       "PwC_Grp3": "CHEDDAR",
       "TYPE": "TOPCHIZ",
       "T.BP": 8244485.78382,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -475,7 +659,11 @@
       "PwC_Grp3": "GOLD",
       "TYPE": "BIG BLOK 2 KG",
       "T.BP": 838105.4153999999,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -485,7 +673,11 @@
       "PwC_Grp3": "GOLD",
       "TYPE": "SLICE 12S",
       "T.BP": 1153404.95864,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 632266.9678976666,
+      "LM": 0,
+      "BE": 39295.63834555274
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -495,7 +687,11 @@
       "PwC_Grp3": "GOLD",
       "TYPE": "SLICE 2S",
       "T.BP": 9838325.0449,
-      "MTD": null
+      "MTD": null,
+      "LY": 61106937.354651995,
+      "L3M": 69950607.258146,
+      "LM": 37045575.29969298,
+      "BE": 4347457.489369889
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -504,8 +700,12 @@
       "Principle": "MBR",
       "PwC_Grp3": "GOLD",
       "TYPE": "SMALL BLOK 160 G",
-      "T.BP": 52263617.46495999,
-      "MTD": null
+      "T.BP": 52263617.464959994,
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -515,7 +715,11 @@
       "PwC_Grp3": "GOLD",
       "TYPE": "SMALL BLOK 60 G",
       "T.BP": 634626.7525399999,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -525,7 +729,11 @@
       "PwC_Grp3": "ORIGINAL",
       "TYPE": "POUCH",
       "T.BP": 881081.4548800003,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -535,7 +743,11 @@
       "PwC_Grp3": "SNACK",
       "TYPE": "CRACKER",
       "T.BP": 11239122.735280007,
-      "MTD": 12186628.864134999
+      "MTD": 12186628.864134999,
+      "LY": 0,
+      "L3M": 12975547.794199,
+      "LM": 23890705.501600005,
+      "BE": 806435.3498517793
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -545,7 +757,11 @@
       "PwC_Grp3": "SPREADABLE",
       "TYPE": "BIG BLOK 2 KG",
       "T.BP": 270786.22208,
-      "MTD": null
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": "MBR",
@@ -555,17 +771,11 @@
       "PwC_Grp3": "SPREADABLE",
       "TYPE": "SMALL BLOK 160 G",
       "T.BP": 2437077.32796,
-      "MTD": null
-    },
-    {
-      "szPrincipalGroupId": null,
-      "Tim": null,
-      "Depo": "Depo Banjarmasin",
-      "Principle": "OTHERS",
-      "PwC_Grp3": "OTHERS",
-      "TYPE": "ULTAHKU",
-      "T.BP": null,
-      "MTD": 121171.17
+      "MTD": null,
+      "LY": 0,
+      "L3M": 0,
+      "LM": 0,
+      "BE": 0
     },
     {
       "szPrincipalGroupId": null,
@@ -575,7 +785,11 @@
       "PwC_Grp3": "BASIC FOOD",
       "TYPE": "DRINK CEREAL",
       "T.BP": null,
-      "MTD": 106838493.73999998
+      "MTD": 106838493.73999998,
+      "LY": 0,
+      "L3M": 142249217.12182602,
+      "LM": 198077950.42842197,
+      "BE": 8840844.255305137
     },
     {
       "szPrincipalGroupId": "OTHERS",
@@ -585,7 +799,11 @@
       "PwC_Grp3": "SEAWEED SNACK",
       "TYPE": "SEAWEED",
       "T.BP": 60424384.00723998,
-      "MTD": 23617685.570000008
+      "MTD": 23617685.570000008,
+      "LY": 49337351.2103941,
+      "L3M": 51465336.19797046,
+      "LM": 35218203.42534518,
+      "BE": 3198590.6923023914
     }
   ]
 }
