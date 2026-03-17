@@ -3307,16 +3307,89 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             window._prosesLoaded = true;
 
             try {
+                const isRegional = (selectedDepo === 'data_SUMMARY');
+                let rows = null;
+
+                if (isRegional) {
+                    // Fetch semua proses per depo dari depo_list.json
+                    wrap.innerHTML = '<span style="color:#94a3b8;font-size:11px;">⏳ Memuat data proses semua depo...</span>';
+                    const depoRes = await fetch('depo_list.json');
+                    const depoData = await depoRes.json();
+                    const depoNames = depoData.depos || [];
+
+                    // Fetch semua file proses secara paralel
+                    const results = await Promise.all(depoNames.map(async depo => {
+                        const suffix = depo.toUpperCase().trim().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_');
+                        const depoLabel = depo.trim().replace(/^DEPO\s+/i,'');
+                        try {
+                            const r = await fetch('proses_DEPO_' + suffix + '.json');
+                            if (!r.ok) return null;
+                            const j = await r.json();
+                            // Tag setiap row dengan nama depo
+                            return (j.data || []).map(row => ({ ...row, _depoLabel: depoLabel }));
+                        } catch(e) { return null; }
+                    }));
+
+                    // Gabungkan semua rows, hitung avg per depo
+                    const depoMap = {};
+                    results.forEach(depoRows => {
+                        if (!depoRows || !depoRows.length) return;
+                        const label = depoRows[0]._depoLabel;
+                        if (!depoMap[label]) depoMap[label] = [];
+                        depoMap[label].push(...depoRows);
+                    });
+
+                    // Buat rows summary per depo (avg % cols, sum CR/GS)
+                    const pctKeys = ['%CR','%CA','%PC','%AC','%EC','%ECIns','%SKU','%GS','ARColl'];
+                    const avgKey  = key => { const vals = []; return (arr) => { const v = arr.map(r=>r[key]).filter(v=>v!=null&&!isNaN(v)); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null; }; };
+                    const avgFns  = Object.fromEntries(pctKeys.map(k=>[k, arr=>{ const v=arr.map(r=>r[k]).filter(v=>v!=null&&!isNaN(v)); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null; }]));
+
+                    rows = Object.entries(depoMap).map(([label, arr]) => {
+                        const r = { szname: label, 'Tipe Salesman': label, _isDepoSummary: true, _count: arr.length };
+                        pctKeys.forEach(k => { r[k] = avgFns[k](arr); });
+                        return r;
+                    });
+
+                    // Tampilkan sebagai tabel per depo
+                    const colFn  = v => v==null?'#94a3b8':v>=1.0?'#16a34a':v>=0.85?'#ca8a04':'#dc2626';
+                    const bgFn   = v => v==null?'#f8fafc':v>=1.0?'#dcfce7':v>=0.85?'#fef9c3':'#fee2e2';
+                    const pctFmt = v => v==null?'—':(v*100).toFixed(1)+'%';
+                    const dot    = v => '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+colFn(v)+';margin-right:2px;vertical-align:middle;"></span>';
+                    const thS    = 'padding:4px 3px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:center;';
+                    const thL2   = 'padding:4px 6px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:left;';
+                    const tdS2   = v => 'padding:3px 3px;font-size:9px;font-weight:700;text-align:center;background:'+bgFn(v)+';';
+                    const tdL2   = 'padding:3px 6px;font-size:9px;font-weight:600;color:#334155;';
+                    const cols   = [{key:'%CR',lbl:'%CR'},{key:'%CA',lbl:'%CA'},{key:'%PC',lbl:'%PC'},{key:'%AC',lbl:'%AC'},{key:'%EC',lbl:'%EC'},{key:'%ECIns',lbl:'%ECIns'},{key:'%SKU',lbl:'%SKU'},{key:'%GS',lbl:'%GS'},{key:'ARColl',lbl:'ARColl'}];
+
+                    let tHtml = '<div style="font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Avg % per Depo ('+rows.length+' Depo)</div>';
+                    tHtml += '<table style="width:100%;border-collapse:collapse;table-layout:auto;min-width:400px;">';
+                    tHtml += '<thead><tr><th style="'+thL2+'">Nama Depo</th><th style="'+thS+'">#Sls</th>';
+                    cols.forEach(c=>{ tHtml+='<th style="'+thS+'">'+c.lbl+'</th>'; });
+                    tHtml += '</tr></thead><tbody>';
+                    rows.sort((a,b)=>a.szname.localeCompare(b.szname)).forEach((r,i)=>{
+                        const bg=i%2===0?'#ffffff':'#f8fafc';
+                        tHtml+='<tr style="background:'+bg+';">';
+                        tHtml+='<td style="'+tdL2+'">'+r.szname+'</td>';
+                        tHtml+='<td style="'+tdL2+'text-align:center;color:#0e7490;font-weight:700;">'+r._count+'</td>';
+                        cols.forEach(c=>{ tHtml+='<td style="'+tdS2(r[c.key])+'">'+dot(r[c.key])+pctFmt(r[c.key])+'</td>'; });
+                        tHtml+='</tr>';
+                    });
+                    tHtml += '</tbody></table>';
+                    wrap.innerHTML = tHtml;
+                    return;
+                }
+
+                // Per-depo biasa
                 const depoSuffix = (selectedDepo || '')
                                     .replace(/^data_DEPO_/i, '')
                                     .trim()
                                     .toUpperCase()
                                     .replace(/\s+/g, '_');
                 const res = await fetch('proses_DEPO_' + depoSuffix + '.json');
-                if (!res.ok) throw new Error('not found');
-                const json = await res.json();
-                const rows = json.data || [];
-                if (!rows.length) { wrap.innerHTML = '<span style="color:#94a3b8;">Tidak ada data Proses.</span>'; return; }
+                    if (!res.ok) throw new Error('not found');
+                    const json = await res.json();
+                    rows = json.data || [];
+                if (!rows || !rows.length) { wrap.innerHTML = '<span style="color:#94a3b8;">Tidak ada data Proses.</span>'; return; }
 
                 // Kolom % yang ditampilkan sebagai donut
                 const pctCols = [
