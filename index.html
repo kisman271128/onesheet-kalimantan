@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>OneSheet Region Kalimantan</title>
     <link rel="icon" href="data:,">
     <style>
@@ -1548,6 +1548,183 @@
         .upl-dot-missing { background: #ef4444; box-shadow: 0 0 0 2px rgba(239,68,68,0.2); }
         .upl-dot-loading { background: #f59e0b; animation: upl-pulse 0.8s infinite alternate; }
         @keyframes upl-pulse { from { opacity:0.4; } to { opacity:1; } }
+
+        /* ===================================================
+           TABLET RESPONSIVE — 8.7" (~800px) & 11" (~1024px)
+           =================================================== */
+
+        /* --- Tablet 11" landscape & portrait (1024px–1280px) --- */
+        @media screen and (min-width: 1024px) and (max-width: 1280px) {
+            /* Login split */
+            .login-split-left {
+                flex: 0 0 40%;
+                padding: 24px 32px;
+            }
+            .login-logo-wrap img { height: 110px; }
+            .login-hello { font-size: 22px; }
+
+            /* Header */
+            .header-section { padding: 6px 12px; }
+            .header-title   { font-size: 13px; }
+            .header-info    { font-size: 12px; }
+
+            /* Tabs */
+            .tab  { font-size: 11px; padding: 6px 10px; }
+            .tabs-container { padding: 4px 6px; }
+
+            /* Report container height */
+            .report-container { max-height: 78vh; }
+            #tabProject .report-container { max-height: calc(100vh - 220px); }
+            #projTableWrap    { max-height: calc(100vh - 240px); }
+            #catTableWrap     { max-height: calc(100vh - 140px); }
+
+            /* Metric cards */
+            .p25-metric-value  { font-size: 18px; }
+            .proj-metric-card  { min-width: 110px; padding: 8px 12px; }
+            .proj-metric-value { font-size: 14px; }
+
+            /* Floating settings panel */
+            #colSettingsPanel { width: 240px; }
+
+            /* Profile card */
+            .profile-card { width: 320px; }
+        }
+
+        /* --- Tablet 8.7" landscape & portrait (768px–1023px) --- */
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+            /* ---- Login page ---- */
+            #loginPage { flex-direction: column; }
+            .login-split-left {
+                flex: none;
+                width: 100%;
+                max-width: 100%;
+                min-width: unset;
+                padding: 28px 32px 20px;
+                min-height: unset;
+            }
+            .login-split-right {
+                flex: 1;
+                min-height: 340px;
+            }
+            .login-logo-wrap img { height: 100px; }
+            .login-hello  { font-size: 20px; }
+            .login-sub    { font-size: 12px; }
+            .login-slide h2 { font-size: 20px; }
+            .login-slide p  { font-size: 13px; }
+
+            /* ---- Header ---- */
+            .header-section { padding: 6px 10px; flex-wrap: wrap; gap: 4px; }
+            .header-title   { font-size: 12px; }
+            .header-info    { font-size: 11px; }
+            .header-right   { gap: 5px; }
+            .btn-small      { font-size: 10px; padding: 4px 8px; }
+
+            /* ---- Tabs ---- */
+            .tabs-container { padding: 3px 4px; margin: 4px; }
+            .tab            { font-size: 10px; padding: 5px 8px; }
+
+            /* ---- Report container ---- */
+            .report-container    { max-height: 74vh; margin: 0 4px 4px; }
+            #tabProject .report-container { max-height: calc(100vh - 230px); }
+            #projTableWrap       { max-height: calc(100vh - 250px); }
+            #catTableWrap        { max-height: calc(100vh - 150px); }
+            #tabPareto .report-container  { max-height: 74vh; }
+
+            /* ---- Salesman filter ---- */
+            .salesman-filter      { padding: 10px 12px; gap: 8px; }
+            .salesman-filter select { min-width: 150px; font-size: 12px; }
+
+            /* ---- Table fonts scale ---- */
+            table                { font-size: 9px; }
+            th                   { font-size: 9px; padding: 3px 2px; height: 22px; }
+            .sub-header th       { font-size: 8px; padding: 2px; height: 18px; }
+            td                   { padding: 4px 2px; font-size: 9px; }
+
+            /* Category table */
+            #catTableWrap table  { font-size: 9px !important; }
+            #catTableWrap tbody tr td { font-size: 9px !important; padding: 3px 2px !important; }
+
+            /* Pareto table */
+            #paretoTableWrap tbody tr td { font-size: 11px; padding: 7px 6px; }
+            #paretoTableWrap thead tr.pareto-col-header th { font-size: 10px; padding: 7px 6px; }
+
+            /* Pareto25 table */
+            #tabPareto25 thead th   { font-size: 10px; padding: 5px 8px; }
+            #tabPareto25 tbody td   { font-size: 11px; padding: 4px 8px; }
+
+            /* Project table */
+            #projTableWrap tbody tr td  { font-size: 11px; padding: 5px 8px; }
+
+            /* Metric cards — wrap & shrink */
+            .p25-metrics-row    { padding: 8px 10px 5px; gap: 7px; }
+            .p25-metric-card    { min-width: 100px; padding: 8px 10px; }
+            .p25-metric-value   { font-size: 16px; }
+            .p25-metric-label   { font-size: 9px; }
+            .project-metrics-row{ padding: 10px 12px 6px; gap: 7px; }
+            .proj-metric-card   { min-width: 100px; padding: 8px 10px; }
+            .proj-metric-value  { font-size: 13px; }
+            .proj-metric-label  { font-size: 9px; }
+
+            /* Column settings float */
+            #colSettingsFloat   { bottom: 16px; right: 16px; }
+            #colSettingsPanel   { width: 220px; }
+            #colSettingsToggleBtn { width: 40px; height: 40px; font-size: 16px; }
+
+            /* Profile card */
+            .profile-card  { width: 300px; }
+            .profile-avatar{ width: 80px; height: 80px; }
+            .profile-name  { font-size: 18px; }
+
+            /* Corner logo */
+            :root { --logo-size: 44px; }
+
+            /* Upload cards */
+            .upl-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+            .upl-card-title { font-size: 11px; }
+        }
+
+        /* --- Portrait-only fixes for 8.7" (narrower, ~800px tall screens) --- */
+        @media screen and (min-width: 768px) and (max-width: 900px) and (orientation: portrait) {
+            .login-split-right { min-height: 280px; }
+            .report-container  { max-height: 70vh; }
+            #catTableWrap      { max-height: calc(100vh - 160px); }
+            .p25-metric-value  { font-size: 14px; }
+            .proj-metric-value { font-size: 12px; }
+        }
+
+        /* --- Landscape-only fixes for 8.7" (wider view) --- */
+        @media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+            #loginPage { flex-direction: row; }
+            .login-split-left {
+                flex: 0 0 38%;
+                max-width: 400px;
+                min-height: 100vh;
+                padding: 20px 28px;
+            }
+            .login-split-right { min-height: 100vh; }
+            .login-logo-wrap img { height: 90px; }
+            .report-container { max-height: 68vh; }
+            #catTableWrap     { max-height: calc(100vh - 130px); }
+        }
+
+        /* --- Prevent any horizontal overflow at tablet widths --- */
+        @media screen and (max-width: 1280px) {
+            body { overflow-x: hidden; }
+            .dashboard { overflow-x: hidden; }
+
+            /* Ensure filter bars don't overflow */
+            .salesman-filter { flex-wrap: wrap; }
+
+            /* Sub tabs scroll properly */
+            .sub-tabs { overflow-x: auto; scrollbar-width: none; }
+            .sub-tabs::-webkit-scrollbar { display: none; }
+
+            /* Wk toggle btn shrink */
+            .wk-toggle-btn { font-size: 11px; padding: 5px 9px; }
+
+            /* Make floating panel not clip off screen */
+            #colSettingsPanel { right: 0; max-width: 90vw; }
+        }
         </style>
     </div>
 
@@ -3374,6 +3551,17 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                         cols.forEach(c=>{ tHtml+='<td style="'+tdS2(r[c.key])+'">'+dot(r[c.key])+pctFmt(r[c.key])+'</td>'; });
                         tHtml+='</tr>';
                     });
+                    // Baris Total Region
+                    const totalSls = rows.reduce((s,r)=>s+r._count,0);
+                    tHtml+='<tr style="background:#e0f2fe;border-top:2px solid #0e7490;">';
+                    tHtml+='<td style="'+tdL2+'font-weight:800;color:#0e7490;">TOTAL REGION</td>';
+                    tHtml+='<td style="'+tdL2+'text-align:center;font-weight:800;color:#0e7490;">'+totalSls+'</td>';
+                    cols.forEach(c=>{
+                        const vals=rows.map(r=>r[c.key]).filter(v=>v!=null&&!isNaN(v));
+                        const v=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null;
+                        tHtml+='<td style="'+tdS2(v)+'font-weight:800;">'+dot(v)+pctFmt(v)+'</td>';
+                    });
+                    tHtml+='</tr>';
                     tHtml += '</tbody></table>';
                     wrap.innerHTML = tHtml;
                     return;
