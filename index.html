@@ -2679,7 +2679,7 @@
                 const hasData  = dataR !== null;
                 const hasBP    = bpR   !== null;
                 // Status & tanggal HANYA dari bp_DEPO — jika tidak ada = belum upload
-                const lastUpd  = hasBP ? (bpR?.meta?.last_updated || null) : null;
+                const lastUpd  = hasBP ? (bpR?.metadata?.last_updated || null) : null;
 
                 depoStatus[depo] = {
                     label:      rawDepo,
@@ -2745,8 +2745,13 @@
             // Ambil tanggal saja (tanpa jam) untuk perbandingan
             const toDateStr = (s) => {
                 if (!s) return null;
-                try { return new Date(s.replace(' ','T')).toISOString().slice(0,10); }
-                catch { return null; }
+                try {
+                    const d = new Date(s.replace(' ', 'T'));
+                    const y = d.getFullYear();
+                    const m = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return `${y}-${m}-${day}`;
+                } catch { return null; }
             };
 
             // Cari tanggal terbaru (date string, YYYY-MM-DD)
