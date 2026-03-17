@@ -2679,7 +2679,7 @@
                 const hasData  = dataR !== null;
                 const hasBP    = bpR   !== null;
                 // Status & tanggal HANYA dari bp_DEPO — jika tidak ada = belum upload
-                const lastUpd  = hasBP ? (bpR?.metadata?.last_updated || null) : null;
+                const lastUpd  = hasBP ? (bpR?.meta?.last_updated || null) : null;
 
                 depoStatus[depo] = {
                     label:      rawDepo,
