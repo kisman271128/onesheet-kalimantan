@@ -40,7 +40,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "  Write-Host '  + Script terbaru berhasil diunduh' -ForegroundColor Green" ^
   "} catch {" ^
   "  if (Test-Path $out) {" ^
-  "    Write-Host '  ⚠ Gagal unduh, menggunakan script lokal yang ada' -ForegroundColor Yellow" ^
+  "    Write-Host '  WARNING: Gagal unduh, menggunakan script lokal yang ada' -ForegroundColor Yellow" ^
   "  } else {" ^
   "    Write-Host '  ERROR: Tidak ada koneksi dan script lokal tidak ditemukan!' -ForegroundColor Red;" ^
   "    exit 1" ^
@@ -75,6 +75,19 @@ REM [4/4] JALANKAN EXPORT
 REM ========================================
 echo.
 echo [4/4] Menjalankan export data...
+echo.
+echo Output file yang akan dibuat per depo:
+echo   - data_DEPO_xxx.json       (data utama salesman)
+echo   - bti_DEPO_xxx.json        (BTI / achievement)
+echo   - bp_DEPO_xxx.json         (budget plan)
+echo   - tg_DEPO_xxx.json         (target growth)
+echo   - trend_DEPO_xxx.json      (trend harian/mingguan)
+echo   - outlet_DEPO_xxx.json     (25 pareto outlet)
+echo   - sku_DEPO_xxx.json        (25 pareto SKU)
+echo   - project_DEPO_xxx.json    (project MAP)
+echo   - proses_DEPO_xxx.json     (proses salesman)
+echo   - cat_DEPO_xxx.json        (category - agregat level TYPE)
+echo   - 25outlet_cat_DEPO_xxx.json (25 pareto by category - level SzCustId)
 echo.
 python %PY_SCRIPT%
 
