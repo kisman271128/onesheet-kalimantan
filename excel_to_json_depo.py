@@ -141,7 +141,8 @@ def export_data():
                 (filename.startswith('outlet_'))  or
                 (filename.startswith('sku_'))     or
                 (filename.startswith('proses_'))  or
-                (filename.startswith('TG_DEPO_'))
+                (filename.startswith('TG_DEPO_'))  or
+                (filename.startswith('25outlet_cat_'))
             )
             if should_delete:
                 try:
@@ -424,86 +425,140 @@ def export_bti(excel_file):
 
 
 def export_onesheetcat(excel_file):
-    """Export sheet OneSheetCat ke OnesheetCat.json (flat) dan cat_DEPO_<n>.json per Depo"""
+    """Export sheet OneSheetCat ke 2 file JSON per Depo:
+       1. cat_DEPO_<n>.json          — agregat level TYPE (tanpa SzCustId)
+       2. 25outlet_cat_DEPO_<n>.json — agregat level SzCustId (tanpa TYPE)
+    """
     try:
         print("📊 Membaca Sheet OneSheetCat...")
         df = pd.read_excel(excel_file, sheet_name="OneSheetCat", engine='pyxlsb', header=0)
         df.columns = df.columns.str.strip()
-        df = df.replace([np.nan, np.inf, -np.inf], None)
-        df = df.where(pd.notnull(df), None)
 
         if df.empty:
             print("⚠️  Sheet OneSheetCat kosong, tidak ada file yang dibuat")
             return False
 
-        # Clean NaN in records
-        records = df.to_dict('records')
-        for record in records:
-            for key, value in record.items():
-                if isinstance(value, float):
-                    if math.isnan(value) or math.isinf(value):
-                        record[key] = None
-
-        # --- Split per Depo ---        # --- 2. Split per Depo ---
         if 'Depo' not in df.columns:
-            print("⚠️  Kolom 'Depo' tidak ditemukan, skip split per Depo")
-            return True
+            print("⚠️  Kolom 'Depo' tidak ditemukan, skip export OneSheetCat")
+            return False
 
-        # Hapus file lama cat_DEPO_*.json
+        print(f"   {len(df)} baris dibaca")
+
+        # Pastikan NetSalesPKD numerik
+        df['NetSalesPKD'] = pd.to_numeric(df['NetSalesPKD'], errors='coerce').fillna(0)
+
+        # Hapus file lama
         deleted = 0
         for filename in os.listdir('.'):
-            if filename.startswith('cat_DEPO_') and filename.endswith('.json'):
+            if (filename.startswith('cat_DEPO_') or filename.startswith('25outlet_cat_DEPO_')) and filename.endswith('.json'):
                 try:
                     os.remove(filename)
                     deleted += 1
                 except:
                     pass
         if deleted:
-            print(f"🗑️  {deleted} file cat_DEPO lama dihapus")
+            print(f"🗑️  {deleted} file cat_DEPO / 25outlet_cat_DEPO lama dihapus")
+
+        now_str = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Kolom grup untuk FILE 1 (cat_DEPO): level TYPE, tanpa SzCustId
+        cat_grp = [c for c in ['Nama Salesman','Tim','Periode','Periode1',
+                                'szPrincipalGroupId','Principle','PwC_Grp3','TYPE']
+                   if c in df.columns]
+
+        # Kolom grup untuk FILE 2 (25outlet_cat_DEPO): level SzCustId, tanpa TYPE
+        outlet_grp = [c for c in ['Nama Salesman','Tim','Periode','Periode1',
+                                   'szPrincipalGroupId','Principle','PwC_Grp3','SzCustId']
+                      if c in df.columns]
+
+        # Mapping SzCustId → Nama Pelanggan (ambil 1 nama per ID)
+        nama_map = {}
+        if 'SzCustId' in df.columns and 'Nama Pelanggan' in df.columns:
+            nama_map = (df[['SzCustId','Nama Pelanggan']]
+                        .dropna(subset=['SzCustId'])
+                        .drop_duplicates('SzCustId')
+                        .set_index('SzCustId')['Nama Pelanggan']
+                        .to_dict())
+
+        cat_files_created     = []
+        outlet_files_created  = []
 
         depo_groups = df.groupby('Depo')
-        created_files = []
-
-        for depo_name, depo_data in depo_groups:
+        for depo_name, depo_df in depo_groups:
             if not depo_name or (isinstance(depo_name, float) and math.isnan(depo_name)):
                 continue
 
-            depo_records = depo_data.to_dict('records')
-            for record in depo_records:
-                for key, value in record.items():
-                    if isinstance(value, float):
-                        if math.isnan(value) or math.isinf(value):
-                            record[key] = None
+            safe_name = str(depo_name).strip()
+            if safe_name.upper().startswith('DEPO '):
+                safe_name = safe_name[5:]
+            safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
 
-            json_data = {
+            # ── FILE 1: cat_DEPO_xxx.json ────────────────────────────────────
+            cat_agg = (depo_df
+                       .groupby(cat_grp, as_index=False, dropna=False)['NetSalesPKD']
+                       .sum())
+            cat_agg['NetSalesPKD'] = cat_agg['NetSalesPKD'].round(2)
+            # Replace NaN/inf
+            cat_agg = cat_agg.replace([np.nan, np.inf, -np.inf], None)
+            cat_agg = cat_agg.where(pd.notnull(cat_agg), None)
+            cat_records = cat_agg.to_dict('records')
+
+            cat_json = {
                 "metadata": {
                     "source": excel_file,
                     "sheet_name": "OneSheetCat",
                     "depo": depo_name,
-                    "total_records": len(depo_records),
-                    "columns": list(df.columns),
-                    "last_updated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+                    "total_records": len(cat_records),
+                    "columns": cat_grp + ['NetSalesPKD'],
+                    "note": "Agregat level TYPE, tanpa SzCustId",
+                    "last_updated": now_str
                 },
-                "data": depo_records
+                "data": cat_records
             }
+            cat_file = f"cat_DEPO_{safe_name}.json"
+            with open(cat_file, 'w', encoding='utf-8') as f:
+                json.dump(cat_json, f, ensure_ascii=False, separators=(',',':'), allow_nan=False)
+                f.flush(); os.fsync(f.fileno())
+            os.utime(cat_file, (time.time(), time.time()))
+            cat_files_created.append(cat_file)
+            size_kb = os.path.getsize(cat_file) / 1024
+            print(f"  ✅ {cat_file} — {len(cat_records)} records, {size_kb:.1f} KB")
 
-            safe_name = str(depo_name).strip()
-            if safe_name.upper().startswith('DEPO '):
-                safe_name = safe_name[5:]  # hapus "Depo " di awal
-            safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
-            filename = f"cat_DEPO_{safe_name}.json"
+            # ── FILE 2: 25outlet_cat_DEPO_xxx.json ───────────────────────────
+            outlet_agg = (depo_df
+                          .groupby(outlet_grp, as_index=False, dropna=False)['NetSalesPKD']
+                          .sum())
+            outlet_agg['NetSalesPKD'] = outlet_agg['NetSalesPKD'].round(2)
+            if nama_map and 'SzCustId' in outlet_agg.columns:
+                outlet_agg['Nama Pelanggan'] = outlet_agg['SzCustId'].map(nama_map).fillna('')
+            else:
+                outlet_agg['Nama Pelanggan'] = ''
+            outlet_agg = outlet_agg.replace([np.nan, np.inf, -np.inf], None)
+            outlet_agg = outlet_agg.where(pd.notnull(outlet_agg), None)
+            outlet_records = outlet_agg.to_dict('records')
 
-            with open(filename, 'w', encoding='utf-8') as f:
-                json.dump(json_data, f, ensure_ascii=False, indent=2, allow_nan=False)
-                f.flush()
-                os.fsync(f.fileno())
+            outlet_json = {
+                "metadata": {
+                    "source": excel_file,
+                    "sheet_name": "OneSheetCat",
+                    "depo": depo_name,
+                    "total_records": len(outlet_records),
+                    "columns": outlet_grp + ['Nama Pelanggan', 'NetSalesPKD'],
+                    "note": "Agregat level SzCustId, tanpa TYPE, semua periode",
+                    "last_updated": now_str
+                },
+                "data": outlet_records
+            }
+            outlet_file = f"25outlet_cat_DEPO_{safe_name}.json"
+            with open(outlet_file, 'w', encoding='utf-8') as f:
+                json.dump(outlet_json, f, ensure_ascii=False, separators=(',',':'), allow_nan=False)
+                f.flush(); os.fsync(f.fileno())
+            os.utime(outlet_file, (time.time(), time.time()))
+            outlet_files_created.append(outlet_file)
+            size_kb = os.path.getsize(outlet_file) / 1024
+            print(f"  ✅ {outlet_file} — {len(outlet_records)} records, {size_kb:.1f} KB")
 
-            current_time = time.time()
-            os.utime(filename, (current_time, current_time))
-            created_files.append(filename)
-            print(f"  ✅ {filename} - {len(depo_records)} records")
-
-        print(f"✅ {len(created_files)} file OneSheetCat per-Depo dibuat")
+        print(f"✅ {len(cat_files_created)} file cat_DEPO + {len(outlet_files_created)} file 25outlet_cat_DEPO dibuat")
         return True
 
     except Exception as e:
