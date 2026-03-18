@@ -1435,6 +1435,20 @@
                                 <div class="upl-upload-badge" id="upload-cat"></div>
                             </div>
                         </div>
+                        <!-- 25 Outlet Category -->
+                        <div class="upl-card" id="card-25outlet-cat">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#0891b2,#0e7490);">🏪</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">25 Outlet Cat</div>
+                                <div class="upl-card-file" id="label-25outlet-cat">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-25outlet-cat"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-25outlet-cat"></div>
+                            </div>
+                        </div>
                         <!-- BP -->
                         <div class="upl-card" id="card-bp">
                             <div class="upl-card-left">
@@ -1912,6 +1926,7 @@
             document.getElementById('label-project').textContent = 'project_DEPO_' + depoSuffix + '.json';
             document.getElementById('label-tg').textContent      = 'TG_DEPO_'      + depoSuffix + '.json';
             document.getElementById('label-cat').textContent     = 'cat_DEPO_'     + depoSuffix + '.json';
+            document.getElementById('label-25outlet-cat').textContent = '25outlet_cat_DEPO_' + depoSuffix + '.json';
             document.getElementById('label-bp').textContent      = 'bp_DEPO_'      + depoSuffix + '.json';
             document.getElementById('label-trend').textContent   = 'trend_DEPO_'   + depoSuffix + '.json';
             document.getElementById('label-outlet').textContent  = 'outlet_DEPO_'  + depoSuffix + '.json';
@@ -1924,7 +1939,7 @@
             document.getElementById('uploadDetectSection').style.display = 'none';
             document.getElementById('uploadStatus').style.display = 'none';
             // Reset semua card ke state awal
-            ['data','bti','project','tg','cat','bp','trend','outlet','sku','proses'].forEach(k => {
+            ['data','bti','project','tg','cat','25outlet-cat','bp','trend','outlet','sku','proses'].forEach(k => {
                 const c = document.getElementById('card-' + k);
                 if (c) { c.classList.remove('found','missing','uploading','done'); }
                 const d = document.getElementById('detect-' + k);
