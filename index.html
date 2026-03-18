@@ -1112,7 +1112,7 @@
             <!-- Sub-tab buttons -->
             <div class="sub-tabs-container">
                 <div class="sub-tabs">
-                    <div class="sub-tab active" id="smSubBtnChannel" onclick="switchSalesmanSubTab('channel')">📊 By Channel</div>
+                    <div class="sub-tab active" id="smSubBtnChannel" onclick="switchSalesmanSubTab('channel')"><span id="smChannelTabLabel">📊 By Channel</span></div>
                     <div class="sub-tab"         id="smSubBtnProses"  onclick="switchSalesmanSubTab('proses')">⚙️ Proses</div>
                 </div>
             </div>
@@ -1120,7 +1120,7 @@
             <!-- Sub-tab: By Channel (existing content) -->
             <div id="smSubTabChannel" class="sub-tab-content active">
                 <div class="salesman-filter">
-                    <label>Pilih Tipe Sales:</label>
+                    <label id="smFilterLabel">Pilih Tipe Sales:</label>
                     <select id="tipeSalesSelect" onchange="filterByTipeSales()">
                         <option value="">-- All Tipe Sales --</option>
                     </select>
@@ -4582,7 +4582,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 const tabsHtml = `
                     <div class="tab active" onclick="switchTab('summaryDash')">📊 Summary</div>
                     <div class="tab" onclick="switchTab('weekly')">Weekly</div>
-                    <div class="tab" onclick="switchTab('salesman')">By Salesman</div>
+                    <div class="tab" onclick="switchTab('salesman')">By Depo</div>
                     <div class="tab" onclick="switchTab('summary')">📋 By Depo/Tipe</div>
                     <div class="tab" onclick="switchTab('pareto25')">🏪 25 Pareto Depo</div>
                     <div class="tab" onclick="switchTab('project')">📋 Project</div>
@@ -4728,6 +4728,14 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                         salesmanCombo.style.display = 'inline'; // Show for specific Depo
                     }
                 }
+
+                // Update label tab & filter sesuai mode
+                const smChannelLabel = document.getElementById('smChannelTabLabel');
+                const smFilterLabel  = document.getElementById('smFilterLabel');
+                if (smChannelLabel) smChannelLabel.textContent = isSummaryRegional ? '🏢 By Depo' : '📊 By Channel';
+                if (smFilterLabel)  smFilterLabel.textContent  = isSummaryRegional ? 'Pilih Depo:' : 'Pilih Tipe Sales:';
+                // Reset smProsesLoaded agar reload saat ganti mode
+                window._smProsesWasRegional = isSummaryRegional;
                 
                 if (isSummaryRegional) {
                     // Data sudah di-load oleh loadSummaryRegionalData() di atas
