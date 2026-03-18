@@ -5512,18 +5512,35 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             loading.textContent = '⏳ Memuat data Project...';
             wrap.innerHTML = '';
             try {
-                // Gunakan file per-depo jika depo spesifik dipilih, bukan Project.json global
-                let projectFile;
                 if (viewType === 'summary') {
-                    projectFile = 'Project.json';
+                    // Regional: fetch semua project_DEPO_xxx.json secara paralel
+                    loading.textContent = '⏳ Memuat data Project semua depo...';
+                    const depoRes  = await fetch('depo_list.json');
+                    const depoData = await depoRes.json();
+                    const results  = await Promise.all((depoData.depos||[]).map(async depo => {
+                        const suffix = depo.toUpperCase().trim().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_');
+                        const label  = depo.trim().replace(/^DEPO\s+/i,'');
+                        try {
+                            const r = await fetch('project_DEPO_' + suffix + '.json');
+                            if (!r.ok) return [];
+                            const j = await r.json();
+                            // Tag setiap row dengan nama depo jika belum ada
+                            return (j.data||[]).map(row => ({ ...row, Depo: row.Depo || label }));
+                        } catch(e) { return []; }
+                    }));
+                    projectData = results.flat();
                 } else {
                     const depoSuffix = selectedDepo.replace('data_DEPO_', '');
-                    projectFile = `project_DEPO_${depoSuffix}.json`;
+                    const projectFile = `project_DEPO_${depoSuffix}.json`;
+                    const res = await fetch(projectFile);
+                    if (!res.ok) throw new Error(`${projectFile} tidak ditemukan`);
+                    const json = await res.json();
+                    projectData = json.data || [];
                 }
-                const res = await fetch(projectFile);
-                if (!res.ok) throw new Error(`${projectFile} tidak ditemukan`);
-                const json = await res.json();
-                projectData = json.data || [];
+                if (!projectData.length) {
+                    loading.textContent = '⚠️ Tidak ada data Project.';
+                    return;
+                }
                 loading.style.display = 'none';
                 renderProjectTab();
             } catch(e) {
