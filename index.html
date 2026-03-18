@@ -1470,6 +1470,20 @@
                                 <div class="upl-upload-badge" id="upload-proses"></div>
                             </div>
                         </div>
+                        <!-- 25 Outlet Category -->
+                        <div class="upl-card" id="card-25outlet-cat">
+                            <div class="upl-card-left">
+                                <div class="upl-card-icon" style="background:linear-gradient(135deg,#0891b2,#0e7490);">🏪</div>
+                            </div>
+                            <div class="upl-card-body">
+                                <div class="upl-card-title">25 Outlet Cat</div>
+                                <div class="upl-card-file" id="label-25outlet-cat">—</div>
+                            </div>
+                            <div class="upl-card-right">
+                                <div class="upl-detect-badge" id="detect-25outlet-cat"><span class="upl-dot upl-dot-wait"></span>Menunggu</div>
+                                <div class="upl-upload-badge" id="upload-25outlet-cat"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div id="uploadSummaryBar" style="display:none; border-radius:10px; padding:10px 16px; margin-bottom:12px; font-size:13px; border:1px solid #e0e0e0;"></div>
@@ -1882,6 +1896,7 @@
             document.getElementById('label-outlet').textContent  = 'outlet_DEPO_'  + depoSuffix + '.json';
             document.getElementById('label-sku').textContent     = 'sku_DEPO_'     + depoSuffix + '.json';
             document.getElementById('label-proses').textContent  = 'proses_DEPO_'  + depoSuffix + '.json';
+            document.getElementById('label-25outlet-cat').textContent = '25outlet_cat_DEPO_' + depoSuffix + '.json';
             // Reset state saat depo berubah
             folderHandle  = null;
             detectedFiles = {};
