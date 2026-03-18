@@ -1199,6 +1199,7 @@
                 <div class="sub-tabs">
                     <div class="sub-tab active" onclick="switchPareto25SubTab('outlet', event)">🏪 25 Pareto Outlet</div>
                     <div class="sub-tab" onclick="switchPareto25SubTab('sku', event)">🛒 25 Pareto SKU</div>
+                    <div class="sub-tab" onclick="switchPareto25SubTab('cat', event)">📦 25 Pareto by Category</div>
                 </div>
             </div>
 
@@ -1239,6 +1240,40 @@
                 <div style="padding:0 12px 8px;height:calc(100vh - 260px);min-height:300px;overflow-x:auto;overflow-y:auto;">
                     <div id="loadingPareto25Sku" style="padding:20px;color:#888;font-size:13px;">&#9203; Memuat data...</div>
                     <div id="pareto25SkuWrap"></div>
+                </div>
+            </div>
+
+            <!-- Sub-tab: 25 Pareto by Category -->
+            <div id="pareto25SubTabCat" class="sub-tab-content">
+                <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;flex-wrap:wrap;border-bottom:1px solid #f1f5f9;">
+                    <label style="font-size:11px;font-weight:600;color:#334155;">Periode:</label>
+                    <select id="p25CatPeriodeSelect" onchange="filterPareto25Cat()"
+                        style="padding:3px 8px;border:1.5px solid #e2e8f0;border-radius:6px;font-size:11px;color:#334155;outline:none;cursor:pointer;">
+                        <option value="MTD">MTD</option>
+                        <option value="LM">LM</option>
+                        <option value="L3M">L3M</option>
+                        <option value="LY">LY</option>
+                    </select>
+                    <label style="font-size:11px;font-weight:600;color:#334155;margin-left:8px;">Category:</label>
+                    <select id="p25CatGrpSelect" onchange="filterPareto25Cat()"
+                        style="padding:3px 8px;border:1.5px solid #e2e8f0;border-radius:6px;font-size:11px;color:#334155;outline:none;cursor:pointer;">
+                        <option value="">-- All Category --</option>
+                    </select>
+                    <label style="font-size:11px;font-weight:600;color:#334155;margin-left:8px;">Salesman:</label>
+                    <select id="p25CatSmSelect" onchange="filterPareto25Cat()"
+                        style="padding:3px 8px;border:1.5px solid #e2e8f0;border-radius:6px;font-size:11px;color:#334155;outline:none;cursor:pointer;">
+                        <option value="">-- All Salesman --</option>
+                    </select>
+                    <span id="p25CatCount" style="margin-left:auto;font-size:11px;color:#64748b;"></span>
+                    <button onclick="savePareto25CatExcel(this)"
+                        style="padding:4px 10px;background:white;border:1.5px solid #16a34a;color:#16a34a;
+                               border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">
+                        &#128202; Save Excel
+                    </button>
+                </div>
+                <div style="padding:0 12px 8px;height:calc(100vh - 260px);min-height:300px;overflow-x:auto;overflow-y:auto;">
+                    <div id="loadingPareto25Cat" style="padding:20px;color:#888;font-size:13px;">⏳ Memuat data...</div>
+                    <div id="pareto25CatWrap"></div>
                 </div>
             </div>
         </div>
@@ -3884,7 +3919,177 @@ ${isRegional ? renderDepoStatusPanel() : ''}
         }
 
 
-        function toggleWeekCols(wNum) {
+        // ===== 25 PARETO BY CATEGORY =====
+        let _p25CatData = null;
+
+        async function loadPareto25CatData() {
+            window._p25CatLoaded = true;
+            const loading = document.getElementById('loadingPareto25Cat');
+            const wrap    = document.getElementById('pareto25CatWrap');
+            loading.style.display = '';
+            loading.textContent = '⏳ Memuat data...';
+            wrap.innerHTML = '';
+
+            try {
+                let rows = [];
+                if (viewType === 'summary') {
+                    // Regional: fetch semua depo paralel
+                    const depoRes  = await fetch('depo_list.json');
+                    const depoData = await depoRes.json();
+                    const results  = await Promise.all((depoData.depos||[]).map(async depo => {
+                        const suffix = depo.toUpperCase().trim().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_');
+                        try {
+                            const r = await fetch('25outlet_cat_DEPO_' + suffix + '.json');
+                            if (!r.ok) return [];
+                            const j = await r.json();
+                            return j.data || [];
+                        } catch(e) { return []; }
+                    }));
+                    rows = results.flat();
+                } else {
+                    const suffix = selectedDepo.replace(/^data_DEPO_/i,'');
+                    const res = await fetch('25outlet_cat_DEPO_' + suffix + '.json');
+                    if (!res.ok) throw new Error('25outlet_cat_DEPO_' + suffix + '.json tidak ditemukan');
+                    rows = (await res.json()).data || [];
+                }
+
+                _p25CatData = rows;
+                loading.style.display = 'none';
+
+                // Populate dropdowns
+                const grpSel = document.getElementById('p25CatGrpSelect');
+                const smSel  = document.getElementById('p25CatSmSelect');
+                const grps   = [...new Set(rows.map(r => r.PwC_Grp3 || ''))].filter(Boolean).sort();
+                const sms    = [...new Set(rows.map(r => r['Nama Salesman'] || ''))].filter(Boolean).sort();
+                grpSel.innerHTML = '<option value="">-- All Category --</option>' + grps.map(g => `<option value="${g}">${g}</option>`).join('');
+                smSel.innerHTML  = '<option value="">-- All Salesman --</option>'  + sms.map(s => `<option value="${s}">${s}</option>`).join('');
+
+                filterPareto25Cat();
+            } catch(e) {
+                loading.textContent = '⚠️ ' + e.message;
+            }
+        }
+
+        function filterPareto25Cat() {
+            if (!_p25CatData) return;
+            const periode = document.getElementById('p25CatPeriodeSelect').value || 'MTD';
+            const grp     = document.getElementById('p25CatGrpSelect').value;
+            const sm      = document.getElementById('p25CatSmSelect').value;
+
+            // Filter baris sesuai periode, category, salesman
+            let rows = _p25CatData.filter(r => {
+                const pe = r.Periode || r.Periode1 || '';
+                const matchPe = pe === periode || r.Periode1 === periode;
+                const matchGrp = !grp || (r.PwC_Grp3 || '') === grp;
+                const matchSm  = !sm  || (r['Nama Salesman'] || '') === sm;
+                return matchPe && matchGrp && matchSm;
+            });
+
+            // Agregasi per SzCustId (sum NetSalesPKD)
+            const custMap = {};
+            rows.forEach(r => {
+                const id = r.SzCustId || '';
+                if (!custMap[id]) custMap[id] = {
+                    SzCustId: id,
+                    'Nama Pelanggan': r['Nama Pelanggan'] || '',
+                    'Nama Salesman':  r['Nama Salesman']  || '',
+                    Principle:        r.Principle         || '',
+                    PwC_Grp3:         r.PwC_Grp3          || '',
+                    val: 0
+                };
+                custMap[id].val += parseFloat(r.NetSalesPKD || 0);
+            });
+
+            // Ambil top 25 by value
+            const sorted = Object.values(custMap).sort((a,b) => b.val - a.val).slice(0, 25);
+            document.getElementById('p25CatCount').textContent = sorted.length + ' outlet';
+            renderPareto25Cat(sorted, periode);
+        }
+
+        function renderPareto25Cat(data, periode) {
+            const wrap = document.getElementById('pareto25CatWrap');
+            if (!data.length) { wrap.innerHTML = '<p style="padding:20px;color:#888;">Tidak ada data.</p>'; return; }
+
+            const jt = v => {
+                if (!v) return '0';
+                const m = Math.abs(v)/1e6;
+                return (m>=1000 ? m.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,'.') : m.toFixed(1)) + 'jt';
+            };
+            const colAch = v => v >= 0 ? '#16a34a' : '#dc2626';
+
+            const totVal = data.reduce((s,r) => s+r.val, 0);
+
+            let html = '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+            html += '<thead><tr style="background:#1e3a5f;color:white;">'
+                + '<th style="padding:6px;text-align:center;width:32px;">#</th>'
+                + '<th style="padding:6px;text-align:left;">Outlet</th>'
+                + '<th style="padding:6px;text-align:left;">Salesman</th>'
+                + '<th style="padding:6px;text-align:left;">Category</th>'
+                + '<th style="padding:6px;text-align:right;">' + periode + '</th>'
+                + '<th style="padding:6px;text-align:right;">% Total</th>'
+                + '</tr>'
+                // Total row
+                + '<tr style="background:#2d4f7c;color:white;font-weight:700;">'
+                + '<td style="padding:6px;text-align:center;">Σ</td>'
+                + '<td style="padding:6px;">' + data.length + ' outlet</td>'
+                + '<td style="padding:6px;">—</td>'
+                + '<td style="padding:6px;">—</td>'
+                + '<td style="padding:6px;text-align:right;">' + jt(totVal) + '</td>'
+                + '<td style="padding:6px;text-align:right;">100%</td>'
+                + '</tr></thead><tbody>';
+
+            data.forEach((r, i) => {
+                const pct = totVal > 0 ? (r.val / totVal * 100) : 0;
+                const even = i%2===0;
+                html += '<tr style="background:' + (even?'white':'#fafbff') + ';">'
+                    + '<td style="padding:5px 8px;text-align:center;color:#94a3b8;font-weight:600;">' + (i+1) + '</td>'
+                    + '<td style="padding:5px 8px;text-align:left;white-space:normal;">'
+                    +   '<span style="font-weight:600;">' + (r['Nama Pelanggan'] || r.SzCustId || '—') + '</span>'
+                    +   '<br><span style="color:#94a3b8;font-size:10px;">' + r.SzCustId + '</span>'
+                    + '</td>'
+                    + '<td style="padding:5px 8px;color:#64748b;white-space:nowrap;">' + r['Nama Salesman'] + '</td>'
+                    + '<td style="padding:5px 8px;"><span style="background:#e0f2fe;color:#0369a1;border-radius:4px;padding:1px 7px;font-size:10px;font-weight:700;">' + r.PwC_Grp3 + '</span></td>'
+                    + '<td style="padding:5px 8px;text-align:right;font-weight:700;">' + jt(r.val) + '</td>'
+                    + '<td style="padding:5px 8px;text-align:right;color:' + colAch(r.val) + ';font-weight:700;">' + pct.toFixed(1) + '%</td>'
+                    + '</tr>';
+            });
+
+            html += '</tbody></table>';
+            wrap.innerHTML = html;
+        }
+
+        function savePareto25CatExcel(btn) {
+            if (!_p25CatData) { alert('Tidak ada data.'); return; }
+            const periode = document.getElementById('p25CatPeriodeSelect').value || 'MTD';
+            const wrap    = document.getElementById('pareto25CatWrap');
+            if (!wrap.querySelector('table')) { alert('Tidak ada data.'); return; }
+
+            const rows = [];
+            wrap.querySelectorAll('tbody tr').forEach(tr => {
+                const tds = tr.querySelectorAll('td');
+                if (tds.length < 6) return;
+                rows.push([
+                    tds[0].textContent.trim(),
+                    tds[1].textContent.trim().split('\n')[0].trim(),
+                    tds[1].textContent.trim().split('\n')[1]?.trim() || '',
+                    tds[2].textContent.trim(),
+                    tds[3].textContent.trim(),
+                    tds[4].textContent.trim(),
+                    tds[5].textContent.trim()
+                ]);
+            });
+
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet([['#','Nama Outlet','SzCustId','Salesman','Category',periode,'% Total'], ...rows]);
+            XLSX.utils.book_append_sheet(wb, ws, '25Pareto_Cat');
+            const ts = new Date().toISOString().slice(0,10).replace(/-/g,'');
+            const origText = btn.textContent;
+            btn.textContent = 'Menyimpan...'; btn.disabled = true;
+            try { XLSX.writeFile(wb, '25ParetoCat_' + ts + '.xlsx'); }
+            finally { btn.textContent = origText; btn.disabled = false; }
+        }
+
+                function toggleWeekCols(wNum) {
             if (!window._wkColsState) window._wkColsState = {};
             const isHidden = !window._wkColsState[wNum];
             window._wkColsState[wNum] = isHidden;
@@ -4087,6 +4292,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             _pareto25ActivePr = 'ALL'; // Reset ke All saat load data baru
             window._prosesLoaded = false; // Reset proses cache
             window._smProsesLoaded = false; window._smProsesRows = null; // Reset salesman proses cache
+            window._p25CatLoaded = false; _p25CatData = null; // Reset pareto cat cache
             // Reset tombol filter
             document.querySelectorAll('.p25-filter-btn').forEach(b => b.classList.remove('active'));
             const allBtn = document.querySelector('.p25-filter-btn[data-pr="ALL"]');
@@ -4168,6 +4374,8 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             if (event && event.target) event.target.classList.add('active');
             document.getElementById('pareto25SubTabOutlet').classList.toggle('active', tab === 'outlet');
             document.getElementById('pareto25SubTabSku').classList.toggle('active', tab === 'sku');
+            document.getElementById('pareto25SubTabCat').classList.toggle('active', tab === 'cat');
+            if (tab === 'cat' && !window._p25CatLoaded) loadPareto25CatData();
         }
 
         function renderPareto25Metrics() {
