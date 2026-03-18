@@ -1146,7 +1146,7 @@
 
                     <!-- Frame Kiri: Tabel Proses per Tipe Salesman -->
                     <div style="flex:1;min-width:0;background:white;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.08);display:flex;flex-direction:column;overflow:hidden;">
-                        <div style="padding:10px 14px;border-bottom:1px solid #f1f5f9;font-size:12px;font-weight:800;color:#1e293b;flex-shrink:0;">
+                        <div id="smProsesTipeTitle" style="padding:10px 14px;border-bottom:1px solid #f1f5f9;font-size:12px;font-weight:800;color:#1e293b;flex-shrink:0;">
                             By Tipe Salesman
                         </div>
                         <div id="smProsesTipeWrap" style="width:100%;overflow-y:auto;overflow-x:hidden;">
@@ -1157,7 +1157,7 @@
                     <!-- Frame Kanan: Donut per Salesman -->
                     <div style="flex:1;min-width:0;background:white;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.08);display:flex;flex-direction:column;overflow:hidden;">
                         <div style="padding:10px 14px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:10px;flex-shrink:0;">
-                            <span style="font-size:12px;font-weight:800;color:#1e293b;white-space:nowrap;">By Nama Salesman</span>
+                            <span id="smProsesSmTitle" style="font-size:12px;font-weight:800;color:#1e293b;white-space:nowrap;">By Nama Salesman</span>
                             <select id="smProsesSalesmanSelect" onchange="renderSmProsesDonut()"
                                 style="padding:5px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:12px;color:#334155;outline:none;cursor:pointer;flex:1;min-width:0;">
                                 <option value="">-- Pilih Salesman --</option>
@@ -3646,7 +3646,17 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             document.getElementById('smSubTabProses').classList.toggle('active', !isChannel);
             document.getElementById('smSubBtnChannel').classList.toggle('active', isChannel);
             document.getElementById('smSubBtnProses').classList.toggle('active', !isChannel);
-            if (!isChannel && !window._smProsesLoaded) loadSmProsesData();
+            if (!isChannel) {
+                // Reload jika belum load ATAU jika mode berubah (regional vs per-depo)
+                const isRegional = (selectedDepo === 'data_SUMMARY');
+                const wasRegional = window._smProsesWasRegional;
+                if (!window._smProsesLoaded || wasRegional !== isRegional) {
+                    window._smProsesLoaded = false;
+                    window._smProsesRows = null;
+                    window._smProsesWasRegional = isRegional;
+                    loadSmProsesData();
+                }
+            }
         }
 
         // Shared proses cols
@@ -3751,12 +3761,93 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
         async function loadSmProsesData() {
             window._smProsesLoaded = true;
-            const tipeWrap = document.getElementById('smProsesTipeWrap');
-            const smSel    = document.getElementById('smProsesSalesmanSelect');
+            const tipeWrap  = document.getElementById('smProsesTipeWrap');
+            const smSel     = document.getElementById('smProsesSalesmanSelect');
+            const tipeTitle = document.getElementById('smProsesTipeTitle');
+            const smTitle   = document.getElementById('smProsesSmTitle');
+            const isRegional = (selectedDepo === 'data_SUMMARY');
+
+            if (tipeTitle) tipeTitle.textContent = isRegional ? 'By Nama Depo' : 'By Tipe Salesman';
+            if (smTitle)   smTitle.textContent   = isRegional ? 'By Nama Depo (Detail)' : 'By Nama Salesman';
 
             try {
-                const depoSuffix = (selectedDepo || '')
-                    .replace(/^data_DEPO_/i, '').trim().toUpperCase().replace(/\s+/g, '_');
+                // ── REGIONAL: fetch semua proses per depo ────────────────────
+                if (isRegional) {
+                    tipeWrap.innerHTML = '<span style="padding:12px;display:block;color:#94a3b8;font-size:11px;">⏳ Memuat data semua depo...</span>';
+                    const depoRes  = await fetch('depo_list.json');
+                    const depoData = await depoRes.json();
+                    const results  = await Promise.all((depoData.depos||[]).map(async depo => {
+                        const suffix = depo.toUpperCase().trim().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_');
+                        const label  = depo.trim().replace(/^DEPO\s+/i,'');
+                        try {
+                            const r = await fetch('proses_DEPO_' + suffix + '.json');
+                            if (!r.ok) return null;
+                            const j = await r.json();
+                            return { label, data: j.data||[] };
+                        } catch(e) { return null; }
+                    }));
+
+                    const depoMap = {};
+                    results.forEach(d => { if (!d||!d.data.length) return; depoMap[d.label]=d.data; });
+                    window._smProsesDepoMap = depoMap;
+
+                    const pctKeys = ['%CR','%CA','%PC','%AC','%EC','%ECIns','%SKU','%GS','ARColl'];
+                    const avgArr  = (arr,k) => { const v=arr.map(r=>r[k]).filter(v=>v!=null&&!isNaN(v)); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null; };
+                    const synRows = Object.entries(depoMap).map(([label,arr]) => {
+                        const r = { szname: label, _count: arr.length };
+                        pctKeys.forEach(k => { r[k] = avgArr(arr,k); });
+                        return r;
+                    });
+                    window._smProsesRows = synRows;
+
+                    // Populate dropdown depo
+                    smSel.innerHTML = '<option value="">-- Pilih Depo --</option>';
+                    Object.keys(depoMap).sort().forEach(label => {
+                        const opt = document.createElement('option');
+                        opt.value = label; opt.textContent = label + ' (' + depoMap[label].length + ' sls)';
+                        smSel.appendChild(opt);
+                    });
+
+                    // Build tabel by depo
+                    const colFn  = v => v==null?'#94a3b8':v>=1.0?'#16a34a':v>=0.85?'#f59e0b':'#ef4444';
+                    const bgFn   = v => v==null?'transparent':v>=1.0?'#dcfce7':v>=0.85?'#fef9c3':'#fee2e2';
+                    const pctFmt = v => v==null?'—':(v*100).toFixed(0)+'%';
+                    const dot    = v => '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colFn(v)+';margin-right:3px;vertical-align:middle;"></span>';
+                    const thS = 'padding:4px 2px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:center;position:sticky;top:0;z-index:1;';
+                    const thL = 'padding:4px 6px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:left;position:sticky;top:0;z-index:1;';
+                    const tdS = v => 'padding:3px 2px;font-size:9px;font-weight:700;text-align:center;background:'+bgFn(v)+';';
+                    const tdL = 'padding:3px 6px;font-size:9px;font-weight:600;color:#334155;text-align:left;';
+                    const cols = _smProsesCols;
+
+                    let html = '<table style="width:100%;border-collapse:collapse;table-layout:auto;min-width:400px;">';
+                    html += '<thead><tr><th style="'+thL+'">Nama Depo</th><th style="'+thS+'">#Sls</th>';
+                    cols.forEach(c=>{ html+='<th style="'+thS+'">'+c.label+'</th>'; });
+                    html += '</tr></thead><tbody>';
+                    synRows.sort((a,b)=>a.szname.localeCompare(b.szname)).forEach((r,i)=>{
+                        const bg=i%2===0?'#ffffff':'#f8fafc';
+                        html+='<tr style="background:'+bg+';">';
+                        html+='<td style="'+tdL+'">'+r.szname+'</td>';
+                        html+='<td style="'+tdL+'text-align:center;color:#0e7490;font-weight:700;">'+r._count+'</td>';
+                        cols.forEach(c=>{ html+='<td style="'+tdS(r[c.key])+'">'+dot(r[c.key])+pctFmt(r[c.key])+'</td>'; });
+                        html+='</tr>';
+                    });
+                    // Total Region
+                    const totalSls = synRows.reduce((s,r)=>s+r._count,0);
+                    html+='<tr style="background:#e0f2fe;border-top:2px solid #0e7490;">';
+                    html+='<td style="'+tdL+'font-weight:800;color:#0e7490;">TOTAL REGION</td>';
+                    html+='<td style="'+tdL+'text-align:center;font-weight:800;color:#0e7490;">'+totalSls+'</td>';
+                    cols.forEach(c=>{
+                        const vals=synRows.map(r=>r[c.key]).filter(v=>v!=null&&!isNaN(v));
+                        const v=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null;
+                        html+='<td style="'+tdS(v)+'font-weight:800;">'+dot(v)+pctFmt(v)+'</td>';
+                    });
+                    html+='</tr></tbody></table>';
+                    tipeWrap.innerHTML = html;
+                    return;
+                }
+
+                // ── PER-DEPO: fetch satu file proses ────────────────────────
+                const depoSuffix = (selectedDepo||'').replace(/^data_DEPO_/i,'').trim().toUpperCase().replace(/\s+/g,'_');
                 const res = await fetch('proses_DEPO_' + depoSuffix + '.json');
                 if (!res.ok) throw new Error('not found');
                 const json = await res.json();
@@ -3774,127 +3865,6 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     opt.value = nm; opt.textContent = nm;
                     smSel.appendChild(opt);
                 });
-
-                // Build tipe map
-                const tipeMap = {};
-                rows.forEach(r => {
-                    const tipe = r['Tipe Salesman'] || r['Tipe Sales'] || 'LAINNYA';
-                    if (!tipeMap[tipe]) tipeMap[tipe] = [];
-                    tipeMap[tipe].push(r);
-                });
-                window._smProsesTipeMap = tipeMap;
-
-                // Build tabel
-                const colFn  = v => v == null ? '#94a3b8' : v >= 1.0 ? '#16a34a' : v >= 0.85 ? '#f59e0b' : '#ef4444';
-                const bgFn   = v => v == null ? 'transparent' : v >= 1.0 ? '#dcfce7' : v >= 0.85 ? '#fef9c3' : '#fee2e2';
-                const pctFmt = v => v == null ? '—' : (v*100).toFixed(0)+'%';
-                const dot    = v => '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colFn(v)+';margin-right:3px;vertical-align:middle;"></span>';
-                const avg    = (arr, key) => { const vals=arr.map(r=>r[key]).filter(v=>v!=null&&!isNaN(v)); return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null; };
-                const shorten = t => t.replace(/Sales Representative/gi,'SR');
-
-                const thS = 'padding:4px 2px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:center;position:sticky;top:0;z-index:1;overflow:hidden;';
-                const thL = 'padding:4px 6px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:left;position:sticky;top:0;z-index:1;';
-                const tdS = (v) => 'padding:3px 2px;font-size:9px;font-weight:700;text-align:center;background:'+bgFn(v)+';overflow:hidden;';
-                const tdL = 'padding:3px 6px;font-size:9px;font-weight:600;color:#334155;text-align:left;overflow:hidden;';
-
-                let html = '<table style="width:100%;border-collapse:collapse;table-layout:auto;min-width:400px;">';
-                html += '<thead><tr>';
-                html += '<th style="'+thL+'">Tipe Salesman</th>';
-                _smProsesCols.forEach(c => { html += '<th style="'+thS+'">'+c.label+'</th>'; });
-                html += '</tr></thead><tbody>';
-
-                Object.entries(tipeMap).sort().forEach(([tipe, arr], idx) => {
-                    const bg = idx%2===0 ? '#ffffff' : '#f8fafc';
-                    html += '<tr style="background:'+bg+';">';
-                    html += '<td style="'+tdL+'">'+shorten(tipe)+'</td>';
-                    _smProsesCols.forEach(c => {
-                        const v = avg(arr, c.key);
-                        html += '<td style="'+tdS(v)+'">'+dot(v)+pctFmt(v)+'</td>';
-                    });
-                    html += '</tr>';
-                });
-
-                // Grand Total
-                html += '<tr style="background:#f0f9ff;border-top:2px solid #0e7490;">';
-                html += '<td style="'+tdL+'font-weight:800;color:#0e7490;">Grand Total</td>';
-                _smProsesCols.forEach(c => {
-                    const v = avg(rows, c.key);
-                    html += '<td style="'+tdS(v)+'font-weight:800;">'+dot(v)+pctFmt(v)+'</td>';
-                });
-                html += '</tr>';
-                html += '</tbody></table>';
-
-                // ── Tabel Target Std & Actual (digabung) ─────────────────────
-                const mergedCols = [
-                    { key: 'CR',       label: 'CR',       grp: 'std' },
-                    { key: 'PC',       label: 'PC',       grp: 'std' },
-                    { key: 'AC',       label: 'AC',       grp: 'std' },
-                    { key: 'EC',       label: 'EC',       grp: 'std' },
-                    { key: 'ET',       label: 'ET',       grp: 'std' },
-                    { key: 'AvgSKU',   label: 'AvgSKU',   grp: 'std' },
-                    { key: 'GS',       label: 'GS',       grp: 'std' },
-                    { key: 'A_CR',     label: 'A_CR',     grp: 'act' },
-                    { key: 'A_PC',     label: 'A_PC',     grp: 'act' },
-                    { key: 'A_AC',     label: 'A_AC',     grp: 'act' },
-                    { key: 'A_EC',     label: 'A_EC',     grp: 'act' },
-                    { key: 'A_ET',     label: 'A_ET',     grp: 'act' },
-                    { key: 'A_AvgSKU', label: 'A_AvgSKU', grp: 'act' },
-                    { key: 'A_GS',     label: 'A_GS',     grp: 'act' },
-                ];
-                const numFmt  = v => v == null ? '—' : Number.isInteger(v) ? v.toLocaleString('id-ID') : v.toFixed(1);
-                const sumNum  = (arr, key) => arr.reduce((s,r)=>s+(r[key]||0),0);
-                const thStd   = 'padding:4px 3px;font-size:8px;font-weight:700;color:white;background:#f59e0b;text-align:center;';
-                const thAct   = 'padding:4px 3px;font-size:8px;font-weight:700;color:white;background:#0e7490;text-align:center;';
-                const thGrpStd= 'padding:4px 6px;font-size:9px;font-weight:800;color:white;background:#f59e0b;text-align:center;border-bottom:1px solid rgba(255,255,255,0.3);';
-                const thGrpAct= 'padding:4px 6px;font-size:9px;font-weight:800;color:white;background:#0e7490;text-align:center;border-bottom:1px solid rgba(255,255,255,0.3);';
-                const tdN     = 'padding:3px 4px;font-size:9px;text-align:center;color:#334155;';
-                const stdLen  = mergedCols.filter(c=>c.grp==='std').length;
-                const actLen  = mergedCols.filter(c=>c.grp==='act').length;
-
-                html += '<div style="margin-top:14px;">';
-                html += '<table style="width:100%;border-collapse:collapse;table-layout:auto;min-width:400px;">';
-                // Row 1: group headers
-                html += '<thead>';
-                html += '<tr>';
-                html += '<th style="background:#e2e8f0;padding:4px 6px;" rowspan="2"></th>';
-                html += '<th style="background:#e2e8f0;padding:4px 6px;font-size:8px;font-weight:700;color:#475569;text-align:center;" rowspan="2">#Sls</th>';
-                html += '<th style="'+thGrpStd+'" colspan="'+stdLen+'">Target Std</th>';
-                html += '<th style="'+thGrpAct+'" colspan="'+actLen+'">Actual</th>';
-                html += '</tr>';
-                // Row 2: col headers
-                html += '<tr>';
-                mergedCols.forEach(c => {
-                    html += '<th style="'+(c.grp==='std'?thStd:thAct)+'">'+c.label+'</th>';
-                });
-                html += '</tr></thead><tbody>';
-
-                // SUM keys
-                const sumKeys = new Set(['CR','A_CR','GS','A_GS']);
-                const calcVal = (arr, key) => {
-                    if (sumKeys.has(key)) return sumNum(arr, key);
-                    const vals = arr.map(r => r[key]).filter(v => v != null && !isNaN(v));
-                    return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
-                };
-
-                Object.entries(tipeMap).sort().forEach(([tipe, arr], idx) => {
-                    const bg = idx%2===0 ? '#ffffff' : '#f8fafc';
-                    html += '<tr style="background:'+bg+';">';
-                    html += '<td style="'+tdL+'">'+shorten(tipe)+'</td>';
-                    html += '<td style="'+tdN+'text-align:center;font-weight:600;color:#0e7490;">'+arr.length+'</td>';
-                    mergedCols.forEach(c => { html += '<td style="'+tdN+'">'+numFmt(calcVal(arr, c.key))+'</td>'; });
-                    html += '</tr>';
-                });
-                // Grand Total
-                html += '<tr style="background:#f0f9ff;border-top:2px solid #334155;">';
-                html += '<td style="'+tdL+'font-weight:800;color:#334155;">Grand Total</td>';
-                html += '<td style="'+tdN+'text-align:center;font-weight:800;color:#0e7490;">'+rows.length+'</td>';
-                mergedCols.forEach(c => {
-                    const col = c.grp==='std' ? '#f59e0b' : '#0e7490';
-                    html += '<td style="'+tdN+'font-weight:800;color:'+col+';">'+numFmt(calcVal(rows, c.key))+'</td>';
-                });
-                html += '</tr></tbody></table></div>';
-
-                tipeWrap.innerHTML = html;
 
             } catch(e) {
                 tipeWrap.innerHTML = '<span style="padding:12px;display:block;color:#94a3b8;font-size:11px;">⚠️ File proses tidak ditemukan.</span>';
@@ -6156,4 +6126,15 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     oninput="applyColWidth('--col-mtd', this.value+'px'); this.nextElementSibling.textContent=this.value+'px'">
                 <span>45px</span>
             </div>
-            <button c
+            <button class="reset-btn" onclick="
+                ['--col-sticky','--col-detail','--col-result','--col-mtd'].forEach(v => document.documentElement.style.removeProperty(v));
+                document.querySelectorAll('#colSettingsPanel input[type=range]').forEach(inp => {
+                    inp.value = inp.defaultValue;
+                    inp.nextElementSibling.textContent = inp.defaultValue + 'px';
+                });
+            ">&#8617; Reset Default</button>
+        </div>
+    </div>
+
+</body>
+</html>
