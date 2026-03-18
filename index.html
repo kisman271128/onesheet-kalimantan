@@ -3885,6 +3885,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
 
         function toggleWeekCols(wNum) {
+            if (!window._wkColsState) window._wkColsState = {};
             const isHidden = !window._wkColsState[wNum];
             window._wkColsState[wNum] = isHidden;
 
@@ -3926,6 +3927,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             // Get all week numbers from config
             const weekNums = (WEEKS_CONFIG || []).filter(w => w !== 'MTD').map(w => w.replace('W',''));
             weekNums.forEach(n => {
+                if (!window._wkColsState) window._wkColsState = {};
                 window._wkColsState[n] = !wkDetailVisible;
                 document.querySelectorAll(`td.wk-detail[data-w="${n}"]`).forEach(el => {
                     el.classList.toggle('wk-hidden', !wkDetailVisible);
@@ -4784,17 +4786,28 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             
             // Populate Tipe Sales dropdown
             const tipeSel = document.getElementById('tipeSalesSelect');
-            tipeSel.innerHTML = '<option value="">-- All Tipe Sales --</option>';
-            window.allTipeSales.forEach(t => {
-                const opt = document.createElement('option');
-                opt.value = t;
-                opt.textContent = t;
-                tipeSel.appendChild(opt);
-            });
-            
-            // Populate Salesman dropdown (if visible)
             const isSummaryRegional = viewType === 'summary';
-            if (!isSummaryRegional) {
+
+            if (isSummaryRegional) {
+                // Regional: isi dengan nama depo dari _depoAchMap
+                const depoLabels = window._depoAchMap
+                    ? Object.values(window._depoAchMap).map(v => v.label || '').filter(Boolean).sort()
+                    : [];
+                tipeSel.innerHTML = '<option value="">-- All Depo --</option>';
+                depoLabels.forEach(label => {
+                    const opt = document.createElement('option');
+                    opt.value = label;
+                    opt.textContent = label;
+                    tipeSel.appendChild(opt);
+                });
+            } else {
+                tipeSel.innerHTML = '<option value="">-- All Tipe Sales --</option>';
+                window.allTipeSales.forEach(t => {
+                    const opt = document.createElement('option');
+                    opt.value = t;
+                    opt.textContent = t;
+                    tipeSel.appendChild(opt);
+                });
                 populateSalesmanDropdown(window.allSalesmen);
             }
             
@@ -4871,9 +4884,16 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const filteredData = rawData.filter(row => {
                 const rowSalesman = row['Nama Salesman'] || row['nama salesman'] || row.Salesman || row.salesman || '';
                 const rowTipe = row['Tipe Sales'] || row['tipe sales'] || row.TipeSales || row.tipesales || '';
-                
+                const rowDepo = row['Depo'] || row.depo || '';
+
                 let matchSalesman = !selectedSalesman || rowSalesman === selectedSalesman;
-                let matchTipe = !selectedTipe || rowTipe === selectedTipe;
+                let matchTipe;
+                if (isSummaryRegional) {
+                    // Regional: filter by depo label (strip "DEPO " prefix for comparison)
+                    matchTipe = !selectedTipe || rowDepo.trim().toUpperCase().replace(/^DEPO\s+/i,'') === selectedTipe.toUpperCase();
+                } else {
+                    matchTipe = !selectedTipe || rowTipe === selectedTipe;
+                }
                 
                 return matchSalesman && matchTipe;
             });
