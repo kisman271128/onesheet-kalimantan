@@ -439,15 +439,15 @@ def export_onesheetcat(excel_file):
             return False
 
         if 'Depo' not in df.columns:
-            print("⚠️  Kolom 'Depo' tidak ditemukan, skip export OneSheetCat")
+            print("⚠️  Kolom 'Depo' tidak ditemukan")
             return False
 
-        print(f"   {len(df)} baris dibaca")
+        print(f"   {len(df)} baris dibaca, kolom: {list(df.columns)}")
 
         # Pastikan NetSalesPKD numerik
         df['NetSalesPKD'] = pd.to_numeric(df['NetSalesPKD'], errors='coerce').fillna(0)
 
-        # Hapus file lama
+        # Hapus file lama cat_DEPO_* dan 25outlet_cat_DEPO_*
         deleted = 0
         for filename in os.listdir('.'):
             if (filename.startswith('cat_DEPO_') or filename.startswith('25outlet_cat_DEPO_')) and filename.endswith('.json'):
@@ -461,30 +461,36 @@ def export_onesheetcat(excel_file):
 
         now_str = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Kolom grup untuk FILE 1 (cat_DEPO): level TYPE, tanpa SzCustId
-        cat_grp = [c for c in ['Nama Salesman','Tim','Periode','Periode1',
-                                'szPrincipalGroupId','Principle','PwC_Grp3','TYPE']
-                   if c in df.columns]
+        # Kolom yang tersedia di sheet
+        available = set(df.columns)
 
-        # Kolom grup untuk FILE 2 (25outlet_cat_DEPO): level SzCustId, tanpa TYPE
-        outlet_grp = [c for c in ['Nama Salesman','Tim','Periode','Periode1',
-                                   'szPrincipalGroupId','Principle','PwC_Grp3','SzCustId']
-                      if c in df.columns]
+        # FILE 1: cat_DEPO — group by TYPE, tanpa SzCustId & Nama Pelanggan
+        cat_grp_candidates = ['Nama Salesman','Tim','Periode','Periode1',
+                              'szPrincipalGroupId','Principle','PwC_Grp3','TYPE']
+        cat_grp = [c for c in cat_grp_candidates if c in available]
 
-        # Mapping SzCustId → Nama Pelanggan (ambil 1 nama per ID)
+        # FILE 2: 25outlet_cat — group by SzCustId, tanpa TYPE
+        outlet_grp_candidates = ['Nama Salesman','Tim','Periode','Periode1',
+                                  'szPrincipalGroupId','Principle','PwC_Grp3','SzCustId']
+        outlet_grp = [c for c in outlet_grp_candidates if c in available]
+
+        # Mapping SzCustId → Nama Pelanggan (jika kolom ada)
+        has_nama = 'Nama Pelanggan' in available and 'SzCustId' in available
         nama_map = {}
-        if 'SzCustId' in df.columns and 'Nama Pelanggan' in df.columns:
+        if has_nama:
             nama_map = (df[['SzCustId','Nama Pelanggan']]
                         .dropna(subset=['SzCustId'])
                         .drop_duplicates('SzCustId')
                         .set_index('SzCustId')['Nama Pelanggan']
                         .to_dict())
+            print(f"   Nama Pelanggan mapping: {len(nama_map)} entries")
+        else:
+            print("   ⚠️  Kolom 'Nama Pelanggan' tidak ditemukan, akan diisi kosong")
 
-        cat_files_created     = []
-        outlet_files_created  = []
+        cat_files    = []
+        outlet_files = []
 
-        depo_groups = df.groupby('Depo')
-        for depo_name, depo_df in depo_groups:
+        for depo_name, depo_df in df.groupby('Depo'):
             if not depo_name or (isinstance(depo_name, float) and math.isnan(depo_name)):
                 continue
 
@@ -493,22 +499,19 @@ def export_onesheetcat(excel_file):
                 safe_name = safe_name[5:]
             safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
 
-            # ── FILE 1: cat_DEPO_xxx.json ────────────────────────────────────
+            # ── FILE 1: cat_DEPO_xxx.json ─────────────────────────────────────
             cat_agg = (depo_df
                        .groupby(cat_grp, as_index=False, dropna=False)['NetSalesPKD']
                        .sum())
             cat_agg['NetSalesPKD'] = cat_agg['NetSalesPKD'].round(2)
-            # Replace NaN/inf
             cat_agg = cat_agg.replace([np.nan, np.inf, -np.inf], None)
             cat_agg = cat_agg.where(pd.notnull(cat_agg), None)
             cat_records = cat_agg.to_dict('records')
 
             cat_json = {
                 "metadata": {
-                    "source": excel_file,
-                    "sheet_name": "OneSheetCat",
-                    "depo": depo_name,
-                    "total_records": len(cat_records),
+                    "source": excel_file, "sheet_name": "OneSheetCat",
+                    "depo": depo_name, "total_records": len(cat_records),
                     "columns": cat_grp + ['NetSalesPKD'],
                     "note": "Agregat level TYPE, tanpa SzCustId",
                     "last_updated": now_str
@@ -520,16 +523,20 @@ def export_onesheetcat(excel_file):
                 json.dump(cat_json, f, ensure_ascii=False, separators=(',',':'), allow_nan=False)
                 f.flush(); os.fsync(f.fileno())
             os.utime(cat_file, (time.time(), time.time()))
-            cat_files_created.append(cat_file)
-            size_kb = os.path.getsize(cat_file) / 1024
-            print(f"  ✅ {cat_file} — {len(cat_records)} records, {size_kb:.1f} KB")
+            cat_files.append(cat_file)
+            print(f"  ✅ {cat_file} — {len(cat_records)} records, {os.path.getsize(cat_file)/1024:.1f} KB")
 
-            # ── FILE 2: 25outlet_cat_DEPO_xxx.json ───────────────────────────
+            # ── FILE 2: 25outlet_cat_DEPO_xxx.json ────────────────────────────
+            if not outlet_grp:
+                print(f"  ⚠️  Kolom SzCustId tidak ada, skip 25outlet_cat untuk {depo_name}")
+                continue
+
             outlet_agg = (depo_df
                           .groupby(outlet_grp, as_index=False, dropna=False)['NetSalesPKD']
                           .sum())
             outlet_agg['NetSalesPKD'] = outlet_agg['NetSalesPKD'].round(2)
-            if nama_map and 'SzCustId' in outlet_agg.columns:
+            # Tambah Nama Pelanggan setelah SzCustId
+            if 'SzCustId' in outlet_agg.columns:
                 outlet_agg['Nama Pelanggan'] = outlet_agg['SzCustId'].map(nama_map).fillna('')
             else:
                 outlet_agg['Nama Pelanggan'] = ''
@@ -539,10 +546,8 @@ def export_onesheetcat(excel_file):
 
             outlet_json = {
                 "metadata": {
-                    "source": excel_file,
-                    "sheet_name": "OneSheetCat",
-                    "depo": depo_name,
-                    "total_records": len(outlet_records),
+                    "source": excel_file, "sheet_name": "OneSheetCat",
+                    "depo": depo_name, "total_records": len(outlet_records),
                     "columns": outlet_grp + ['Nama Pelanggan', 'NetSalesPKD'],
                     "note": "Agregat level SzCustId, tanpa TYPE, semua periode",
                     "last_updated": now_str
@@ -554,11 +559,10 @@ def export_onesheetcat(excel_file):
                 json.dump(outlet_json, f, ensure_ascii=False, separators=(',',':'), allow_nan=False)
                 f.flush(); os.fsync(f.fileno())
             os.utime(outlet_file, (time.time(), time.time()))
-            outlet_files_created.append(outlet_file)
-            size_kb = os.path.getsize(outlet_file) / 1024
-            print(f"  ✅ {outlet_file} — {len(outlet_records)} records, {size_kb:.1f} KB")
+            outlet_files.append(outlet_file)
+            print(f"  ✅ {outlet_file} — {len(outlet_records)} records, {os.path.getsize(outlet_file)/1024:.1f} KB")
 
-        print(f"✅ {len(cat_files_created)} file cat_DEPO + {len(outlet_files_created)} file 25outlet_cat_DEPO dibuat")
+        print(f"✅ {len(cat_files)} file cat_DEPO + {len(outlet_files)} file 25outlet_cat_DEPO dibuat")
         return True
 
     except Exception as e:
