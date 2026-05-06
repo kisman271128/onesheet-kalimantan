@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "BTI",
     "depo": "DEPO SANGATTA",
-    "total_records": 28,
+    "total_records": 30,
     "columns": [
       "szSubRegionName",
       "szDepoId",
@@ -25,7 +25,7 @@
       "Ach_MTD",
       "Gap_MTD"
     ],
-    "last_updated": "2026-05-06 07:34:26"
+    "last_updated": "2026-05-06 11:21:26"
   },
   "data": [
     {
@@ -615,6 +615,48 @@
       "A.MTD": 0,
       "Ach_MTD": 0,
       "Gap_MTD": -100000
+    },
+    {
+      "szSubRegionName": "Kalimantan",
+      "szDepoId": 126,
+      "szWorkplaceName": "DEPO SANGATTA",
+      "szSupervisorId": 12600519624,
+      "SAC Name": "Budiman",
+      "szEmployeeId": 12610042341,
+      "szName": "Dwi Anggraini",
+      "szDepartmentId": "CEB",
+      "szSalesmanType": "Sales Executive Modern Trade",
+      "decSalesAvg": 6131814.16,
+      "decTarget": 12614912.77,
+      "decTargetAdjustment": 12700000,
+      "decMax": 12317373.84,
+      "decGrowth": 48.61,
+      "szPrincipalGroupId": "GBS & OTHERS",
+      "LOB": "GBS & OTHERS",
+      "A.MTD": 0,
+      "Ach_MTD": 0,
+      "Gap_MTD": -12700000
+    },
+    {
+      "szSubRegionName": "Kalimantan",
+      "szDepoId": 126,
+      "szWorkplaceName": "DEPO SANGATTA",
+      "szSupervisorId": 12600519624,
+      "SAC Name": "Budiman",
+      "szEmployeeId": 12610042341,
+      "szName": "Dwi Anggraini",
+      "szDepartmentId": "CEB",
+      "szSalesmanType": "Sales Executive Modern Trade",
+      "decSalesAvg": 149494835.76,
+      "decTarget": 179970957.93,
+      "decTargetAdjustment": 179971000,
+      "decMax": 172675637.35,
+      "decGrowth": 83.07,
+      "szPrincipalGroupId": "GPPJ & GEN",
+      "LOB": "GPPJ & GEN",
+      "A.MTD": 0,
+      "Ach_MTD": 0,
+      "Gap_MTD": -179971000
     }
   ]
 }
