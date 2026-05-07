@@ -151,8 +151,8 @@
         /* Login form styles */
         .login-logo-wrap { margin-bottom: 8px; text-align: center; }
         .login-logo-wrap img { height: 130px; }
-        .login-hello { font-size: 24px; font-weight: 700; color: #0f2057; margin: 0 0 2px; }
-        .login-sub { font-size: 13px; color: #64748b; margin: 0 0 18px; }
+        .login-hello { font-size: 40px; font-weight: 700; color: #0f2057; margin: 0 0 2px; }
+        .login-sub { font-size: 30px; font-weight: 700; color: #0f2057; margin: 0 0 18px; }
         .login-label { font-size: 13px; font-weight: 600; color: #334155; display: block; margin-bottom: 5px; }
         .login-input {
             width: 100%; padding: 10px 13px; border: 1.5px solid #e2e8f0;
@@ -4585,10 +4585,10 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const lastDay = new Date(year, month + 1, 0).getDate();
             
             const weeks = [
-                { num: 1, start: 2, end: 8, class: 'w1' },
-                { num: 2, start: 9, end: 15, class: 'w2' },
-                { num: 3, start: 16, end: 22, class: 'w3' },
-                { num: 4, start: 23, end: 28, class: 'w4' }
+                { num: 1, start: 2, end: 9, class: 'w1' },
+                { num: 2, start: 11, end: 16, class: 'w2' },
+                { num: 3, start: 18, end: 23, class: 'w3' },
+                { num: 4, start: 25, end: 30, class: 'w4' }
             ];
             
             if (lastDay >= 29) {
