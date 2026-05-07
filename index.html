@@ -3020,7 +3020,8 @@
             }
             // Destroy semua chart sebelum rebuild HTML
             Object.keys(_summaryCharts).forEach(k => destroySummaryChart(k));
-            document.getElementById('loadingSummaryDash').style.display = 'none';
+            const _ldEl = document.getElementById('loadingSummaryDash');
+            if (_ldEl) _ldEl.style.display = 'none';
 
             // ── Aggregate totals dari bp_DEPO (MTD, BE, BP, LY, LM, L3M) ─────
             // bp_DEPO field: MTD, BE, T.BP, LY, LM, L3M
@@ -3882,6 +3883,64 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     opt.value = nm; opt.textContent = nm;
                     smSel.appendChild(opt);
                 });
+
+                // ── Render "By Tipe Salesman" table in tipeWrap ─────────────
+                {
+                    const colFn  = v => v==null?'#94a3b8':v>=1.0?'#16a34a':v>=0.85?'#f59e0b':'#ef4444';
+                    const bgFn   = v => v==null?'transparent':v>=1.0?'#dcfce7':v>=0.85?'#fef9c3':'#fee2e2';
+                    const pctFmt = v => v==null?'—':(v*100).toFixed(1)+'%';
+                    const dot    = v => '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colFn(v)+';margin-right:3px;vertical-align:middle;"></span>';
+                    const thS = 'padding:4px 2px;font-size:8px;font-weight:700;color:white;background:#1d3a8a;text-align:center;position:sticky;top:0;z-index:1;';
+                    const thL = 'padding:4px 6px;font-size:8px;font-weight:700;color:white;background:#1d3a8a;text-align:left;position:sticky;top:0;z-index:1;';
+                    const tdS = v => 'padding:3px 2px;font-size:9px;font-weight:700;text-align:center;background:'+bgFn(v)+';';
+                    const tdL = 'padding:3px 6px;font-size:9px;font-weight:600;color:#334155;text-align:left;';
+                    const cols = _smProsesCols;
+
+                    // Group rows by tipe, fallback to salesmanToTipe map
+                    const tipeMap = {};
+                    rows.forEach(r => {
+                        const nm   = r.szname || r['Nama Salesman'] || '';
+                        const tipe = r.Tim || r['Tim'] || r['Tipe Sales'] || r['Tipe'] || r['tipe']
+                                     || (window.salesmanToTipe && window.salesmanToTipe[nm])
+                                     || 'Lainnya';
+                        if (!tipeMap[tipe]) tipeMap[tipe] = [];
+                        tipeMap[tipe].push(r);
+                    });
+
+                    // Build avg row per tipe
+                    const tipeRows = Object.entries(tipeMap).map(([tipe, arr]) => {
+                        const r = { szname: tipe, _count: arr.length };
+                        cols.forEach(c => {
+                            const vals = arr.map(x => x[c.key]).filter(v => v != null && !isNaN(v));
+                            r[c.key] = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+                        });
+                        return r;
+                    }).sort((a,b) => a.szname.localeCompare(b.szname));
+
+                    let html = '<table style="width:100%;border-collapse:collapse;table-layout:auto;min-width:320px;">';
+                    html += '<thead><tr><th style="'+thL+'">Tipe Salesman</th><th style="'+thS+'">#Sls</th>';
+                    cols.forEach(c => { html += '<th style="'+thS+'">'+c.label+'</th>'; });
+                    html += '</tr></thead><tbody>';
+                    tipeRows.forEach((r, i) => {
+                        const bg = i%2===0?'#ffffff':'#f8fafc';
+                        html += '<tr style="background:'+bg+';">';
+                        html += '<td style="'+tdL+'">'+r.szname+'</td>';
+                        html += '<td style="'+tdL+'text-align:center;color:#1d3a8a;font-weight:700;">'+r._count+'</td>';
+                        cols.forEach(c => { html += '<td style="'+tdS(r[c.key])+'">'+dot(r[c.key])+pctFmt(r[c.key])+'</td>'; });
+                        html += '</tr>';
+                    });
+                    // Total Depo row
+                    html += '<tr style="background:#e0f2fe;border-top:2px solid #1d3a8a;">';
+                    html += '<td style="'+tdL+'font-weight:800;color:#1d3a8a;">TOTAL DEPO</td>';
+                    html += '<td style="'+tdL+'text-align:center;font-weight:800;color:#1d3a8a;">'+rows.length+'</td>';
+                    cols.forEach(c => {
+                        const vals = rows.map(r => r[c.key]).filter(v => v != null && !isNaN(v));
+                        const v = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+                        html += '<td style="'+tdS(v)+'font-weight:800;">'+dot(v)+pctFmt(v)+'</td>';
+                    });
+                    html += '</tr></tbody></table>';
+                    tipeWrap.innerHTML = html;
+                }
 
             } catch(e) {
                 tipeWrap.innerHTML = '<span style="padding:12px;display:block;color:#94a3b8;font-size:11px;">⚠️ File proses tidak ditemukan.</span>';
