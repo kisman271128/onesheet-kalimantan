@@ -4643,7 +4643,37 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             document.getElementById('userName').textContent = username;
 
             // Load TG per-depo setelah depo diketahui
-            const _tgSuffix = selectedDepo.replace(/^data_DEPO_/i, '');
+            let _tgSuffix = selectedDepo.replace(/^data_DEPO_/i, '');
+
+            // ── Fix: Summary Regional → ambil TG dari TG_DEPO yang paling baru diupdate
+            if (selectedDepo === 'data_SUMMARY') {
+                try {
+                    const dlRes = await fetch('depo_list.json');
+                    if (dlRes.ok) {
+                        const dl = await dlRes.json();
+                        const depoNames = (dl.depos || []).map(normalizeDepoName);
+                        // Fetch semua TG_DEPO secara paralel
+                        const tgFetches = await Promise.all(depoNames.map(async d => {
+                            try {
+                                const r = await fetch('TG_DEPO_' + d + '.json');
+                                if (!r.ok) return null;
+                                const j = await r.json();
+                                const lastUpd = (j.metadata && j.metadata.last_updated)
+                                    ? new Date(j.metadata.last_updated) : new Date(0);
+                                return { suffix: d, lastUpd };
+                            } catch(e) { return null; }
+                        }));
+                        // Pilih depo dengan last_updated paling baru
+                        const valid = tgFetches.filter(Boolean);
+                        if (valid.length > 0) {
+                            valid.sort((a, b) => b.lastUpd - a.lastUpd);
+                            _tgSuffix = valid[0].suffix;
+                            console.log('TG Regional: pakai TG_DEPO_' + _tgSuffix + '.json (paling update: ' + valid[0].lastUpd + ')');
+                        }
+                    }
+                } catch(e) { console.warn('TG Regional fallback error:', e); }
+            }
+
             await loadTGData(_tgSuffix);
 
             // Set last update date in dashboard header
