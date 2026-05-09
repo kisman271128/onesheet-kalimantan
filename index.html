@@ -626,6 +626,95 @@
         }
 
         /* ===== MODERN PARETO TABLE ===== */
+
+        /* ===== KLASEMEN DEPO ===== */
+        #summarySubTabKlasemen { background: #f0f4f8; }
+        .kls-header {
+            background: linear-gradient(135deg, #0f2057 0%, #1d4ed8 100%);
+            border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 4px 16px rgba(15,32,87,0.25);
+        }
+        .kls-header-title { color: white; font-size: 15px; font-weight: 800; letter-spacing: .4px; }
+        .kls-header-sub   { color: rgba(255,255,255,0.75); font-size: 11px; margin-top: 2px; }
+        .kls-bobot-pills {
+            display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end;
+        }
+        .kls-bobot-pill {
+            display: inline-flex; align-items: center; gap: 4px;
+            background: rgba(255,255,255,0.15); border-radius: 20px;
+            padding: 4px 10px; font-size: 10px; color: white; font-weight: 600;
+        }
+        .kls-bobot-dot {
+            width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+        }
+        .kls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+        }
+        .kls-card {
+            background: white; border-radius: 14px;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.09);
+            overflow: hidden; transition: transform 0.18s, box-shadow 0.18s;
+            position: relative;
+        }
+        .kls-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.14); }
+        .kls-card-accent {
+            height: 4px; width: 100%;
+        }
+        .kls-card-top {
+            padding: 12px 16px 10px;
+            display: flex; align-items: flex-start; gap: 12px;
+        }
+        .kls-rank-badge {
+            width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 17px; font-weight: 900; color: white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .kls-rank-1   { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .kls-rank-2   { background: linear-gradient(135deg, #94a3b8, #64748b); }
+        .kls-rank-3   { background: linear-gradient(135deg, #cd7c42, #b45309); }
+        .kls-rank-n   { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+        .kls-rank-bot { background: linear-gradient(135deg, #f87171, #dc2626); }
+        .kls-depo-info { flex: 1; min-width: 0; }
+        .kls-depo-name {
+            font-size: 12px; font-weight: 800; color: #1e293b;
+            line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .kls-depo-sub { font-size: 10px; color: #94a3b8; font-weight: 500; margin-top: 1px; }
+        .kls-score-wrap { text-align: right; flex-shrink: 0; }
+        .kls-score-val  { font-size: 22px; font-weight: 900; line-height: 1; }
+        .kls-score-lbl  { font-size: 9px; color: #94a3b8; font-weight: 600; text-transform: uppercase; margin-top: 2px; }
+        .kls-score-hi  { color: #16a34a; }
+        .kls-score-mid { color: #ca8a04; }
+        .kls-score-low { color: #dc2626; }
+        .kls-divider { height: 1px; background: #f1f5f9; margin: 0 14px; }
+        .kls-metrics { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 6px; }
+        .kls-metric-row { display: flex; flex-direction: column; gap: 2px; }
+        .kls-metric-top {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .kls-metric-lbl  { color: #64748b; font-weight: 700; font-size: 10px; }
+        .kls-metric-vals { display: flex; gap: 4px; align-items: center; }
+        .kls-metric-raw  { color: #334155; font-weight: 700; font-size: 10px; }
+        .kls-metric-wgt  { font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px; }
+        .kls-bobot-tag   { font-size: 9px; color: #94a3b8; font-weight: 600; background: #f1f5f9; border-radius: 3px; padding: 1px 4px; }
+        .kls-bar-bg   { background: #f1f5f9; border-radius: 4px; height: 5px; overflow: hidden; }
+        .kls-bar-fill { height: 5px; border-radius: 4px; transition: width 0.6s ease; }
+        .kls-card-footer {
+            background: #f8fafc; padding: 6px 14px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid #f1f5f9; font-size: 9px; color: #94a3b8;
+        }
+        .kls-missing { opacity: 0.55; }
+        .kls-missing .kls-card-top { background: #fafafa; }
+        .kls-capped-tag {
+            font-size: 8px; color: #f97316; font-weight: 700;
+            background: #fff7ed; border-radius: 3px; padding: 1px 4px;
+        }
+
         /* ===== PROJECT TAB ===== */
         #tabProject .report-container { overflow: auto; max-height: calc(100vh - 240px); }
         .project-metrics-row {
@@ -1080,6 +1169,7 @@
                 <div class="sub-tabs">
                     <div class="sub-tab active" onclick="switchSummarySubTab('depo')">📊 By Depo</div>
                     <div class="sub-tab" onclick="switchSummarySubTab('tipe')">👥 By Tipe Sales</div>
+                    <div class="sub-tab" onclick="switchSummarySubTab('klasemen')">🏆 Klasemen Depo</div>
                 </div>
             </div>
             
@@ -1102,6 +1192,13 @@
                         <thead id="tableHeaderSummaryTipe"></thead>
                         <tbody id="tableBodySummaryTipe"></tbody>
                     </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Klasemen Depo -->
+            <div id="summarySubTabKlasemen" class="sub-tab-content">
+                <div id="klasemenWrap" style="padding:16px;background:#f0f4f8;min-height:400px;">
+                    <div id="loadingKlasemen" style="text-align:center;padding:40px;color:#94a3b8;font-size:13px;">⏳ Memuat data klasemen...</div>
                 </div>
             </div>
         </div>
@@ -2093,25 +2190,18 @@
             document.getElementById('catTableWrap').innerHTML = '';
             try {
                 const depoSuffix = selectedDepo.replace('data_DEPO_', '');
-                // Load cat data
-                const resCat = await fetch('cat_DEPO_' + depoSuffix + '.json');
+                // Load semua file Category secara paralel (Promise.all)
+                const [resCat, resBti, resBp, resRaw] = await Promise.all([
+                    fetch('cat_DEPO_'  + depoSuffix + '.json'),
+                    fetch('bti_DEPO_'  + depoSuffix + '.json'),
+                    fetch('bp_DEPO_'   + depoSuffix + '.json'),
+                    fetch('data_DEPO_' + depoSuffix + '.json'),
+                ]);
                 if (!resCat.ok) throw new Error('cat_DEPO_' + depoSuffix + '.json tidak ditemukan');
-                catData = (await resCat.json()).data || [];
-                // Load bti data untuk BP per salesman
-                try {
-                    const resBti = await fetch('bti_DEPO_' + depoSuffix + '.json');
-                    if (resBti.ok) window.catBtiData = (await resBti.json()).data || [];
-                } catch(e2) { window.catBtiData = []; }
-                // Load bp_DEPO untuk BP All Salesman & kontribusi distribusi
-                try {
-                    const resBp = await fetch('bp_DEPO_' + depoSuffix + '.json');
-                    if (resBp.ok) window.catBpData = (await resBp.json()).data || [];
-                } catch(e4) { window.catBpData = []; }
-                // Load data_DEPO untuk BE
-                try {
-                    const resRaw = await fetch('data_DEPO_' + depoSuffix + '.json');
-                    if (resRaw.ok) window.catRawData = (await resRaw.json()).data || [];
-                } catch(e3) { window.catRawData = rawData || []; }
+                catData             = (await resCat.json()).data || [];
+                window.catBtiData   = resBti.ok ? ((await resBti.json()).data || []) : [];
+                window.catBpData    = resBp.ok  ? ((await resBp.json()).data  || []) : [];
+                window.catRawData   = resRaw.ok ? ((await resRaw.json()).data || []) : (rawData || []);
                 loading.style.display = 'none';
                 loadCatSalesmanList();
                 renderCategoryTab('');
@@ -2914,6 +3004,7 @@
             window._projectData = aggProj;
             window._depoAchMap  = depoAchMap;
             window._depoStatus  = depoStatus;
+            window._klasemenLoaded = false; // Reset so Klasemen will re-render on next visit
 
             console.log('Summary Regional loaded:', found, 'depos found,', missing, 'not found');
         }
@@ -4554,26 +4645,29 @@ ${isRegional ? renderDepoStatusPanel() : ''}
         }
 
         function switchSummarySubTab(subTab) {
-            // Update sub-tab buttons
-            document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+            // Update sub-tab buttons — scope only inside #tabSummary
+            document.querySelectorAll('#tabSummary .sub-tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
             
-            // Update sub-tab content
-            document.querySelectorAll('.sub-tab-content').forEach(c => c.classList.remove('active'));
+            // Update sub-tab content — scope only inside #tabSummary
+            document.querySelectorAll('#tabSummary .sub-tab-content').forEach(c => c.classList.remove('active'));
             
             if (subTab === 'depo') {
                 document.getElementById('summarySubTabDepo').classList.add('active');
-                // Process if not already processed
                 if (document.getElementById('tableBodySummaryDepo').innerHTML === '') {
                     document.getElementById('loadingSummaryDepo').style.display = 'none';
                     processSummaryByDepo();
                 }
             } else if (subTab === 'tipe') {
                 document.getElementById('summarySubTabTipe').classList.add('active');
-                // Process if not already processed
                 if (document.getElementById('tableBodySummaryTipe').innerHTML === '') {
                     document.getElementById('loadingSummaryTipe').style.display = 'none';
                     processSummaryByTipe();
+                }
+            } else if (subTab === 'klasemen') {
+                document.getElementById('summarySubTabKlasemen').classList.add('active');
+                if (!window._klasemenLoaded) {
+                    renderKlasemenDepo();
                 }
             }
         }
@@ -5211,6 +5305,241 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
             html += '</tbody></table>';
             wrap.innerHTML = html;
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // KLASEMEN DEPO — Weighted scoring from bp + proses per depo
+        // Bobot: AchSales 60% | %ECIns 15% | %GS 15% | ARColl 10%
+        // Cap setiap komponen maks 120% sebelum dikali bobot
+        // ═══════════════════════════════════════════════════════════════
+        async function renderKlasemenDepo() {
+            const wrap = document.getElementById('klasemenWrap');
+            const loadEl = document.getElementById('loadingKlasemen');
+            if (loadEl) loadEl.style.display = 'block';
+
+            // 1) Ambil daftar depo
+            let rawDepos = [];
+            try {
+                const res = await fetch('depo_list.json');
+                if (res.ok) { const dl = await res.json(); rawDepos = dl.depos || []; }
+            } catch(e) {}
+
+            if (!rawDepos.length) {
+                wrap.innerHTML = '<div style="padding:40px;text-align:center;color:#94a3b8;font-size:13px;">❌ depo_list.json tidak ditemukan atau kosong.</div>';
+                return;
+            }
+
+            // 2) Fetch bp + proses semua depo secara paralel
+            const fetchSafe = async (url) => {
+                try { const r = await fetch(url); return r.ok ? await r.json() : null; }
+                catch(e) { return null; }
+            };
+
+            const depoEntries = await Promise.all(rawDepos.map(async (rawDepo) => {
+                const suffix    = String(rawDepo).trim().toUpperCase().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_');
+                const label     = String(rawDepo).trim().replace(/^DEPO\s+/i,'');
+
+                const [bpJson, prosesJson] = await Promise.all([
+                    fetchSafe('bp_DEPO_'     + suffix + '.json'),
+                    fetchSafe('proses_DEPO_' + suffix + '.json'),
+                ]);
+
+                // --- Ach Sales dari bp ---
+                let mtd = 0, tbp = 0;
+                if (bpJson && bpJson.data) {
+                    bpJson.data.forEach(r => {
+                        mtd += Number(r.MTD    || 0);
+                        tbp += Number(r['T.BP']|| 0);
+                    });
+                }
+                const achSalesRaw = tbp > 0 ? (mtd / tbp * 100) : 0;
+
+                // --- %ECIns, %GS, ARColl dari proses (avg semua salesman) ---
+                let ecInsRaw = 0, gsRaw = 0, arCollRaw = 0;
+                let hasProsesData = false;
+                if (prosesJson && prosesJson.data && prosesJson.data.length > 0) {
+                    const rows = prosesJson.data;
+                    const avgOf = (key) => {
+                        const vals = rows.map(r => r[key]).filter(v => v != null && !isNaN(v));
+                        return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
+                    };
+                    ecInsRaw   = avgOf('%ECIns') * 100;   // decimal → pct
+                    gsRaw      = avgOf('%GS')    * 100;
+                    arCollRaw  = avgOf('ARColl') * 100;
+                    hasProsesData = true;
+                }
+
+                const hasBpData = tbp > 0;
+
+                // --- Cap max 120% ---
+                const cap = v => Math.min(v, 120);
+                const achSalesCapped = cap(achSalesRaw);
+                const ecInsCapped    = cap(ecInsRaw);
+                const gsCapped       = cap(gsRaw);
+                const arCollCapped   = cap(arCollRaw);
+
+                // --- Weighted score ---
+                const score = (hasBpData || hasProsesData)
+                    ? achSalesCapped * 0.60 + ecInsCapped * 0.15 + gsCapped * 0.15 + arCollCapped * 0.10
+                    : 0;
+
+                return {
+                    label, suffix,
+                    hasBpData, hasProsesData,
+                    achSalesRaw, ecInsRaw, gsRaw, arCollRaw,
+                    achSalesCapped, ecInsCapped, gsCapped, arCollCapped,
+                    score,
+                    mtd, tbp,
+                    available: hasBpData || hasProsesData,
+                };
+            }));
+
+            // 3) Sort: available first by score desc, then unavailable
+            depoEntries.sort((a, b) => {
+                if (a.available && !b.available) return -1;
+                if (!a.available && b.available) return  1;
+                return b.score - a.score;
+            });
+
+            // 4) Helpers
+            const fmtPct  = v => (v == null || isNaN(v)) ? '—' : v.toFixed(1) + '%';
+            const colScore = s => s >= 90 ? '#16a34a' : s >= 75 ? '#ca8a04' : '#dc2626';
+            const clsScore = s => s >= 90 ? 'kls-score-hi' : s >= 75 ? 'kls-score-mid' : 'kls-score-low';
+            const barColor = v => v >= 100 ? '#16a34a' : v >= 85 ? '#ca8a04' : '#dc2626';
+            const wgtBg    = v => v >= 100 ? '#dcfce7' : v >= 85 ? '#fef9c3' : '#fee2e2';
+            const wgtCol   = v => v >= 100 ? '#15803d' : v >= 85 ? '#854d0e' : '#b91c1c';
+            const accentColor = (rank, total) => {
+                if (rank === 1) return '#f59e0b';
+                if (rank === 2) return '#94a3b8';
+                if (rank === 3) return '#cd7c42';
+                if (rank === total) return '#f87171';
+                return '#6366f1';
+            };
+            const rankBadgeCls = (rank, total) => {
+                if (rank === 1) return 'kls-rank-1';
+                if (rank === 2) return 'kls-rank-2';
+                if (rank === 3) return 'kls-rank-3';
+                if (rank === total) return 'kls-rank-bot';
+                return 'kls-rank-n';
+            };
+
+            const fmtJt = (n) => {
+                if (!n) return '0';
+                const v = Math.abs(n)/1e6;
+                return v >= 1 ? v.toFixed(1)+' jt' : (Math.abs(n)/1e3).toFixed(0)+' rb';
+            };
+
+            const availList = depoEntries.filter(d => d.available);
+            const total     = availList.length;
+
+            // 5) Render
+            const metricDefs = [
+                { key: 'achSales', label: 'Ach Sales (vs BP)', bobot: 60,
+                  getRaw: d=>d.achSalesRaw, getCapped: d=>d.achSalesCapped,
+                  color: '#0e7490', desc: 'MTD/T.BP' },
+                { key: 'ecIns',    label: '%ECIns',             bobot: 15,
+                  getRaw: d=>d.ecInsRaw,    getCapped: d=>d.ecInsCapped,
+                  color: '#7c3aed', desc: 'EC Insight' },
+                { key: 'gs',       label: '%GS',                bobot: 15,
+                  getRaw: d=>d.gsRaw,       getCapped: d=>d.gsCapped,
+                  color: '#0891b2', desc: 'Gross Sales' },
+                { key: 'arColl',   label: 'AR Collection',      bobot: 10,
+                  getRaw: d=>d.arCollRaw,   getCapped: d=>d.arCollCapped,
+                  color: '#16a34a', desc: 'AR Coll' },
+            ];
+
+            let headerHtml = `
+            <div class="kls-header">
+                <div>
+                    <div class="kls-header-title">🏆 Klasemen Depo — ${total} Depo</div>
+                    <div class="kls-header-sub">Skor tertimbang dari data bp_DEPO + proses_DEPO · Cap maks 120%</div>
+                </div>
+                <div class="kls-bobot-pills">
+                    ${metricDefs.map(m =>
+                        `<div class="kls-bobot-pill">
+                            <span class="kls-bobot-dot" style="background:${m.color};"></span>
+                            ${m.label} <strong>${m.bobot}%</strong>
+                        </div>`
+                    ).join('')}
+                </div>
+            </div>`;
+
+            let cardsHtml = '<div class="kls-grid">';
+
+            let rank = 0;
+            depoEntries.forEach((d) => {
+                if (d.available) rank++;
+                const rankDisplay = d.available ? rank : '—';
+                const badgeCls    = d.available ? rankBadgeCls(rank, total) : 'kls-rank-n';
+                const accent      = d.available ? accentColor(rank, total)  : '#cbd5e1';
+                const scoreDisp   = d.available ? d.score.toFixed(1) + '%'  : '—';
+                const scoreCls    = d.available ? clsScore(d.score)          : 'kls-score-low';
+                const cardCls     = d.available ? 'kls-card' : 'kls-card kls-missing';
+
+                let metricsHtml = metricDefs.map(m => {
+                    const rawV    = m.getRaw(d);
+                    const cappedV = m.getCapped(d);
+                    const isCapped = rawV > 120;
+                    const kontribusi = cappedV * m.bobot / 100;
+                    const barW = d.available ? Math.min(cappedV, 120) / 120 * 100 : 0;
+
+                    return `
+                    <div class="kls-metric-row">
+                        <div class="kls-metric-top">
+                            <div style="display:flex;align-items:center;gap:4px;">
+                                <span class="kls-bobot-dot" style="background:${m.color};width:7px;height:7px;border-radius:50%;display:inline-block;"></span>
+                                <span class="kls-metric-lbl">${m.label}</span>
+                                <span class="kls-bobot-tag">${m.bobot}%</span>
+                                ${isCapped ? '<span class="kls-capped-tag">cap 120%</span>' : ''}
+                            </div>
+                            <div class="kls-metric-vals">
+                                <span class="kls-metric-raw">${d.available ? fmtPct(rawV) : '—'}</span>
+                                <span class="kls-metric-wgt" style="background:${d.available?wgtBg(rawV):'#f1f5f9'};color:${d.available?wgtCol(rawV):'#94a3b8'};">
+                                    +${d.available ? kontribusi.toFixed(1) : '0'}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="kls-bar-bg">
+                            <div class="kls-bar-fill" style="width:${barW.toFixed(1)}%;background:${m.color};"></div>
+                        </div>
+                    </div>`;
+                }).join('');
+
+                const achBP = d.tbp > 0 ? (d.mtd / d.tbp * 100).toFixed(1) + '%' : '—';
+
+                cardsHtml += `
+                <div class="${cardCls}">
+                    <div class="kls-card-accent" style="background:${accent};"></div>
+                    <div class="kls-card-top">
+                        <div class="kls-rank-badge ${badgeCls}">${rankDisplay}</div>
+                        <div class="kls-depo-info">
+                            <div class="kls-depo-name">${d.label}</div>
+                            <div class="kls-depo-sub">
+                                MTD ${fmtJt(d.mtd)} / BP ${fmtJt(d.tbp)}
+                                ${d.available ? '' : '· <em>Data belum tersedia</em>'}
+                            </div>
+                        </div>
+                        <div class="kls-score-wrap">
+                            <div class="kls-score-val ${scoreCls}">${scoreDisp}</div>
+                            <div class="kls-score-lbl">Total Score</div>
+                        </div>
+                    </div>
+                    <div class="kls-divider"></div>
+                    <div class="kls-metrics">
+                        ${metricsHtml}
+                    </div>
+                    <div class="kls-card-footer">
+                        <span>${d.hasBpData ? '✅ bp_DEPO' : '❌ bp_DEPO'} · ${d.hasProsesData ? '✅ proses_DEPO' : '❌ proses_DEPO'}</span>
+                        <span>Rank #${rankDisplay}</span>
+                    </div>
+                </div>`;
+            });
+
+            cardsHtml += '</div>';
+
+            if (loadEl) loadEl.style.display = 'none';
+            wrap.innerHTML = headerHtml + cardsHtml;
+            window._klasemenLoaded = true;
         }
 
         function processSummaryByDepo() {
