@@ -627,92 +627,84 @@
 
         /* ===== MODERN PARETO TABLE ===== */
 
-        /* ===== KLASEMEN DEPO ===== */
-        #summarySubTabKlasemen { background: #f0f4f8; }
+        /* ===== KLASEMEN DEPO — Minimalist ===== */
+        #summarySubTabKlasemen { background: #f5f6f8; }
         .kls-header {
-            background: linear-gradient(135deg, #0f2057 0%, #1d4ed8 100%);
-            border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;
+            background: #1e293b;
+            border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
             display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 4px 16px rgba(15,32,87,0.25);
+            gap: 12px;
         }
-        .kls-header-title { color: white; font-size: 15px; font-weight: 800; letter-spacing: .4px; }
-        .kls-header-sub   { color: rgba(255,255,255,0.75); font-size: 11px; margin-top: 2px; }
-        .kls-bobot-pills {
-            display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end;
-        }
+        .kls-header-title { color: #f1f5f9; font-size: 13px; font-weight: 700; }
+        .kls-header-sub   { color: #64748b; font-size: 10px; margin-top: 2px; }
+        .kls-bobot-pills  { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
         .kls-bobot-pill {
-            display: inline-flex; align-items: center; gap: 4px;
-            background: rgba(255,255,255,0.15); border-radius: 20px;
-            padding: 4px 10px; font-size: 10px; color: white; font-weight: 600;
+            background: #334155; border-radius: 6px;
+            padding: 3px 8px; font-size: 9px; color: #94a3b8; font-weight: 600;
         }
-        .kls-bobot-dot {
-            width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-        }
+        .kls-bobot-pill strong { color: #e2e8f0; }
+        .kls-bobot-dot { display: none; }
         .kls-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+            gap: 10px;
         }
         .kls-card {
-            background: white; border-radius: 14px;
-            box-shadow: 0 3px 14px rgba(0,0,0,0.09);
-            overflow: hidden; transition: transform 0.18s, box-shadow 0.18s;
+            background: white; border-radius: 10px;
+            border: 1px solid #e8ecf0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            overflow: hidden; transition: box-shadow 0.15s;
             position: relative;
         }
-        .kls-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.14); }
-        .kls-card-accent {
-            height: 4px; width: 100%;
-        }
+        .kls-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
+        .kls-card-accent { display: none; }
         .kls-card-top {
-            padding: 12px 16px 10px;
-            display: flex; align-items: flex-start; gap: 12px;
+            padding: 12px 14px 10px;
+            display: flex; align-items: center; gap: 10px;
         }
         .kls-rank-badge {
-            width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+            width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
-            font-size: 17px; font-weight: 900; color: white;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            font-size: 14px; font-weight: 800; color: white;
         }
-        .kls-rank-1   { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .kls-rank-2   { background: linear-gradient(135deg, #94a3b8, #64748b); }
-        .kls-rank-3   { background: linear-gradient(135deg, #cd7c42, #b45309); }
-        .kls-rank-n   { background: linear-gradient(135deg, #6366f1, #4f46e5); }
-        .kls-rank-bot { background: linear-gradient(135deg, #f87171, #dc2626); }
+        .kls-rank-1   { background: #b45309; }
+        .kls-rank-2   { background: #64748b; }
+        .kls-rank-3   { background: #92400e; }
+        .kls-rank-n   { background: #334155; }
+        .kls-rank-bot { background: #94a3b8; }
         .kls-depo-info { flex: 1; min-width: 0; }
         .kls-depo-name {
-            font-size: 12px; font-weight: 800; color: #1e293b;
-            line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-size: 11px; font-weight: 700; color: #1e293b;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .kls-depo-sub { font-size: 10px; color: #94a3b8; font-weight: 500; margin-top: 1px; }
+        .kls-depo-sub { font-size: 9px; color: #94a3b8; font-weight: 400; margin-top: 1px; }
         .kls-score-wrap { text-align: right; flex-shrink: 0; }
-        .kls-score-val  { font-size: 22px; font-weight: 900; line-height: 1; }
-        .kls-score-lbl  { font-size: 9px; color: #94a3b8; font-weight: 600; text-transform: uppercase; margin-top: 2px; }
-        .kls-score-hi  { color: #16a34a; }
-        .kls-score-mid { color: #ca8a04; }
-        .kls-score-low { color: #dc2626; }
+        .kls-score-val  { font-size: 20px; font-weight: 800; line-height: 1; color: #1e293b; }
+        .kls-score-lbl  { font-size: 8px; color: #94a3b8; font-weight: 500; text-transform: uppercase; margin-top: 2px; }
+        .kls-score-hi  { color: #1e293b; }
+        .kls-score-mid { color: #1e293b; }
+        .kls-score-low { color: #1e293b; }
         .kls-divider { height: 1px; background: #f1f5f9; margin: 0 14px; }
-        .kls-metrics { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 6px; }
+        .kls-metrics { padding: 8px 14px 12px; display: flex; flex-direction: column; gap: 6px; }
         .kls-metric-row { display: flex; flex-direction: column; gap: 2px; }
-        .kls-metric-top {
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .kls-metric-lbl  { color: #64748b; font-weight: 700; font-size: 10px; }
+        .kls-metric-top  { display: flex; justify-content: space-between; align-items: center; }
+        .kls-metric-lbl  { color: #64748b; font-weight: 500; font-size: 9px; }
         .kls-metric-vals { display: flex; gap: 4px; align-items: center; }
         .kls-metric-raw  { color: #334155; font-weight: 700; font-size: 10px; }
-        .kls-metric-wgt  { font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px; }
-        .kls-bobot-tag   { font-size: 9px; color: #94a3b8; font-weight: 600; background: #f1f5f9; border-radius: 3px; padding: 1px 4px; }
-        .kls-bar-bg   { background: #f1f5f9; border-radius: 4px; height: 5px; overflow: hidden; }
-        .kls-bar-fill { height: 5px; border-radius: 4px; transition: width 0.6s ease; }
+        .kls-metric-wgt  { font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px;
+                           background: #f1f5f9; color: #475569; }
+        .kls-bobot-tag   { font-size: 8px; color: #cbd5e1; font-weight: 500; }
+        .kls-bar-bg   { background: #f1f5f9; border-radius: 3px; height: 3px; overflow: hidden; }
+        .kls-bar-fill { height: 3px; border-radius: 3px; background: #94a3b8; transition: width 0.5s ease; }
         .kls-card-footer {
-            background: #f8fafc; padding: 6px 14px;
+            background: #fafbfc; padding: 5px 14px;
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid #f1f5f9; font-size: 9px; color: #94a3b8;
+            border-top: 1px solid #f1f5f9; font-size: 8px; color: #cbd5e1;
         }
-        .kls-missing { opacity: 0.55; }
-        .kls-missing .kls-card-top { background: #fafafa; }
+        .kls-missing { opacity: 0.45; }
         .kls-capped-tag {
-            font-size: 8px; color: #f97316; font-weight: 700;
-            background: #fff7ed; border-radius: 3px; padding: 1px 4px;
+            font-size: 8px; color: #94a3b8; font-weight: 600;
+            background: #f1f5f9; border-radius: 3px; padding: 1px 4px;
         }
 
         /* ===== PROJECT TAB ===== */
@@ -5403,18 +5395,12 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
             // 4) Helpers
             const fmtPct  = v => (v == null || isNaN(v)) ? '—' : v.toFixed(1) + '%';
-            const colScore = s => s >= 90 ? '#16a34a' : s >= 75 ? '#ca8a04' : '#dc2626';
-            const clsScore = s => s >= 90 ? 'kls-score-hi' : s >= 75 ? 'kls-score-mid' : 'kls-score-low';
-            const barColor = v => v >= 100 ? '#16a34a' : v >= 85 ? '#ca8a04' : '#dc2626';
-            const wgtBg    = v => v >= 100 ? '#dcfce7' : v >= 85 ? '#fef9c3' : '#fee2e2';
-            const wgtCol   = v => v >= 100 ? '#15803d' : v >= 85 ? '#854d0e' : '#b91c1c';
-            const accentColor = (rank, total) => {
-                if (rank === 1) return '#f59e0b';
-                if (rank === 2) return '#94a3b8';
-                if (rank === 3) return '#cd7c42';
-                if (rank === total) return '#f87171';
-                return '#6366f1';
-            };
+            const colScore = s => '#1e293b';
+            const clsScore = s => 'kls-score-hi';
+            const barColor = v => '#94a3b8';
+            const wgtBg    = v => '#f1f5f9';
+            const wgtCol   = v => '#475569';
+            const accentColor = (rank, total) => '#e2e8f0';
             const rankBadgeCls = (rank, total) => {
                 if (rank === 1) return 'kls-rank-1';
                 if (rank === 2) return 'kls-rank-2';
@@ -5436,16 +5422,16 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const metricDefs = [
                 { key: 'achSales', label: 'Ach Sales (vs BP)', bobot: 60,
                   getRaw: d=>d.achSalesRaw, getCapped: d=>d.achSalesCapped,
-                  color: '#0e7490', desc: 'MTD/T.BP' },
+                  color: '#475569', desc: 'MTD/T.BP' },
                 { key: 'ecIns',    label: '%ECIns',             bobot: 15,
                   getRaw: d=>d.ecInsRaw,    getCapped: d=>d.ecInsCapped,
-                  color: '#7c3aed', desc: 'EC Insight' },
+                  color: '#64748b', desc: 'EC Insight' },
                 { key: 'gs',       label: '%GS',                bobot: 15,
                   getRaw: d=>d.gsRaw,       getCapped: d=>d.gsCapped,
-                  color: '#0891b2', desc: 'Gross Sales' },
+                  color: '#64748b', desc: 'Gross Sales' },
                 { key: 'arColl',   label: 'AR Collection',      bobot: 10,
                   getRaw: d=>d.arCollRaw,   getCapped: d=>d.arCollCapped,
-                  color: '#16a34a', desc: 'AR Coll' },
+                  color: '#64748b', desc: 'AR Coll' },
             ];
 
             let headerHtml = `
