@@ -1161,7 +1161,6 @@
                 <div class="sub-tabs">
                     <div class="sub-tab active" onclick="switchSummarySubTab('depo')">📊 By Depo</div>
                     <div class="sub-tab" onclick="switchSummarySubTab('tipe')">👥 By Tipe Sales</div>
-                    <div class="sub-tab" onclick="switchSummarySubTab('klasemen')">🏆 Klasemen Depo</div>
                 </div>
             </div>
             
@@ -1186,12 +1185,12 @@
                     </table>
                 </div>
             </div>
+        </div>
 
-            <!-- Sub-tab: Klasemen Depo -->
-            <div id="summarySubTabKlasemen" class="sub-tab-content">
-                <div id="klasemenWrap" style="padding:16px;background:#f0f4f8;min-height:400px;">
-                    <div id="loadingKlasemen" style="text-align:center;padding:40px;color:#94a3b8;font-size:13px;">⏳ Memuat data klasemen...</div>
-                </div>
+        <!-- Tab Content: Klasemen Depo (main tab, Summary Regional only) -->
+        <div id="tabKlasemen" class="tab-content">
+            <div id="klasemenWrap" style="padding:16px;background:#f0f4f8;min-height:400px;">
+                <div id="loadingKlasemen" style="text-align:center;padding:40px;color:#94a3b8;font-size:13px;">⏳ Memuat data klasemen...</div>
             </div>
         </div>
 
@@ -4295,6 +4294,11 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             } else if (tab === 'trend') {
                 document.getElementById('tabTrend').classList.add('active');
                 if (!window.trendLoaded) loadTrendData();
+            } else if (tab === 'klasemen') {
+                document.getElementById('tabKlasemen').classList.add('active');
+                if (!window._klasemenLoaded) {
+                    renderKlasemenDepo();
+                }
             } else if (tab === 'project') {
                 document.getElementById('tabProject').classList.add('active');
                 if (!projectData) {
@@ -4725,11 +4729,6 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     document.getElementById('loadingSummaryTipe').style.display = 'none';
                     processSummaryByTipe();
                 }
-            } else if (subTab === 'klasemen') {
-                document.getElementById('summarySubTabKlasemen').classList.add('active');
-                if (!window._klasemenLoaded) {
-                    renderKlasemenDepo();
-                }
             }
         }
 
@@ -4843,6 +4842,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 
                 // Tab layout Summary Regional — sama seperti Depo
                 const tabsHtml = `
+                    <div class="tab" onclick="switchTab('klasemen')">🏆 Klasemen Depo</div>
                     <div class="tab active" onclick="switchTab('summaryDash')">📊 Summary</div>
                     <div class="tab" onclick="switchTab('weekly')">Weekly</div>
                     <div class="tab" onclick="switchTab('salesman')">By Depo</div>
