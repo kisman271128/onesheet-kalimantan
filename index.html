@@ -3512,18 +3512,81 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             }
 
             // ── Load daily chart async (non-blocking) ─────────────────────────
-            const _sdSuffix = selectedDepo.replace(/^data_DEPO_/i, '');
+            const _sdSuffix  = selectedDepo.replace(/^data_DEPO_/i, '');
+            const _isRegional = (selectedDepo === 'data_SUMMARY');
             destroySummaryChart('daily');
             (async () => {
                 const loadEl = document.getElementById('sdDailyLoading');
                 try {
-                    if (!window._trendDailyData || window._trendDailyData._depo !== _sdSuffix) {
-                        const res = await fetch('trend_DEPO_' + _sdSuffix + '.json');
-                        if (!res.ok) throw new Error('trend_DEPO_' + _sdSuffix + '.json tidak ditemukan');
-                        const json = await res.json();
-                        window._trendDailyData       = json.daily  || [];
-                        window._trendDailyData._depo = _sdSuffix;
-                        window._trendWeeklyData      = json.weekly || [];
+                    // ── SUMMARY REGIONAL: agregasi dari semua trend_DEPO_*.json ──
+                    if (_isRegional) {
+                        const cacheKey = '_regional_';
+                        if (!window._trendDailyData || window._trendDailyData._depo !== cacheKey) {
+                            if (loadEl) { loadEl.style.display=''; loadEl.textContent='⏳ Memuat trend semua depo...'; }
+
+                            // Ambil daftar depo
+                            let depoSuffixes = [];
+                            try {
+                                const dlRes = await fetch('depo_list.json');
+                                if (dlRes.ok) {
+                                    const dl = await dlRes.json();
+                                    depoSuffixes = (dl.depos || []).map(d =>
+                                        d.trim().toUpperCase().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_')
+                                    );
+                                }
+                            } catch(e) { console.warn('depo_list.json error:', e); }
+
+                            // Fetch semua trend_DEPO_*.json secara paralel
+                            const trendFetches = await Promise.all(depoSuffixes.map(async sfx => {
+                                try {
+                                    const r = await fetch('trend_DEPO_' + sfx + '.json');
+                                    if (!r.ok) return null;
+                                    const j = await r.json();
+                                    return { daily: j.daily || [], weekly: j.weekly || j.data || [] };
+                                } catch(e) { return null; }
+                            }));
+
+                            // Agregasi daily: group by Date, sum SO/DO/BP
+                            const dailyMap = {};
+                            trendFetches.forEach(td => {
+                                if (!td) return;
+                                (td.daily || []).forEach(r => {
+                                    const dt = r.Date || '';
+                                    if (!dt) return;
+                                    if (!dailyMap[dt]) dailyMap[dt] = { Date: dt, SO: 0, DO: 0, BP: 0 };
+                                    dailyMap[dt].SO += Number(r.SO || 0);
+                                    dailyMap[dt].DO += Number(r.DO || 0);
+                                    dailyMap[dt].BP += Number(r.BP || 0);
+                                });
+                            });
+                            // Sort by date (format DD/MM/YYYY)
+                            const parseDt = s => {
+                                const p = (s||'').split('/');
+                                return p.length === 3 ? new Date(+p[2], +p[1]-1, +p[0]) : new Date(0);
+                            };
+                            const aggDaily = Object.values(dailyMap).sort((a,b) => parseDt(a.Date) - parseDt(b.Date));
+
+                            // Agregasi weekly: gabungkan semua records (renderTrendChart akan reaggregasi)
+                            const aggWeekly = [];
+                            trendFetches.forEach(td => {
+                                if (!td) return;
+                                (td.weekly || []).forEach(r => aggWeekly.push(r));
+                            });
+
+                            window._trendDailyData       = aggDaily;
+                            window._trendDailyData._depo = cacheKey;
+                            window._trendWeeklyData      = aggWeekly;
+                        }
+                    } else {
+                        // ── PER-DEPO: fetch satu file ──────────────────────────────
+                        if (!window._trendDailyData || window._trendDailyData._depo !== _sdSuffix) {
+                            const res = await fetch('trend_DEPO_' + _sdSuffix + '.json');
+                            if (!res.ok) throw new Error('trend_DEPO_' + _sdSuffix + '.json tidak ditemukan');
+                            const json = await res.json();
+                            window._trendDailyData       = json.daily  || [];
+                            window._trendDailyData._depo = _sdSuffix;
+                            window._trendWeeklyData      = json.weekly || [];
+                        }
                     }
                     const dData = window._trendDailyData;
                     if (loadEl) loadEl.style.display = 'none';
@@ -6259,19 +6322,70 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const loading = document.getElementById('loadingTrend');
             if (loading) { loading.style.display='block'; loading.textContent='⏳ Memuat data Trend...'; }
             try {
-                const depoSuffix = selectedDepo.replace(/^data_DEPO_/i, '');
-                const res = await fetch('trend_DEPO_' + depoSuffix + '.json');
-                if (!res.ok) throw new Error('trend_DEPO_' + depoSuffix + '.json tidak ditemukan');
-                const json = await res.json();
-                // Support format baru {weekly[], daily[]} dan format lama {data[]}
-                if (json.weekly !== undefined || json.daily !== undefined) {
-                    window._trendWeeklyData      = json.weekly || [];
-                    window._trendDailyData       = json.daily  || [];
-                    window._trendDailyData._depo = depoSuffix;
+                const depoSuffix  = selectedDepo.replace(/^data_DEPO_/i, '');
+                const _isRegional = (selectedDepo === 'data_SUMMARY');
+
+                if (_isRegional) {
+                    // ── Summary Regional: agregasi dari semua trend_DEPO_*.json ──
+                    if (loading) loading.textContent = '⏳ Memuat trend semua depo...';
+
+                    let depoSuffixes = [];
+                    try {
+                        const dlRes = await fetch('depo_list.json');
+                        if (dlRes.ok) {
+                            const dl = await dlRes.json();
+                            depoSuffixes = (dl.depos || []).map(d =>
+                                d.trim().toUpperCase().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_')
+                            );
+                        }
+                    } catch(e) { console.warn('depo_list.json error (loadTrendData):', e); }
+
+                    const trendFetches = await Promise.all(depoSuffixes.map(async sfx => {
+                        try {
+                            const r = await fetch('trend_DEPO_' + sfx + '.json');
+                            if (!r.ok) return null;
+                            const j = await r.json();
+                            return { daily: j.daily || [], weekly: j.weekly || j.data || [] };
+                        } catch(e) { return null; }
+                    }));
+
+                    // Agregasi daily by Date
+                    const dailyMap = {};
+                    trendFetches.forEach(td => {
+                        if (!td) return;
+                        (td.daily || []).forEach(r => {
+                            const dt = r.Date || '';
+                            if (!dt) return;
+                            if (!dailyMap[dt]) dailyMap[dt] = { Date: dt, SO: 0, DO: 0, BP: 0 };
+                            dailyMap[dt].SO += Number(r.SO || 0);
+                            dailyMap[dt].DO += Number(r.DO || 0);
+                            dailyMap[dt].BP += Number(r.BP || 0);
+                        });
+                    });
+                    const parseDt = s => { const p=(s||'').split('/'); return p.length===3?new Date(+p[2],+p[1]-1,+p[0]):new Date(0); };
+                    window._trendDailyData       = Object.values(dailyMap).sort((a,b)=>parseDt(a.Date)-parseDt(b.Date));
+                    window._trendDailyData._depo = '_regional_';
+
+                    // Gabungkan weekly records
+                    const aggWeekly = [];
+                    trendFetches.forEach(td => { if (td) (td.weekly||[]).forEach(r => aggWeekly.push(r)); });
+                    window._trendWeeklyData = aggWeekly;
+
                 } else {
-                    window._trendWeeklyData = json.data || [];
-                    window._trendDailyData  = [];
+                    // ── Per-depo ──
+                    const res = await fetch('trend_DEPO_' + depoSuffix + '.json');
+                    if (!res.ok) throw new Error('trend_DEPO_' + depoSuffix + '.json tidak ditemukan');
+                    const json = await res.json();
+                    if (json.weekly !== undefined || json.daily !== undefined) {
+                        window._trendWeeklyData      = json.weekly || [];
+                        window._trendDailyData       = json.daily  || [];
+                        window._trendDailyData._depo = depoSuffix;
+                    } else {
+                        window._trendWeeklyData = json.data || [];
+                        window._trendDailyData  = [];
+                    }
                 }
+
                 window.trendLoaded = true;
                 if (loading) loading.style.display = 'none';
                 renderTrendChart();
