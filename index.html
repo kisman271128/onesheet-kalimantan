@@ -2963,7 +2963,13 @@
                     lastUpdate: lastUpd,
                 };
 
-                if (hasData) dataR.data.forEach(r => aggData.push({...r, _depo: depo}));
+                if (hasData) {
+                    dataR.data.forEach(r => aggData.push({...r, _depo: depo}));
+                    // Cache per-depo data by full label for By Depo tab
+                    if (!window._depoDataByLabel) window._depoDataByLabel = {};
+                    window._depoDataByLabel[rawDepo] = dataR.data;
+                    window._depoDataByLabel[depo]    = dataR.data; // also by suffix
+                }
                 if (hasBP)   bpR.data.forEach(r   => aggBp.push({...r,  _depo: depo}));
                 if (catR)    catR.data.forEach(r   => aggCat.push({...r, _depo: depo}));
                 if (btiR)    btiR.data.forEach(r   => aggBti.push({...r, _depo: depo}));
@@ -4981,15 +4987,23 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const isSummaryRegional = viewType === 'summary';
 
             if (isSummaryRegional) {
-                // Regional: isi dengan nama depo dari _depoAchMap
-                const depoLabels = window._depoAchMap
-                    ? Object.values(window._depoAchMap).map(v => v.label || '').filter(Boolean).sort()
-                    : [];
-                tipeSel.innerHTML = '<option value="">-- All Depo --</option>';
+                // Regional: isi dengan nama depo dari _depoStatus (semua depo) atau _depoAchMap
+                const statusMap = window._depoStatus || {};
+                const achMap    = window._depoAchMap  || {};
+                // Gabungkan semua label depo yang diketahui
+                const labelSet = new Set();
+                Object.values(statusMap).forEach(v => { if (v.label) labelSet.add(v.label); });
+                Object.values(achMap).forEach(v   => { if (v.label) labelSet.add(v.label); });
+                const depoLabels = Array.from(labelSet).sort();
+                tipeSel.innerHTML = '<option value="">-- Pilih Depo --</option>';
                 depoLabels.forEach(label => {
                     const opt = document.createElement('option');
                     opt.value = label;
                     opt.textContent = label;
+                    // Tandai depo yang belum ada datanya
+                    const suffix = Object.entries(statusMap).find(([,v]) => v.label === label)?.[0];
+                    const hasData = suffix && (window._depoDataByLabel || {})[label];
+                    if (!hasData) opt.style.color = '#94a3b8';
                     tipeSel.appendChild(opt);
                 });
             } else {
@@ -5018,7 +5032,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             });
         }
 
-        function filterByTipeSales() {
+        async function filterByTipeSales() {
             const selectedTipe = document.getElementById('tipeSalesSelect').value;
             const isSummaryRegional = viewType === 'summary';
             
@@ -5037,10 +5051,10 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             }
             
             // Apply filter
-            applyFilter();
+            await applyFilter();
         }
 
-        function filterBySalesman() {
+        async function filterBySalesman() {
             const selectedSalesman = document.getElementById('salesmanSelect').value;
             
             if (selectedSalesman) {
@@ -5052,10 +5066,24 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             }
             
             // Apply filter
-            applyFilter();
+            await applyFilter();
         }
 
-        function applyFilter() {
+        // Helper: temukan suffix file dari depo label (e.g. "DEPO BALIKPAPAN" → "BALIKPAPAN")
+        function findSuffixForLabel(label) {
+            const statusMap = window._depoStatus || {};
+            const achMap    = window._depoAchMap  || {};
+            for (const [suffix, v] of Object.entries(statusMap)) {
+                if ((v.label || '') === label) return suffix;
+            }
+            for (const [suffix, v] of Object.entries(achMap)) {
+                if ((v.label || '') === label) return suffix;
+            }
+            // Fallback: normalise label → BALIKPAPAN etc.
+            return label.trim().toUpperCase().replace(/^DEPO\s+/i, '').replace(/\s+/g, '_');
+        }
+
+        async function applyFilter() {
             const selectedTipe = document.getElementById('tipeSalesSelect').value;
             const isSummaryRegional = viewType === 'summary';
             
@@ -5065,34 +5093,63 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             // If no selection at all, show message
             if (!selectedTipe && !selectedSalesman) {
                 document.getElementById('loadingSalesman').style.display = 'block';
-                document.getElementById('loadingSalesman').textContent = '⏳ Pilih filter untuk melihat data...';
+                document.getElementById('loadingSalesman').textContent = '⏳ Pilih Depo untuk melihat data...';
                 document.getElementById('tableBodySalesman').innerHTML = '';
                 return;
             }
-            
+
             document.getElementById('loadingSalesman').style.display = 'none';
-            
-            // Filter data
+
+            // ── SUMMARY REGIONAL: gunakan data per-depo dari JSON masing-masing ──
+            if (isSummaryRegional && selectedTipe) {
+                // Cek cache terlebih dahulu
+                let depoData = (window._depoDataByLabel || {})[selectedTipe];
+
+                if (!depoData) {
+                    // Belum ada di cache → fetch on-demand
+                    const suffix = findSuffixForLabel(selectedTipe);
+                    document.getElementById('loadingSalesman').style.display = 'block';
+                    document.getElementById('loadingSalesman').textContent = '⏳ Memuat data ' + selectedTipe + '...';
+                    try {
+                        const r = await fetch('data_DEPO_' + suffix + '.json');
+                        if (r.ok) {
+                            const j = await r.json();
+                            depoData = j.data || [];
+                            if (!window._depoDataByLabel) window._depoDataByLabel = {};
+                            window._depoDataByLabel[selectedTipe] = depoData;
+                            window._depoDataByLabel[suffix]        = depoData;
+                        } else {
+                            document.getElementById('loadingSalesman').style.display = 'block';
+                            document.getElementById('loadingSalesman').textContent =
+                                '⚠️ Data ' + selectedTipe + ' belum tersedia (data_DEPO_' + suffix + '.json tidak ditemukan).';
+                            document.getElementById('tableBodySalesman').innerHTML = '';
+                            return;
+                        }
+                    } catch(e) {
+                        document.getElementById('loadingSalesman').style.display = 'block';
+                        document.getElementById('loadingSalesman').textContent = '❌ Gagal memuat data ' + selectedTipe + ': ' + e.message;
+                        document.getElementById('tableBodySalesman').innerHTML = '';
+                        return;
+                    }
+                }
+
+                document.getElementById('loadingSalesman').style.display = 'none';
+                console.log('[ByDepo] Rendering', selectedTipe, '— rows:', (depoData || []).length);
+                processAndRender('Salesman', depoData || []);
+                return;
+            }
+
+            // ── PER-DEPO (non-Summary Regional): filter rawData seperti sebelumnya ──
             const filteredData = rawData.filter(row => {
                 const rowSalesman = row['Nama Salesman'] || row['nama salesman'] || row.Salesman || row.salesman || '';
                 const rowTipe = row['Tipe Sales'] || row['tipe sales'] || row.TipeSales || row.tipesales || '';
-                const rowDepo = row['Depo'] || row.depo || '';
 
-                let matchSalesman = !selectedSalesman || rowSalesman === selectedSalesman;
-                let matchTipe;
-                if (isSummaryRegional) {
-                    // Regional: filter by depo label (strip "DEPO " prefix for comparison)
-                    matchTipe = !selectedTipe || rowDepo.trim().toUpperCase().replace(/^DEPO\s+/i,'') === selectedTipe.toUpperCase();
-                } else {
-                    matchTipe = !selectedTipe || rowTipe === selectedTipe;
-                }
-                
+                const matchSalesman = !selectedSalesman || rowSalesman === selectedSalesman;
+                const matchTipe     = !selectedTipe     || rowTipe === selectedTipe;
                 return matchSalesman && matchTipe;
             });
             
             console.log('Filtered data count:', filteredData.length);
-            
-            // Process with filtered data
             processAndRender('Salesman', filteredData);
         }
 
