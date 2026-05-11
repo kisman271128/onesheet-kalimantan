@@ -4594,7 +4594,23 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const loading = document.getElementById('loadingPareto25Sku');
             loading.style.display = 'none';
 
-            let data = [...(_pareto25SkuData || [])].sort((a,b) => (b.L3M||0)-(a.L3M||0)).slice(0, 25);
+            // Group by SzNickName — sum L3M/LY/LM/MTD, rata-rata OFR2
+            const _skuMap = {};
+            (_pareto25SkuData || []).forEach(r => {
+                const key = r.SzNickName || r.SzName || '?';
+                if (!_skuMap[key]) {
+                    _skuMap[key] = { ...r, L3M: 0, LY: 0, LM: 0, MTD: 0, _ofrSum: 0, _ofrCnt: 0 };
+                }
+                _skuMap[key].L3M += r.L3M || 0;
+                _skuMap[key].LY  += r.LY  || 0;
+                _skuMap[key].LM  += r.LM  || 0;
+                _skuMap[key].MTD += r.MTD || 0;
+                if (r.OFR2 != null) { _skuMap[key]._ofrSum += r.OFR2; _skuMap[key]._ofrCnt++; }
+            });
+            Object.values(_skuMap).forEach(r => {
+                r.OFR2 = r._ofrCnt > 0 ? r._ofrSum / r._ofrCnt : null;
+            });
+            let data = Object.values(_skuMap).sort((a,b) => (b.L3M||0)-(a.L3M||0)).slice(0, 25);
 
             if (data.length === 0) {
                 wrap.innerHTML = '<p style="color:#888;padding:20px;">Tidak ada data.</p>';
