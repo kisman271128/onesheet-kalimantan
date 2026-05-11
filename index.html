@@ -6576,10 +6576,30 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const ts  = now.getFullYear() + ('0'+(now.getMonth()+1)).slice(-2) + ('0'+now.getDate()).slice(-2);
 
             // Filter data sama seperti tampilan
-            let rows = isOutlet
-                ? (_pareto25OutletData || []).filter(r => r.Principle === _pareto25ActivePr)
-                : [...(_pareto25SkuData || [])];
-            rows = [...rows].sort((a,b) => (b.L3M||0)-(a.L3M||0)).slice(0,25);
+            let rows;
+            if (isOutlet) {
+                rows = (_pareto25OutletData || [])
+                    .filter(r => r.Principle === _pareto25ActivePr)
+                    .sort((a,b) => (b.L3M||0)-(a.L3M||0)).slice(0,25);
+            } else {
+                // Group by SzNickName — sama persis dengan renderPareto25Sku
+                const _xlsMap = {};
+                (_pareto25SkuData || []).forEach(r => {
+                    const key = r.SzNickName || r.SzName || '?';
+                    if (!_xlsMap[key]) {
+                        _xlsMap[key] = { ...r, L3M: 0, LY: 0, LM: 0, MTD: 0, _ofrSum: 0, _ofrCnt: 0 };
+                    }
+                    _xlsMap[key].L3M += r.L3M || 0;
+                    _xlsMap[key].LY  += r.LY  || 0;
+                    _xlsMap[key].LM  += r.LM  || 0;
+                    _xlsMap[key].MTD += r.MTD || 0;
+                    if (r.OFR2 != null) { _xlsMap[key]._ofrSum += r.OFR2; _xlsMap[key]._ofrCnt++; }
+                });
+                Object.values(_xlsMap).forEach(r => {
+                    r.OFR2 = r._ofrCnt > 0 ? r._ofrSum / r._ofrCnt : null;
+                });
+                rows = Object.values(_xlsMap).sort((a,b) => (b.L3M||0)-(a.L3M||0)).slice(0,25);
+            }
 
             if (!rows.length) { alert('Tidak ada data.'); return; }
 
