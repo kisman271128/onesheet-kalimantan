@@ -14,7 +14,7 @@
       "LM",
       "MTD"
     ],
-    "last_updated": "2026-05-12 07:17:35"
+    "last_updated": "2026-05-13 07:33:23"
   },
   "data": [
     {
@@ -22,10 +22,10 @@
       "SzCustId": "0077-04-000000045",
       "Nama Pelanggan": "CHILLER_ADIT",
       "Principle": "ALL",
-      "L3M": 126717995.54862566,
+      "L3M": 126717995.5486257,
       "LY": 160252289.57100004,
       "LM": 123690653.84144498,
-      "MTD": 0
+      "MTD": 62827927.930785
     },
     {
       "Depo": "DEPO BALIKPAPAN",
@@ -35,7 +35,7 @@
       "L3M": 109079768.74140964,
       "LY": 172819007.660523,
       "LM": 145352972.979039,
-      "MTD": 60022252.218637
+      "MTD": 61643873.839718
     },
     {
       "Depo": "DEPO BALIKPAPAN",
@@ -52,7 +52,7 @@
       "SzCustId": "0077-22-000006359",
       "Nama Pelanggan": "Ujung Pandang (Sepinggan)",
       "Principle": "ALL",
-      "L3M": 115510776.96418767,
+      "L3M": 115510776.96418764,
       "LY": 56449744.29034201,
       "LM": 184196043.61749703,
       "MTD": -320065.8
@@ -72,7 +72,7 @@
       "SzCustId": "0077-04-000000161",
       "Nama Pelanggan": "UJUNG PANDANG (PANDAN SARI)",
       "Principle": "ALL",
-      "L3M": 86723481.073005,
+      "L3M": 86723481.07300502,
       "LY": 84605295.21240899,
       "LM": 136820901.823396,
       "MTD": -1479324.3354930005
@@ -154,8 +154,8 @@
       "Principle": "ALL",
       "L3M": 39556402.40480934,
       "LY": 33037927.332163,
-      "LM": 42912118.45471399,
-      "MTD": 13160270.300436001
+      "LM": 42912118.454714,
+      "MTD": 13053063.100436002
     },
     {
       "Depo": "DEPO BALIKPAPAN",
@@ -172,9 +172,9 @@
       "SzCustId": "0077-04-000000250",
       "Nama Pelanggan": "DAM JAYA",
       "Principle": "ALL",
-      "L3M": 29213270.163939994,
+      "L3M": 29213270.163939998,
       "LY": 37011925.574016996,
-      "LM": 39760110.961891994,
+      "LM": 39760110.961892,
       "MTD": 0
     },
     {
@@ -214,7 +214,7 @@
       "Principle": "ALL",
       "L3M": 21283343.976562664,
       "LY": 39726449.96562199,
-      "LM": 31714911.221275,
+      "LM": 31714911.221274998,
       "MTD": 8959819.815574
     },
     {
@@ -242,7 +242,7 @@
       "SzCustId": "0077-10-000001557",
       "Nama Pelanggan": "TOKO DIAN",
       "Principle": "ALL",
-      "L3M": 32323513.605621994,
+      "L3M": 32323513.605621997,
       "LY": 33231795.377086002,
       "LM": 33679793.887955,
       "MTD": 3402526.145936
@@ -265,13 +265,383 @@
       "L3M": 25291196.279449996,
       "LY": 16713341.657064002,
       "LM": 29807450.133539997,
-      "MTD": 5645678.35684
+      "MTD": 8572885.578459
     },
     {
       "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
+      "SzCustId": "0077-04-000000045",
+      "Nama Pelanggan": "CHILLER_ADIT",
+      "Principle": "GPPJ",
+      "L3M": 98220667.10714465,
+      "LY": 143788467.019906,
+      "LM": 103936235.87162903,
+      "MTD": 61746846.845920995
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-11-000001878",
+      "Nama Pelanggan": "CV. AMIN JAYA PERDANA",
+      "Principle": "GPPJ",
+      "L3M": 89847927.90507065,
+      "LY": 157535134.96382603,
+      "LM": 120822342.34400502,
+      "MTD": 44076306.279268004
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-22-000006359",
+      "Nama Pelanggan": "Ujung Pandang (Sepinggan)",
+      "Principle": "GPPJ",
+      "L3M": 89529304.83801566,
+      "LY": 46581351.04483901,
+      "LM": 157394265.843876,
+      "MTD": -320065.8
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-11-000001974",
+      "Nama Pelanggan": "UJUNG PANDANG 2 (SAMPING ASRAMA HAJI)",
+      "Principle": "GPPJ",
+      "L3M": 50915705.68279034,
+      "LY": 37523693.528597,
+      "LM": 90674774.76588501,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-12-000002052",
+      "Nama Pelanggan": "UJUNG PANDANG 3 (KARANG REJO)",
+      "Principle": "GPPJ",
+      "L3M": 55413945.66353468,
+      "LY": 26130810.640192997,
+      "LM": 79983563.07724501,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000161",
+      "Nama Pelanggan": "UJUNG PANDANG (PANDAN SARI)",
+      "Principle": "GPPJ",
+      "L3M": 60977903.28181999,
+      "LY": 67354053.854681,
+      "LM": 100217837.84730999,
+      "MTD": -1410878.3854930003
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-12-000002149",
+      "Nama Pelanggan": "SIRBA MART I",
+      "Principle": "GPPJ",
+      "L3M": 63144138.12989602,
+      "LY": 53790585.34044201,
+      "LM": 63644216.187431,
+      "MTD": -111756.76
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-13-000002378",
+      "Nama Pelanggan": "Toko Laii [O]",
+      "Principle": "GPPJ",
+      "L3M": 42178498.498167336,
+      "LY": 16350270.143557,
+      "LM": 48993693.63059,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-16-000004440",
+      "Nama Pelanggan": "UJUNG PANDANG(DEPAN DODIK)",
+      "Principle": "GPPJ",
+      "L3M": 41813753.751133345,
+      "LY": 46365224.928504996,
+      "LM": 65905045.061378,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-24-000006731",
+      "Nama Pelanggan": "UJUNG PANDANG KM.10",
+      "Principle": "GPPJ",
+      "L3M": 30266069.058200672,
+      "LY": 51273558.293929,
+      "LM": 60744918.879223,
+      "MTD": -178153.16
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-13-000002514",
+      "Nama Pelanggan": "IMMA",
+      "Principle": "GPPJ",
+      "L3M": 25599168.18015601,
+      "LY": 27477567.084152,
+      "LM": 33197117.118975002,
+      "MTD": 12242252.280436002
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000187",
+      "Nama Pelanggan": "MEGA JAYA",
+      "Principle": "GPPJ",
+      "L3M": 30479211.717787337,
+      "LY": 23432477.301766004,
+      "LM": 47308175.694015,
+      "MTD": 16234774.765031
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000250",
+      "Nama Pelanggan": "DAM JAYA",
+      "Principle": "GPPJ",
+      "L3M": 22581411.413577333,
+      "LY": 29155450.216026,
+      "LM": 34252792.756809,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-16-000004283",
+      "Nama Pelanggan": "TFG. DANDY",
+      "Principle": "GPPJ",
+      "L3M": 32821725.179967,
+      "LY": 13962251.510115,
+      "LM": 79295405.33563001,
+      "MTD": 3482342.3381919996
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-19-000005609",
+      "Nama Pelanggan": "TOKO RAFFASYA",
+      "Principle": "GPPJ",
+      "L3M": 17580750.74849767,
+      "LY": 30466395.846622992,
+      "LM": 24273783.779867,
+      "MTD": 8527387.375574
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-23-000006688",
+      "Nama Pelanggan": "DAM JAYA SEPINGGAN",
+      "Principle": "GPPJ",
+      "L3M": 21736831.81778567,
+      "LY": 28866486.159989,
+      "LM": 16566486.502952,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-14-000002710",
+      "Nama Pelanggan": "UJUNG PANDANG (BATAKAN)",
+      "Principle": "GPPJ",
+      "L3M": 25867327.30762967,
+      "LY": 17513198.127003998,
+      "LM": 27756846.816093,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-17-000004627",
+      "Nama Pelanggan": "Toko Bintang",
+      "Principle": "GPPJ",
+      "L3M": 19224759.75997533,
+      "LY": 28751351.108304,
+      "LM": 37188828.80697,
+      "MTD": -44864.869999999995
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000723",
+      "Nama Pelanggan": "Rifqi",
+      "Principle": "GPPJ",
+      "L3M": 20983798.775537666,
+      "LY": 12027026.871609999,
+      "LM": 21865675.656915,
+      "MTD": 1447567.558826
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-14-000002787",
+      "Nama Pelanggan": "CHILLER_Tk.Anifatur",
+      "Principle": "GPPJ",
+      "L3M": 21114519.44936967,
+      "LY": 6626486.375275,
+      "LM": 43754684.625091,
+      "MTD": 3109099.1019719997
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-11-000001862",
+      "Nama Pelanggan": "SURYA HAKIKI",
+      "Principle": "GPPJ",
+      "L3M": 15379714.754492668,
+      "LY": 19278197.530077998,
+      "LM": 25586666.786048003,
+      "MTD": 3534594.573952
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-05-000000179",
+      "Nama Pelanggan": "ABG (HARTANTO)",
+      "Principle": "GPPJ",
+      "L3M": 15884204.22948034,
+      "LY": 14283377.887988998,
+      "LM": 16936666.698964,
+      "MTD": 6074431.569441001
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-19-000005697",
+      "Nama Pelanggan": "MUKHLAS TOKO",
+      "Principle": "GPPJ",
+      "L3M": 16467355.848595329,
+      "LY": 11244504.3543,
+      "LM": 17374579.257179,
+      "MTD": 3800900.8943200004
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-10-000001557",
+      "Nama Pelanggan": "TOKO DIAN",
+      "Principle": "GPPJ",
+      "L3M": 17654825.812635664,
+      "LY": 22986666.183876995,
+      "LM": 15840513.490768,
+      "MTD": 2056576.582429
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-17-000004670",
+      "Nama Pelanggan": "BULE TELUR",
+      "Principle": "GPPJ",
+      "L3M": 14370150.151040332,
+      "LY": 19604324.103279997,
+      "LM": 14826126.099801999,
+      "MTD": 8268108.100626
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-12-000002052",
+      "Nama Pelanggan": "UJUNG PANDANG 3 (KARANG REJO)",
+      "Principle": "GBS",
+      "L3M": 21353663.654530335,
+      "LY": 0,
+      "LM": 25775585.584588,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000161",
+      "Nama Pelanggan": "UJUNG PANDANG (PANDAN SARI)",
+      "Principle": "GBS",
+      "L3M": 12449072.075673668,
+      "LY": 10323873.819815997,
+      "LM": 19194594.59459,
+      "MTD": -4497.3
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-11-000001974",
+      "Nama Pelanggan": "UJUNG PANDANG 2 (SAMPING ASRAMA HAJI)",
+      "Principle": "GBS",
+      "L3M": 15611561.542848667,
+      "LY": 8952972.960538998,
+      "LM": 27500450.404677,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-16-000004440",
+      "Nama Pelanggan": "UJUNG PANDANG(DEPAN DODIK)",
+      "Principle": "GBS",
+      "L3M": 14151531.522158667,
+      "LY": -90540.53,
+      "LM": 18297837.818194002,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-22-000006359",
+      "Nama Pelanggan": "Ujung Pandang (Sepinggan)",
+      "Principle": "GBS",
+      "L3M": 11602972.968196666,
+      "LY": 0,
+      "LM": -18108.11,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000045",
+      "Nama Pelanggan": "CHILLER_ADIT",
+      "Principle": "GBS",
+      "L3M": 16092642.642906664,
+      "LY": 1061261.24027,
+      "LM": 7580630.633772,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-17-000004727",
+      "Nama Pelanggan": "SIRBA MART II",
+      "Principle": "GBS",
+      "L3M": 13816486.486633666,
+      "LY": 14866756.734499998,
+      "LM": 19737837.837832,
+      "MTD": 212972.97081
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-11-000001878",
+      "Nama Pelanggan": "CV. AMIN JAYA PERDANA",
+      "Principle": "GBS",
+      "L3M": 15091621.617623335,
+      "LY": 9707207.130083999,
+      "LM": 22818918.921251997,
+      "MTD": 17567567.56045
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-17-000004627",
+      "Nama Pelanggan": "Toko Bintang",
+      "Principle": "GBS",
+      "L3M": 6633663.652550333,
+      "LY": 4239819.821080001,
+      "LM": 19991531.507651,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-14-000002710",
+      "Nama Pelanggan": "UJUNG PANDANG (BATAKAN)",
+      "Principle": "GBS",
+      "L3M": 2553453.4517703336,
+      "LY": 6284144.079186,
+      "LM": 7660360.355311001,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-10-000001557",
+      "Nama Pelanggan": "TOKO DIAN",
+      "Principle": "GBS",
+      "L3M": 9944521.894195,
+      "LY": 3621621.5603559995,
+      "LM": 9859691.831059001,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000187",
+      "Nama Pelanggan": "MEGA JAYA",
+      "Principle": "GBS",
+      "L3M": 7878738.7203560015,
+      "LY": 0,
+      "LM": 4260540.485400001,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-24-000006731",
+      "Nama Pelanggan": "UJUNG PANDANG KM.10",
+      "Principle": "GBS",
       "L3M": 0,
       "LY": 0,
       "LM": 0,
@@ -279,492 +649,122 @@
     },
     {
       "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
+      "SzCustId": "0077-08-000001064",
+      "Nama Pelanggan": "ARIEL",
+      "Principle": "GBS",
+      "L3M": 4662822.80648,
+      "LY": 5278828.7142280005,
+      "LM": 5799729.689361,
+      "MTD": 212972.97081
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-16-000004434",
+      "Nama Pelanggan": "TOKO RINDU",
+      "Principle": "GBS",
+      "L3M": 7714054.060323332,
       "LY": 0,
+      "LM": 995945.957833,
+      "MTD": 862702.68594
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-14-000003047",
+      "Nama Pelanggan": "PLASTIK JAYA",
+      "Principle": "GBS",
+      "L3M": 1367297.2899383334,
+      "LY": 0,
+      "LM": 4282972.959815,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-13-000002514",
+      "Nama Pelanggan": "IMMA",
+      "Principle": "GBS",
+      "L3M": 7502312.297561668,
+      "LY": 2796396.335763,
+      "LM": 3987567.5617080005,
+      "MTD": 0
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-05-000000179",
+      "Nama Pelanggan": "ABG (HARTANTO)",
+      "Principle": "GBS",
+      "L3M": 3457263.3911306667,
+      "LY": 2290990.867015,
+      "LM": 5718711.766195999,
+      "MTD": 106486.485405
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-15-000003179",
+      "Nama Pelanggan": "RIZKI, TOKO",
+      "Principle": "GBS",
+      "L3M": 3059639.6310186666,
+      "LY": 3197297.2721579997,
+      "LM": 3953243.240357,
+      "MTD": 2263513.520358
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000723",
+      "Nama Pelanggan": "Rifqi",
+      "Principle": "GBS",
+      "L3M": 4044144.127083,
+      "LY": 2082432.4121600003,
       "LM": 0,
       "MTD": 0
     },
     {
       "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
+      "SzCustId": "0077-09-000001457",
+      "Nama Pelanggan": "CHILLER_IWAN",
+      "Principle": "GBS",
+      "L3M": 2237207.2043520003,
+      "LY": 1722522.4886479997,
+      "LM": 2964864.865672,
       "MTD": 0
     },
     {
       "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
+      "SzCustId": "0077-25-000007124",
+      "Nama Pelanggan": "KIKA JAYA MART",
+      "Principle": "GBS",
+      "L3M": 1804054.050328667,
+      "LY": 452702.67,
+      "LM": 106486.485405,
       "MTD": 0
     },
     {
       "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
+      "SzCustId": "0077-21-000006088",
+      "Nama Pelanggan": "AZZAM",
+      "Principle": "GBS",
+      "L3M": 849129.136936,
+      "LY": 33693.69,
+      "LM": 2547387.410808,
+      "MTD": 905405.3962160001
+    },
+    {
+      "Depo": "DEPO BALIKPAPAN",
+      "SzCustId": "0077-04-000000250",
+      "Nama Pelanggan": "DAM JAYA",
+      "Principle": "GBS",
+      "L3M": 3005945.956034333,
+      "LY": 561351.334233,
+      "LM": 162972.96999999997,
       "MTD": 0
     },
     {
       "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
-      "MTD": 0
-    },
-    {
-      "Depo": "DEPO BALIKPAPAN",
-      "SzCustId": null,
-      "Nama Pelanggan": null,
-      "Principle": null,
-      "L3M": 0,
-      "LY": 0,
-      "LM": 0,
+      "SzCustId": "0077-04-000000169",
+      "Nama Pelanggan": "SALEH, H",
+      "Principle": "GBS",
+      "L3M": 3386216.207024,
+      "LY": 814864.823869,
+      "LM": 651891.87567,
       "MTD": 0
     },
     {
