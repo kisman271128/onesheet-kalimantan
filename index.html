@@ -1094,8 +1094,13 @@
                 <h3>🏪 Data Depo Spesifik</h3>
                 <p>Lihat weekly report per Depo</p>
             </div>
+
+            <div id="adminOptionCard" class="option-card" style="display:none; border-color:#e74c3c;" onclick="openAdminPasswordModal()">
+                <h3>🔑 Kelola Password</h3>
+                <p>Ganti password user (admin only)</p>
+            </div>
             
-            <button class="btn btn-secondary" onclick="backToLogin()">← Kembali</button>
+            <button class="btn btn-secondary" onclick="backToLogin()">← Logout</button>
         </div>
     </div>
 
@@ -1131,7 +1136,9 @@
             </div>
             <div class="header-right">
                 <span class="tg-info" id="tgDisplay">Time Gone: 0.0%</span>
-                <button class="btn-small btn-primary" onclick="changeDepo()">Ganti Depo</button>
+                <button id="btnGantiDepo" class="btn-small btn-primary" onclick="changeDepo()">Ganti Depo</button>
+                <button id="btnSummaryDepo" class="btn-small btn-primary" style="display:none;" onclick="goToDepoSummary()">📊 Summary</button>
+                <button id="btnKelolaPwd" class="btn-small" style="display:none;background:#e74c3c;color:white;" onclick="openAdminPasswordModal()">🔑 Password</button>
                 <button class="btn-small btn-danger" onclick="logout()">Logout</button>
             </div>
         </div>
@@ -1831,11 +1838,27 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        const CREDS = {
-            'YWRtaW4=': 'YWRtaW4xMjM=',
-            'dXNlcg==': 'dXNlcjEyMw==',
-            'a2FsaW1hbnRhbg==': 'a2FsaW1hbnRhbjIwMjQ='
-        };
+        // ── Auth ────────────────────────────────────────────────────────
+        let USERS = [];          // loaded from users.json
+        let currentRole = '';    // 'depo' | 'region' | 'admin'
+        let currentDepo = '';    // e.g. 'BALIKPAPAN' — hanya untuk role depo
+
+        async function sha256(str) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+        }
+
+        async function loadUsers() {
+            try {
+                const res = await fetch('users.json');
+                if (!res.ok) throw new Error('users.json tidak ditemukan');
+                const data = await res.json();
+                USERS = data.users || [];
+            } catch(e) {
+                console.warn('Gagal memuat users.json:', e.message);
+                USERS = [];
+            }
+        }
 
         let rawData = [];
         let viewType = '';
@@ -1927,13 +1950,29 @@
         // Auto-rotate every 4 seconds
         setInterval(() => goToSlide((_loginSlide + 1) % _loginSlides.length), 4000);
 
-        document.getElementById('loginForm').addEventListener('submit', e => {
+        document.getElementById('loginForm').addEventListener('submit', async e => {
             e.preventDefault();
-            const u = document.getElementById('username').value;
+            const u = document.getElementById('username').value.trim();
             const p = document.getElementById('password').value;
-            if (CREDS[btoa(u)] === btoa(p)) {
+            const hashed = await sha256(p);
+            const found = USERS.find(usr => usr.username === u && usr.hash === hashed);
+            if (found) {
                 sessionStorage.setItem('user', u);
-                showPage('selectionPage');
+                sessionStorage.setItem('role', found.role);
+                sessionStorage.setItem('userDepo', found.depo || '');
+                currentRole = found.role;
+                currentDepo = found.depo || '';
+                if (found.role === 'depo') {
+                    viewType = 'depo';
+                    selectedDepo = 'data_DEPO_' + found.depo;
+                    sessionStorage.setItem('view', 'depo');
+                    sessionStorage.setItem('depo', selectedDepo);
+                    showDashboard();
+                } else {
+                    showPage('selectionPage');
+                    const adminOpt = document.getElementById('adminOptionCard');
+                    if (adminOpt) adminOpt.style.display = found.role === 'admin' ? '' : 'none';
+                }
             } else {
                 document.getElementById('errorMsg').classList.remove('hidden');
             }
@@ -2794,18 +2833,22 @@
         }
 
         window.onload = async () => {
-            // Hanya load config jika di localhost (config.json tidak perlu ada di GitHub)
             if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 await loadConfig();
             }
+            await loadUsers();
             loadDepoList();
             if (sessionStorage.getItem('user')) {
+                currentRole = sessionStorage.getItem('role') || 'region';
+                currentDepo = sessionStorage.getItem('userDepo') || '';
                 if (sessionStorage.getItem('depo')) {
                     selectedDepo = sessionStorage.getItem('depo');
                     viewType = sessionStorage.getItem('view');
                     showDashboard();
                 } else {
                     showPage('selectionPage');
+                    const adminOpt = document.getElementById('adminOptionCard');
+                    if (adminOpt) adminOpt.style.display = currentRole === 'admin' ? '' : 'none';
                 }
             }
         };
@@ -2830,7 +2873,14 @@
                 sessionStorage.setItem('depo', 'data_SUMMARY');
                 showDashboard();
             } else {
-                showPage('depoPage');
+                // Depo user tidak boleh pilih depo lain
+                if (currentRole === 'depo') {
+                    selectedDepo = 'data_DEPO_' + currentDepo;
+                    sessionStorage.setItem('depo', selectedDepo);
+                    showDashboard();
+                } else {
+                    showPage('depoPage');
+                }
             }
         }
 
@@ -2875,7 +2925,63 @@
             if (fl) fl.remove();
             sessionStorage.removeItem('depo');
             sessionStorage.removeItem('view');
-            showPage('selectionPage');
+            // Depo user hanya bisa balik ke depo sendiri atau summary
+            if (currentRole === 'depo') {
+                showDepoSwitchModal();
+            } else {
+                showPage('selectionPage');
+                const adminOpt = document.getElementById('adminOptionCard');
+                if (adminOpt) adminOpt.style.display = currentRole === 'admin' ? '' : 'none';
+            }
+        }
+
+        function goToDepoSummary() {
+            const fl = document.getElementById('depoStatusFloat');
+            if (fl) fl.remove();
+            sessionStorage.removeItem('depo');
+            sessionStorage.removeItem('view');
+            showDepoSwitchModal();
+        }
+
+        function showDepoSwitchModal() {
+            // Modal sederhana untuk depo user: pilih depo sendiri atau summary
+            const modal = document.getElementById('depoSwitchModal');
+            if (modal) { modal.style.display = 'flex'; return; }
+            const m = document.createElement('div');
+            m.id = 'depoSwitchModal';
+            m.style.cssText = 'position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;';
+            m.innerHTML = `
+              <div style="background:white;border-radius:16px;padding:28px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+                <h3 style="margin:0 0 16px;color:#1e293b;">Pilih Tampilan</h3>
+                <div class="option-card" style="margin-bottom:10px;" onclick="switchToMyDepo()">
+                  <h3>🏪 Depo Saya</h3>
+                  <p>${currentDepo.replace(/_/g,' ')}</p>
+                </div>
+                <div class="option-card" style="margin-bottom:16px;" onclick="switchToSummary()">
+                  <h3>🏢 Summary Regional</h3>
+                  <p>Ringkasan semua depo</p>
+                </div>
+                <button class="btn btn-secondary" onclick="document.getElementById('depoSwitchModal').style.display='none';showPage('dashboard');">Batal</button>
+              </div>`;
+            document.body.appendChild(m);
+        }
+
+        function switchToMyDepo() {
+            document.getElementById('depoSwitchModal').style.display = 'none';
+            viewType = 'depo';
+            selectedDepo = 'data_DEPO_' + currentDepo;
+            sessionStorage.setItem('view', 'depo');
+            sessionStorage.setItem('depo', selectedDepo);
+            showDashboard();
+        }
+
+        function switchToSummary() {
+            document.getElementById('depoSwitchModal').style.display = 'none';
+            viewType = 'summary';
+            selectedDepo = 'data_SUMMARY';
+            sessionStorage.setItem('view', 'summary');
+            sessionStorage.setItem('depo', 'data_SUMMARY');
+            showDashboard();
         }
 
         function logout() {
@@ -4811,6 +4917,20 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             
             const username = sessionStorage.getItem('user');
             document.getElementById('userName').textContent = username;
+
+            // Sesuaikan tombol header berdasarkan role
+            const btnGanti = document.getElementById('btnGantiDepo');
+            const btnSummary = document.getElementById('btnSummaryDepo');
+            const btnPwd = document.getElementById('btnKelolaPwd');
+            if (currentRole === 'depo') {
+                if (btnGanti) btnGanti.style.display = 'none';
+                if (btnSummary) btnSummary.style.display = '';
+                if (btnPwd) btnPwd.style.display = 'none';
+            } else {
+                if (btnGanti) btnGanti.style.display = '';
+                if (btnSummary) btnSummary.style.display = 'none';
+                if (btnPwd) btnPwd.style.display = currentRole === 'admin' ? '' : 'none';
+            }
 
             // Load TG per-depo setelah depo diketahui
             let _tgSuffix = selectedDepo.replace(/^data_DEPO_/i, '');
@@ -6808,6 +6928,156 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             ">&#8617; Reset Default</button>
         </div>
     </div>
+
+    <!-- ===== ADMIN PASSWORD MODAL ===== -->
+    <div id="adminPwdModal" style="display:none;position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+      <div style="background:white;border-radius:20px;width:420px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.35);animation:slideUp 0.3s ease;">
+        <!-- Header -->
+        <div style="background:linear-gradient(160deg,#e74c3c,#c0392b);padding:24px 24px 18px;border-radius:20px 20px 0 0;position:relative;">
+          <button onclick="closeAdminPasswordModal()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.2);border:none;border-radius:50%;width:30px;height:30px;color:white;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+          <div style="color:white;font-size:18px;font-weight:700;">🔑 Kelola Password</div>
+          <div style="color:rgba(255,255,255,0.75);font-size:12px;margin-top:4px;">Administrator • OneSheet Region Kalimantan</div>
+        </div>
+        <!-- Body -->
+        <div style="padding:20px 24px 24px;">
+          <div style="margin-bottom:14px;">
+            <label style="font-size:12px;font-weight:600;color:#475569;display:block;margin-bottom:5px;">Pilih User</label>
+            <select id="adminPwdUserSelect" style="width:100%;padding:9px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1e293b;background:#f8fafc;outline:none;" onchange="onAdminUserChange()">
+              <option value="">-- Pilih username --</option>
+            </select>
+          </div>
+          <div id="adminPwdRoleInfo" style="display:none;margin-bottom:12px;padding:8px 12px;background:#f1f5f9;border-radius:8px;font-size:12px;color:#475569;"></div>
+          <div style="margin-bottom:14px;">
+            <label style="font-size:12px;font-weight:600;color:#475569;display:block;margin-bottom:5px;">Password Baru</label>
+            <div style="position:relative;">
+              <input type="password" id="adminPwdNew" style="width:100%;padding:9px 38px 9px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1e293b;background:#f8fafc;outline:none;box-sizing:border-box;" placeholder="Masukkan password baru">
+              <button onclick="togglePwdVisibility('adminPwdNew','eyeNew')" id="eyeNew" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:#94a3b8;">👁</button>
+            </div>
+          </div>
+          <div style="margin-bottom:20px;">
+            <label style="font-size:12px;font-weight:600;color:#475569;display:block;margin-bottom:5px;">Konfirmasi Password</label>
+            <div style="position:relative;">
+              <input type="password" id="adminPwdConfirm" style="width:100%;padding:9px 38px 9px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1e293b;background:#f8fafc;outline:none;box-sizing:border-box;" placeholder="Ulangi password baru">
+              <button onclick="togglePwdVisibility('adminPwdConfirm','eyeConf')" id="eyeConf" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:#94a3b8;">👁</button>
+            </div>
+          </div>
+          <div id="adminPwdMsg" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600;"></div>
+          <button onclick="saveNewPassword()" style="width:100%;padding:11px;background:#e74c3c;color:white;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#c0392b'" onmouseout="this.style.background='#e74c3c'">
+            💾 Simpan Password
+          </button>
+          <div style="margin-top:16px;padding:12px;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;font-size:11px;color:#92400e;">
+            ⚠️ Setelah menyimpan, file <strong>users.json</strong> yang di-generate perlu di-upload ke server/GitHub agar perubahan berlaku.
+          </div>
+          <!-- Download area -->
+          <div id="adminPwdDownloadArea" style="display:none;margin-top:14px;padding:14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;">
+            <div style="font-size:12px;font-weight:600;color:#166534;margin-bottom:8px;">✅ Password berhasil di-hash. Download file berikut:</div>
+            <button id="adminPwdDownloadBtn" onclick="downloadUsersJson()" style="width:100%;padding:9px;background:#16a34a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">⬇️ Download users.json</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        // ===== ADMIN PASSWORD MANAGEMENT =====
+
+        let _newUsersData = null; // Updated users array to be downloaded
+
+        function openAdminPasswordModal() {
+            const modal = document.getElementById('adminPwdModal');
+            modal.style.display = 'flex';
+            // Populate user select
+            const sel = document.getElementById('adminPwdUserSelect');
+            sel.innerHTML = '<option value="">-- Pilih username --</option>';
+            USERS.forEach(u => {
+                const opt = document.createElement('option');
+                opt.value = u.username;
+                const roleLabel = u.role === 'admin' ? '👑 Admin' : u.role === 'region' ? '🌏 Region' : '🏪 Depo';
+                opt.textContent = `${u.username} — ${roleLabel}`;
+                sel.appendChild(opt);
+            });
+            // Reset fields
+            document.getElementById('adminPwdNew').value = '';
+            document.getElementById('adminPwdConfirm').value = '';
+            adminPwdMsg('', '');
+            document.getElementById('adminPwdRoleInfo').style.display = 'none';
+            document.getElementById('adminPwdDownloadArea').style.display = 'none';
+            _newUsersData = null;
+        }
+
+        function closeAdminPasswordModal() {
+            document.getElementById('adminPwdModal').style.display = 'none';
+        }
+
+        function onAdminUserChange() {
+            const uname = document.getElementById('adminPwdUserSelect').value;
+            const infoEl = document.getElementById('adminPwdRoleInfo');
+            if (!uname) { infoEl.style.display = 'none'; return; }
+            const usr = USERS.find(u => u.username === uname);
+            if (!usr) return;
+            const depoInfo = usr.depo ? ` — Depo: <strong>${usr.depo.replace(/_/g,' ')}</strong>` : '';
+            infoEl.innerHTML = `Role: <strong>${usr.role.toUpperCase()}</strong>${depoInfo}`;
+            infoEl.style.display = 'block';
+            document.getElementById('adminPwdDownloadArea').style.display = 'none';
+            adminPwdMsg('', '');
+        }
+
+        function togglePwdVisibility(inputId, btnId) {
+            const inp = document.getElementById(inputId);
+            inp.type = inp.type === 'password' ? 'text' : 'password';
+        }
+
+        function adminPwdMsg(text, type) {
+            const el = document.getElementById('adminPwdMsg');
+            if (!text) { el.style.display = 'none'; return; }
+            const colors = { error:'#fef2f2', ok:'#f0fdf4' };
+            const borders = { error:'#fca5a5', ok:'#86efac' };
+            const textC = { error:'#991b1b', ok:'#166534' };
+            el.style.cssText = `display:block;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600;background:${colors[type]||'#f8fafc'};border:1px solid ${borders[type]||'#e2e8f0'};color:${textC[type]||'#334155'};`;
+            el.textContent = text;
+        }
+
+        async function saveNewPassword() {
+            const uname = document.getElementById('adminPwdUserSelect').value;
+            const newPwd = document.getElementById('adminPwdNew').value;
+            const confPwd = document.getElementById('adminPwdConfirm').value;
+
+            if (!uname) { adminPwdMsg('⚠️ Pilih user terlebih dahulu.', 'error'); return; }
+            if (!newPwd) { adminPwdMsg('⚠️ Password baru tidak boleh kosong.', 'error'); return; }
+            if (newPwd.length < 6) { adminPwdMsg('⚠️ Password minimal 6 karakter.', 'error'); return; }
+            if (newPwd !== confPwd) { adminPwdMsg('⚠️ Konfirmasi password tidak cocok.', 'error'); return; }
+
+            const hashed = await sha256(newPwd);
+            // Update local USERS array
+            const updatedUsers = USERS.map(u => {
+                if (u.username === uname) return { ...u, hash: hashed };
+                return u;
+            });
+            _newUsersData = { _info: 'Passwords di-hash dengan SHA-256. Gunakan menu Admin > Kelola Password untuk mengganti.', users: updatedUsers };
+
+            // Update in-memory too so admin can change multiple
+            USERS = updatedUsers;
+
+            adminPwdMsg(`✅ Password untuk "${uname}" berhasil di-hash. Download file users.json di bawah.`, 'ok');
+            document.getElementById('adminPwdDownloadArea').style.display = 'block';
+            document.getElementById('adminPwdNew').value = '';
+            document.getElementById('adminPwdConfirm').value = '';
+        }
+
+        function downloadUsersJson() {
+            if (!_newUsersData) return;
+            const blob = new Blob([JSON.stringify(_newUsersData, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'users.json';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('adminPwdModal').addEventListener('click', function(e) {
+            if (e.target === this) closeAdminPasswordModal();
+        });
+    </script>
 
 </body>
 </html>
