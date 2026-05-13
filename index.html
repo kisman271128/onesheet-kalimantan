@@ -692,7 +692,7 @@
             padding: 8px 14px 12px;
         }
         .kls-photo-wrap {
-            flex-shrink: 0; width: 120px; height: 120px; border-radius: 10px;
+            flex-shrink: 0; width: 100px; height: 100px; border-radius: 10px;
             overflow: hidden; background: #f1f5f9;
             border: 2px solid #e2e8f0;
             display: flex; align-items: center; justify-content: center;
@@ -3879,7 +3879,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     { key: '%PC',    label: 'PC',     desc: 'Productive Call' },
                     { key: '%AC',    label: 'AC',     desc: 'Active Call' },
                     { key: '%EC',    label: 'EC',     desc: 'Effective Call' },
-                    { key: '%ECIns', label: 'ECIns',  desc: 'EC Insight' },
+                    { key: '%ECIns', label: 'ECIns',  desc: 'EC Insentif' },
                     { key: '%SKU',   label: 'AvgSKU', desc: 'Avg SKU' },
                     { key: '%GS',    label: 'GS',     desc: 'Gross Sales' },
                     { key: 'ARColl', label: 'ARColl', desc: 'AR Collection', isAR: true },
@@ -5693,12 +5693,12 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
             // 5) Render
             const metricDefs = [
-                { key: 'achSales', label: 'Ach Sales (vs BP)', bobot: 60,
+                { key: 'achSales', label: 'Ach Sales', bobot: 60,
                   getRaw: d=>d.achSalesRaw, getCapped: d=>d.achSalesCapped,
                   color: '#475569', desc: 'MTD/T.BP' },
                 { key: 'ecIns',    label: '%ECIns',             bobot: 15,
                   getRaw: d=>d.ecInsRaw,    getCapped: d=>d.ecInsCapped,
-                  color: '#64748b', desc: 'EC Insight' },
+                  color: '#64748b', desc: 'EC Insentif' },
                 { key: 'gs',       label: '%GS',                bobot: 15,
                   getRaw: d=>d.gsRaw,       getCapped: d=>d.gsCapped,
                   color: '#64748b', desc: 'Gross Sales' },
