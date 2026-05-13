@@ -7063,34 +7063,81 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 			});
 		}
 
-		// ── Helper: DOM table → worksheet ────────────────────────────────────────
+		// ── Helper: DOM table → worksheet  (dengan kolom Nama Depo) ──────────────
 		function _projTableToWs(table) {
 			const aoa = [];
+			let namaColIdx = -1; // index kolom NAMA PELANGGAN
 
+			// ── THEAD: cari index kolom Pelanggan, sisipkan header "Nama Depo" ────
 			table.querySelectorAll('thead tr').forEach(tr => {
 				const row = [];
-				tr.querySelectorAll('th').forEach(th =>
-					row.push(th.innerText.trim().replace(/\n/g,' '))
-				);
-				if (row.some(Boolean)) aoa.push(row);
+				tr.querySelectorAll('th').forEach((th, ci) => {
+					const txt = th.innerText.trim().replace(/\n/g,' ');
+					row.push(txt);
+					if (namaColIdx < 0 &&
+						(txt.toUpperCase().includes('PELANGGAN') ||
+						 txt.toUpperCase().includes('NAMA'))) {
+						namaColIdx = ci;
+					}
+				});
+				if (row.some(Boolean)) {
+					if (namaColIdx >= 0) {
+						// Sisipkan header "Nama Depo" tepat setelah kolom NAMA PELANGGAN
+						const r = [...row];
+						r.splice(namaColIdx + 1, 0, 'Nama Depo');
+						aoa.push(r);
+					} else {
+						aoa.push(row);
+					}
+				}
 			});
 
+			// ── TBODY ─────────────────────────────────────────────────────────────
 			table.querySelectorAll('tbody tr').forEach(tr => {
 				if (tr.style.display === 'none') return;
 				const row = [];
-				tr.querySelectorAll('td').forEach(td => {
-					const raw   = td.innerText.trim();
-					const clean = raw.replace(/\./g,'').replace(',','.');
-					const num   = parseFloat(clean);
-					row.push(!isNaN(num) && /^[\d.,\-\s]+$/.test(raw) ? num : raw);
+
+				tr.querySelectorAll('td').forEach((td, ci) => {
+					if (ci === namaColIdx && namaColIdx >= 0) {
+						// ── Pisahkan Nama Pelanggan vs Nama Depo ─────────────────
+						// Strategi 1: innerText dibagi per baris (paling robust)
+						const lines = td.innerText.trim()
+							.split('\n')
+							.map(l => l.trim())
+							.filter(Boolean);
+
+						const namaCustomer = lines[0] || '';
+
+						// Cari baris yang mengandung "Depo" sebagai nama depo
+						const depoLine = lines.find((l, i) =>
+							i > 0 && (
+								l.toLowerCase().startsWith('depo') ||
+								l.toLowerCase().includes('depo ')
+							)
+						) || (lines.length > 1 ? lines[lines.length - 1] : '');
+
+						row.push(namaCustomer); // kolom NAMA PELANGGAN
+						row.push(depoLine);     // kolom NAMA DEPO (baru)
+
+					} else {
+						// Kolom lain: coba konversi angka (format ribuan titik, desimal koma)
+						const raw   = td.innerText.trim().replace(/\n/g,' ');
+						const clean = raw.replace(/\./g,'').replace(',','.');
+						const num   = parseFloat(clean);
+						row.push(!isNaN(num) && /^[\d.,+\-\s]+$/.test(raw) ? num : raw);
+					}
 				});
+
 				if (row.length) aoa.push(row);
 			});
 
+			// ── Buat worksheet & auto column width ────────────────────────────────
 			const ws = XLSX.utils.aoa_to_sheet(aoa);
 			if (aoa.length) {
-				ws['!cols'] = aoa[0].map((_,ci) => ({
-					wch: Math.min(45, Math.max(8, ...aoa.map(r => String(r[ci]??'').length)))
+				ws['!cols'] = aoa[0].map((_, ci) => ({
+					wch: Math.min(45, Math.max(8,
+						...aoa.map(r => String(r[ci] ?? '').length)
+					))
 				}));
 			}
 			return ws;
