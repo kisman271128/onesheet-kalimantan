@@ -692,7 +692,7 @@
             padding: 8px 14px 12px;
         }
         .kls-photo-wrap {
-            flex-shrink: 0; width: 100px; height: 100px; border-radius: 10px;
+            flex-shrink: 0; width: 120px; height: 120px; border-radius: 10px;
             overflow: hidden; background: #f1f5f9;
             border: 2px solid #e2e8f0;
             display: flex; align-items: center; justify-content: center;
@@ -761,10 +761,6 @@
         #projTableWrap { width: 100%; overflow-x: auto; overflow-y: auto; max-height: calc(100vh - 260px); position: relative; }
         #projTableWrap table { width: auto; min-width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
         #projTableWrap .proj-section-header th {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-sizing: border-box;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white; text-align: center; padding: 10px 12px; font-size: 13px; font-weight: 700;
             position: sticky; top: 0; z-index: 12;
@@ -1363,8 +1359,15 @@
                 <!-- Cards will be rendered dynamically per project -->
             </div>
             <!-- Sub-tabs per Project -->
-            <div class="proj-subtabs-container">
-                <div class="proj-subtabs" id="projSubTabs"></div>
+            <div class="proj-subtabs-container" style="display:flex;align-items:center;gap:10px;">
+                <div class="proj-subtabs" id="projSubTabs" style="flex:1;"></div>
+                <button id="btnSaveProject"
+                    onclick="saveCurrentProject(this)"
+                    style="flex-shrink:0;padding:5px 14px;background:white;border:1.5px solid #2563eb;
+                           color:#2563eb;border-radius:8px;font-size:12px;font-weight:700;
+                           cursor:pointer;white-space:nowrap;display:none;">
+                    🖼️ Save PNG
+                </button>
             </div>
             <div class="report-container">
                 <div id="loadingProject" class="loading">⏳ Memuat data Project...</div>
@@ -3879,7 +3882,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     { key: '%PC',    label: 'PC',     desc: 'Productive Call' },
                     { key: '%AC',    label: 'AC',     desc: 'Active Call' },
                     { key: '%EC',    label: 'EC',     desc: 'Effective Call' },
-                    { key: '%ECIns', label: 'ECIns',  desc: 'EC Insentif' },
+                    { key: '%ECIns', label: 'ECIns',  desc: 'EC Insight' },
                     { key: '%SKU',   label: 'AvgSKU', desc: 'Avg SKU' },
                     { key: '%GS',    label: 'GS',     desc: 'Gross Sales' },
                     { key: 'ARColl', label: 'ARColl', desc: 'AR Collection', isAR: true },
@@ -5693,12 +5696,12 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
             // 5) Render
             const metricDefs = [
-                { key: 'achSales', label: 'Ach Sales', bobot: 60,
+                { key: 'achSales', label: 'Ach Sales (vs BP)', bobot: 60,
                   getRaw: d=>d.achSalesRaw, getCapped: d=>d.achSalesCapped,
                   color: '#475569', desc: 'MTD/T.BP' },
                 { key: 'ecIns',    label: '%ECIns',             bobot: 15,
                   getRaw: d=>d.ecInsRaw,    getCapped: d=>d.ecInsCapped,
-                  color: '#64748b', desc: 'EC Insentif' },
+                  color: '#64748b', desc: 'EC Insight' },
                 { key: 'gs',       label: '%GS',                bobot: 15,
                   getRaw: d=>d.gsRaw,       getCapped: d=>d.gsCapped,
                   color: '#64748b', desc: 'Gross Sales' },
@@ -6335,10 +6338,16 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             window._projGapFmt = gapFmt;
 
             // Render first sub-tab
-            if (projectNames.length > 0) renderProjectTable(projectNames[0]);
+            if (projectNames.length > 0) {
+                window._activeProject = projectNames[0];
+                renderProjectTable(projectNames[0]);
+                const btn = document.getElementById('btnSaveProject');
+                if (btn) btn.style.display = '';
+            }
         }
 
         function switchProjectSubTab(projName) {
+            window._activeProject = projName;
             document.querySelectorAll('.proj-subtab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.proj-subtab').forEach(t => {
                 if (t.textContent === projName) t.classList.add('active');
@@ -6392,15 +6401,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             <table>
                 <thead>
                     <tr class="proj-section-header">
-                        <th colspan="13">
-                            <span>📋 Project: ${projName} — ${sorted.length} Outlet (sorted by Actual QRT)</span>
-                            <button onclick="saveProjectImage('${projName.replace(/'/g,"\\'")}', this)"
-                                style="padding:4px 12px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.7);color:white;
-                                       border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;
-                                       white-space:nowrap;flex-shrink:0;">
-                                🖼️ Save PNG
-                            </button>
-                        </th>
+                        <th colspan="13">📋 Project: ${projName} — ${sorted.length} Outlet (sorted by Actual QRT)</th>
                     </tr>
                     <tr class="proj-col-header">
                         <th class="p-center" style="width:2px;">Rank</th>
@@ -6946,6 +6947,11 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             if (!el || !el.querySelector('.kls-card')) { alert('Klasemen belum dimuat.'); return; }
             const depo = (document.getElementById('depoName')?.textContent || 'Regional').replace(/\s+/g,'_');
             saveAsImage(el, `Klasemen_${depo}_{ts}`, btn);
+        }
+
+        function saveCurrentProject(btn) {
+            const projName = window._activeProject || '';
+            saveProjectImage(projName, btn);
         }
 
         function saveProjectImage(projName, btn) {
