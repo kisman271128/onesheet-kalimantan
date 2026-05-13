@@ -667,11 +667,12 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 14px; font-weight: 800; color: white;
         }
-        .kls-rank-1   { background: #b45309; }
-        .kls-rank-2   { background: #64748b; }
-        .kls-rank-3   { background: #92400e; }
-        .kls-rank-n   { background: #334155; }
-        .kls-rank-bot { background: #94a3b8; }
+        /* Rank 1 = Gold, 2 = Green, 3 = Silver, 4+ = Red */
+        .kls-rank-1   { background: linear-gradient(135deg,#f59e0b,#d97706); box-shadow: 0 2px 8px rgba(245,158,11,0.45); }
+        .kls-rank-2   { background: linear-gradient(135deg,#22c55e,#16a34a); box-shadow: 0 2px 8px rgba(34,197,94,0.40); }
+        .kls-rank-3   { background: linear-gradient(135deg,#94a3b8,#64748b); box-shadow: 0 2px 8px rgba(100,116,139,0.40); }
+        .kls-rank-n   { background: linear-gradient(135deg,#f87171,#dc2626); box-shadow: 0 2px 8px rgba(220,38,38,0.35); }
+        .kls-rank-bot { background: linear-gradient(135deg,#f87171,#dc2626); box-shadow: 0 2px 8px rgba(220,38,38,0.35); }
         .kls-depo-info { flex: 1; min-width: 0; }
         .kls-depo-name {
             font-size: 11px; font-weight: 700; color: #1e293b;
@@ -685,22 +686,35 @@
         .kls-score-mid { color: #1e293b; }
         .kls-score-low { color: #1e293b; }
         .kls-divider { height: 1px; background: #f1f5f9; margin: 0 14px; }
-        .kls-metrics { padding: 8px 14px 12px; display: flex; flex-direction: column; gap: 6px; }
-        .kls-metric-row { display: flex; flex-direction: column; gap: 2px; }
-        .kls-metric-top  { display: flex; justify-content: space-between; align-items: center; }
-        .kls-metric-lbl  { color: #64748b; font-weight: 500; font-size: 9px; }
+        /* Card body: photo left + metrics right */
+        .kls-card-body {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 8px 14px 12px;
+        }
+        .kls-photo-wrap {
+            flex-shrink: 0; width: 120px; height: 120px; border-radius: 10px;
+            overflow: hidden; background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .kls-photo-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .kls-photo-placeholder {
+            font-size: 40px; color: #94a3b8; line-height: 1;
+        }
+        .kls-metrics { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
+        .kls-metric-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+        .kls-metric-lbl  { color: #64748b; font-weight: 500; font-size: 10px; flex: 1; }
         .kls-metric-vals { display: flex; gap: 4px; align-items: center; }
-        .kls-metric-raw  { color: #334155; font-weight: 700; font-size: 10px; }
+        .kls-metric-raw  { font-weight: 800; font-size: 12px; }
+        .kls-metric-raw.ach-green  { color: #16a34a; }
+        .kls-metric-raw.ach-yellow { color: #d97706; }
+        .kls-metric-raw.ach-red    { color: #dc2626; }
         .kls-metric-wgt  { font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px;
                            background: #f1f5f9; color: #475569; }
         .kls-bobot-tag   { font-size: 8px; color: #cbd5e1; font-weight: 500; }
-        .kls-bar-bg   { background: #f1f5f9; border-radius: 3px; height: 3px; overflow: hidden; }
-        .kls-bar-fill { height: 3px; border-radius: 3px; background: #94a3b8; transition: width 0.5s ease; }
-        .kls-card-footer {
-            background: #fafbfc; padding: 5px 14px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid #f1f5f9; font-size: 8px; color: #cbd5e1;
-        }
+        .kls-card-footer { display: none; }
         .kls-missing { opacity: 0.45; }
         .kls-capped-tag {
             font-size: 8px; color: #94a3b8; font-weight: 600;
@@ -5662,11 +5676,10 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const wgtCol   = v => '#475569';
             const accentColor = (rank, total) => '#e2e8f0';
             const rankBadgeCls = (rank, total) => {
-                if (rank === 1) return 'kls-rank-1';
-                if (rank === 2) return 'kls-rank-2';
-                if (rank === 3) return 'kls-rank-3';
-                if (rank === total) return 'kls-rank-bot';
-                return 'kls-rank-n';
+                if (rank === 1) return 'kls-rank-1';   // Gold
+                if (rank === 2) return 'kls-rank-2';   // Green
+                if (rank === 3) return 'kls-rank-3';   // Silver
+                return 'kls-rank-n';                   // Red (rank 4 dan seterusnya)
             };
 
             const fmtJt = (n) => {
@@ -5735,35 +5748,34 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     const cappedV = m.getCapped(d);
                     const isCapped = rawV > 120;
                     const kontribusi = cappedV * m.bobot / 100;
-                    const barW = d.available ? Math.min(cappedV, 120) / 120 * 100 : 0;
+                    const achCls  = !d.available ? 'ach-red'
+                                  : rawV >= 100  ? 'ach-green'
+                                  : rawV >= 90   ? 'ach-yellow'
+                                  : 'ach-red';
 
                     return `
                     <div class="kls-metric-row">
-                        <div class="kls-metric-top">
-                            <div style="display:flex;align-items:center;gap:4px;">
-                                <span class="kls-bobot-dot" style="background:${m.color};width:7px;height:7px;border-radius:50%;display:inline-block;"></span>
-                                <span class="kls-metric-lbl">${m.label}</span>
-                                <span class="kls-bobot-tag">${m.bobot}%</span>
-                                ${isCapped ? '<span class="kls-capped-tag">cap 120%</span>' : ''}
-                            </div>
-                            <div class="kls-metric-vals">
-                                <span class="kls-metric-raw">${d.available ? fmtPct(rawV) : '—'}</span>
-                                <span class="kls-metric-wgt" style="background:${d.available?wgtBg(rawV):'#f1f5f9'};color:${d.available?wgtCol(rawV):'#94a3b8'};">
-                                    +${d.available ? kontribusi.toFixed(1) : '0'}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="kls-bar-bg">
-                            <div class="kls-bar-fill" style="width:${barW.toFixed(1)}%;background:${m.color};"></div>
+                        <span class="kls-metric-lbl">${m.label} <span class="kls-bobot-tag">${m.bobot}%</span>${isCapped ? ' <span class="kls-capped-tag">cap</span>' : ''}</span>
+                        <div class="kls-metric-vals">
+                            <span class="kls-metric-raw ${achCls}">${d.available ? fmtPct(rawV) : '—'}</span>
+                            <span class="kls-metric-wgt">+${d.available ? kontribusi.toFixed(1) : '0'}</span>
                         </div>
                     </div>`;
                 }).join('');
 
                 const achBP = d.tbp > 0 ? (d.mtd / d.tbp * 100).toFixed(1) + '%' : '—';
 
+                // Foto kepala cabang — nama file: foto/DEPO_SUFFIX.png (misal foto/PALANGKARAYA.png)
+                const photoSrc  = `foto/DEPO_${d.suffix}.png`;
+                const photoHtml = `
+                    <div class="kls-photo-wrap">
+                        <img src="${photoSrc}" alt="${d.label}"
+                             onerror="this.parentElement.innerHTML='<span class=\\'kls-photo-placeholder\\'>👤</span>'"
+                             style="width:100%;height:100%;object-fit:cover;">
+                    </div>`;
+
                 cardsHtml += `
                 <div class="${cardCls}">
-                    <div class="kls-card-accent" style="background:${accent};"></div>
                     <div class="kls-card-top">
                         <div class="kls-rank-badge ${badgeCls}">${rankDisplay}</div>
                         <div class="kls-depo-info">
@@ -5779,12 +5791,11 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                         </div>
                     </div>
                     <div class="kls-divider"></div>
-                    <div class="kls-metrics">
-                        ${metricsHtml}
-                    </div>
-                    <div class="kls-card-footer">
-                        <span>${d.hasBpData ? '✅ bp_DEPO' : '❌ bp_DEPO'} · ${d.hasProsesData ? '✅ proses_DEPO' : '❌ proses_DEPO'}</span>
-                        <span>Rank #${rankDisplay}</span>
+                    <div class="kls-card-body">
+                        ${photoHtml}
+                        <div class="kls-metrics">
+                            ${metricsHtml}
+                        </div>
                     </div>
                 </div>`;
             });
