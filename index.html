@@ -747,6 +747,10 @@
         #projTableWrap { width: 100%; overflow-x: auto; overflow-y: auto; max-height: calc(100vh - 260px); position: relative; }
         #projTableWrap table { width: auto; min-width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
         #projTableWrap .proj-section-header th {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white; text-align: center; padding: 10px 12px; font-size: 13px; font-weight: 700;
             position: sticky; top: 0; z-index: 12;
@@ -5696,13 +5700,21 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     <div class="kls-header-title">🏆 Klasemen Depo — ${total} Depo</div>
                     <div class="kls-header-sub">Skor tertimbang dari data bp_DEPO + proses_DEPO · Cap maks 120%</div>
                 </div>
-                <div class="kls-bobot-pills">
-                    ${metricDefs.map(m =>
-                        `<div class="kls-bobot-pill">
-                            <span class="kls-bobot-dot" style="background:${m.color};"></span>
-                            ${m.label} <strong>${m.bobot}%</strong>
-                        </div>`
-                    ).join('')}
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <div class="kls-bobot-pills">
+                        ${metricDefs.map(m =>
+                            `<div class="kls-bobot-pill">
+                                <span class="kls-bobot-dot" style="background:${m.color};"></span>
+                                ${m.label} <strong>${m.bobot}%</strong>
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <button onclick="saveKlasemenImage(this)"
+                        style="padding:6px 14px;background:white;border:1.5px solid #2563eb;color:#2563eb;
+                               border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;
+                               display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;">
+                        🖼️ Save PNG
+                    </button>
                 </div>
             </div>`;
 
@@ -6369,7 +6381,15 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             <table>
                 <thead>
                     <tr class="proj-section-header">
-                        <th colspan="13">📋 Project: ${projName} — ${sorted.length} Outlet (sorted by Actual QRT)</th>
+                        <th colspan="13">
+                            <span>📋 Project: ${projName} — ${sorted.length} Outlet (sorted by Actual QRT)</span>
+                            <button onclick="saveProjectImage('${projName.replace(/'/g,"\\'")}', this)"
+                                style="padding:4px 12px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.7);color:white;
+                                       border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;
+                                       white-space:nowrap;flex-shrink:0;">
+                                🖼️ Save PNG
+                            </button>
+                        </th>
                     </tr>
                     <tr class="proj-col-header">
                         <th class="p-center" style="width:2px;">Rank</th>
@@ -6845,6 +6865,85 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             }
         }
 
+
+        // ─── Generic Save as PNG ────────────────────────────────────────
+        async function saveAsImage(el, filename, btn) {
+            if (!el) { alert('Tidak ada data untuk disimpan.'); return; }
+            const origMaxH  = el.style.maxHeight;
+            const origOvY   = el.style.overflowY;
+            const origOvX   = el.style.overflowX;
+            el.style.maxHeight  = 'none';
+            el.style.overflowY  = 'visible';
+            el.style.overflowX  = 'visible';
+            el.scrollTop  = 0;
+            el.scrollLeft = 0;
+
+            const origTxt = btn ? btn.innerHTML : '';
+            if (btn) { btn.innerHTML = '⏳ Memproses...'; btn.disabled = true; }
+
+            try {
+                // Buat wrapper dengan header watermark agar gambar punya konteks
+                const depoLabel = document.getElementById('depoName')?.textContent || '';
+                const now       = new Date();
+                const tsLabel   = now.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'})
+                                + ' ' + now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+                const tsFile    = now.getFullYear()
+                                + ('0'+(now.getMonth()+1)).slice(-2)
+                                + ('0'+now.getDate()).slice(-2);
+
+                // Clone wrapper + watermark header
+                const outer = document.createElement('div');
+                outer.style.cssText = 'position:fixed;left:-9999px;top:0;background:#f0f4f8;padding:0;font-family:inherit;';
+                const hdr = document.createElement('div');
+                hdr.style.cssText = 'background:linear-gradient(135deg,#1e40af,#2563eb);color:white;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;font-size:12px;';
+                hdr.innerHTML = `<span style="font-weight:700;font-size:13px;">📊 OneSheet Kalimantan${depoLabel?' · '+depoLabel:''}</span><span style="opacity:0.8;">${tsLabel}</span>`;
+                const clone = el.cloneNode(true);
+                clone.style.cssText += ';max-height:none;overflow:visible;';
+                outer.appendChild(hdr);
+                outer.appendChild(clone);
+                document.body.appendChild(outer);
+
+                const canvas = await html2canvas(outer, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#f0f4f8',
+                    scrollX: 0,
+                    scrollY: -window.scrollY,
+                    windowWidth: outer.scrollWidth + 40,
+                    windowHeight: outer.scrollHeight + 40,
+                    logging: false,
+                });
+                document.body.removeChild(outer);
+
+                const link = document.createElement('a');
+                link.download = filename.replace('{ts}', tsFile) + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch(e) {
+                console.error('Save image error:', e);
+                alert('Gagal menyimpan gambar: ' + e.message);
+            } finally {
+                el.style.maxHeight  = origMaxH;
+                el.style.overflowY  = origOvY;
+                el.style.overflowX  = origOvX;
+                if (btn) { btn.innerHTML = origTxt; btn.disabled = false; }
+            }
+        }
+
+        function saveKlasemenImage(btn) {
+            const el = document.getElementById('klasemenWrap');
+            if (!el || !el.querySelector('.kls-card')) { alert('Klasemen belum dimuat.'); return; }
+            const depo = (document.getElementById('depoName')?.textContent || 'Regional').replace(/\s+/g,'_');
+            saveAsImage(el, `Klasemen_${depo}_{ts}`, btn);
+        }
+
+        function saveProjectImage(projName, btn) {
+            const el = document.getElementById('projTableWrap');
+            if (!el || !el.querySelector('table')) { alert('Data project belum dimuat.'); return; }
+            const safe = projName.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'');
+            const depo = (document.getElementById('depoName')?.textContent || '').replace(/\s+/g,'_');
+            saveAsImage(el, `Project_${safe}_${depo}_{ts}`, btn);
+        }
 
         async function saveCategoryImage() {
             const wrap = document.getElementById('catTableWrap');
