@@ -1362,12 +1362,12 @@
             <div class="proj-subtabs-container" style="display:flex;align-items:center;gap:10px;">
                 <div class="proj-subtabs" id="projSubTabs" style="flex:1;"></div>
                 <button id="btnSaveProject"
-                    onclick="saveCurrentProject(this)"
-                    style="flex-shrink:0;padding:5px 14px;background:white;border:1.5px solid #2563eb;
-                           color:#2563eb;border-radius:8px;font-size:12px;font-weight:700;
-                           cursor:pointer;white-space:nowrap;display:none;">
-                    🖼️ Save PNG
-                </button>
+					onclick="saveProjectExcel(this)"
+					style="flex-shrink:0;padding:5px 14px;background:white;border:1.5px solid #16a34a;
+						   color:#16a34a;border-radius:8px;font-size:12px;font-weight:700;
+						   cursor:pointer;white-space:nowrap;display:none;">
+					📥 Save Excel
+				</button>
             </div>
             <div class="report-container">
                 <div id="loadingProject" class="loading">⏳ Memuat data Project...</div>
@@ -6949,18 +6949,161 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             saveAsImage(el, `Klasemen_${depo}_{ts}`, btn);
         }
 
-        function saveCurrentProject(btn) {
-            const projName = window._activeProject || '';
-            saveProjectImage(projName, btn);
-        }
+		// ─────────────────────────────────────────────────────────────────────────
+		// SAVE PROJECT EXCEL  –  versi fix: selector fleksibel + smart wait
+		// ─────────────────────────────────────────────────────────────────────────
+		async function saveProjectExcel(btn) {
+			const wrap = document.getElementById('projTableWrap');
+			if (!wrap || !wrap.querySelector('table')) {
+				alert('Data project belum dimuat.'); return;
+			}
 
-        function saveProjectImage(projName, btn) {
-            const el = document.getElementById('projTableWrap');
-            if (!el || !el.querySelector('table')) { alert('Data project belum dimuat.'); return; }
-            const safe = projName.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'');
-            const depo = (document.getElementById('depoName')?.textContent || '').replace(/\s+/g,'_');
-            saveAsImage(el, `Project_${safe}_${depo}_{ts}`, btn);
-        }
+			const origTxt = btn ? btn.innerHTML : '';
+			if (btn) { btn.innerHTML = '⏳ Menyiapkan...'; btn.disabled = true; }
+
+			try {
+				const wb   = XLSX.utils.book_new();
+				const depo = (document.getElementById('depoName')?.textContent || '').replace(/\s+/g,'_');
+				const now  = new Date();
+				const ts   = now.getFullYear()
+						   + ('0'+(now.getMonth()+1)).slice(-2)
+						   + ('0'+now.getDate()).slice(-2);
+
+				// ── 1. Temukan semua elemen tab project ───────────────────────────
+				// Cari semua child langsung #projSubTabs: button, div, span, a
+				const projSubTabs = document.getElementById('projSubTabs');
+				const tabEls = projSubTabs
+					? Array.from(projSubTabs.querySelectorAll('button, div, span, a'))
+						  .filter(el => {
+							  const txt = el.textContent.trim();
+							  // Filter: punya teks, bukan container kosong, bukan nested dalam tab lain
+							  return txt.length > 0
+								  && txt.length < 60
+								  && el.parentElement === projSubTabs; // hanya direct child
+						  })
+					: [];
+
+				if (!tabEls.length) {
+					// Fallback total: tidak bisa iterasi tab, simpan yang aktif saja
+					const tbl  = wrap.querySelector('table');
+					const name = window._activeProject || 'Project';
+					XLSX.utils.book_append_sheet(wb, _projTableToWs(tbl), _projSheetName(name, new Set()));
+					XLSX.writeFile(wb, `Project_${depo}_${ts}.xlsx`);
+					return;
+				}
+
+				const usedNames   = new Set();
+				const savedActive = window._activeProject || '';
+
+				// ── 2. Loop setiap tab, klik, tunggu data, ambil tabel ────────────
+				for (const tabEl of tabEls) {
+					// Ambil nama project dari teks tab (bersihkan emoji & spasi)
+					const projName = (
+						tabEl.dataset.proj     ||
+						tabEl.dataset.project  ||
+						tabEl.textContent
+					).trim().replace(/[\u{1F300}-\u{1FFFF}]/gu, '').trim();
+
+					if (!projName) continue;
+					if (btn) btn.innerHTML = `⏳ ${projName}…`;
+
+					// Klik tab
+					tabEl.click();
+
+					// ── Smart wait: tunggu header tabel berubah ke project ini ────
+					// Header tabel berisi teks "Project: [nama] — X Outlet"
+					await _waitProjLoaded(wrap, projName, 3000);
+
+					const tbl = wrap.querySelector('table');
+					if (!tbl) continue;
+
+					const sheetName = _projSheetName(projName, usedNames);
+					XLSX.utils.book_append_sheet(wb, _projTableToWs(tbl), sheetName);
+					usedNames.add(sheetName);
+				}
+
+				// ── 3. Kembalikan ke tab semula ───────────────────────────────────
+				if (savedActive) {
+					const origTab = tabEls.find(t =>
+						t.textContent.trim().includes(savedActive) ||
+						t.dataset.proj === savedActive
+					);
+					if (origTab) { origTab.click(); }
+				}
+
+				if (!wb.SheetNames.length) { alert('Tidak ada data project untuk diekspor.'); return; }
+
+				XLSX.writeFile(wb, `Project_${depo}_${ts}.xlsx`);
+
+			} catch(e) {
+				console.error('saveProjectExcel:', e);
+				alert('Gagal export Excel: ' + e.message);
+			} finally {
+				if (btn) { btn.innerHTML = origTxt; btn.disabled = false; }
+			}
+		}
+
+		// ── Smart wait: polling sampai header tabel memuat project yang diharapkan ─
+		// Memanfaatkan teks "Project: Chiller GBS — 49 Outlet" di baris thead/caption
+		function _waitProjLoaded(wrap, expectedName, maxMs = 3000) {
+			return new Promise(resolve => {
+				const deadline = Date.now() + maxMs;
+				const check = setInterval(() => {
+					// Cek di seluruh teks dalam wrap: caption, th, atau div judul tabel
+					const bodyText = wrap.innerText || '';
+					const nameClean = expectedName.replace(/\s+/g,' ').trim().toLowerCase();
+					const found = bodyText.toLowerCase().includes(nameClean);
+
+					if (found || Date.now() >= deadline) {
+						clearInterval(check);
+						// Buffer kecil setelah konten terdeteksi
+						setTimeout(resolve, 80);
+					}
+				}, 60);
+			});
+		}
+
+		// ── Helper: DOM table → worksheet ────────────────────────────────────────
+		function _projTableToWs(table) {
+			const aoa = [];
+
+			table.querySelectorAll('thead tr').forEach(tr => {
+				const row = [];
+				tr.querySelectorAll('th').forEach(th =>
+					row.push(th.innerText.trim().replace(/\n/g,' '))
+				);
+				if (row.some(Boolean)) aoa.push(row);
+			});
+
+			table.querySelectorAll('tbody tr').forEach(tr => {
+				if (tr.style.display === 'none') return;
+				const row = [];
+				tr.querySelectorAll('td').forEach(td => {
+					const raw   = td.innerText.trim();
+					const clean = raw.replace(/\./g,'').replace(',','.');
+					const num   = parseFloat(clean);
+					row.push(!isNaN(num) && /^[\d.,\-\s]+$/.test(raw) ? num : raw);
+				});
+				if (row.length) aoa.push(row);
+			});
+
+			const ws = XLSX.utils.aoa_to_sheet(aoa);
+			if (aoa.length) {
+				ws['!cols'] = aoa[0].map((_,ci) => ({
+					wch: Math.min(45, Math.max(8, ...aoa.map(r => String(r[ci]??'').length)))
+				}));
+			}
+			return ws;
+		}
+
+		// ── Helper: nama sheet unik ≤31 karakter ─────────────────────────────────
+		function _projSheetName(name, usedSet) {
+			let base = name.replace(/[\\\/\?\*\[\]:]/g,'').trim().substring(0,31);
+			if (!usedSet.has(base)) return base;
+			let i = 2;
+			while (usedSet.has(base.substring(0,28)+'_'+i)) i++;
+			return base.substring(0,28)+'_'+i;
+		}
 
         async function saveCategoryImage() {
             const wrap = document.getElementById('catTableWrap');
