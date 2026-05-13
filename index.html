@@ -2262,21 +2262,25 @@
         }
 
         function loadCatSalesmanList() {
-            const sel = document.getElementById('catSalesmanSelect');
-            while (sel.options.length > 1) sel.remove(1);
-            const map = {};
-            catData.forEach(r => {
-                const sm = r['Nama Salesman'] || '';
-                const tipe = r['Tim'] || '';
-                if (sm) map[sm] = tipe || map[sm] || '';
-            });
-            Object.keys(map).sort().forEach(sm => {
-                const opt = document.createElement('option');
-                opt.value = sm; opt.textContent = sm;
-                opt.dataset.tipe = map[sm];
-                sel.appendChild(opt);
-            });
-        }
+			const sel = document.getElementById('catSalesmanSelect');
+			while (sel.options.length > 1) sel.remove(1);
+			
+			const map = {};
+			catData.forEach(r => {
+				const sm = r['Nama Salesman'] || '';
+				if (sm && map[sm] === undefined) {
+					map[sm] = (r['Tim'] || '').trim();
+				}
+			});
+
+			Object.keys(map).sort().forEach(sm => {
+				const opt = document.createElement('option');
+				opt.value        = sm;
+				opt.textContent  = sm;
+				opt.dataset.tipe = map[sm];
+				sel.appendChild(opt);
+			});
+		}
 
         function filterCategory() {
             const sel = document.getElementById('catSalesmanSelect');
@@ -2338,9 +2342,17 @@
 
             // Dapatkan Tim salesman (scope luar agar bisa dipakai di filter Principle)
             const smTim = filterSalesman ? (() => {
-                const row = catData.find(r => (r['Nama Salesman'] || '') === filterSalesman);
-                return (row && row['Tim']) ? row['Tim'].trim() : '';
-            })() : '';
+				const freq = {};
+				catData
+					.filter(r => (r['Nama Salesman'] || '') === filterSalesman)
+					.forEach(r => {
+						const t = (r['Tim'] || '').trim();
+						if (t) freq[t] = (freq[t] || 0) + 1;
+					});
+				const keys = Object.keys(freq);
+				if (!keys.length) return '';
+				return keys.reduce((a, b) => freq[a] >= freq[b] ? a : b);
+			})() : '';
             const validTims = ['Bima', 'Arjuna'];
             const useTimFilter = validTims.includes(smTim);
 
