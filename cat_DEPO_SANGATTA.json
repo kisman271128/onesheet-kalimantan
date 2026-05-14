@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "OneSheetCat",
     "depo": "DEPO SANGATTA",
-    "total_records": 1009,
+    "total_records": 1031,
     "columns": [
       "Nama Salesman",
       "Tim",
@@ -16,9 +16,97 @@
       "NetSalesPKD"
     ],
     "note": "Agregat level TYPE, tanpa SzCustId",
-    "last_updated": "2026-05-13 08:01:41"
+    "last_updated": "2026-05-14 10:22:22"
   },
   "data": [
+    {
+      "Nama Salesman": 0,
+      "Tim": null,
+      "Periode": null,
+      "Periode1": null,
+      "szPrincipalGroupId": null,
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 3005199.08
+    },
+    {
+      "Nama Salesman": 0,
+      "Tim": null,
+      "Periode": null,
+      "Periode1": null,
+      "szPrincipalGroupId": null,
+      "Principle": "GSJ",
+      "PwC_Grp3": "OBAT TRADISIONAL",
+      "TYPE": "HERBAL",
+      "NetSalesPKD": 365405.41
+    },
+    {
+      "Nama Salesman": 0,
+      "Tim": null,
+      "Periode": null,
+      "Periode1": null,
+      "szPrincipalGroupId": null,
+      "Principle": "HGJ",
+      "PwC_Grp3": "BOTTLE",
+      "TYPE": "CHUNCKY",
+      "NetSalesPKD": 646591
+    },
+    {
+      "Nama Salesman": 0,
+      "Tim": null,
+      "Periode": null,
+      "Periode1": null,
+      "szPrincipalGroupId": null,
+      "Principle": "HGJ",
+      "PwC_Grp3": "BOTTLE",
+      "TYPE": "CREAMY",
+      "NetSalesPKD": 1328386.5
+    },
+    {
+      "Nama Salesman": 0,
+      "Tim": null,
+      "Periode": null,
+      "Periode1": null,
+      "szPrincipalGroupId": null,
+      "Principle": "HGJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "EXTRUDED SNACK",
+      "NetSalesPKD": -22026.13
+    },
+    {
+      "Nama Salesman": 0,
+      "Tim": null,
+      "Periode": null,
+      "Periode1": null,
+      "szPrincipalGroupId": null,
+      "Principle": "MBR",
+      "PwC_Grp3": "GOLD",
+      "TYPE": "SLICE 2S",
+      "NetSalesPKD": 8766576.49
+    },
+    {
+      "Nama Salesman": 0,
+      "Tim": null,
+      "Periode": null,
+      "Periode1": null,
+      "szPrincipalGroupId": null,
+      "Principle": "MBR",
+      "PwC_Grp3": "SNACK",
+      "TYPE": "CRACKER",
+      "NetSalesPKD": 432259.46
+    },
+    {
+      "Nama Salesman": 0,
+      "Tim": null,
+      "Periode": null,
+      "Periode1": null,
+      "szPrincipalGroupId": null,
+      "Principle": "RANS",
+      "PwC_Grp3": "SEAWEED SNACK",
+      "TYPE": "SEAWEED",
+      "NetSalesPKD": 18704473.42
+    },
     {
       "Nama Salesman": "Achmad Efendi",
       "Tim": "Arjuna",
@@ -850,10 +938,21 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "GEN",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "TYPE": "OKKY JELLY DRINK",
+      "NetSalesPKD": 1702979.3
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "BREAD/SOFT CAKE",
-      "NetSalesPKD": 2306306.33
+      "NetSalesPKD": 963963.97
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -864,7 +963,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "COOKIES",
-      "NetSalesPKD": 1735864.86
+      "NetSalesPKD": 2440369.37
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -875,7 +974,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SANDWICH",
-      "NetSalesPKD": 1417477.46
+      "NetSalesPKD": 2248972.97
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -886,18 +985,29 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR HALF ENROBE",
-      "NetSalesPKD": 6756756.81
+      "NetSalesPKD": 2701200.92
     },
     {
       "Nama Salesman": "Achmad Efendi",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
+      "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE ENROBE",
-      "NetSalesPKD": -234234.24
+      "NetSalesPKD": 917576.57
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "TYPE": "DRAGEE",
+      "NetSalesPKD": 4102702.7
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -908,7 +1018,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CHOCOLATE EXTRUDE",
-      "NetSalesPKD": 3119729.71
+      "NetSalesPKD": 2651387.4
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -919,7 +1029,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CRACKER",
-      "NetSalesPKD": 2293693.68
+      "NetSalesPKD": 375225.22
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -930,7 +1040,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "MALKIST",
-      "NetSalesPKD": 43883189.16
+      "NetSalesPKD": 24745212.57
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -941,7 +1051,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SNACK SEREAL",
-      "NetSalesPKD": 12110810.78
+      "NetSalesPKD": 11014681.99
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -952,7 +1062,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM",
-      "NetSalesPKD": 459459.45
+      "NetSalesPKD": 398150.44
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -963,7 +1073,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM ENROBED",
-      "NetSalesPKD": 5035675.68
+      "NetSalesPKD": 1249729.73
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -974,7 +1084,29 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER STICK",
-      "NetSalesPKD": 77563005.4
+      "NetSalesPKD": 68972840.52
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "TYPE": "RTS",
+      "NetSalesPKD": 2095459.45
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
+      "TYPE": "CLEVO",
+      "NetSalesPKD": 4882252.26
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -985,7 +1117,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED BAKED",
-      "NetSalesPKD": 47338783.75
+      "NetSalesPKD": 26715212.65
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -996,7 +1128,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED FRIED",
-      "NetSalesPKD": 6419109.9
+      "NetSalesPKD": 3412731.55
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1007,7 +1139,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "ROASTED",
-      "NetSalesPKD": 6779099.09
+      "NetSalesPKD": 4307882.88
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1018,7 +1150,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PELLET",
-      "NetSalesPKD": 9446846.85
+      "NetSalesPKD": 6269941.46
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1029,7 +1161,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PILUS",
-      "NetSalesPKD": 21515914.4
+      "NetSalesPKD": 15350294.57
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1764,9 +1896,20 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "TYPE": "CANDY",
+      "NetSalesPKD": 88738.72
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "PET",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 562162.15
+      "NetSalesPKD": 35135.13
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1777,7 +1920,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
-      "NetSalesPKD": 1720270.28
+      "NetSalesPKD": 1775103.6
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1788,7 +1931,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 1684054.05
+      "NetSalesPKD": 1303783.79
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1799,7 +1942,18 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "OKKY JELLY DRINK",
-      "NetSalesPKD": 12458378.44
+      "NetSalesPKD": 22997297.34
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "TYPE": "WAFER STICK",
+      "NetSalesPKD": 4572519.84
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1810,7 +1964,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 3519956.73
+      "NetSalesPKD": 2180101.83
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1821,7 +1975,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE",
-      "NetSalesPKD": 942810.79
+      "NetSalesPKD": 1011088.29
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1832,7 +1986,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTD",
-      "NetSalesPKD": 2083378.38
+      "NetSalesPKD": 4946689.2
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1843,40 +1997,18 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTS",
-      "NetSalesPKD": 24864783.94
+      "NetSalesPKD": 19807864.88
     },
     {
       "Nama Salesman": "Achmad Efendi",
       "Tim": "Bima",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GPPJ-B",
+      "szPrincipalGroupId": "HGJ",
       "Principle": "GPPJ",
-      "PwC_Grp3": "LIQUID MILK",
-      "TYPE": "CLEVO",
-      "NetSalesPKD": 5630630.62
-    },
-    {
-      "Nama Salesman": "Achmad Efendi",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "HGJ",
-      "Principle": "HGJ",
-      "PwC_Grp3": "BOTTLE",
-      "TYPE": "CHUNCKY",
-      "NetSalesPKD": 310842.35
-    },
-    {
-      "Nama Salesman": "Achmad Efendi",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "HGJ",
-      "Principle": "HGJ",
-      "PwC_Grp3": "BOTTLE",
-      "TYPE": "CREAMY",
-      "NetSalesPKD": 444060.37
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 1534960.39
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1884,21 +2016,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "MBR",
-      "Principle": "MBR",
-      "PwC_Grp3": "GOLD",
-      "TYPE": "SLICE 2S",
-      "NetSalesPKD": 3884355.85
-    },
-    {
-      "Nama Salesman": "Achmad Efendi",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "MBR",
-      "Principle": "MBR",
-      "PwC_Grp3": "SNACK",
-      "TYPE": "CRACKER",
-      "NetSalesPKD": 432259.46
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 993513.54
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1906,21 +2027,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "OTHERS",
-      "Principle": "GSJ",
-      "PwC_Grp3": "OBAT TRADISIONAL",
-      "TYPE": "HERBAL",
-      "NetSalesPKD": 258918.92
-    },
-    {
-      "Nama Salesman": "Achmad Efendi",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "OTHERS",
-      "Principle": "RANS",
-      "PwC_Grp3": "SEAWEED SNACK",
-      "TYPE": "SEAWEED",
-      "NetSalesPKD": 4973867.69
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 2200720.71
     },
     {
       "Nama Salesman": "Achmad Efendi",
@@ -1940,9 +2050,20 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": null,
       "Principle": "GBS",
+      "PwC_Grp3": "BIG CUP",
+      "TYPE": "OKKY JELLY DRINK BIG",
+      "NetSalesPKD": 319459.45
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": null,
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": null,
+      "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 2475810.74
+      "NetSalesPKD": 1561801.73
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2742,10 +2863,21 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "GEN",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "TYPE": "OKKY JELLY DRINK",
+      "NetSalesPKD": 54324.32
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "BREAD/SOFT CAKE",
-      "NetSalesPKD": 432432.43
+      "NetSalesPKD": 324324.33
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2756,7 +2888,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "COOKIES",
-      "NetSalesPKD": 401237.84
+      "NetSalesPKD": 387477.48
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2767,7 +2899,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SANDWICH",
-      "NetSalesPKD": 40675.68
+      "NetSalesPKD": 244859.45
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2778,18 +2910,18 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR HALF ENROBE",
-      "NetSalesPKD": 648648.66
+      "NetSalesPKD": 216216.21
     },
     {
       "Nama Salesman": "Dwi Anggraini",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
-      "Principle": "GEN",
-      "PwC_Grp3": "CONFECTIONERY",
-      "TYPE": "CHOCOLATE ENROBE",
-      "NetSalesPKD": 144144.14
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "TYPE": "CHOCOLATE EXTRUDE",
+      "NetSalesPKD": 275675.68
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2800,7 +2932,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CRACKER",
-      "NetSalesPKD": 333333.34
+      "NetSalesPKD": 632432.42
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2811,7 +2943,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "MALKIST",
-      "NetSalesPKD": 4057432.35
+      "NetSalesPKD": 3982904.54
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2822,7 +2954,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SNACK SEREAL",
-      "NetSalesPKD": 2129504.51
+      "NetSalesPKD": 916951.36
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2833,7 +2965,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM ENROBED",
-      "NetSalesPKD": 18378.38
+      "NetSalesPKD": 3638918.91
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2844,7 +2976,29 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER STICK",
-      "NetSalesPKD": 8200410.9
+      "NetSalesPKD": 10599729.73
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "TYPE": "RTS",
+      "NetSalesPKD": 825675.68
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
+      "TYPE": "CLEVO",
+      "NetSalesPKD": 240495.5
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2855,7 +3009,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED BAKED",
-      "NetSalesPKD": 4428126.15
+      "NetSalesPKD": 8980238.73
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2866,7 +3020,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED FRIED",
-      "NetSalesPKD": 3817630.65
+      "NetSalesPKD": 1646729.75
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2877,7 +3031,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "ROASTED",
-      "NetSalesPKD": 4940621.64
+      "NetSalesPKD": 1701081.09
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2888,7 +3042,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PELLET",
-      "NetSalesPKD": 3598227.04
+      "NetSalesPKD": 3006504.49
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -2899,7 +3053,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PILUS",
-      "NetSalesPKD": 1923859.57
+      "NetSalesPKD": 963063.08
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -3579,9 +3733,9 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
-      "PwC_Grp3": "CONFECTIONERY",
-      "TYPE": "CANDY",
-      "NetSalesPKD": 391081.08
+      "PwC_Grp3": "BISCUIT",
+      "TYPE": "WAFER STICK",
+      "NetSalesPKD": 865135.15
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -3590,9 +3744,20 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
-      "PwC_Grp3": "DRINK",
-      "TYPE": "RTD",
-      "NetSalesPKD": 1812.61
+      "PwC_Grp3": "CONFECTIONERY",
+      "TYPE": "CANDY",
+      "NetSalesPKD": 553686.49
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "TYPE": "CHOCOLATE",
+      "NetSalesPKD": 812734.23
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -3603,18 +3768,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTS",
-      "NetSalesPKD": 1626540.56
-    },
-    {
-      "Nama Salesman": "Dwi Anggraini",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "GPPJ-B",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "LIQUID MILK",
-      "TYPE": "CLEVO",
-      "NetSalesPKD": -23198.2
+      "NetSalesPKD": 421621.63
     },
     {
       "Nama Salesman": "Dwi Anggraini",
@@ -3622,10 +3776,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "HGJ",
-      "Principle": "HGJ",
-      "PwC_Grp3": "BOTTLE",
-      "TYPE": "CREAMY",
-      "NetSalesPKD": 362079.28
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 399459.46
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4447,10 +4601,21 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "GEN",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "TYPE": "OKKY JELLY DRINK",
+      "NetSalesPKD": 2445178.44
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "BREAD/SOFT CAKE",
-      "NetSalesPKD": 1495495.52
+      "NetSalesPKD": 3585585.61
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4461,7 +4626,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "COOKIES",
-      "NetSalesPKD": 2336738.73
+      "NetSalesPKD": 1446808.12
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4472,7 +4637,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SANDWICH",
-      "NetSalesPKD": 3122792.76
+      "NetSalesPKD": 5595403.57
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4483,40 +4648,40 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR HALF ENROBE",
-      "NetSalesPKD": 5099459.52
+      "NetSalesPKD": 7438337.91
     },
     {
       "Nama Salesman": "Erica Agustina",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
+      "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR ORIGINAL",
-      "NetSalesPKD": -216216.22
+      "NetSalesPKD": -180180.18
     },
     {
       "Nama Salesman": "Erica Agustina",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
+      "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE ENROBE",
-      "NetSalesPKD": 900900.9
+      "NetSalesPKD": -225788.29
     },
     {
       "Nama Salesman": "Erica Agustina",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
+      "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "DRAGEE",
-      "NetSalesPKD": 2943243.23
+      "NetSalesPKD": 4652702.69
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4527,7 +4692,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CHOCOLATE EXTRUDE",
-      "NetSalesPKD": 4456756.77
+      "NetSalesPKD": 3185585.56
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4538,7 +4703,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CRACKER",
-      "NetSalesPKD": 1094594.61
+      "NetSalesPKD": 2197973.87
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4549,7 +4714,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "MALKIST",
-      "NetSalesPKD": 16628393.93
+      "NetSalesPKD": 42387446.98
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4560,7 +4725,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SNACK SEREAL",
-      "NetSalesPKD": 7876271.16
+      "NetSalesPKD": 8018531.49
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4571,7 +4736,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM",
-      "NetSalesPKD": 644162.17
+      "NetSalesPKD": 644162.16
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4582,7 +4747,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM ENROBED",
-      "NetSalesPKD": 3068643.26
+      "NetSalesPKD": 4072117.11
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4593,7 +4758,29 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER STICK",
-      "NetSalesPKD": 56228526.07
+      "NetSalesPKD": 49269660.3
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "TYPE": "RTS",
+      "NetSalesPKD": 5835918.94
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
+      "TYPE": "CLEVO",
+      "NetSalesPKD": 1320135.13
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4604,7 +4791,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED BAKED",
-      "NetSalesPKD": 14558421.66
+      "NetSalesPKD": 10637486.53
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4615,7 +4802,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED FRIED",
-      "NetSalesPKD": 2465090.1
+      "NetSalesPKD": 6877951.34
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4626,7 +4813,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "ROASTED",
-      "NetSalesPKD": 3206887.38
+      "NetSalesPKD": 6958986.46
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4637,7 +4824,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PELLET",
-      "NetSalesPKD": 3816234.26
+      "NetSalesPKD": 11793091.89
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -4648,7 +4835,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PILUS",
-      "NetSalesPKD": 14047059.5
+      "NetSalesPKD": 12566535.98
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5460,9 +5647,20 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "TYPE": "CANDY",
+      "NetSalesPKD": 71255.83
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "PET",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 105405.4
+      "NetSalesPKD": 667918.9
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5473,7 +5671,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
-      "NetSalesPKD": 5885497.36
+      "NetSalesPKD": 3295675.71
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5484,7 +5682,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 3241351.39
+      "NetSalesPKD": 4581351.41
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5495,7 +5693,18 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "OKKY JELLY DRINK",
-      "NetSalesPKD": 10159465.82
+      "NetSalesPKD": 6611632.46
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "TYPE": "WAFER STICK",
+      "NetSalesPKD": 8415960.48
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5506,7 +5715,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 6063788.32
+      "NetSalesPKD": 5224634.26
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5517,7 +5726,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE",
-      "NetSalesPKD": 1621126.15
+      "NetSalesPKD": 1010810.81
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5528,7 +5737,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTD",
-      "NetSalesPKD": 808563.99
+      "NetSalesPKD": 1697387.4
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5539,18 +5748,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTS",
-      "NetSalesPKD": 23868351.34
-    },
-    {
-      "Nama Salesman": "Erica Agustina",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "GPPJ-B",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "LIQUID MILK",
-      "TYPE": "CLEVO",
-      "NetSalesPKD": 1522972.99
+      "NetSalesPKD": 24424189.29
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5558,10 +5756,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "HGJ",
-      "Principle": "HGJ",
-      "PwC_Grp3": "BOTTLE",
-      "TYPE": "CHUNCKY",
-      "NetSalesPKD": -119893.69
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 14954.95
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5569,10 +5767,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "MBR",
-      "Principle": "MBR",
-      "PwC_Grp3": "GOLD",
-      "TYPE": "SLICE 2S",
-      "NetSalesPKD": 2402256.71
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 2674054.11
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5580,21 +5778,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "OTHERS",
-      "Principle": "GSJ",
-      "PwC_Grp3": "OBAT TRADISIONAL",
-      "TYPE": "HERBAL",
-      "NetSalesPKD": 106486.49
-    },
-    {
-      "Nama Salesman": "Erica Agustina",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "OTHERS",
-      "Principle": "RANS",
-      "PwC_Grp3": "SEAWEED SNACK",
-      "TYPE": "SEAWEED",
-      "NetSalesPKD": 3027098.34
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 3525585.6
     },
     {
       "Nama Salesman": "Erica Agustina",
@@ -5614,9 +5801,20 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": null,
       "Principle": "GBS",
+      "PwC_Grp3": "BIG CUP",
+      "TYPE": "OKKY JELLY DRINK BIG",
+      "NetSalesPKD": 35495.5
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": null,
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": null,
+      "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 1917021.55
+      "NetSalesPKD": 2014369.3
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6460,10 +6658,21 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "GEN",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "TYPE": "OKKY JELLY DRINK",
+      "NetSalesPKD": 851081.08
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "BREAD/SOFT CAKE",
-      "NetSalesPKD": 360247.76
+      "NetSalesPKD": 306193.71
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6474,7 +6683,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "COOKIES",
-      "NetSalesPKD": 510765.78
+      "NetSalesPKD": 1458073.87
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6485,7 +6694,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SANDWICH",
-      "NetSalesPKD": 532787.38
+      "NetSalesPKD": 998603.6
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6496,29 +6705,29 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR HALF ENROBE",
-      "NetSalesPKD": 486486.49
+      "NetSalesPKD": 2126126.16
     },
     {
       "Nama Salesman": "Karmila Ali",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
+      "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE ENROBE",
-      "NetSalesPKD": 162049.55
+      "NetSalesPKD": 648445.05
     },
     {
       "Nama Salesman": "Karmila Ali",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
+      "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "DRAGEE",
-      "NetSalesPKD": 356756.75
+      "NetSalesPKD": 802702.69
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6529,7 +6738,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CHOCOLATE EXTRUDE",
-      "NetSalesPKD": 2038774.75
+      "NetSalesPKD": 4318918.92
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6540,7 +6749,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CRACKER",
-      "NetSalesPKD": 773375.68
+      "NetSalesPKD": 2380445.94
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6551,7 +6760,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "MALKIST",
-      "NetSalesPKD": 9496598.25
+      "NetSalesPKD": 27579904.53
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6562,7 +6771,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SNACK SEREAL",
-      "NetSalesPKD": 3250765.75
+      "NetSalesPKD": 5291081.04
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6573,7 +6782,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM",
-      "NetSalesPKD": 122474.77
+      "NetSalesPKD": 191441.44
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6584,7 +6793,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM ENROBED",
-      "NetSalesPKD": 735135.13
+      "NetSalesPKD": 4520180.18
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6595,7 +6804,29 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER STICK",
-      "NetSalesPKD": 19397098.18
+      "NetSalesPKD": 34617081.93
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "TYPE": "RTS",
+      "NetSalesPKD": 8164108.14
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
+      "TYPE": "CLEVO",
+      "NetSalesPKD": 917117.11
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6606,7 +6837,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED BAKED",
-      "NetSalesPKD": 7604144.26
+      "NetSalesPKD": 48779906.29
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6617,7 +6848,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED FRIED",
-      "NetSalesPKD": 203468.48
+      "NetSalesPKD": 5894861.28
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6628,7 +6859,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "ROASTED",
-      "NetSalesPKD": 1920427.91
+      "NetSalesPKD": 3768941.46
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6639,7 +6870,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PELLET",
-      "NetSalesPKD": 1913651.35
+      "NetSalesPKD": 6180504.54
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -6650,7 +6881,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PILUS",
-      "NetSalesPKD": 7336605.5
+      "NetSalesPKD": 7918558.6
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7396,9 +7627,20 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "TYPE": "CANDY",
+      "NetSalesPKD": 35495.49
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "PET",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 105756.76
+      "NetSalesPKD": 175675.66
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7409,7 +7651,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
-      "NetSalesPKD": 2770540.57
+      "NetSalesPKD": 2915405.44
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7420,7 +7662,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 1195135.16
+      "NetSalesPKD": 1756778.41
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7431,7 +7673,18 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "OKKY JELLY DRINK",
-      "NetSalesPKD": 6358118.96
+      "NetSalesPKD": 8112432.47
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "TYPE": "WAFER STICK",
+      "NetSalesPKD": 11516381.97
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7442,7 +7695,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 1649902.74
+      "NetSalesPKD": 2947027.03
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7453,7 +7706,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE",
-      "NetSalesPKD": 543693.69
+      "NetSalesPKD": 1102702.7
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7464,7 +7717,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTD",
-      "NetSalesPKD": 687663.06
+      "NetSalesPKD": 529594.59
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7475,18 +7728,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTS",
-      "NetSalesPKD": 5975783.81
-    },
-    {
-      "Nama Salesman": "Karmila Ali",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "GPPJ-B",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "LIQUID MILK",
-      "TYPE": "CLEVO",
-      "NetSalesPKD": -95254.05
+      "NetSalesPKD": 16987837.85
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7494,10 +7736,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "MBR",
-      "Principle": "MBR",
-      "PwC_Grp3": "GOLD",
-      "TYPE": "SLICE 2S",
-      "NetSalesPKD": 701946.84
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 891171.16
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7505,10 +7747,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "OTHERS",
-      "Principle": "RANS",
-      "PwC_Grp3": "SEAWEED SNACK",
-      "TYPE": "SEAWEED",
-      "NetSalesPKD": 1080632.53
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 1730645.06
     },
     {
       "Nama Salesman": "Karmila Ali",
@@ -7530,7 +7772,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 1686124.23
+      "NetSalesPKD": 3372160.27
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8366,7 +8608,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "COOKIES",
-      "NetSalesPKD": 159042.35
+      "NetSalesPKD": 299414.41
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8377,7 +8619,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SANDWICH",
-      "NetSalesPKD": 122522.52
+      "NetSalesPKD": -42882.89
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8388,18 +8630,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR HALF ENROBE",
-      "NetSalesPKD": 90716.21
-    },
-    {
-      "Nama Salesman": "No Salesman",
-      "Tim": "Arjuna",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
-      "Principle": "GEN",
-      "PwC_Grp3": "CONFECTIONERY",
-      "TYPE": "CHOCOLATE ENROBE",
-      "NetSalesPKD": 18018.02
+      "NetSalesPKD": 306306.31
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8409,8 +8640,8 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
-      "TYPE": "CRACKER",
-      "NetSalesPKD": 7657.65
+      "TYPE": "CHOCOLATE EXTRUDE",
+      "NetSalesPKD": -4594.59
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8421,7 +8652,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "MALKIST",
-      "NetSalesPKD": 1776825.2
+      "NetSalesPKD": 451621.63
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8432,18 +8663,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SNACK SEREAL",
-      "NetSalesPKD": 556666.67
-    },
-    {
-      "Nama Salesman": "No Salesman",
-      "Tim": "Arjuna",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "GPPJ-A",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "BISCUIT",
-      "TYPE": "WAFER CREAM",
-      "NetSalesPKD": 91891.89
+      "NetSalesPKD": 809009
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8454,7 +8674,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER STICK",
-      "NetSalesPKD": 1006889.21
+      "NetSalesPKD": 690540.55
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8465,7 +8685,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED BAKED",
-      "NetSalesPKD": 289340.54
+      "NetSalesPKD": 3652342.37
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8476,7 +8696,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED FRIED",
-      "NetSalesPKD": 133304.51
+      "NetSalesPKD": 265765.76
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8487,7 +8707,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "ROASTED",
-      "NetSalesPKD": 261608.11
+      "NetSalesPKD": 448509
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8498,7 +8718,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PELLET",
-      "NetSalesPKD": 194234.22
+      "NetSalesPKD": 85225.23
     },
     {
       "Nama Salesman": "No Salesman",
@@ -8509,7 +8729,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PILUS",
-      "NetSalesPKD": 186486.5
+      "NetSalesPKD": 90270.28
     },
     {
       "Nama Salesman": "No Salesman",
@@ -9114,7 +9334,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
-      "NetSalesPKD": 54471.17
+      "NetSalesPKD": 543243.25
     },
     {
       "Nama Salesman": "No Salesman",
@@ -9125,7 +9345,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 108940.55
+      "NetSalesPKD": 199189.19
     },
     {
       "Nama Salesman": "No Salesman",
@@ -9136,7 +9356,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "OKKY JELLY DRINK",
-      "NetSalesPKD": 254097.32
+      "NetSalesPKD": 1195135.13
     },
     {
       "Nama Salesman": "No Salesman",
@@ -9147,18 +9367,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 207567.57
-    },
-    {
-      "Nama Salesman": "No Salesman",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "GPPJ-B",
-      "Principle": "GPPJ",
-      "PwC_Grp3": "DRINK",
-      "TYPE": "RTD",
-      "NetSalesPKD": 1554228.83
+      "NetSalesPKD": 265945.94
     },
     {
       "Nama Salesman": "No Salesman",
@@ -9169,7 +9378,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTS",
-      "NetSalesPKD": 17567.57
+      "NetSalesPKD": 281081.09
     },
     {
       "Nama Salesman": "No Salesman",
@@ -9177,10 +9386,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "OTHERS",
-      "Principle": "RANS",
-      "PwC_Grp3": "SEAWEED SNACK",
-      "TYPE": "SEAWEED",
-      "NetSalesPKD": 55636.04
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 14954.95
     },
     {
       "Nama Salesman": "No Salesman",
@@ -10035,10 +10244,21 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "GEN",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "TYPE": "OKKY JELLY DRINK",
+      "NetSalesPKD": 1575405.42
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "BREAD/SOFT CAKE",
-      "NetSalesPKD": 6396230.63
+      "NetSalesPKD": 5810645.05
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10049,7 +10269,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "COOKIES",
-      "NetSalesPKD": 3489272.08
+      "NetSalesPKD": 2776904.51
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10060,7 +10280,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SANDWICH",
-      "NetSalesPKD": 4421583.78
+      "NetSalesPKD": 1062882.87
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10071,29 +10291,40 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "BAR HALF ENROBE",
-      "NetSalesPKD": 3382061.28
+      "NetSalesPKD": 6270536.09
     },
     {
       "Nama Salesman": "Redi Tappi",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "TYPE": "BAR ORIGINAL",
+      "NetSalesPKD": -36036.04
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE ENROBE",
-      "NetSalesPKD": 565571.16
+      "NetSalesPKD": 216216.21
     },
     {
       "Nama Salesman": "Redi Tappi",
       "Tim": "Arjuna",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GEN",
+      "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "DRAGEE",
-      "NetSalesPKD": 6436486.48
+      "NetSalesPKD": 178378.37
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10104,7 +10335,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CHOCOLATE EXTRUDE",
-      "NetSalesPKD": 1654054.06
+      "NetSalesPKD": 842342.33
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10115,7 +10346,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "CRACKER",
-      "NetSalesPKD": 1171663.05
+      "NetSalesPKD": 57609.92
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10126,7 +10357,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "MALKIST",
-      "NetSalesPKD": 36457432.47
+      "NetSalesPKD": 20830979.34
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10137,7 +10368,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "SNACK SEREAL",
-      "NetSalesPKD": 8224327.9
+      "NetSalesPKD": 9644938.72
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10148,7 +10379,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM",
-      "NetSalesPKD": 82591.89
+      "NetSalesPKD": 266375.67
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10159,7 +10390,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER CREAM ENROBED",
-      "NetSalesPKD": 4392976.58
+      "NetSalesPKD": 2341935.18
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10170,7 +10401,29 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "TYPE": "WAFER STICK",
-      "NetSalesPKD": 78609101.89
+      "NetSalesPKD": 66714099.21
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "TYPE": "RTS",
+      "NetSalesPKD": 1300000.01
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Arjuna",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
+      "TYPE": "CLEVO",
+      "NetSalesPKD": 2302538.76
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10181,7 +10434,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED BAKED",
-      "NetSalesPKD": 20592889.26
+      "NetSalesPKD": 12329041.56
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10192,7 +10445,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "COATED FRIED",
-      "NetSalesPKD": 5612183.81
+      "NetSalesPKD": 2963558.57
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10203,7 +10456,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "TYPE": "ROASTED",
-      "NetSalesPKD": 4706163.94
+      "NetSalesPKD": 6095172.95
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10214,7 +10467,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PELLET",
-      "NetSalesPKD": 11188698.23
+      "NetSalesPKD": 4776966.67
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10225,7 +10478,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "PILUS",
-      "NetSalesPKD": 19016998.15
+      "NetSalesPKD": 11414964.05
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10940,7 +11193,18 @@
       "Principle": "GBS",
       "PwC_Grp3": "BIG CUP",
       "TYPE": "OKKY JELLY DRINK BIG",
-      "NetSalesPKD": 26660311.66
+      "NetSalesPKD": 26553825.18
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "TYPE": "CANDY",
+      "NetSalesPKD": 70990.98
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10951,7 +11215,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "PET",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 140540.53
+      "NetSalesPKD": 140540.54
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10962,7 +11226,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
-      "NetSalesPKD": 1086486.48
+      "NetSalesPKD": 2987837.86
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10973,7 +11237,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "MOUNTEA",
-      "NetSalesPKD": 271621.66
+      "NetSalesPKD": 1756486.5
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10984,7 +11248,18 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "OKKY JELLY DRINK",
-      "NetSalesPKD": 16768108.13
+      "NetSalesPKD": 8420270.27
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "TYPE": "WAFER STICK",
+      "NetSalesPKD": 7900811.71
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -10995,7 +11270,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 2423034.27
+      "NetSalesPKD": 3429881.13
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -11006,7 +11281,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CHOCOLATE",
-      "NetSalesPKD": 2190471.17
+      "NetSalesPKD": 1452657.66
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -11017,7 +11292,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTD",
-      "NetSalesPKD": 3653615.33
+      "NetSalesPKD": 1615591
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -11028,51 +11303,18 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "TYPE": "RTS",
-      "NetSalesPKD": 30128991.09
+      "NetSalesPKD": 11220964.04
     },
     {
       "Nama Salesman": "Redi Tappi",
       "Tim": "Bima",
       "Periode": "MTD",
       "Periode1": "MTD",
-      "szPrincipalGroupId": "GPPJ-B",
+      "szPrincipalGroupId": "HGJ",
       "Principle": "GPPJ",
-      "PwC_Grp3": "LIQUID MILK",
-      "TYPE": "CLEVO",
-      "NetSalesPKD": 2627387.4
-    },
-    {
-      "Nama Salesman": "Redi Tappi",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "HGJ",
-      "Principle": "HGJ",
-      "PwC_Grp3": "BOTTLE",
-      "TYPE": "CHUNCKY",
-      "NetSalesPKD": 455642.34
-    },
-    {
-      "Nama Salesman": "Redi Tappi",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "HGJ",
-      "Principle": "HGJ",
-      "PwC_Grp3": "BOTTLE",
-      "TYPE": "CREAMY",
-      "NetSalesPKD": 522246.85
-    },
-    {
-      "Nama Salesman": "Redi Tappi",
-      "Tim": "Bima",
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": "HGJ",
-      "Principle": "HGJ",
       "PwC_Grp3": "SNACK FOOD",
-      "TYPE": "EXTRUDED SNACK",
-      "NetSalesPKD": -22026.13
+      "TYPE": "PILUS",
+      "NetSalesPKD": 1060540.54
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -11080,10 +11322,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "MBR",
-      "Principle": "MBR",
-      "PwC_Grp3": "GOLD",
-      "TYPE": "SLICE 2S",
-      "NetSalesPKD": 754305.39
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 693513.53
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -11091,10 +11333,10 @@
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": "OTHERS",
-      "Principle": "RANS",
-      "PwC_Grp3": "SEAWEED SNACK",
-      "TYPE": "SEAWEED",
-      "NetSalesPKD": 7545790.16
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "TYPE": "PILUS",
+      "NetSalesPKD": 949754.93
     },
     {
       "Nama Salesman": "Redi Tappi",
@@ -11116,7 +11358,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
-      "NetSalesPKD": 434819.77
+      "NetSalesPKD": 772026.98
     }
   ]
 }
