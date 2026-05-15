@@ -3911,7 +3911,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
             // 5) Render
             const metricDefs = [
-                { key: 'achSales', label: 'Ach Sales (vs BP)', bobot: 60,
+                { key: 'achSales', label: 'Ach Sales', bobot: 60,
                   getRaw: d=>d.achSalesRaw, getCapped: d=>d.achSalesCapped,
                   color: '#475569', desc: 'MTD/T.BP' },
                 { key: 'ecIns',    label: '%ECIns',             bobot: 15,
