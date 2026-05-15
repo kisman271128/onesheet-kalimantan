@@ -50,6 +50,83 @@
     </div>
 
     <!-- Login Page — split layout -->
+    <!-- Hari Kerja Modal -->
+    <div id="hariKerjaModal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);align-items:center;justify-content:center;" onclick="if(event.target===this)this.classList.remove('show-flex')">
+        <div class="profile-card" style="width:520px;max-width:95vw;">
+            <div class="profile-header">
+                <button class="profile-close" onclick="document.getElementById('hariKerjaModal').classList.remove('show-flex')">&#10005;</button>
+                <h3>📅 Pengaturan Hari Kerja</h3>
+            </div>
+            <div class="profile-body">
+                <p style="margin-bottom:14px;color:#555;font-size:13px;">
+                    Atur rentang tanggal untuk setiap minggu (W1..W5). Sistem akan menghitung jumlah Hari Kerja (HK) otomatis.
+                </p>
+
+                <div id="hariKerjaForm" style="display:flex;flex-direction:column;gap:10px;">
+
+                    <!-- Header row -->
+                    <div style="display:grid;grid-template-columns:40px 1fr 24px 1fr 70px;gap:8px;align-items:center;padding:0 4px;">
+                        <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;">Minggu</span>
+                        <span style="font-size:11px;font-weight:600;color:#888;text-align:center;">Dari</span>
+                        <span></span>
+                        <span style="font-size:11px;font-weight:600;color:#888;text-align:center;">Sampai</span>
+                        <span style="font-size:11px;font-weight:600;color:#888;text-align:center;">HK</span>
+                    </div>
+
+                    <!-- W1 -->
+                    <div style="display:grid;grid-template-columns:40px 1fr 24px 1fr 70px;gap:8px;align-items:center;background:#f8f9ff;border:1px solid #e0e4f0;border-radius:8px;padding:8px;">
+                        <span style="font-weight:700;color:#6c5ce7;font-size:13px;">W1</span>
+                        <input type="date" id="w1_from" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <span style="text-align:center;color:#888;font-size:12px;font-weight:500;">s/d</span>
+                        <input type="date" id="w1_to" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <input type="number" id="w1_count" min="0" style="width:100%;padding:6px 4px;border:1px solid #b2a4f5;border-radius:6px;font-size:12px;font-weight:700;color:#6c5ce7;background:#ede9ff;text-align:center;">
+                    </div>
+
+                    <!-- W2 -->
+                    <div style="display:grid;grid-template-columns:40px 1fr 24px 1fr 70px;gap:8px;align-items:center;background:#f8f9ff;border:1px solid #e0e4f0;border-radius:8px;padding:8px;">
+                        <span style="font-weight:700;color:#6c5ce7;font-size:13px;">W2</span>
+                        <input type="date" id="w2_from" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <span style="text-align:center;color:#888;font-size:12px;font-weight:500;">s/d</span>
+                        <input type="date" id="w2_to" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <input type="number" id="w2_count" min="0" style="width:100%;padding:6px 4px;border:1px solid #b2a4f5;border-radius:6px;font-size:12px;font-weight:700;color:#6c5ce7;background:#ede9ff;text-align:center;">
+                    </div>
+
+                    <!-- W3 -->
+                    <div style="display:grid;grid-template-columns:40px 1fr 24px 1fr 70px;gap:8px;align-items:center;background:#f8f9ff;border:1px solid #e0e4f0;border-radius:8px;padding:8px;">
+                        <span style="font-weight:700;color:#6c5ce7;font-size:13px;">W3</span>
+                        <input type="date" id="w3_from" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <span style="text-align:center;color:#888;font-size:12px;font-weight:500;">s/d</span>
+                        <input type="date" id="w3_to" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <input type="number" id="w3_count" min="0" style="width:100%;padding:6px 4px;border:1px solid #b2a4f5;border-radius:6px;font-size:12px;font-weight:700;color:#6c5ce7;background:#ede9ff;text-align:center;">
+                    </div>
+
+                    <!-- W4 -->
+                    <div style="display:grid;grid-template-columns:40px 1fr 24px 1fr 70px;gap:8px;align-items:center;background:#f8f9ff;border:1px solid #e0e4f0;border-radius:8px;padding:8px;">
+                        <span style="font-weight:700;color:#6c5ce7;font-size:13px;">W4</span>
+                        <input type="date" id="w4_from" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <span style="text-align:center;color:#888;font-size:12px;font-weight:500;">s/d</span>
+                        <input type="date" id="w4_to" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <input type="number" id="w4_count" min="0" style="width:100%;padding:6px 4px;border:1px solid #b2a4f5;border-radius:6px;font-size:12px;font-weight:700;color:#6c5ce7;background:#ede9ff;text-align:center;">
+                    </div>
+
+                    <!-- W5 -->
+                    <div style="display:grid;grid-template-columns:40px 1fr 24px 1fr 70px;gap:8px;align-items:center;background:#f8f9ff;border:1px solid #e0e4f0;border-radius:8px;padding:8px;">
+                        <span style="font-weight:700;color:#6c5ce7;font-size:13px;">W5</span>
+                        <input type="date" id="w5_from" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <span style="text-align:center;color:#888;font-size:12px;font-weight:500;">s/d</span>
+                        <input type="date" id="w5_to" onchange="updateCounts()" style="width:100%;padding:6px 8px;border:1px solid #d0d5e8;border-radius:6px;font-size:12px;outline:none;">
+                        <input type="number" id="w5_count" min="0" style="width:100%;padding:6px 4px;border:1px solid #b2a4f5;border-radius:6px;font-size:12px;font-weight:700;color:#6c5ce7;background:#ede9ff;text-align:center;">
+                    </div>
+
+                </div>
+
+                <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;">
+                    <button class="btn" onclick="saveHK()">💾 Simpan & Upload ke GitHub</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('hariKerjaModal').classList.remove('show-flex')">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="loginPage" class="page-container">
         <!-- LEFT: Form -->
         <div class="login-split-left">
@@ -123,6 +200,10 @@
             <div id="adminOptionCard" class="option-card" style="display:none; border-color:#e74c3c;" onclick="openAdminPasswordModal()">
                 <h3>🔑 Kelola Password</h3>
                 <p>Ganti password user (admin only)</p>
+            </div>
+            <div id="hariKerjaOptionCard" class="option-card" style="display:none; border-color:#2ecc71;" onclick="openHariKerjaModal()">
+                <h3>📅 Hari Kerja</h3>
+                <p>Atur rentang tanggal per minggu dan simpan ke HK.json (admin only)</p>
             </div>
             
             <button class="btn btn-secondary" onclick="backToLogin()">← Logout</button>
