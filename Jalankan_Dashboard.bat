@@ -27,6 +27,8 @@ call :download_file "launcher.html"
 call :download_file "index.html"
 call :download_file "update_data_depo.bat"
 call :download_file "users.json"
+call :download_file "app.js"
+call :download_file "styles.css"
 
 echo.
 
