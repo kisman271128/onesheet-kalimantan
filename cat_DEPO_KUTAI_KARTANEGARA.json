@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "OneSheetCat",
     "depo": "Depo Kutai Kartanegara",
-    "total_records": 1054,
+    "total_records": 1045,
     "columns": [
       "Nama Salesman",
       "Tim",
@@ -16,7 +16,7 @@
       "NetSalesPKD"
     ],
     "note": "Agregat level TYPE, tanpa SzCustId",
-    "last_updated": "2026-05-15 06:44:33"
+    "last_updated": "2026-05-15 12:58:45"
   },
   "data": [
     {
@@ -1093,6 +1093,17 @@
       "Periode1": "LM",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 6256864.98
+    },
+    {
+      "Nama Salesman": "Hamsaruding",
+      "Tim": "Bima",
+      "Periode": "L3M",
+      "Periode1": "LM",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 4056216.23
@@ -1753,6 +1764,17 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 2319184.73
+    },
+    {
+      "Nama Salesman": "Hamsaruding",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 1140810.82
@@ -1881,39 +1903,6 @@
     {
       "Nama Salesman": "Hamsaruding",
       "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 2121083.8
-    },
-    {
-      "Nama Salesman": "Hamsaruding",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM1",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 649580.18
-    },
-    {
-      "Nama Salesman": "Hamsaruding",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM2",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 285533.34
-    },
-    {
-      "Nama Salesman": "Hamsaruding",
-      "Tim": null,
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": null,
@@ -1921,17 +1910,6 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
       "NetSalesPKD": 667240.52
-    },
-    {
-      "Nama Salesman": "Hamsaruding",
-      "Tim": null,
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 341507.21
     },
     {
       "Nama Salesman": "Holidin",
@@ -2985,6 +2963,17 @@
       "Periode1": "LM",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 5042243.31
+    },
+    {
+      "Nama Salesman": "Holidin",
+      "Tim": "Bima",
+      "Periode": "L3M",
+      "Periode1": "LM",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 4387594.63
@@ -3623,6 +3612,17 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 1299918.94
+    },
+    {
+      "Nama Salesman": "Holidin",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 1269378.38
@@ -3751,39 +3751,6 @@
     {
       "Nama Salesman": "Holidin",
       "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 643270.27
-    },
-    {
-      "Nama Salesman": "Holidin",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM1",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 1942104.51
-    },
-    {
-      "Nama Salesman": "Holidin",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM2",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 381392.79
-    },
-    {
-      "Nama Salesman": "Holidin",
-      "Tim": null,
       "Periode": "LY",
       "Periode1": "LY",
       "szPrincipalGroupId": null,
@@ -3813,17 +3780,6 @@
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "POPCORN",
       "NetSalesPKD": -13513.51
-    },
-    {
-      "Nama Salesman": "Holidin",
-      "Tim": null,
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 739342.34
     },
     {
       "Nama Salesman": "M Aulia Fathur Rahman",
@@ -4877,6 +4833,17 @@
       "Periode1": "LM",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 4271202.83
+    },
+    {
+      "Nama Salesman": "M Aulia Fathur Rahman",
+      "Tim": "Bima",
+      "Periode": "L3M",
+      "Periode1": "LM",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 2661891.92
@@ -5548,6 +5515,17 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 1616567.6
+    },
+    {
+      "Nama Salesman": "M Aulia Fathur Rahman",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 217297.32
@@ -5661,39 +5639,6 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
       "NetSalesPKD": 3551943.74
-    },
-    {
-      "Nama Salesman": "M Aulia Fathur Rahman",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 1872102.7
-    },
-    {
-      "Nama Salesman": "M Aulia Fathur Rahman",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM1",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 5330818.35
-    },
-    {
-      "Nama Salesman": "M Aulia Fathur Rahman",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM2",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 1265986.48
     },
     {
       "Nama Salesman": "M Aulia Fathur Rahman",
@@ -6802,6 +6747,17 @@
       "Periode1": "LM",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 1986892.01
+    },
+    {
+      "Nama Salesman": "Nur Ali Maulana Akbar",
+      "Tim": "Bima",
+      "Periode": "L3M",
+      "Periode1": "LM",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 1321891.92
@@ -7429,6 +7385,17 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 491891.96
+    },
+    {
+      "Nama Salesman": "Nur Ali Maulana Akbar",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 724324.33
@@ -7546,39 +7513,6 @@
     {
       "Nama Salesman": "Nur Ali Maulana Akbar",
       "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 1039016.21
-    },
-    {
-      "Nama Salesman": "Nur Ali Maulana Akbar",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM1",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 3093882.23
-    },
-    {
-      "Nama Salesman": "Nur Ali Maulana Akbar",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM2",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 959633.33
-    },
-    {
-      "Nama Salesman": "Nur Ali Maulana Akbar",
-      "Tim": null,
       "Periode": "MTD",
       "Periode1": "MTD",
       "szPrincipalGroupId": null,
@@ -7586,17 +7520,6 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
       "NetSalesPKD": 718783.67
-    },
-    {
-      "Nama Salesman": "Nur Ali Maulana Akbar",
-      "Tim": null,
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 2415929.73
     },
     {
       "Nama Salesman": "Riansyah",
@@ -8683,6 +8606,17 @@
       "Periode1": "LM",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 6254030.69
+    },
+    {
+      "Nama Salesman": "Riansyah",
+      "Tim": "Bima",
+      "Periode": "L3M",
+      "Periode1": "LM",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 5016851.36
@@ -9387,6 +9321,17 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 6149878.37
+    },
+    {
+      "Nama Salesman": "Riansyah",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 1394324.34
@@ -9522,28 +9467,6 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
       "NetSalesPKD": 7080353.82
-    },
-    {
-      "Nama Salesman": "Riansyah",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 194218.01
-    },
-    {
-      "Nama Salesman": "Riansyah",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM1",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 1988910.82
     },
     {
       "Nama Salesman": "Riansyah",
@@ -10630,6 +10553,17 @@
       "Periode1": "LM",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 5851932.56
+    },
+    {
+      "Nama Salesman": "Ridho Wahyudin",
+      "Tim": "Bima",
+      "Periode": "L3M",
+      "Periode1": "LM",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 3114594.64
@@ -11389,6 +11323,17 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "TYPE": "MOUNTEA",
+      "NetSalesPKD": 2776729.76
+    },
+    {
+      "Nama Salesman": "Ridho Wahyudin",
+      "Tim": "Bima",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "TYPE": "KOKO DRINK",
       "NetSalesPKD": 1937567.6
@@ -11529,17 +11474,6 @@
       "Nama Salesman": "Ridho Wahyudin",
       "Tim": null,
       "Periode": "L3M",
-      "Periode1": "LM",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 2073268.47
-    },
-    {
-      "Nama Salesman": "Ridho Wahyudin",
-      "Tim": null,
-      "Periode": "L3M",
       "Periode1": "LM1",
       "szPrincipalGroupId": null,
       "Principle": "GPPJ",
@@ -11551,34 +11485,12 @@
       "Nama Salesman": "Ridho Wahyudin",
       "Tim": null,
       "Periode": "L3M",
-      "Periode1": "LM1",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 5244627.92
-    },
-    {
-      "Nama Salesman": "Ridho Wahyudin",
-      "Tim": null,
-      "Periode": "L3M",
       "Periode1": "LM2",
       "szPrincipalGroupId": null,
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "TYPE": "POPCORN",
       "NetSalesPKD": 229729.73
-    },
-    {
-      "Nama Salesman": "Ridho Wahyudin",
-      "Tim": null,
-      "Periode": "L3M",
-      "Periode1": "LM2",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 2137465.76
     },
     {
       "Nama Salesman": "Ridho Wahyudin",
@@ -11601,17 +11513,6 @@
       "PwC_Grp3": "CONFECTIONERY",
       "TYPE": "CANDY",
       "NetSalesPKD": 647792.78
-    },
-    {
-      "Nama Salesman": "Ridho Wahyudin",
-      "Tim": null,
-      "Periode": "MTD",
-      "Periode1": "MTD",
-      "szPrincipalGroupId": null,
-      "Principle": "QI",
-      "PwC_Grp3": "BASIC FOOD",
-      "TYPE": "DRINK CEREAL",
-      "NetSalesPKD": 3103118.92
     }
   ]
 }
