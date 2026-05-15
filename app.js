@@ -3757,6 +3757,26 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
             // Fetch Master_GS.json untuk digunakan di semua depo
             const masterGsJson = await fetchSafe('Master_GS.json');
+            const getQuarterGsTargetPct = () => {
+                const month = new Date().getMonth() + 1;
+                if (month >= 4 && month <= 6) return 10;   // Q2 target 10%
+                if (month >= 7 && month <= 9) return 12;   // Q3 target 12%
+                if (month >= 10 && month <= 12) return 18;  // Q4 target 18%
+                return 10; // Default jika sebelum Q2 atau data di luar jangkauan
+            };
+            const getPerDepoGsTargetPct = (row) => {
+                if (!row) return null;
+                const targets = [
+                    'TargetPct','Target %','TARGET_PCT','TARGET PCT','GS Target','TARGET_GS','TargetGS','Target','T.GS Target','TGS Target'
+                ];
+                for (const key of targets) {
+                    if (row[key] != null && row[key] !== '') {
+                        const num = Number(row[key]);
+                        if (!isNaN(num)) return num;
+                    }
+                }
+                return null;
+            };
 
             const depoEntries = await Promise.all(rawDepos.map(async (rawDepo) => {
                 const suffix    = String(rawDepo).trim().toUpperCase().replace(/^DEPO\s+/i,'').replace(/\s+/g,'_');
@@ -3792,26 +3812,40 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     ecInsRaw   = avgOf('%ECIns') * 100;   // decimal → pct
                     arCollRaw  = avgOf('ARColl') * 100;
                     
-                    // %GS = T.GS / total A_GS
+                    // T.GS = target GS per depo dari Master_GS.json
                     let tgsValue = 0;
                     if (masterGsJson && masterGsJson.data) {
-                        // Cari T.GS dari Master_GS.json berdasarkan depo
-                        const depoCleaned = label.toUpperCase();
+                        const depoCleaned = label
+                            .toUpperCase()
+                            .replace(/^DEPO\s+/i,'');
                         const masterRow = masterGsJson.data.find(r => {
-                            const masterDepo = (r.Depo || r.depo || '').toString().trim().toUpperCase();
+                            const masterDepo = (r['Nama Depo'] || r.Nama_Dep || r.Depo || r.depo || '')
+                                .toString()
+                                .trim()
+                                .toUpperCase()
+                                .replace(/^DEPO\s+/i,'');
+
                             return masterDepo === depoCleaned;
                         });
                         tgsValue = masterRow ? Number(masterRow['T.GS'] || masterRow['TGS'] || 0) : 0;
                     }
                     
-                    // Hitung total A_GS dari proses_DEPO
+                    // Hitung total A_GS actual dari proses_DEPO
                     let totalAGS = 0;
                     rows.forEach(r => {
                         totalAGS += Number(r['A_GS'] || r.A_GS || 0);
                     });
                     
-                    // Hitung %GS = T.GS / A_GS
-                    gsRaw = totalAGS > 0 ? (tgsValue / totalAGS) * 100 : 0;
+                    // Hitung %GS = (Actual GS / Target GS) / targetKuartal
+                    const rawGsRatio = (tgsValue > 0)
+                        ? ((totalAGS / tgsValue) * 100)
+                        : 0;
+
+                    const gsTargetPct = getQuarterGsTargetPct();
+
+                    gsRaw = (gsTargetPct > 0)
+                        ? ((rawGsRatio / gsTargetPct) * 100)
+                        : 0;
                     
                     hasProsesData = true;
                 }
