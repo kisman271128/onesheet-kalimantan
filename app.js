@@ -131,7 +131,9 @@
                 } else {
                     showPage('selectionPage');
                     const adminOpt = document.getElementById('adminOptionCard');
+                    const hkOpt = document.getElementById('hariKerjaOptionCard');
                     if (adminOpt) adminOpt.style.display = found.role === 'admin' ? '' : 'none';
+                    if (hkOpt) hkOpt.style.display = found.role === 'admin' ? '' : 'none';
                 }
             } else {
                 document.getElementById('errorMsg').classList.remove('hidden');
@@ -1020,7 +1022,9 @@
                 } else {
                     showPage('selectionPage');
                     const adminOpt = document.getElementById('adminOptionCard');
+                    const hkOpt = document.getElementById('hariKerjaOptionCard');
                     if (adminOpt) adminOpt.style.display = currentRole === 'admin' ? '' : 'none';
+                    if (hkOpt) hkOpt.style.display = currentRole === 'admin' ? '' : 'none';
                 }
             }
         };
@@ -1103,7 +1107,9 @@
             } else {
                 showPage('selectionPage');
                 const adminOpt = document.getElementById('adminOptionCard');
+                const hkOpt = document.getElementById('hariKerjaOptionCard');
                 if (adminOpt) adminOpt.style.display = currentRole === 'admin' ? '' : 'none';
+                if (hkOpt) hkOpt.style.display = currentRole === 'admin' ? '' : 'none';
             }
         }
 
@@ -2033,9 +2039,9 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     { key: '%PC',    label: 'PC',     desc: 'Productive Call' },
                     { key: '%AC',    label: 'AC',     desc: 'Active Call' },
                     { key: '%EC',    label: 'EC',     desc: 'Effective Call' },
-                    { key: '%ECIns', label: 'ECIns',  desc: 'EC Insight' },
+                    { key: '%ECIns', label: 'ECIns',  desc: 'EC Insentif' },
                     { key: '%SKU',   label: 'AvgSKU', desc: 'Avg SKU' },
-                    { key: '%GS',    label: 'GS',     desc: 'Gross Sales' },
+                    { key: '%GS',    label: 'GS',     desc: 'Green Store' },
                     { key: 'ARColl', label: 'ARColl', desc: 'AR Collection', isAR: true },
                 ];
 
@@ -3026,23 +3032,131 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             }
         }
 
-        function getWeeksForMonth() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth();
-            const lastDay = new Date(year, month + 1, 0).getDate();
-            
-            const weeks = [
-                { num: 1, start: 2, end: 9, class: 'w1' },
-                { num: 2, start: 11, end: 16, class: 'w2' },
-                { num: 3, start: 18, end: 23, class: 'w3' },
-                { num: 4, start: 25, end: 30, class: 'w4' }
-            ];
-            
-            if (lastDay >= 29) {
-                weeks.push({ num: 5, start: 29, end: lastDay, class: 'w5' });
+        let hkData = null;
+
+        async function loadHK() {
+            try {
+                const res = await fetch('HK.json?_=' + Date.now());
+                hkData = await res.json();
+            } catch (e) {
+                console.warn('HK.json tidak ditemukan, pakai default.');
+                hkData = null;
             }
-            
+        }
+
+        // Hari Kerja modal helpers
+        function openHariKerjaModal() {
+            document.getElementById('hariKerjaModal').classList.add('show-flex');
+            loadHKModal();
+        }
+
+        function countWorkingDays(fromStr, toStr) {
+            if (!fromStr || !toStr) return 0;
+            const a = new Date(fromStr);
+            const b = new Date(toStr);
+            if (isNaN(a) || isNaN(b) || a > b) return 0;
+            let cnt = 0;
+            for (let d = new Date(a); d <= b; d.setDate(d.getDate() + 1)) {
+                const day = d.getDay();
+                if (day !== 0) cnt++; // Hanya Minggu (0) yang dikecualikan
+            }
+            return cnt;
+        }
+
+        function updateCounts() {
+            for (let i = 1; i <= 5; i++) {
+                const from  = document.getElementById(`w${i}_from`).value;
+                const to    = document.getElementById(`w${i}_to`).value;
+                const input = document.getElementById(`w${i}_count`);
+                const hk = countWorkingDays(from, to);
+                input.value = hk;
+                input.title = `Otomatis: ${hk} hari. Bisa diedit manual jika ada hari libur.`;
+            }
+        }
+
+        async function saveHK() {
+            const data = {};
+            for (let i = 1; i <= 5; i++) {
+                const from = document.getElementById(`w${i}_from`).value || null;
+                const to   = document.getElementById(`w${i}_to`).value || null;
+                const hk   = parseInt(document.getElementById(`w${i}_count`).value) || 0;
+                data[`W${i}`] = { from, to, hk };
+            }
+            const json = JSON.stringify(data, null, 2);
+            const canUpload = typeof window.uploadToGitHub === 'function';
+            if (canUpload) {
+                const ok = await uploadToGitHub('HK.json', json);
+                if (ok) {
+                    alert('HK.json berhasil diupload ke GitHub.');
+                    document.getElementById('hariKerjaModal').classList.remove('show-flex');
+                    return;
+                }
+                alert('Upload ke GitHub gagal. File akan disimpan secara lokal sebagai cadangan.');
+            }
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'HK.json';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            alert('Pengaturan disimpan ke file HK.json (download).');
+        }
+
+        function loadHKModal() {
+            fetch('HK.json').then(r => {
+                if (!r.ok) throw 'no';
+                return r.json();
+            }).then(obj => {
+                for (let i = 1; i <= 5; i++) {
+                    const w = obj['W' + i];
+                    if (w) {
+                        if (w.from) document.getElementById('w' + i + '_from').value = w.from;
+                        if (w.to) document.getElementById('w' + i + '_to').value = w.to;
+                    }
+                }
+                updateCounts();
+            }).catch(() => {
+                // no HK.json available — ignore
+            });
+        }
+
+        function getWeeksForMonth() {
+            const classes = ['w1', 'w2', 'w3', 'w4', 'w5'];
+            const weeks = [];
+
+            if (hkData) {
+                // ✅ Ambil dari HK.json
+                for (let i = 1; i <= 5; i++) {
+                    const key = 'W' + i;
+                    const w = hkData[key];
+                    if (!w || !w.from || !w.to) continue; // skip jika null (W5 kosong)
+
+                    const fromDate = new Date(w.from);
+                    const toDate   = new Date(w.to);
+
+                    weeks.push({
+                        num   : i,
+                        start : fromDate.getDate(),
+                        end   : toDate.getDate(),
+                        from  : w.from,
+                        to    : w.to,
+                        hk    : w.hk,
+                        class : classes[i - 1]
+                    });
+                }
+            } else {
+                // ⚠️ Fallback hardcode jika HK.json gagal load
+                weeks.push(
+                    { num:1, start:2,  end:9,  class:'w1' },
+                    { num:2, start:11, end:16, class:'w2' },
+                    { num:3, start:18, end:23, class:'w3' },
+                    { num:4, start:25, end:30, class:'w4' }
+                );
+            }
+
             return weeks;
         }
 
@@ -3103,6 +3217,10 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 if (btnSummary) btnSummary.style.display = 'none';
                 if (btnPwd) btnPwd.style.display = currentRole === 'admin' ? '' : 'none';
             }
+            const hkOpt = document.getElementById('hariKerjaOptionCard');
+            const adminOpt = document.getElementById('adminOptionCard');
+            if (hkOpt) hkOpt.style.display = currentRole === 'admin' ? '' : 'none';
+            if (adminOpt) adminOpt.style.display = currentRole === 'admin' ? '' : 'none';
 
             // Load TG per-depo setelah depo diketahui
             let _tgSuffix = selectedDepo.replace(/^data_DEPO_/i, '');
@@ -3916,10 +4034,10 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                   color: '#475569', desc: 'MTD/T.BP' },
                 { key: 'ecIns',    label: '%ECIns',             bobot: 15,
                   getRaw: d=>d.ecInsRaw,    getCapped: d=>d.ecInsCapped,
-                  color: '#64748b', desc: 'EC Insight' },
+                  color: '#64748b', desc: 'EC Insentif' },
                 { key: 'gs',       label: '%GS',                bobot: 15,
                   getRaw: d=>d.gsRaw,       getCapped: d=>d.gsCapped,
-                  color: '#64748b', desc: 'Gross Sales' },
+                  color: '#64748b', desc: 'Green Store' },
                 { key: 'arColl',   label: 'AR Collection',      bobot: 10,
                   getRaw: d=>d.arCollRaw,   getCapped: d=>d.arCollCapped,
                   color: '#64748b', desc: 'AR Coll' },
