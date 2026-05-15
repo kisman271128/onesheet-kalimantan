@@ -3794,6 +3794,9 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                         // Abaikan baris dengan PwC_Grp3 = LIQUID MILK
                         if (r.PwC_Grp3 && r.PwC_Grp3.trim().toUpperCase() === 'LIQUID MILK') return;
                         
+                        // Abaikan jika Principle = QI
+                        if (r.Principle && r.Principle.trim().toUpperCase() === 'QI') return;
+
                         mtd += Number(r.MTD    || 0);
                         tbp += Number(r['T.BP']|| 0);
                     });
