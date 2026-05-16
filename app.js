@@ -1462,7 +1462,7 @@
                 chMap[ch].MTD += Number(r.MTD||0);
                 chMap[ch].BE  += Number(r.BE ||0);
             });
-            const chOrder=['WHOLESALER','RETAIL','FS','INSTITUTION','MT','NKA'];
+            const chOrder=['WHOLESALER','RETAIL','FS','INSTITUTION','MTI','NKA'];
             const chLabels=[],chMTD=[],chBE=[];
             chOrder.forEach(ch=>{ if(chMap[ch]){chLabels.push(ch);chMTD.push(chMap[ch].MTD);chBE.push(chMap[ch].BE);} });
             // Hanya tampilkan 6 channel di chOrder, jangan tambah channel lain
@@ -1659,7 +1659,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
       <div id="sdTabChannel" style="padding:10px;">
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;">
           ${(()=>{
-            const chOrder=['WHOLESALER','RETAIL','FS','INSTITUTION','MT','NKA'];
+            const chOrder=['WHOLESALER','RETAIL','FS','INSTITUTION','MTI','NKA'];
             const allCh = chOrder.filter(ch=>chMap[ch]); // Hanya tampilkan 6 channel, abaikan yang lain
             return allCh.map((ch,i)=>{
               const v=chMap[ch]; if(!v) return '';
