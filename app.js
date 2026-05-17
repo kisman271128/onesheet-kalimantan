@@ -1458,9 +1458,10 @@
             const chMap={};
             rawData.forEach(r => {
                 const ch=(r.Channel||r.channel||'Other').toUpperCase();
-                if(!chMap[ch]) chMap[ch]={MTD:0,BE:0};
+                if(!chMap[ch]) chMap[ch]={MTD:0,BE:0,BP:0};
                 chMap[ch].MTD += Number(r.MTD||0);
                 chMap[ch].BE  += Number(r.BE ||0);
+                chMap[ch].BP  += Number(r.BP ||0);
             });
             const chOrder=['WHOLESALER','RETAIL','FS','INSTITUTION','MTI','NKA'];
             const chLabels=[],chMTD=[],chBE=[];
@@ -1648,11 +1649,11 @@ ${isRegional ? renderDepoStatusPanel() : ''}
       <div style="display:flex;border-bottom:2px solid #f1f5f9;">
         <button id="sdTabBtnChannel" onclick="switchSdBottomTab('channel')"
           style="flex:1;padding:8px 4px;border:none;background:#0e7490;color:white;font-size:10px;font-weight:700;cursor:pointer;border-radius:0;">
-          🏬 Channel
+          🏬 Channel Outlet vs BE
         </button>
         <button id="sdTabBtnProses" onclick="switchSdBottomTab('proses')"
           style="flex:1;padding:8px 4px;border:none;background:white;color:#64748b;font-size:10px;font-weight:700;cursor:pointer;border-radius:0;">
-          ⚙️ Proses
+          ⚙️ Produktifitas
         </button>
       </div>
       <!-- Channel tab content -->
@@ -1669,10 +1670,10 @@ ${isRegional ? renderDepoStatusPanel() : ''}
               const conic = 'conic-gradient('+col+' 0deg '+fillDeg.toFixed(1)+'deg, #e2e8f0 '+fillDeg.toFixed(1)+'deg 360deg)';
               return '<div style="text-align:center;background:#f8fafc;border-radius:10px;padding:8px 4px;">'
                 + '<div style="font-size:9px;font-weight:700;color:#475569;margin-bottom:4px;">'+ch+'</div>'
-                + '<div style="position:relative;width:64px;height:64px;margin:0 auto;">'
-                +   '<div style="width:64px;height:64px;border-radius:50%;background:'+conic+';"></div>'
-                +   '<div style="position:absolute;inset:8px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;">'
-                +     '<span style="font-size:10px;font-weight:800;color:'+col+';">'+achPct.toFixed(1)+'%</span>'
+                + '<div style="position:relative;width:48px;height:48px;margin:0 auto;">'
+                +   '<div style="width:48px;height:48px;border-radius:50%;background:'+conic+';"></div>'
+                +   '<div style="position:absolute;inset:6px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;">'
+                +     '<span style="font-size:9px;font-weight:800;color:'+col+';">'+achPct.toFixed(1)+'%</span>'
                 +   '</div>'
                 + '</div>'
                 + '<div style="font-size:9px;font-weight:700;color:#0e7490;margin-top:3px;">'+jt(v.MTD)+'</div>'
@@ -1695,15 +1696,19 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
     <!-- Top Principles -->
     <div style="${cardStyle}">
-      <div style="${titleStyle}">🏆 Top Principle (vs BP)</div>
+      <div style="${titleStyle}">🏆 Principle Group (Vs BP)</div>
       ${topPr.map(([pr,v],i)=>{
         const clrs=['#0e7490','#0284c7','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c'];
         const fillW = v.BP>0?Math.min(v.MTD/v.BP*100,100).toFixed(1):0;
         const ach   = v.BP>0?(v.MTD/v.BP*100).toFixed(1):0;
+        const prShort = pr.length>12?pr.slice(0,11)+'…':pr;
         return '<div style="margin-bottom:7px;">'
           + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;margin-bottom:2px;">'
-          +   '<span style="font-weight:600;color:#334155;">'+(i+1)+'. '+(pr.length>16?pr.slice(0,15)+'…':pr)+'</span>'
-          +   '<span style="display:flex;gap:4px;align-items:center;">'
+          +   '<span style="font-weight:600;color:#334155;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'
+          +     (i+1)+'. '+prShort
+          +     '<span style="font-size:8px;color:#94a3b8;font-weight:400;"> (BP '+jt(v.BP)+')</span>'
+          +   '</span>'
+          +   '<span style="display:flex;gap:4px;align-items:center;flex-shrink:0;margin-left:4px;">'
           +     '<span style="color:#64748b;font-size:9px;">'+jt(v.MTD)+'</span>'
           +     '<span style="background:'+bgAch(Number(ach))+';color:'+colAch(Number(ach))+';border-radius:3px;padding:1px 5px;font-size:9px;font-weight:700;">'+ach+'%</span>'
           +   '</span>'
@@ -1711,23 +1716,26 @@ ${isRegional ? renderDepoStatusPanel() : ''}
           + '<div style="background:#e2e8f0;border-radius:4px;height:5px;">'
           +   '<div style="width:'+fillW+'%;background:'+clrs[i%clrs.length]+';height:5px;border-radius:4px;transition:width .4s;"></div>'
           + '</div>'
-          + '<div style="font-size:9px;color:#94a3b8;text-align:right;margin-top:1px;">BP '+jt(v.BP)+'</div>'
           + '</div>';
       }).join('')}
     </div>
 
     <!-- Top Category -->
     <div style="${cardStyle}">
-      <div style="${titleStyle}">📦 Top Category (vs BP)</div>
+      <div style="${titleStyle}">📦 Top Category (Vs BP)</div>
       <div style="max-height:340px;overflow-y:auto;">
       ${topCat.map(([gr,v],i)=>{
         const clrs=['#0e7490','#0284c7','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c','#0891b2'];
         const fillW = v.BP>0?Math.min(v.MTD/v.BP*100,100).toFixed(1):0;
         const ach   = v.BP>0?(v.MTD/v.BP*100).toFixed(1):0;
+        const grShort = gr.length>12?gr.slice(0,11)+'…':gr;
         return '<div style="margin-bottom:7px;">'
           + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;margin-bottom:2px;">'
-          +   '<span style="font-weight:600;color:#334155;">'+(i+1)+'. '+(gr.length>16?gr.slice(0,15)+'…':gr)+'</span>'
-          +   '<span style="display:flex;gap:4px;align-items:center;">'
+          +   '<span style="font-weight:600;color:#334155;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'
+          +     (i+1)+'. '+grShort
+          +     '<span style="font-size:8px;color:#94a3b8;font-weight:400;"> (BP '+jt(v.BP)+')</span>'
+          +   '</span>'
+          +   '<span style="display:flex;gap:4px;align-items:center;flex-shrink:0;margin-left:4px;">'
           +     '<span style="color:#64748b;font-size:9px;">'+jt(v.MTD)+'</span>'
           +     '<span style="background:'+bgAch(Number(ach))+';color:'+colAch(Number(ach))+';border-radius:3px;padding:1px 5px;font-size:9px;font-weight:700;">'+ach+'%</span>'
           +   '</span>'
@@ -1735,7 +1743,6 @@ ${isRegional ? renderDepoStatusPanel() : ''}
           + '<div style="background:#e2e8f0;border-radius:4px;height:5px;">'
           +   '<div style="width:'+fillW+'%;background:'+clrs[i%clrs.length]+';height:5px;border-radius:4px;transition:width .4s;"></div>'
           + '</div>'
-          + '<div style="font-size:9px;color:#94a3b8;text-align:right;margin-top:1px;">BP '+jt(v.BP)+'</div>'
           + '</div>';
       }).join('')}
       </div>
@@ -2298,10 +2305,10 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     const dispPct  = v == null ? '—' : achPct.toFixed(1) + '%';
                     return '<div style="text-align:center;background:#f8fafc;border-radius:10px;padding:8px 4px;">'
                         + '<div style="font-size:9px;font-weight:700;color:#475569;margin-bottom:4px;">' + label + '</div>'
-                        + '<div style="position:relative;width:64px;height:64px;margin:0 auto;">'
-                        +   '<div style="width:64px;height:64px;border-radius:50%;background:' + conic + ';"></div>'
-                        +   '<div style="position:absolute;inset:8px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;">'
-                        +     '<span style="font-size:10px;font-weight:800;color:' + col + ';">' + dispPct + '</span>'
+                        + '<div style="position:relative;width:48px;height:48px;margin:0 auto;">'
+                        +   '<div style="width:48px;height:48px;border-radius:50%;background:' + conic + ';"></div>'
+                        +   '<div style="position:absolute;inset:6px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;">'
+                        +     '<span style="font-size:9px;font-weight:800;color:' + col + ';">' + dispPct + '</span>'
                         +   '</div>'
                         + '</div>'
                         + ''
@@ -2410,54 +2417,27 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 plugins: [{
                     id: 'prosesLabels',
                     afterDraw(chart) {
-                        const ctx = chart.ctx;
+                        const ctx  = chart.ctx;
+                        const meta = chart.getDatasetMeta(0);
 
-                        // ── Overdraw legend symbol BP & BE dengan garis putus ──
-                        if (chart.legend && chart.legend.legendItems) {
-                            chart.legend.legendItems.forEach((item, i) => {
-                                if (i >= 2) return; // hanya BP (0) dan BE (1)
-                                const box = chart.legend.legendHitBoxes?.[i];
-                                if (!box) return;
-                                const cx = box.left + box.width / 2;
-                                const cy = box.top  + box.height / 2;
-                                const hw = 12;
-
-                                // Hapus kotak solid
-                                ctx.save();
-                                ctx.fillStyle = chart.canvas.parentElement
-                                    ? getComputedStyle(chart.canvas.parentElement).backgroundColor || '#ffffff'
-                                    : '#ffffff';
-                                ctx.fillRect(box.left, box.top, box.width, box.height);
-                                ctx.restore();
-
-                                // Gambar ulang sebagai garis putus
-                                ctx.save();
-                                ctx.strokeStyle = i === 0 ? '#7c3aed' : '#ea580c';
-                                ctx.lineWidth   = 2.5;
-                                ctx.setLineDash([6, 4]);
-                                ctx.lineCap     = 'round';
-                                ctx.beginPath();
-                                ctx.moveTo(cx - hw, cy);
-                                ctx.lineTo(cx + hw, cy);
-                                ctx.stroke();
-                                ctx.setLineDash([]);
-                                ctx.restore();
-                            });
-                        }
-
-                        // ── Gap label di bawah tick X-axis (kode lama, tetap ada) ──
-                        const area = chart.chartArea;
-                        const mBP  = chart.getDatasetMeta(0);
                         ctx.save();
-                        ctx.font = 'bold 10px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-                        allLabels.forEach((_, i) => {
-                            const pt = mBP.data[i]; if (!pt) return;
-                            const gap = allMTD[i] - allBP[i];
-                            const fmtGap = _fmtPt(Math.abs(gap));
-                            if (!fmtGap) return;
-                            const isPos = gap > 0;
-                            ctx.fillStyle = isPos ? '#16a34a' : '#dc2626';
-                            ctx.fillText((isPos ? '+' : '-') + fmtGap, pt.x, area.bottom + 24);
+                        meta.data.forEach((arc, i) => {
+                            const mid = (arc.startAngle + arc.endAngle) / 2;
+                            const r   = arc.outerRadius + 16;
+                            const x   = arc.x + r * Math.cos(mid);
+                            const y   = arc.y + r * Math.sin(mid);
+                            const cos = Math.cos(mid);
+
+                            ctx.textAlign    = cos > 0.15 ? 'left' : cos < -0.15 ? 'right' : 'center';
+                            ctx.textBaseline = 'middle';
+
+                            ctx.font      = 'bold 9px Arial';
+                            ctx.fillStyle = '#374151';
+                            ctx.fillText(labels[i], x, y - 6);
+
+                            ctx.font      = '9px Arial';
+                            ctx.fillStyle = colors[i];
+                            ctx.fillText(dispPct[i], x, y + 6);
                         });
                         ctx.restore();
                     }
@@ -2749,15 +2729,35 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             }
         }
 
-        function hardRefresh() {
-            // Hapus semua cache service worker jika ada
-            if ('caches' in window) {
-                caches.keys().then(names => names.forEach(name => caches.delete(name)));
-            }
-            // Force reload bypass cache (Ctrl+F5 effect)
-            location.reload(true);
-        }
+        // function hardRefresh() {
+        //     // Hapus semua cache service worker jika ada
+        //     if ('caches' in window) {
+        //         caches.keys().then(names => names.forEach(name => caches.delete(name)));
+        //     }
+        //     // Force reload bypass cache (Ctrl+F5 effect)
+        //     location.reload(true);
+        // }
 
+        async function hardRefresh() {
+            // 1. Hapus semua CacheStorage (PWA / Service Worker) jika ada
+            if ('caches' in window) {
+                try {
+                    const names = await caches.keys();
+                    await Promise.all(names.map(name => caches.delete(name)));
+                } catch (e) {
+                    console.error("Gagal menghapus cache storage:", e);
+                }
+            }
+            
+            // 2. Akali HTTP Cache dengan menambahkan parameter unik (timestamp) ke URL
+            // Ini memaksa browser menganggap halaman ini benar-benar baru
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('reload_ts', Date.now());
+            
+            // 3. Alihkan halaman ke URL baru tersebut
+            window.location.href = currentUrl.toString();
+        }
+        
         function switchTab(tab) {
             currentTab = tab;
             
