@@ -2578,6 +2578,9 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             } else if (tab === 'trend') {
                 document.getElementById('tabTrend').classList.add('active');
                 if (!window.trendLoaded) loadTrendData();
+            } else if (tab === 'ai') {
+                document.getElementById('tabAI').classList.add('active');
+                if (!window._aiInitialized) initAIInsight();
             } else if (tab === 'klasemen') {
                 document.getElementById('tabKlasemen').classList.add('active');
                 if (!window._klasemenLoaded) {
@@ -3307,6 +3310,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     <div class="tab" onclick="switchTab('project')">📋 Project</div>
                     <div class="tab" onclick="switchTab('category')">📦 Category</div>
                     <div class="tab" onclick="switchTab('trend')">📈 Trend</div>
+                    ${username === 'depo.tanjung' ? '<div class="tab" onclick="switchTab(\'ai\')">🤖 AI Insight</div>' : ''}
                     ${window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '<div class="tab" onclick="switchTab(\'upload\')">📤 Upload Data</div>' : ''}
                     <button onclick="hardRefresh()" title="Refresh"
                         style="padding:6px 10px; background:white; border:1.5px solid #cbd5e1;
@@ -5619,3 +5623,1064 @@ let trendChart = null;
         document.getElementById('adminPwdModal').addEventListener('click', function(e) {
             if (e.target === this) closeAdminPasswordModal();
         });
+
+        // ═══════════════════════════════════════════════════════════════
+        //  AI INSIGHT MODULE — khusus depo.tanjung
+        // ═══════════════════════════════════════════════════════════════
+
+        const _AI = {
+            groq: {
+                url:   'https://api.groq.com/openai/v1/chat/completions',
+                model: 'llama-3.1-8b-instant',
+                label: '⚡ Groq',
+                get key() { return localStorage.getItem('ai_key_groq') || ''; }
+            },
+            gemini: {
+                url:   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
+                label: '✨ Gemini',
+                get key() { return localStorage.getItem('ai_key_gemini') || ''; }
+            },
+            gemini15pro: {
+                url:   'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent',
+                label: '🔵 Gemini 1.5 Pro',
+                get key() { return localStorage.getItem('ai_key_gemini') || ''; }
+            },
+            openrouter: {
+                url:   'https://openrouter.ai/api/v1/chat/completions',
+                label: '🔀 OpenRouter',
+                get key()   { return localStorage.getItem('ai_key_openrouter') || ''; },
+                get model() { return localStorage.getItem('ai_model_openrouter') || 'meta-llama/llama-3.3-70b-instruct:free'; }
+            },
+            cohere: {
+                url:   'https://api.cohere.com/v2/chat',
+                model: 'command-r-plus-08-2024',
+                label: '🟡 Cohere',
+                get key() { return localStorage.getItem('ai_key_cohere') || ''; }
+            }
+        };
+
+        let _aiProv     = localStorage.getItem('ai_provider') || 'groq';
+        let _aiConv     = [];
+        let _aiBusy     = false;
+        let _aiProses   = null;
+        let _aiLastData = null;
+
+        // ── Init ──────────────────────────────────────────────────────
+        function initAIInsight() {
+            window._aiInitialized = true;
+            _aiUpdateProvUI();
+            const hasKey = _AI.groq.key || _AI.gemini.key || _AI.openrouter.key || _AI.cohere.key;
+            if (!hasKey) { setTimeout(aiOpenSettings, 400); return; }
+            _aiAnalyze();
+        }
+
+        // ── Switch provider ───────────────────────────────────────────
+        function aiSwitchProvider(name) {
+            if (name !== 'auto' && !_AI[name]) return;
+            _aiProv = name;
+            localStorage.setItem('ai_provider', name);
+            _aiUpdateProvUI();
+            const hasKey = name === 'auto'
+                ? Object.values(_AI).some(p => p.key)
+                : !!_AI[name]?.key;
+            if (window._aiInitialized && hasKey) {
+                _aiConv = [];
+                document.getElementById('aiChatMessages').innerHTML = '';
+                document.getElementById('aiInsightCards').innerHTML = '';
+                document.getElementById('aiChatDivider').style.display = 'none';
+                document.getElementById('aiChipRow').style.display = 'none';
+                _aiAnalyze();
+            }
+        }
+
+        function _aiUpdateProvUI() {
+            ['groq','gemini','gem15','or','coh','auto'].forEach(id => {
+                const btn = document.getElementById('aiBtn_' + id);
+                if (btn) btn.classList.remove('active');
+            });
+            const map = { groq:'groq', gemini:'gemini', gemini15pro:'gem15', openrouter:'or', cohere:'coh', auto:'auto' };
+            const btn = document.getElementById('aiBtn_' + (map[_aiProv] || _aiProv));
+            if (btn) btn.classList.add('active');
+            const label = _aiProv === 'auto' ? '🟢 Auto' : (_AI[_aiProv]?.label || _aiProv);
+            _aiSetStatus('ok', '✓ ' + label);
+        }
+
+        function _aiSetStatus(type, text) {
+            const el = document.getElementById('aiProvStatus');
+            if (!el) return;
+            const styles = {
+                ok:   { bg:'#e8f5e9', color:'#2e7d32' },
+                warn: { bg:'#fffde7', color:'#f57f17' },
+                err:  { bg:'#ffebee', color:'#c62828' }
+            };
+            const s = styles[type] || styles.ok;
+            el.style.background = s.bg;
+            el.style.color = s.color;
+            el.textContent = text;
+        }
+
+        // ── Load data & generate insight ──────────────────────────────
+        async function _aiAnalyze() {
+            const ldEl = document.getElementById('aiInsightLoading');
+            const cardsEl = document.getElementById('aiInsightCards');
+            if (ldEl) ldEl.style.display = 'flex';
+            if (cardsEl) cardsEl.innerHTML = '';
+            _aiSetStatus('warn', '⏳ Menganalisis...');
+            const ldTxt = document.getElementById('aiLoadTxt');
+            const ldSub = document.getElementById('aiLoadSub');
+            if (ldTxt) ldTxt.textContent = '🔍 Menganalisis data...';
+            if (ldSub) ldSub.textContent = 'Menyiapkan konteks dari data depo...';
+
+            // Load proses jika belum
+            if (!_aiProses) {
+                try {
+                    const suffix = selectedDepo.replace('data_DEPO_', '');
+                    if (ldSub) ldSub.textContent = 'Memuat data proses salesman...';
+                    const res = await fetch(`proses_DEPO_${suffix}.json`);
+                    _aiProses = res.ok ? ((await res.json()).data || []) : [];
+                } catch { _aiProses = []; }
+            }
+
+            if (ldSub) ldSub.textContent = 'AI sedang menganalisis...';
+            const prompt = _aiBuildPrompt();
+            try {
+                const reply = await _aiCallAPI([{ role: 'user', content: prompt }], 2400);
+                _aiConv = [{ role: 'user', content: prompt }, { role: 'assistant', content: reply }];
+                _aiRenderCards(reply);
+                if (ldEl) ldEl.style.display = 'none';
+                const div = document.getElementById('aiChatDivider');
+                const chips = document.getElementById('aiChipRow');
+                const send = document.getElementById('aiSendBtn');
+                if (div)  { div.style.display = 'flex'; }
+                if (chips){ chips.style.display = 'flex'; }
+                if (send) { send.disabled = false; send.style.opacity = '1'; }
+                _aiSetStatus('ok', '✓ ' + (_AI[_aiProv]?.label || _aiProv));
+            } catch(err) {
+                if (ldEl) ldEl.style.display = 'none';
+                if (cardsEl) cardsEl.innerHTML =
+                    `<div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:12px;padding:16px;font-size:13px;color:#991b1b;">
+                    ⚠️ ${_aiEsc(err.message)}<br>
+                    <small style="color:#ef4444;display:block;margin-top:6px;">Coba ganti provider atau klik 🔄 Refresh</small></div>`;
+                _aiSetStatus('err', '✗ Error');
+            }
+        }
+
+        // ── Konteks bisnis statis (dipakai di semua prompt) ───────────
+        function _aiCtx() {
+            return `
+=== KONTEKS BISNIS (ACUAN WAJIB) ===
+
+TIM SALESMAN & PRODUK:
+• Arjuna   → hanya jual produk GPPJ-A dan GEN
+• Bima     → hanya jual produk GPPJ-B, GBS, MBR, HGJ, RANS, GSJ
+• Yudistira → jual semua produk Arjuna + Bima (full range)
+
+TIPE SALESMAN & CHANNEL YANG DICOVER:
+• SR Wholesaler Arjuna → Wholesaler/Grosir + MTI
+• SR Wholesaler Bima   → Wholesaler/Grosir + MTI
+• SR Retailer Arjuna   → Retail + MTI
+• SR Retailer Bima     → Retail + MTI
+• SR Mix Yudistira     → semua Channel (Grosir, Retail, MTI, NKA, FS)
+
+KETENTUAN KHUSUS:
+• Wholesaler Arjuna & Bima: bisa cover outlet yang sama
+• Retailer Arjuna & Bima: bisa cover outlet yang sama
+• Mix Yudistira: masing-masing cover outlet BERBEDA
+
+ISTILAH PRODUKTIVITAS:
+• CR (Customer Register) = daftar outlet wajib; standar 100%
+• JKS = Jadwal Kunjungan Salesman (Weekly = 1x/minggu, BiWeekly = 2x/2minggu)
+• CA (Customer Active) = CR yang sudah transaksi di bulan berjalan
+• PC (Plan Call) = jumlah outlet dalam daftar kunjungan per hari
+• AC (Actual Call) = outlet yang berhasil dikunjungi; target 100% dari PC
+• EC (Effective Call) = CR yang menghasilkan SO
+• SO (Sales Order) = order dari aktivitas kunjungan salesman
+• ET (Effective Transaction) = SO yang berhasil dikirim (DO)
+• AvgSKU = rata-rata SKU per transaksi
+• Channel: Grosir, Retail, MTI, NKA, FS (Food Service)
+
+STRUKTUR PIC:
+• RH  = Regional Head → membawahi beberapa BH
+• BH  = Branch Head → membawahi SAC, Salesman, BLC, BAC
+• SAC = Sales Area Coordinator → membawahi salesman langsung
+• Salesman → pelaku kunjungan CR; menjalankan 9 Super & aktivitas order
+• BLC = Branch Coordinator Logistic → mengatur kiriman & supply stok
+• BAC = Branch Administration Coordinator → administrasi, AR, system order
+• Dropping = Driver kiriman ke outlet
+
+ISTILAH AKTIVITAS LAPANGAN:
+• 9 Super = 9 tahapan wajib tiap kunjungan outlet:
+  1.Kerapian Diri 2.Salam & Tagging Outlet 3.Cek Plan/DAP 4.Cek Stok & Pemajangan
+  5.Rekomendasi Order 6.Penagihan kredit 7.Penawaran promo/NPL/Negosiasi
+  8.Konfirmasi SO & jadwal kiriman 9.Salam & terima kasih
+• DAP (Daily Account Plan) = rencana target SO per outlet besok; dibuat sore H-1 saat Daily Connect
+• Daily Connect = SAC bertemu 2 salesman terendah tiap sore; bahas hasil hari ini & plan besok
+• JC (Join Call) = pendampingan SAC→Salesman & BH→SAC; minimal 3x/minggu SAC, tiap salesman min 1x; menerapkan EDAC
+• EDAC = Explain (maks 2 fokus) → Demonstration (outlet 1-3) → Action (outlet 4-6) → Coaching (2 menit)
+• MV (Market Visit) = BH/SAC kunjungi outlet pareto Grosir/Retail/MTI; BH 2x/minggu, SAC 2x/minggu
+• Sobat = istilah internal untuk competitor
+• NPL = New Product Launching
+`;
+        }
+
+        // ── Build prompt dari data yang sudah ada di memory ───────────
+        function _aiBuildPrompt() {
+            // Aggregate salesman performance dari rawData
+            const smMap = {};
+            (rawData || []).forEach(r => {
+                const sm = r['Nama Salesman'] || ''; if (!sm) return;
+                if (!smMap[sm]) smMap[sm] = { MTD:0, BP:0, BE:0, CR:new Set(), CA:new Set() };
+                smMap[sm].MTD += Number(r.MTD || 0);
+                smMap[sm].BP  += Number(r.BP  || 0);
+                smMap[sm].BE  += Number(r.BE  || 0);
+                const id = r['Id Pelanggan'] || r['ID Pelanggan'] || '';
+                if (id) { smMap[sm].CR.add(id); if (Number(r.CA||0)>0) smMap[sm].CA.add(id); }
+            });
+            const smList = Object.entries(smMap).sort((a,b) => {
+                const achA = a[1].BP>0 ? a[1].MTD/a[1].BP : 0;
+                const achB = b[1].BP>0 ? b[1].MTD/b[1].BP : 0;
+                return achB - achA;
+            });
+            const totMTD = smList.reduce((s,[,v])=>s+v.MTD, 0);
+            const totBP  = smList.reduce((s,[,v])=>s+v.BP,  0);
+            const totBE  = smList.reduce((s,[,v])=>s+v.BE,  0);
+            const totAch = totBP>0 ? (totMTD/totBP*100).toFixed(1) : '-';
+            const smRows = smList.map(([nm,v],i) => {
+                const ach = v.BP>0 ? (v.MTD/v.BP*100).toFixed(1) : '-';
+                const caRate = v.CR.size>0 ? (v.CA.size/v.CR.size*100).toFixed(0) : '-';
+                return `  • ${nm}: Ach ${ach}%, Gap ${_aiFmtRp(v.MTD-v.BP)}, CA/CR ${caRate}%, Rank #${i+1}`;
+            }).join('\n');
+
+            // LOB dari catBpData
+            const prMap = {};
+            (window.catBpData || []).forEach(r => {
+                const pr = r.Principle || 'Other';
+                if (!prMap[pr]) prMap[pr] = { MTD:0, BP:0 };
+                prMap[pr].MTD += Number(r.MTD || 0);
+                prMap[pr].BP  += Number(r['T.BP'] || 0);
+            });
+            const lobRows = Object.entries(prMap)
+                .sort((a,b) => a[1].MTD-a[1].BP - (b[1].MTD-b[1].BP))
+                .map(([nm,v]) => {
+                    const ach = v.BP>0 ? (v.MTD/v.BP*100).toFixed(1) : '-';
+                    return `  • ${nm}: Ach ${ach}%, Actual ${_aiFmtRp(v.MTD)}, Gap ${_aiFmtRp(v.MTD-v.BP)}`;
+                }).join('\n');
+
+            // Proses salesman — cari yang bermasalah
+            const prosesIssues = (_aiProses || []).map(d => {
+                const issues = [];
+                if ((d['%CA']  || 0) < 0.75) issues.push(`CA ${((d['%CA']||0)*100).toFixed(0)}%`);
+                if ((d['%SKU'] || 0) < 0.75) issues.push(`AvgSKU ${(d['A_AvgSKU']||0).toFixed(1)} (${((d['%SKU']||0)*100).toFixed(0)}%)`);
+                if ((d['%CR']  || 0) < 1.0)  issues.push(`CR below target ${((d['%CR']||0)*100).toFixed(0)}%`);
+                if ((d['%EC']  || 0) < 0.8)  issues.push(`EC ${((d['%EC']||0)*100).toFixed(0)}%`);
+                return issues.length ? `  • ${d.szname} (${d['Tipe Salesman']||''}): ${issues.join(', ')}` : null;
+            }).filter(Boolean).join('\n');
+
+            const depoName = selectedDepo.replace('data_DEPO_','').replace(/_/g,' ');
+            return `Kamu adalah AI analis sales profesional untuk Depo ${depoName}.
+${_aiCtx()}
+=== PERFORMANCE SALESMAN ===
+${smRows || '  (tidak ada data)'}
+Total Depo: Ach ${totAch}%, Actual ${_aiFmtRp(totMTD)}, Gap ${_aiFmtRp(totMTD-totBP)}
+
+=== LOB/PRINCIPLE BREAKDOWN ===
+${lobRows || '  (tidak ada data)'}
+
+=== KPI PROSES SALESMAN (masalah) ===
+${prosesIssues || '  Semua dalam batas normal'}
+
+Berikan analisis dalam format JSON persis (tanpa markdown, tanpa kode blok):
+{
+  "ringkasan": "2-3 kalimat kondisi overall dengan angka spesifik: achievement total, top/bottom performer, tren utama",
+  "root_cause": [
+    "akar masalah 1 — jelaskan MENGAPA terjadi (bukan hanya WHAT), kaitkan dengan KPI proses/LOB/salesman spesifik",
+    "akar masalah 2",
+    "akar masalah 3"
+  ],
+  "activity_plan": [
+    {"aksi": "deskripsi tindakan spesifik", "PIC": "nama salesman atau tim", "timeline": "Minggu 1 / Minggu 2 / dst", "target": "angka KPI yang diharapkan"},
+    {"aksi": "...", "PIC": "...", "timeline": "...", "target": "..."},
+    {"aksi": "...", "PIC": "...", "timeline": "...", "target": "..."},
+    {"aksi": "...", "PIC": "...", "timeline": "...", "target": "..."}
+  ],
+  "quick_wins": [
+    "aksi cepat 1 yang bisa dilakukan hari ini/minggu ini, dengan effort rendah dan impact tinggi",
+    "aksi cepat 2",
+    "aksi cepat 3"
+  ]
+}`;
+        }
+
+        // ── Render Insight Cards ───────────────────────────────────────
+        function _aiRenderCards(raw) {
+            let data;
+            try {
+                const clean = raw.replace(/```json|```/g,'').trim();
+                data = JSON.parse(clean);
+            } catch {
+                data = { ringkasan: raw, root_cause: [], activity_plan: [], quick_wins: [] };
+            }
+            _aiLastData = data;
+            const wrap = document.getElementById('aiInsightCards');
+            if (!wrap) return;
+            wrap.innerHTML = '';
+
+            const mkCard = (cls, icon, title, content) => {
+                const d = document.createElement('div');
+                d.className = 'ai-ins-card ' + cls;
+                d.innerHTML = `<div class="ai-ins-hdr"><span>${icon}</span><span>${_aiEsc(title)}</span></div>
+                    <div class="ai-ins-body">${content}</div>`;
+                wrap.appendChild(d);
+            };
+
+            // 1. Ringkasan
+            mkCard('summary', '📊', 'Ringkasan Kondisi',
+                `<p style="margin:0;line-height:1.7;">${_aiEsc(data.ringkasan || '-')}</p>`);
+
+            // 2. Root Cause
+            const causes = data.root_cause || data.masalah || [];
+            if (causes.length) {
+                mkCard('rootcause', '🔍', 'Root Cause Analysis',
+                    `<ul>${causes.map((c,i)=>`<li><strong>RC${i+1}:</strong> ${_aiEsc(c)}</li>`).join('')}</ul>`);
+            }
+
+            // 3. Activity Plan — tabel
+            const plans = data.activity_plan || [];
+            if (plans.length) {
+                const badgeClass = (tl='') => {
+                    const t = tl.toLowerCase();
+                    if (t.includes('1') || t.includes('satu') || t.includes('ini')) return 'w1';
+                    if (t.includes('2') || t.includes('dua')) return 'w2';
+                    if (t.includes('3') || t.includes('tiga')) return 'w3';
+                    return 'w4';
+                };
+                const rows = plans.map(p =>
+                    `<tr>
+                        <td>${_aiEsc(p.aksi || '-')}</td>
+                        <td style="font-weight:600;color:#0d47a1;text-align:center;">${_aiEsc(p.PIC || '-')}</td>
+                        <td style="color:#2e7d32;font-weight:600;">${_aiEsc(p.target || '-')}</td>
+                    </tr>`
+                ).join('');
+                mkCard('plan', '📋', 'Activity Plan',
+                    `<div style="overflow-x:auto;">
+                    <table class="ai-plan-table" style="min-width:420px;">
+                        <colgroup>
+                            <col style="width:240px;">
+                            <col style="width:120px;">
+                            <col style="width:120px;">
+                        </colgroup>
+                        <thead><tr>
+                            <th>Tindakan</th><th>PIC</th><th>Target</th>
+                        </tr></thead>
+                        <tbody>${rows}</tbody>
+                    </table></div>`);
+            }
+
+            // 4. Quick Wins
+            const wins = data.quick_wins || data.rekomendasi || [];
+            if (wins.length) {
+                mkCard('quickwin', '⚡', 'Quick Wins (Segera Lakukan)',
+                    `<ul>${wins.map(w=>`<li style="margin-bottom:4px;">✅ ${_aiEsc(w)}</li>`).join('')}</ul>`);
+            }
+        }
+
+        // ── Chat ──────────────────────────────────────────────────────
+        async function aiSendMessage() {
+            const input = document.getElementById('aiChatInput');
+            const text = (input?.value || '').trim();
+            if (!text || _aiBusy) return;
+            input.value = '';
+            aiAutoResize(input);
+            aiToggleSend();
+            _aiAddMsg('user', text);
+            _aiScrollBottom();
+            await _aiAsk(text);
+        }
+
+        async function aiAskChip(q) {
+            _aiAddMsg('user', q);
+            _aiScrollBottom();
+            await _aiAsk(q);
+        }
+
+        async function _aiAsk(text) {
+            _aiBusy = true;
+            const sendBtn = document.getElementById('aiSendBtn');
+            if (sendBtn) { sendBtn.disabled = true; sendBtn.style.opacity = '.55'; }
+            _aiSetStatus('warn', '⏳ Memproses...');
+            const typing = _aiShowTyping();
+            _aiScrollBottom();
+
+            const enriched = _aiEnrich(text);
+            _aiConv.push({ role: 'user', content: enriched });
+
+            try {
+                const reply = await _aiCallAPI(_aiConv, 900);
+                _aiConv.push({ role: 'assistant', content: reply });
+                typing.remove();
+                _aiAddMsg('bot', reply);
+                _aiSetStatus('ok', '✓ ' + (_AI[_aiProv]?.label || _aiProv));
+                _aiScrollBottom();
+            } catch(err) {
+                typing.remove();
+                const isRate = /rate.?limit|429|quota/i.test(err.message);
+                const errMsg = isRate
+                    ? `⚠️ Rate limit tercapai di ${_AI[_aiProv]?.label}. Coba ganti provider lain.`
+                    : `⚠️ Error: ${err.message}`;
+                _aiAddMsg('bot', errMsg);
+                _aiSetStatus('err', isRate ? '✗ Rate limit' : '✗ Error');
+                _aiScrollBottom();
+            } finally {
+                _aiBusy = false;
+                if (sendBtn) {
+                    sendBtn.disabled = !document.getElementById('aiChatInput')?.value.trim();
+                    sendBtn.style.opacity = sendBtn.disabled ? '.55' : '1';
+                }
+            }
+        }
+
+        function _aiEnrich(q) {
+            const ql = q.toLowerCase();
+            let extra = '';
+            if (/channel|wholesaler|retail|mti|nka/i.test(ql)) {
+                const chMap = {};
+                (rawData||[]).forEach(r => {
+                    const ch=(r.Channel||'').toUpperCase();
+                    if(!chMap[ch]) chMap[ch]={MTD:0,BP:0};
+                    chMap[ch].MTD+=Number(r.MTD||0); chMap[ch].BP+=Number(r.BP||0);
+                });
+                extra += '\n\nDATA CHANNEL:\n' + Object.entries(chMap)
+                    .map(([ch,v])=>`${ch}: Ach ${v.BP>0?(v.MTD/v.BP*100).toFixed(1):'-'}%, Gap ${_aiFmtRp(v.MTD-v.BP)}`).join('\n');
+            }
+            if (/proses|cr |kpi|visit|ca |sku|ec /i.test(ql)) {
+                extra += '\n\nKPI PROSES:\n' + (_aiProses||[]).map(d=>
+                    `${d.szname}: CR ${d['A_CR']}/${d.CR}(${((d['%CR']||0)*100).toFixed(0)}%), CA ${((d['%CA']||0)*100).toFixed(0)}%, SKU ${(d['A_AvgSKU']||0).toFixed(1)}`
+                ).join('\n');
+            }
+            if (/lob|principle|brand/i.test(ql)) {
+                const prMap={};
+                (window.catBpData||[]).forEach(r=>{
+                    const pr=r.Principle||'Other';
+                    if(!prMap[pr]) prMap[pr]={MTD:0,BP:0};
+                    prMap[pr].MTD+=Number(r.MTD||0); prMap[pr].BP+=Number(r['T.BP']||0);
+                });
+                extra += '\n\nDATA LOB/PRINCIPLE:\n' + Object.entries(prMap)
+                    .map(([nm,v])=>`${nm}: Ach ${v.BP>0?(v.MTD/v.BP*100).toFixed(1):'-'}%, Gap ${_aiFmtRp(v.MTD-v.BP)}`).join('\n');
+            }
+            if (/salesman|ranking|achievement|ach/i.test(ql)) {
+                const smMap={};
+                (rawData||[]).forEach(r=>{
+                    const sm=r['Nama Salesman']||''; if(!sm) return;
+                    if(!smMap[sm]) smMap[sm]={MTD:0,BP:0};
+                    smMap[sm].MTD+=Number(r.MTD||0); smMap[sm].BP+=Number(r.BP||0);
+                });
+                extra += '\n\nPERFORMANCE SALESMAN:\n' + Object.entries(smMap)
+                    .sort((a,b)=>(b[1].BP>0?b[1].MTD/b[1].BP:0)-(a[1].BP>0?a[1].MTD/a[1].BP:0))
+                    .map(([nm,v],i)=>`#${i+1} ${nm}: Ach ${v.BP>0?(v.MTD/v.BP*100).toFixed(1):'-'}%, Gap ${_aiFmtRp(v.MTD-v.BP)}`).join('\n');
+            }
+            return extra ? q + '\n\n[DATA KONTEKS:' + extra + ']' : q;
+        }
+
+        function _aiAddMsg(role, text) {
+            const wrap = document.getElementById('aiChatMessages');
+            if (!wrap) return;
+            const prov = _AI[_aiProv];
+            const tagClr = { groq:{bg:'#fed7aa',fg:'#c2410c'}, gemini:{bg:'#bfdbfe',fg:'#1d4ed8'}, gemini15pro:{bg:'#dbeafe',fg:'#1a73e8'}, openrouter:{bg:'#ede9fe',fg:'#7c3aed'}, cohere:{bg:'#fef3c7',fg:'#d97706'}, auto:{bg:'#dcfce7',fg:'#16a34a'} };
+            const tc = tagClr[_aiProv] || {bg:'#e2e8f0',fg:'#475569'};
+            const provTag = role === 'bot'
+                ? `<span style="font-size:9px;background:${tc.bg};color:${tc.fg};padding:1px 6px;border-radius:8px;">${prov?.label||_aiProv}</span>`
+                : '';
+            const div = document.createElement('div');
+            div.className = 'ai-msg ' + role;
+            div.innerHTML = `<div class="ai-label">${role==='user'?'Anda':'AI Insight'} ${provTag}</div>
+                <div class="ai-bubble">${_aiFmtText(text)}</div>`;
+            wrap.appendChild(div);
+            return div;
+        }
+
+        function _aiShowTyping() {
+            const wrap = document.getElementById('aiChatMessages');
+            const div = document.createElement('div');
+            div.className = 'ai-msg bot';
+            div.innerHTML = `<div class="ai-label">AI Insight</div>
+                <div class="ai-typing"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>`;
+            wrap?.appendChild(div);
+            return div;
+        }
+
+        // ── API Calls ─────────────────────────────────────────────────
+        async function _aiCallAPI(messages, maxTokens=800) {
+            if (_aiProv === 'auto')       return _aiCallAuto(messages, maxTokens);
+            if (_aiProv === 'gemini')     return _aiCallGemini(messages, maxTokens);
+            if (_aiProv === 'gemini15pro') return _aiCallGemini15Pro(messages, maxTokens);
+            if (_aiProv === 'openrouter') return _aiCallOR(messages, maxTokens);
+            if (_aiProv === 'cohere')     return _aiCallCohere(messages, maxTokens);
+            return _aiCallGroq(messages, maxTokens);
+        }
+
+        function _aiSysPrompt() {
+            const smMap={};
+            (rawData||[]).forEach(r=>{
+                const sm=r['Nama Salesman']||''; if(!sm) return;
+                if(!smMap[sm]) smMap[sm]={MTD:0,BP:0};
+                smMap[sm].MTD+=Number(r.MTD||0); smMap[sm].BP+=Number(r.BP||0);
+            });
+            const totMTD=Object.values(smMap).reduce((s,v)=>s+v.MTD,0);
+            const totBP=Object.values(smMap).reduce((s,v)=>s+v.BP,0);
+            const depoName = selectedDepo.replace('data_DEPO_','').replace(/_/g,' ');
+            const smList = Object.entries(smMap).map(([nm,v],i)=>`${nm}: Ach ${v.BP>0?(v.MTD/v.BP*100).toFixed(1):'-'}%`).join(', ');
+            return `Kamu adalah AI analis sales profesional senior untuk Depo ${depoName}.
+Total Achievement: ${totBP>0?(totMTD/totBP*100).toFixed(1):'-'}%, Gap: ${_aiFmtRp(totMTD-totBP)}.
+Salesman aktif: ${smList}.
+${_aiCtx()}
+Tugas utamamu: identifikasi masalah, temukan root cause, buat activity plan konkret dengan timeline dan PIC, serta quick wins.
+Jawab dalam Bahasa Indonesia profesional. Selalu sebutkan angka/nama spesifik. Untuk activity plan, output wajib berupa JSON array dengan field: aksi, PIC, timeline, target.`;
+        }
+
+        async function _aiCallGroq(messages, maxTokens) {
+            const key = _AI.groq.key;
+            if (!key) throw new Error('Groq API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
+            const res = await fetch(_AI.groq.url, {
+                method:'POST',
+                headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+key },
+                body: JSON.stringify({ model:_AI.groq.model, messages:[{role:'system',content:_aiSysPrompt()},...messages], max_tokens:maxTokens, temperature:0.3 })
+            });
+            if (!res.ok) { const e=await res.json().catch(()=>({})); throw new Error(e.error?.message||`Groq HTTP ${res.status}`); }
+            const d = await res.json();
+            return d.choices?.[0]?.message?.content || '(tidak ada respons)';
+        }
+
+        async function _aiCallGemini(messages, maxTokens) {
+            const key = _AI.gemini.key;
+            if (!key) throw new Error('Gemini API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
+            const contents = messages.map(m=>({ role:m.role==='assistant'?'model':'user', parts:[{text:m.content}] }));
+            const res = await fetch(_AI.gemini.url + '?key=' + key, {
+                method:'POST',
+                headers:{ 'Content-Type':'application/json' },
+                body: JSON.stringify({
+                    system_instruction:{ parts:[{text:_aiSysPrompt()}] },
+                    contents,
+                    generationConfig:{ maxOutputTokens:maxTokens, temperature:0.3 }
+                })
+            });
+            if (!res.ok) { const e=await res.json().catch(()=>({})); throw new Error(e.error?.message||`Gemini HTTP ${res.status}`); }
+            const d = await res.json();
+            return d.candidates?.[0]?.content?.parts?.[0]?.text || '(tidak ada respons)';
+        }
+
+        async function _aiCallOR(messages, maxTokens) {
+            const key = _AI.openrouter.key;
+            if (!key) throw new Error('OpenRouter API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
+            const model = _AI.openrouter.model;
+            const res = await fetch(_AI.openrouter.url, {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                    'Authorization':'Bearer '+key,
+                    'HTTP-Referer': window.location.origin,
+                    'X-Title': 'OneSheet AI Insight'
+                },
+                body: JSON.stringify({ model, messages:[{role:'system',content:_aiSysPrompt()},...messages], max_tokens:maxTokens, temperature:0.3 })
+            });
+            if (!res.ok) {
+                const e=await res.json().catch(()=>({}));
+                if (res.status===404) throw new Error(`Model "${model}" tidak ditemukan. Buka ⚙️ API Key → pilih model lain (Qwen3 235B atau Llama 3.3 70B paling stabil).`);
+                if (res.status===401) throw new Error('OpenRouter API key tidak valid. Cek kembali di ⚙️ API Key.');
+                if (res.status===429) throw new Error('Rate limit OpenRouter. Tunggu 1 menit atau ganti model.');
+                if (res.status===503) throw new Error(`Model "${model}" sedang overload. Coba model lain di ⚙️ API Key.`);
+                throw new Error(e.error?.message||`OpenRouter HTTP ${res.status}`);
+            }
+            const d = await res.json();
+            return d.choices?.[0]?.message?.content || '(tidak ada respons)';
+        }
+
+        async function _aiCallGemini15Pro(messages, maxTokens) {
+            const key = _AI.gemini15pro.key;
+            if (!key) throw new Error('Gemini API key belum diisi. Klik ⚙️ API Key untuk mengatur. (Key sama dengan Gemini 2.0)');
+            const contents = messages.map(m=>({ role:m.role==='assistant'?'model':'user', parts:[{text:m.content}] }));
+            const res = await fetch(_AI.gemini15pro.url + '?key=' + key, {
+                method:'POST',
+                headers:{ 'Content-Type':'application/json' },
+                body: JSON.stringify({
+                    system_instruction:{ parts:[{text:_aiSysPrompt()}] },
+                    contents,
+                    generationConfig:{ maxOutputTokens:maxTokens, temperature:0.3 }
+                })
+            });
+            if (!res.ok) { const e=await res.json().catch(()=>({})); throw new Error(e.error?.message||`Gemini 1.5 Pro HTTP ${res.status}`); }
+            const d = await res.json();
+            return d.candidates?.[0]?.content?.parts?.[0]?.text || '(tidak ada respons)';
+        }
+
+        async function _aiCallCohere(messages, maxTokens) {
+            const key = _AI.cohere.key;
+            if (!key) throw new Error('Cohere API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
+            const sys = _aiSysPrompt();
+            const msgs = [{ role:'system', content: sys }, ...messages];
+            const res = await fetch(_AI.cohere.url, {
+                method:'POST',
+                headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+key },
+                body: JSON.stringify({ model:_AI.cohere.model, messages:msgs, max_tokens:maxTokens, temperature:0.3 })
+            });
+            if (!res.ok) {
+                const e=await res.json().catch(()=>({}));
+                if (res.status===401) throw new Error('Cohere API key tidak valid. Cek kembali di ⚙️ API Key.');
+                if (res.status===429) throw new Error('Rate limit Cohere. Tunggu sebentar atau ganti provider lain.');
+                throw new Error(e.message||`Cohere HTTP ${res.status}`);
+            }
+            const d = await res.json();
+            return d.message?.content?.[0]?.text || '(tidak ada respons)';
+        }
+
+        async function _aiCallAuto(messages, maxTokens) {
+            const order = [
+                { name:'groq',       fn: ()=>_aiCallGroq(messages, maxTokens) },
+                { name:'gemini',     fn: ()=>_aiCallGemini(messages, maxTokens) },
+                { name:'gemini15pro',fn: ()=>_aiCallGemini15Pro(messages, maxTokens) },
+                { name:'openrouter', fn: ()=>_aiCallOR(messages, maxTokens) },
+                { name:'cohere',     fn: ()=>_aiCallCohere(messages, maxTokens) }
+            ];
+            const errors = [];
+            for (const { name, fn } of order) {
+                if (!_AI[name]?.key) continue;
+                try {
+                    const result = await fn();
+                    _aiSetStatus('ok', `✓ Auto → ${_AI[name].label}`);
+                    return result;
+                } catch(err) {
+                    errors.push(`${_AI[name].label}: ${err.message}`);
+                }
+            }
+            throw new Error('Semua provider gagal:\n' + errors.join('\n'));
+        }
+
+        async function aiSavePNG() {
+            if (!_aiLastData) { alert('Belum ada data analisis. Jalankan analisis dulu.'); return; }
+
+            const data     = _aiLastData;
+            const depoName = (selectedDepo||'').replace('data_DEPO_','').replace(/_/g,' ');
+            const dateStr  = new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'});
+            _aiSetStatus('warn','⏳ Membuat PNG...');
+
+            // ── Konstanta ─────────────────────────────────────────────────────
+            const W    = 960, S = 2, PAD = 20, GAP = 10, FONT = 'Arial';
+            const INNER = W - PAD * 2;
+            const LH = 22, LH_S = 20, CHDR = 40;
+            const fBody = `14px ${FONT}`, fSm = `13px ${FONT}`, fSmB = `bold 13px ${FONT}`, fHdr = `bold 14px ${FONT}`;
+
+            // ── Data ──────────────────────────────────────────────────────────
+            const ringkasan = String(data.ringkasan || '-');
+            const causes    = (data.root_cause || data.masalah || []).map(String);
+            const plans     = data.activity_plan || [];
+            const wins      = (data.quick_wins  || data.rekomendasi || []).map(String);
+
+            // ── Helpers ───────────────────────────────────────────────────────
+            function wrap(ctx, txt, maxW) {
+                const words = txt.replace(/\n/g,' ').split(' ').filter(Boolean);
+                const lines = []; let line = '';
+                for (const w of words) {
+                    const t = line ? `${line} ${w}` : w;
+                    if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; }
+                    else line = t;
+                }
+                if (line) lines.push(line);
+                return lines.length ? lines : [''];
+            }
+            const wH = (ctx, txt, maxW, lh) => wrap(ctx, txt, maxW).length * lh;
+
+            function drawWrap(ctx, txt, x, y, maxW, lh, color) {
+                if (color) ctx.fillStyle = color;
+                wrap(ctx, txt, maxW).forEach((l,i) => ctx.fillText(l, x, y + i * lh));
+                return wrap(ctx, txt, maxW).length;
+            }
+
+            function hline(ctx, y, x0=0, x1=W, color='#e2e8f0', lw=0.5) {
+                ctx.save(); ctx.strokeStyle=color; ctx.lineWidth=lw;
+                ctx.beginPath(); ctx.moveTo(x0,y); ctx.lineTo(x1,y); ctx.stroke(); ctx.restore();
+            }
+            function vline(ctx, x, y0, y1, color='#e2e8f0', lw=0.5) {
+                ctx.save(); ctx.strokeStyle=color; ctx.lineWidth=lw;
+                ctx.beginPath(); ctx.moveTo(x,y0); ctx.lineTo(x,y1); ctx.stroke(); ctx.restore();
+            }
+
+            // ── Phase 1: ukur tinggi semua card ───────────────────────────────
+            const mc = document.createElement('canvas');
+            mc.width = W; mc.height = 10;
+            const mx = mc.getContext('2d');
+
+            // Card 1 — Ringkasan
+            mx.font = fBody;
+            const ring_h = CHDR + wH(mx, ringkasan, INNER, LH) + PAD * 2;
+
+            // Card 2 — Root Cause (bullet list)
+            let rc_bh = PAD;
+            causes.forEach((c, i) => {
+                mx.font = fSmB; const pw = mx.measureText(`RC${i+1}: `).width;
+                mx.font = fSm;  rc_bh += wH(mx, c, INNER - 16 - pw, LH_S) + 8;
+            });
+            const rc_h = causes.length ? CHDR + rc_bh + PAD : 0;
+
+            // Card 3 — Activity Plan (tabel)
+            const COL = [INNER * 0.52, INNER * 0.24, INNER * 0.24];
+            const TH_H = 36;
+            const rowH = plans.map(p => {
+                mx.font = fSm;  const n1 = wrap(mx, p.aksi   ||'-', COL[0]-16).length;
+                mx.font = fSmB; const n2 = wrap(mx, p.PIC    ||'-', COL[1]-16).length;
+                                const n3 = wrap(mx, p.target ||'-', COL[2]-16).length;
+                return Math.max(n1, n2, n3) * LH_S + 16;
+            });
+            const plan_h = plans.length ? CHDR + TH_H + rowH.reduce((a,b)=>a+b,0) + 1 : 0;
+
+            // Card 4 — Quick Wins (bullet list)
+            let qw_bh = PAD;
+            wins.forEach(w => {
+                mx.font = fSm;
+                const pw = mx.measureText('✅ ').width;
+                qw_bh += wH(mx, w, INNER - 16 - pw, LH_S) + 8;
+            });
+            const qw_h = wins.length ? CHDR + qw_bh + PAD : 0;
+
+            const HDR_H  = 72;
+            const sections = [ring_h, rc_h, plan_h, qw_h].filter(h => h > 0);
+            const totalH = HDR_H + sections.reduce((a,h) => a + h + GAP, 0) + GAP;
+
+            // ── Phase 2: buat canvas & gambar ─────────────────────────────────
+            const cv  = document.createElement('canvas');
+            cv.width  = W * S; cv.height = totalH * S;
+            const ctx = cv.getContext('2d');
+            ctx.scale(S, S);
+
+            // Background
+            ctx.fillStyle = '#f1f5f9';
+            ctx.fillRect(0, 0, W, totalH);
+
+            // Header utama
+            ctx.fillStyle = '#1e293b'; ctx.fillRect(0, 0, W, HDR_H);
+            ctx.font = `bold 20px ${FONT}`; ctx.fillStyle = '#ffffff';
+            ctx.fillText(`AI Insight — Depo ${depoName}`, PAD, 34);
+            ctx.font = `14px ${FONT}`; ctx.fillStyle = '#94a3b8';
+            ctx.fillText(`Tanggal: ${dateStr}`, PAD, 56);
+            ctx.textAlign = 'right';
+            ctx.fillText(`Created By AI RSF`, W - PAD, 56);
+            ctx.textAlign = 'left';
+
+            // Helper: gambar card box + header band
+            function cardBase(y, h, bandColor, icon, title) {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, y, W, h);
+                ctx.fillStyle = bandColor;
+                ctx.fillRect(0, y, W, CHDR);
+                hline(ctx, y + CHDR, 0, W, bandColor === '#ffffff' ? '#e2e8f0' : bandColor, 1);
+                ctx.font = fHdr; ctx.fillStyle = '#1e293b';
+                ctx.fillText(`${icon}  ${title}`, PAD, y + 26);
+            }
+
+            let cy = HDR_H + GAP;
+
+            // ── Card 1: Ringkasan Kondisi ─────────────────────────────────────
+            cardBase(cy, ring_h, '#e0f7fa', '📊', 'Ringkasan Kondisi');
+            ctx.font = fBody;
+            drawWrap(ctx, ringkasan, PAD, cy + CHDR + PAD + 14, INNER, LH, '#1f2937');
+            cy += ring_h + GAP;
+
+            // ── Card 2: Root Cause Analysis ───────────────────────────────────
+            if (rc_h) {
+                cardBase(cy, rc_h, '#fce4ec', '🔍', 'Root Cause Analysis');
+                let bY = cy + CHDR + PAD + LH_S;
+                causes.forEach((c, i) => {
+                    const prefix = `RC${i+1}: `;
+                    ctx.font = fSmB; const pw = ctx.measureText(prefix).width;
+                    ctx.fillStyle = '#ad1457'; ctx.fillText(prefix, PAD + 8, bY);
+                    ctx.font = fSm;
+                    const lines = wrap(ctx, c, INNER - 16 - pw);
+                    lines.forEach((l, li) => {
+                        ctx.fillStyle = '#374151';
+                        ctx.fillText(l, PAD + 8 + pw, bY + li * LH_S);
+                    });
+                    bY += lines.length * LH_S + 8;
+                });
+                cy += rc_h + GAP;
+            }
+
+            // ── Card 3: Activity Plan ─────────────────────────────────────────
+            if (plan_h) {
+                cardBase(cy, plan_h, '#e3f2fd', '📋', 'Activity Plan');
+
+                // Thead
+                const thY = cy + CHDR;
+                ctx.fillStyle = '#eff6ff'; ctx.fillRect(0, thY, W, TH_H);
+                hline(ctx, thY, 0, W, '#bfdbfe', 1);
+                hline(ctx, thY + TH_H, 0, W, '#bfdbfe', 1);
+                vline(ctx, COL[0], thY, thY + TH_H, '#bfdbfe', 1);
+                vline(ctx, COL[0] + COL[1], thY, thY + TH_H, '#bfdbfe', 1);
+                ctx.font = fSmB; ctx.fillStyle = '#1e40af';
+                ctx.fillText('Tindakan',              PAD + 4,                    thY + 23);
+                ctx.fillText('PIC',                   COL[0] + 8,                 thY + 23);
+                ctx.fillText('Target',                COL[0] + COL[1] + 8,        thY + 23);
+
+                // Rows
+                let tY = thY + TH_H;
+                plans.forEach((p, ri) => {
+                    const rh = rowH[ri];
+                    ctx.fillStyle = ri % 2 === 0 ? '#ffffff' : '#f8fafc';
+                    ctx.fillRect(0, tY, W, rh);
+                    hline(ctx, tY + rh);
+                    vline(ctx, COL[0],           tY, tY + rh);
+                    vline(ctx, COL[0] + COL[1],  tY, tY + rh);
+
+                    const cy2 = tY + 8 + LH_S;
+                    ctx.font = fSm;
+                    drawWrap(ctx, p.aksi   ||'-', PAD + 4,               cy2, COL[0]-18, LH_S, '#374151');
+                    ctx.font = fSmB;
+                    drawWrap(ctx, p.PIC    ||'-', COL[0] + 8,            cy2, COL[1]-18, LH_S, '#0d47a1');
+                    drawWrap(ctx, p.target ||'-', COL[0]+COL[1] + 8,     cy2, COL[2]-18, LH_S, '#2e7d32');
+                    tY += rh;
+                });
+                cy += plan_h + GAP;
+            }
+
+            // ── Card 4: Quick Wins ────────────────────────────────────────────
+            if (qw_h) {
+                cardBase(cy, qw_h, '#f3e8ff', '⚡', 'Quick Wins (Segera Lakukan)');
+                let qY = cy + CHDR + PAD + LH_S;
+                wins.forEach(w => {
+                    const prefix = '✅ ';
+                    ctx.font = fSm; const pw = ctx.measureText(prefix).width;
+                    ctx.fillStyle = '#374151'; ctx.fillText(prefix, PAD + 8, qY);
+                    const lines = wrap(ctx, w, INNER - 16 - pw);
+                    lines.forEach((l, li) => ctx.fillText(l, PAD + 8 + pw, qY + li * LH_S));
+                    qY += lines.length * LH_S + 8;
+                });
+            }
+
+            // ── Download ──────────────────────────────────────────────────────
+            const link    = document.createElement('a');
+            link.download = `AI_Insight_${depoName}_${new Date().toISOString().slice(0,10)}.png`;
+            link.href     = cv.toDataURL('image/png');
+            link.click();
+            _aiSetStatus('ok', '✓ PNG tersimpan (HD)');
+        }
+
+        // ── Save Excel ────────────────────────────────────────────────
+        function aiSaveExcel() {
+            if (!_aiLastData) { alert('Belum ada data analisis. Jalankan analisis dulu.'); return; }
+            if (!window.XLSX) { alert('Library XLSX tidak tersedia.'); return; }
+            const depoName = (selectedDepo || '').replace('data_DEPO_','').replace(/_/g,' ');
+            const dateStr = new Date().toLocaleDateString('id-ID', {day:'2-digit', month:'long', year:'numeric'});
+            const d = _aiLastData;
+            const rc = d.root_cause || [];
+            const ap = d.activity_plan || [];
+            const qw = d.quick_wins || [];
+
+            const aoa = [];
+            const merges = [];
+            let r = 0;
+
+            const addMerged = (texts, span) => {
+                const row = [texts[0]];
+                for (let i = 1; i < span; i++) row.push('');
+                aoa.push(row);
+                merges.push({ s:{r,c:0}, e:{r,c:span-1} });
+                r++;
+            };
+
+            addMerged([`AI Insight — Depo ${depoName}`], 3);
+            addMerged([`Tanggal: ${dateStr}`], 3);
+            aoa.push(['']); r++;
+            addMerged(['RINGKASAN'], 3);
+            addMerged([d.ringkasan || '-'], 3);
+            aoa.push(['']); r++;
+            addMerged(['ROOT CAUSE ANALYSIS'], 3);
+            // RC items: max 3 per row, grouped
+            for (let i = 0; i < rc.length; i += 3) {
+                aoa.push([
+                    rc[i]   ? `RC${i+1}: ${rc[i]}`   : '',
+                    rc[i+1] ? `RC${i+2}: ${rc[i+1]}` : '',
+                    rc[i+2] ? `RC${i+3}: ${rc[i+2]}` : ''
+                ]);
+                r++;
+            }
+            aoa.push(['']); r++;
+            // Activity Plan
+            addMerged(['ACTIVITY PLAN'], 3);
+            aoa.push(['Tindakan', 'PIC', 'Target']); r++;
+            ap.forEach(p => { aoa.push([p.aksi||'-', p.PIC||'-', p.target||'-']); r++; });
+            aoa.push(['']); r++;
+            addMerged(['Quick Wins'], 3);
+            for (let i = 0; i < qw.length; i += 3) {
+                aoa.push([
+                    qw[i]   ? `${i+1}. ${qw[i]}`   : '',
+                    qw[i+1] ? `${i+2}. ${qw[i+1]}` : '',
+                    qw[i+2] ? `${i+3}. ${qw[i+2]}` : ''
+                ]);
+                r++;
+            }
+
+            const ws = XLSX.utils.aoa_to_sheet(aoa);
+            ws['!merges'] = merges;
+            ws['!cols']   = [{ wch:42 }, { wch:20 }, { wch:28 }];
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'AI Insight');
+            XLSX.writeFile(wb, `AI_Insight_${depoName}_${new Date().toISOString().slice(0,10)}.xlsx`);
+            _aiSetStatus('ok', '✓ Excel tersimpan');
+        }
+
+        // ── Refresh ───────────────────────────────────────────────────
+        function aiRefreshInsight() {
+            _aiConv = [];
+            _aiProses = null;
+            document.getElementById('aiInsightCards').innerHTML = '';
+            document.getElementById('aiChatMessages').innerHTML = '';
+            document.getElementById('aiChatDivider').style.display = 'none';
+            document.getElementById('aiChipRow').style.display = 'none';
+            const send = document.getElementById('aiSendBtn');
+            if (send) { send.disabled = true; send.style.opacity = '.55'; }
+            _aiAnalyze();
+        }
+
+        // ── Settings ──────────────────────────────────────────────────
+        function aiOpenSettings() {
+            document.getElementById('aiGK').value    = _AI.groq.key;
+            document.getElementById('aiGemK').value  = _AI.gemini.key;
+            document.getElementById('aiOrK').value   = _AI.openrouter.key;
+            document.getElementById('aiCohK').value  = _AI.cohere.key;
+            const sel = document.getElementById('aiOrModel');
+            if (sel) sel.value = _AI.openrouter.model;
+            const overlay = document.getElementById('aiSettingsOverlay');
+            if (overlay) overlay.style.display = 'flex';
+        }
+
+        function aiCloseSettings() {
+            const overlay = document.getElementById('aiSettingsOverlay');
+            if (overlay) overlay.style.display = 'none';
+        }
+
+        function aiToggleKey(id, btn) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.type = el.type === 'password' ? 'text' : 'password';
+            btn.textContent = el.type === 'password' ? '👁' : '🙈';
+        }
+
+        // ── Load model list dari OpenRouter API (real-time) ───────────
+        async function aiLoadOrModels() {
+            const btn = document.getElementById('aiOrLoadBtn');
+            const status = document.getElementById('aiOrModelStatus');
+            const sel = document.getElementById('aiOrModel');
+            if (btn) { btn.textContent = '⏳ Memuat...'; btn.disabled = true; }
+            if (status) status.textContent = '⏳ Mengambil daftar model dari OpenRouter...';
+            try {
+                const res = await fetch('https://openrouter.ai/api/v1/models');
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+                const models = (data.data || [])
+                    .filter(m => {
+                        const p = m.pricing || {};
+                        return (parseFloat(p.prompt||'1') === 0 && parseFloat(p.completion||'1') === 0);
+                    })
+                    .sort((a,b) => (b.context_length||0) - (a.context_length||0));
+
+                if (!models.length) throw new Error('Tidak ada model free yang ditemukan');
+
+                // Kategorikan berdasarkan nama
+                const priority = ['deepseek','qwen','llama','gemma','mistral','claude','gpt'];
+                const tagged = models.map(m => {
+                    const id = m.id || '';
+                    const name = (m.name || id).replace(':free','').slice(0,50);
+                    const ctx = m.context_length ? ` [${(m.context_length/1000).toFixed(0)}K ctx]` : '';
+                    const score = priority.findIndex(p => id.toLowerCase().includes(p));
+                    return { id, label: name + ctx + ' (free)', score: score === -1 ? 99 : score };
+                }).sort((a,b) => a.score - b.score || a.id.localeCompare(b.id));
+
+                const saved = localStorage.getItem('ai_model_openrouter') || '';
+                sel.innerHTML = tagged.map(m =>
+                    `<option value="${m.id}" ${m.id === saved ? 'selected' : ''}>${m.label}</option>`
+                ).join('');
+
+                if (status) status.innerHTML = `✅ <b>${models.length} model free</b> berhasil dimuat. Pilih model lalu klik 💾 Simpan.`;
+            } catch(err) {
+                if (status) status.innerHTML = `⚠️ Gagal: ${err.message}. Gunakan input manual di bawah.`;
+            } finally {
+                if (btn) { btn.textContent = '🔄 Muat Model Terbaru'; btn.disabled = false; }
+            }
+        }
+
+        function aiApplyManualModel() {
+            const manual = document.getElementById('aiOrModelManual')?.value.trim();
+            if (!manual) return;
+            const sel = document.getElementById('aiOrModel');
+            // Tambah option baru jika belum ada
+            let opt = [...(sel?.options||[])].find(o => o.value === manual);
+            if (!opt && sel) {
+                opt = new Option(`✏️ ${manual} (manual)`, manual);
+                sel.insertBefore(opt, sel.firstChild);
+            }
+            if (sel) sel.value = manual;
+            const status = document.getElementById('aiOrModelStatus');
+            if (status) status.innerHTML = `✅ Model ID <b>${manual}</b> siap digunakan. Klik 💾 Simpan.`;
+        }
+
+        function aiSaveSettings() {
+            const gk  = document.getElementById('aiGK')?.value.trim();
+            const gmk = document.getElementById('aiGemK')?.value.trim();
+            const ork = document.getElementById('aiOrK')?.value.trim();
+            const cok = document.getElementById('aiCohK')?.value.trim();
+            const orm = document.getElementById('aiOrModel')?.value;
+            if (gk)  localStorage.setItem('ai_key_groq', gk);       else localStorage.removeItem('ai_key_groq');
+            if (gmk) localStorage.setItem('ai_key_gemini', gmk);     else localStorage.removeItem('ai_key_gemini');
+            if (ork) localStorage.setItem('ai_key_openrouter', ork); else localStorage.removeItem('ai_key_openrouter');
+            if (cok) localStorage.setItem('ai_key_cohere', cok);     else localStorage.removeItem('ai_key_cohere');
+            if (orm) localStorage.setItem('ai_model_openrouter', orm);
+            aiCloseSettings();
+            _aiSetStatus('ok', '✓ Key tersimpan');
+            if (!document.getElementById('aiInsightCards').children.length) _aiAnalyze();
+        }
+
+        // ── UI Helpers ────────────────────────────────────────────────
+        function aiHandleKey(e) {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); aiSendMessage(); }
+        }
+        function aiAutoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 80) + 'px';
+        }
+        function aiToggleSend() {
+            const btn = document.getElementById('aiSendBtn');
+            const val = document.getElementById('aiChatInput')?.value.trim();
+            if (btn) { btn.disabled = !val || _aiBusy; btn.style.opacity = (btn.disabled ? '.55' : '1'); }
+        }
+        function _aiScrollBottom() {
+            const msgs = document.getElementById('aiChatMessages');
+            if (msgs) setTimeout(()=>msgs.scrollTo({ top:msgs.scrollHeight, behavior:'smooth' }), 80);
+        }
+        function _aiFmtRp(num) {
+            if (!num && num !== 0) return '-';
+            const abs=Math.abs(num), sign=num<0?'-':'';
+            if (abs>=1e9) return sign+'Rp '+(abs/1e9).toFixed(1)+'M';
+            if (abs>=1e6) return sign+'Rp '+(abs/1e6).toFixed(0)+'jt';
+            return sign+'Rp '+abs.toLocaleString('id-ID');
+        }
+        function _aiFmtText(text) {
+            return _aiEsc(text).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+        }
+        function _aiEsc(str) {
+            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        // Expose AI functions globally agar dapat dipanggil dari onclick HTML
+        window.aiSwitchProvider  = aiSwitchProvider;
+        window.aiSendMessage     = aiSendMessage;
+        window.aiAskChip         = aiAskChip;
+        window.aiHandleKey       = aiHandleKey;
+        window.aiAutoResize      = aiAutoResize;
+        window.aiToggleSend      = aiToggleSend;
+        window.aiRefreshInsight  = aiRefreshInsight;
+        window.aiOpenSettings    = aiOpenSettings;
+        window.aiCloseSettings   = aiCloseSettings;
+        window.aiToggleKey       = aiToggleKey;
+        window.aiSaveSettings    = aiSaveSettings;
+        window.aiLoadOrModels    = aiLoadOrModels;
+        window.aiApplyManualModel= aiApplyManualModel;
+        window.aiSavePNG         = aiSavePNG;
+        window.aiSaveExcel       = aiSaveExcel;
