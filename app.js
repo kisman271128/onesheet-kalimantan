@@ -1770,27 +1770,259 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
             // Weekly bar chart
             const weekCtx = document.getElementById('summaryWeekChart');
+            // ── Weekly Chart — Variance Stream ────────────────────────────────
             if (weekCtx && wLabels.length > 0) {
+
+                // Total = sum semua minggu
+                const totMTD = wMTD.reduce((a,b)=>a+b,0);
+                const totBE  = wBE.reduce((a,b)=>a+b,0);
+                const totBP  = wBP.reduce((a,b)=>a+b,0);
+
+                const allLabels = [...wLabels, 'Total'];
+                const allMTD    = [...wMTD,  totMTD];
+                const allBE     = [...wBE,   totBE];
+                const allBP     = [...wBP,   totBP];
+                
+                // Format label singkat: 3.521.390.000 → "3.52 M" | 741.000.000 → "741 jt" | 0 → null (skip)
+                const _fmtPt = v => {
+                    if (!v || v === 0) return null;
+                    const a = Math.abs(v);
+                    if (a >= 1e9) return (v/1e9).toFixed(2).replace(/\.?0+$/,'') + ' M';
+                    return Math.round(v/1e6) + ' jt';
+                };
+                
+                // ── Custom plugin ───────────────────────────────────────────
+                const vsPlugin = {
+                    id: 'varianceStream',
+
+                    // ── Variance fill BP vs Actual ──────────────────────────────
+                    beforeDatasetsDraw(chart) {
+                        const ctx = chart.ctx, area = chart.chartArea;
+                        const mBP = chart.getDatasetMeta(0), mAct = chart.getDatasetMeta(2);
+                        if (!mBP.data.length) return;
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.rect(area.left, area.top, area.right-area.left, area.bottom-area.top);
+                        ctx.clip();
+                        for (let i = 0; i < mBP.data.length-1; i++) {
+                            const x0=mBP.data[i].x, x1=mBP.data[i+1].x;
+                            const b0=mBP.data[i].y, b1=mBP.data[i+1].y;
+                            const a0=mAct.data[i].y, a1=mAct.data[i+1].y;
+                            const d0=b0-a0, d1=b1-a1;
+                            const seg = (xa,xb,bYa,bYb,aYa,aYb,neg) => {
+                                ctx.beginPath();
+                                ctx.moveTo(xa,bYa); ctx.lineTo(xb,bYb);
+                                ctx.lineTo(xb,aYb); ctx.lineTo(xa,aYa);
+                                ctx.closePath();
+                                ctx.fillStyle = neg ? 'rgba(252,165,165,.35)' : 'rgba(134,239,172,.35)';
+                                ctx.fill();
+                            };
+                            if (d0*d1 < 0) {
+                                const t=d0/(d0-d1), cx=x0+t*(x1-x0), cy=b0+t*(b1-b0);
+                                seg(x0,cx,b0,cy,a0,cy,d0>0);
+                                seg(cx,x1,cy,b1,cy,a1,d1>0);
+                            } else seg(x0,x1,b0,b1,a0,a1,d0>0);
+                        }
+                        ctx.restore();
+                    },
+
+                    // ── Label titik dengan background + separator Total ─────────
+                    afterDatasetsDraw(chart) {
+                        const ctx  = chart.ctx, area = chart.chartArea;
+                        const mBP  = chart.getDatasetMeta(0);
+                        const mBE  = chart.getDatasetMeta(1);
+                        const mAct = chart.getDatasetMeta(2);
+                        ctx.save();
+
+                        const FS = 10;
+
+                        function solidLabel(text, cx, cy, color) {
+                            ctx.font = `bold ${FS}px Arial`;
+                            ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
+                            const tw = ctx.measureText(text).width;
+                            const px = 5, py = 3;
+                            ctx.fillStyle = color;
+                            ctx.beginPath();
+                            if (ctx.roundRect) ctx.roundRect(cx-tw/2-px, cy-FS/2-py, tw+px*2, FS+py*2, 4);
+                            else ctx.rect(cx-tw/2-px, cy-FS/2-py, tw+px*2, FS+py*2);
+                            ctx.fill();
+                            ctx.fillStyle = '#fff';
+                            ctx.fillText(text, cx, cy);
+                        }
+
+                        // Batas aman label (sedikit margin dari tepi chart)
+                        const T = area.top    + FS + 8;
+                        const B = area.bottom - FS - 8;
+                        const LBL_OFF = 16;
+                        const MIN_GAP = FS + 8; // 18px
+
+                        allLabels.forEach((_, i) => {
+                            const bpTxt  = _fmtPt(allBP[i]);
+                            const beTxt  = _fmtPt(allBE[i]);
+                            const actTxt = _fmtPt(allMTD[i]);
+
+                            const pts = [];
+                            if (bpTxt  && mBP.data[i])
+                                pts.push({ cx:mBP.data[i].x,  py:mBP.data[i].y,  text:bpTxt,  color:'#7c3aed', dir:-1 });
+                            if (beTxt  && mBE.data[i])
+                                pts.push({ cx:mBE.data[i].x,  py:mBE.data[i].y,  text:beTxt,  color:'#ea580c', dir:-1 });
+                            if (actTxt && mAct.data[i])
+                                pts.push({ cx:mAct.data[i].x, py:mAct.data[i].y, text:actTxt, color:'#0e7490', dir: 1 });
+
+                            if (!pts.length) return;
+
+                            const LBL_OFF = 18;
+                            const MIN_GAP = FS + 8;
+                            // Batas: cukup longgar agar label atas tidak tertutup
+                            const T = area.top    + 6;
+                            const B = area.bottom - FS - 6;
+
+                            pts.forEach(p => { p.ly = p.py + p.dir * LBL_OFF; });
+                            pts.sort((a, b) => a.ly - b.ly);
+
+                            for (let pass = 0; pass < 20; pass++) {
+                                // Clamp ke batas canvas
+                                pts.forEach(p => {
+                                    p.ly = Math.max(T, Math.min(B, p.ly));
+                                });
+                                // Paksa: label atas (dir=-1) tidak boleh di bawah titiknya
+                                pts.forEach(p => {
+                                    if (p.dir === -1 && p.ly > p.py - 6) p.ly = p.py - 6;
+                                    if (p.dir ===  1 && p.ly < p.py + 6) p.ly = p.py + 6;
+                                });
+                                // Push apart
+                                let moved = false;
+                                for (let j = 1; j < pts.length; j++) {
+                                    const ov = MIN_GAP - (pts[j].ly - pts[j-1].ly);
+                                    if (ov > 0.3) {
+                                        pts[j-1].ly -= ov * 0.35;
+                                        pts[j].ly   += ov * 0.65;
+                                        moved = true;
+                                    }
+                                }
+                                if (!moved) break;
+                            }
+
+                            pts.forEach(p => solidLabel(p.text, p.cx, p.ly, p.color));
+                        });
+
+                        // Separator Total
+                        const sepL = mBP.data[allLabels.length-2];
+                        const sepR = mBP.data[allLabels.length-1];
+                        if (sepL && sepR) {
+                            const sx = (sepL.x + sepR.x) / 2;
+                            ctx.strokeStyle='#cbd5e1'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+                            ctx.beginPath(); ctx.moveTo(sx, area.top); ctx.lineTo(sx, area.bottom);
+                            ctx.stroke(); ctx.setLineDash([]);
+                        }
+                        ctx.restore();
+                    },
+
+                    // ── Gap label di bawah tick X-axis ──────────────────────────
+                    afterDraw(chart) {
+                        const ctx  = chart.ctx, area = chart.chartArea;
+                        const mBP  = chart.getDatasetMeta(0);
+                        ctx.save();
+                        ctx.font         = 'bold 10px Arial';
+                        ctx.textAlign    = 'center';
+                        ctx.textBaseline = 'top';
+
+                        allLabels.forEach((_, i) => {
+                            const pt = mBP.data[i]; if (!pt) return;
+                            const gap    = allMTD[i] - allBP[i];
+                            const fmtGap = _fmtPt(Math.abs(gap));
+                            if (!fmtGap) return;
+                            const isPos  = gap > 0;
+                            ctx.fillStyle = isPos ? '#16a34a' : '#dc2626';
+                            ctx.fillText((isPos ? '+' : '-') + fmtGap, pt.x, area.bottom + 24);
+                        });
+
+                        ctx.restore();
+                    }
+                };
+
+                // ── Destroy chart lama jika ada ────────────────────────────
+                if (_summaryCharts.week) {
+                    _summaryCharts.week.destroy();
+                    _summaryCharts.week = null;
+                }
+                
+                // ── Buat chart baru ────────────────────────────────────────
                 _summaryCharts.week = new Chart(weekCtx, {
-                    type:'bar',
-                    data:{
-                        labels: wLabels,
-                        datasets:[
-                            { label:'MTD Actual', data:wMTD, backgroundColor:'#0e7490', borderRadius:4, order:1 },
-                            { label:'BE', data:wBE, type:'line', borderColor:'#f97316', borderWidth:2, borderDash:[5,3], pointRadius:4, fill:false, tension:0.3, order:0 },
-                            { label:'BP', data:wBP, type:'line', borderColor:'#7c3aed', borderWidth:2, borderDash:[3,3], pointRadius:4, fill:false, tension:0.3, order:0 },
+                    type: 'line',
+                    data: {
+                        labels: allLabels,
+                        datasets: [
+                            {
+                                label: 'BP', data: allBP,
+                                borderColor: '#7c3aed', borderWidth: 2,
+                                borderDash: [6, 4],                    // ← dashed
+                                pointRadius: 5, pointBackgroundColor: '#fff',
+                                pointBorderColor: '#7c3aed', pointBorderWidth: 2,
+                                tension: 0.35, fill: false, clip: false,
+                            },
+                            {
+                                label: 'BE', data: allBE,
+                                borderColor: '#f97316', borderWidth: 2,
+                                borderDash: [6, 4],                    // ← dashed
+                                pointRadius: 5, pointBackgroundColor: '#fff',
+                                pointBorderColor: '#f97316', pointBorderWidth: 2,
+                                tension: 0.35, fill: false, clip: false,
+                            },
+                            {
+                                label: 'Act MTD', data: allMTD,
+                                borderColor: '#0e7490', borderWidth: 2.5,
+                                // tidak dashed
+                                pointRadius: 5, pointBackgroundColor: '#fff',
+                                pointBorderColor: '#0e7490', pointBorderWidth: 2,
+                                tension: 0.35, fill: false, clip: false,
+                            },
                         ]
                     },
-                    options:{
-                        responsive:true, maintainAspectRatio:false,
-                        interaction:{mode:'index',intersect:false},
-                        plugins:{legend:{labels:{font:{size:10},boxWidth:14}},
-                            tooltip:{callbacks:{label:ctx=>' '+ctx.dataset.label+': '+jt(ctx.raw)}}},
-                        scales:{
-                            y:{ticks:{callback:v=>jt(v),font:{size:9}},grid:{color:'#f1f5f9'}},
-                            x:{ticks:{font:{size:10}}}
+                    options: {
+                        responsive          : true,
+                        maintainAspectRatio : false,
+                        layout: { padding: { top: 2, bottom: 22, left: 2, right: 46 } },
+                        interaction: { mode:'index', intersect:false },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color          : '#374151',   // ← teks selalu gelap
+                                    font           : { size: 11 },
+                                    padding        : 12,
+                                    usePointStyle  : true,
+                                    pointStyleWidth: 20,
+                                    generateLabels(chart) {
+                                        return chart.data.datasets.map((ds, i) => ({
+                                            text        : ds.label,
+                                            strokeStyle : ds.borderColor,
+                                            fillStyle   : ds.borderColor,
+                                            lineDash    : ds.borderDash || [],
+                                            lineWidth   : ds.borderWidth || 2,
+                                            pointStyle  : 'line',
+                                            color       : '#374151',   // ← wajib di sini juga
+                                            fontColor   : '#374151',   // ← fallback untuk Chart.js versi lama
+                                            hidden      : !chart.isDatasetVisible(i),
+                                            datasetIndex: i,
+                                        }));
+                                    }
+                                }
+                            },
+                            tooltip: { callbacks:{ label: c => ` ${c.dataset.label}: ${jt(c.raw)}` } }
+                        },
+                        scales: {
+                            y: {
+                                ticks: { callback: v => jt(v), font:{size:9}, stepSize: 250e6 },
+                                grid : { color:'#f1f5f9' },
+                                title: { display:true, text:'Nilai (jt)', font:{size:9}, color:'#94a3b8' }
+                            },
+                            x: {
+                                ticks: { font:{size:10}, padding:2 },
+                                grid : { color:'#f1f5f9' }
+                            }
                         }
-                    }
+                    },
+                    plugins: [vsPlugin]
                 });
             }
 
@@ -2077,8 +2309,8 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 };
 
                 let html = '<div style="margin-bottom:6px;font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;">Avg % Depo (' + rows.length + ' Salesman)</div>';
-                // Bagi ke baris maks 5 per baris
-                const chunkSize = 5;
+                // Bagi ke baris maks 9 per baris
+                const chunkSize = 9;
                 for (let i = 0; i < pctCols.length; i += chunkSize) {
                     const chunk = pctCols.slice(i, i + chunkSize);
                     html += '<div style="display:grid;grid-template-columns:repeat(' + chunk.length + ',1fr);gap:5px;margin-bottom:5px;">';
@@ -2178,32 +2410,54 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 plugins: [{
                     id: 'prosesLabels',
                     afterDraw(chart) {
-                        const { ctx, chartArea: { top, bottom, left, right } } = chart;
-                        const cx = (left + right) / 2, cy = (top + bottom) / 2;
-                        const meta = chart.getDatasetMeta(0);
+                        const ctx = chart.ctx;
+
+                        // ── Overdraw legend symbol BP & BE dengan garis putus ──
+                        if (chart.legend && chart.legend.legendItems) {
+                            chart.legend.legendItems.forEach((item, i) => {
+                                if (i >= 2) return; // hanya BP (0) dan BE (1)
+                                const box = chart.legend.legendHitBoxes?.[i];
+                                if (!box) return;
+                                const cx = box.left + box.width / 2;
+                                const cy = box.top  + box.height / 2;
+                                const hw = 12;
+
+                                // Hapus kotak solid
+                                ctx.save();
+                                ctx.fillStyle = chart.canvas.parentElement
+                                    ? getComputedStyle(chart.canvas.parentElement).backgroundColor || '#ffffff'
+                                    : '#ffffff';
+                                ctx.fillRect(box.left, box.top, box.width, box.height);
+                                ctx.restore();
+
+                                // Gambar ulang sebagai garis putus
+                                ctx.save();
+                                ctx.strokeStyle = i === 0 ? '#7c3aed' : '#ea580c';
+                                ctx.lineWidth   = 2.5;
+                                ctx.setLineDash([6, 4]);
+                                ctx.lineCap     = 'round';
+                                ctx.beginPath();
+                                ctx.moveTo(cx - hw, cy);
+                                ctx.lineTo(cx + hw, cy);
+                                ctx.stroke();
+                                ctx.setLineDash([]);
+                                ctx.restore();
+                            });
+                        }
+
+                        // ── Gap label di bawah tick X-axis (kode lama, tetap ada) ──
+                        const area = chart.chartArea;
+                        const mBP  = chart.getDatasetMeta(0);
                         ctx.save();
-                        meta.data.forEach((arc, i) => {
-                            const angle = (arc.startAngle + arc.endAngle) / 2;
-                            const rInner = arc.innerRadius, rOuter = arc.outerRadius;
-
-                            // Value inside segment
-                            const rMid = (rInner + rOuter) / 2;
-                            const xi = cx + rMid * Math.cos(angle);
-                            const yi = cy + rMid * Math.sin(angle);
-                            ctx.fillStyle = 'white';
-                            ctx.font = 'bold 9px sans-serif';
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'middle';
-                            ctx.fillText(dispPct[i], xi, yi);
-
-                            // Label outside
-                            const rLabel = rOuter + 16;
-                            const xl = cx + rLabel * Math.cos(angle);
-                            const yl = cy + rLabel * Math.sin(angle);
-                            ctx.fillStyle = '#334155';
-                            ctx.font = 'bold 9px sans-serif';
-                            ctx.textAlign = xl > cx ? 'left' : 'right';
-                            ctx.fillText(labels[i], xl, yl);
+                        ctx.font = 'bold 10px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                        allLabels.forEach((_, i) => {
+                            const pt = mBP.data[i]; if (!pt) return;
+                            const gap = allMTD[i] - allBP[i];
+                            const fmtGap = _fmtPt(Math.abs(gap));
+                            if (!fmtGap) return;
+                            const isPos = gap > 0;
+                            ctx.fillStyle = isPos ? '#16a34a' : '#dc2626';
+                            ctx.fillText((isPos ? '+' : '-') + fmtGap, pt.x, area.bottom + 24);
                         });
                         ctx.restore();
                     }
