@@ -4835,15 +4835,45 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             }
         }
 
+        // Deteksi tipe program: 'value' jika max target >= 100rb, 'cs' jika ada 'SC' di nama, 'unit' sisanya
+        function _projType(projName, rows) {
+            if (projName.toUpperCase().includes('SC')) return 'cs';
+            const maxT = rows.reduce((m, r) => Math.max(m,
+                parseFloat(r['T.Qrt'] || 0),
+                parseFloat(r['T.MTD'] || 0)
+            ), 0);
+            return maxT >= 100000 ? 'value' : 'unit';
+        }
+
+        // Buat formatter angka sesuai tipe program
+        function _projFcFor(type) {
+            if (type === 'cs') return n => {
+                if (n == null || isNaN(n)) return '-';
+                const v = Math.round(Number(n));
+                return v === 0 ? '0 cs' : v.toLocaleString('id-ID') + ' cs';
+            };
+            if (type === 'value') return n => {
+                if (n == null || isNaN(n)) return '-';
+                const abs = Math.abs(Number(n));
+                if (abs === 0) return '0';
+                const m = abs / 1e6;
+                if (m >= 1000) return m.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'jt';
+                if (m >= 1)    return m.toFixed(1) + 'jt';
+                if (abs >= 1000) return (abs / 1e3).toFixed(0) + 'rb';
+                return abs.toFixed(0);
+            };
+            // unit: angka biasa dengan pemisah ribuan, tanpa satuan
+            return n => {
+                if (n == null || isNaN(n)) return '-';
+                const v = Math.round(Number(n));
+                return v === 0 ? '0' : v.toLocaleString('id-ID');
+            };
+        }
+
         function renderProjectTab() {
             if (!projectData || projectData.length === 0) return;
 
-            const fc = (n) => {
-                if (n === null || n === undefined || isNaN(n)) return '-';
-                const v = Math.abs(n) / 1000000;
-                if (v === 0) return '0';
-                return (v >= 1000 ? v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : v.toFixed(1)) + 'jt';
-            };
+            window._projFcMap = {}; // simpan fc per project
 
             const fpct = (v) => {
                 if (v === null || v === undefined || isNaN(v)) return '-';
@@ -4854,13 +4884,6 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const achBadge = (pct) => {
                 const cls = pct >= 100 ? 'p-ach-h' : pct >= 80 ? 'p-ach-m' : 'p-ach-l';
                 return `<span class="${cls}">${pct.toFixed(1)}%</span>`;
-            };
-
-            const gapFmt = (v) => {
-                if (v === null || isNaN(v)) return '-';
-                const cls = v >= 0 ? 'p-gap-pos' : 'p-gap-neg';
-                const sign = v >= 0 ? '+' : '';
-                return `<span class="${cls}">${sign}${fc(v)}</span>`;
             };
 
             // ---- Group by Project name ----
@@ -4892,10 +4915,8 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 card.style.cursor = 'pointer';
                 card.title = `Klik untuk lihat detail ${proj}`;
                 card.onclick = () => switchProjectSubTab(proj);
-                const isCs = proj.toUpperCase().includes('SC');
-                const fcCard = isCs
-                    ? (n) => { const v = Math.round(Number(n||0)); return v === 0 ? '0 cs' : v.toLocaleString('id-ID') + ' cs'; }
-                    : fc;
+                const fcCard = _projFcFor(_projType(proj, rows));
+                window._projFcMap[proj] = fcCard;
                 card.innerHTML = `
                     <div class="proj-metric-label">Ach MTD — ${proj}</div>
                     <div class="proj-metric-value ${valueClass}">${achMtdPct.toFixed(1)}%</div>
@@ -4917,9 +4938,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
             // Store grouped data for rendering
             window._projGroups = projectGroups;
-            window._projFc = fc;
             window._projAchBadge = achBadge;
-            window._projGapFmt = gapFmt;
 
             // Render first sub-tab
             if (projectNames.length > 0) {
@@ -4944,16 +4963,9 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             const rows = (window._projGroups || {})[projName] || [];
             const achBadge = window._projAchBadge;
 
-            // Format angka: ITG SC pakai cs (integer + separator), lainnya pakai jt/rb
-            const isCs = projName.toUpperCase().includes('SC');
-            const fc = isCs
-                ? (n) => {
-                    if (n === null || n === undefined || isNaN(n)) return '-';
-                    const v = Math.round(Number(n));
-                    if (v === 0) return '0 cs';
-                    return v.toLocaleString('id-ID') + ' cs';
-                  }
-                : window._projFc;
+            // Format angka: deteksi otomatis tipe program (value/unit/cs) dari data
+            const fc = (window._projFcMap && window._projFcMap[projName])
+                    || _projFcFor(_projType(projName, rows));
 
             const gapFmt = (v) => {
                 if (v === null || isNaN(v)) return '-';
