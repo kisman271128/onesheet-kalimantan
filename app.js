@@ -318,36 +318,28 @@
                 detectEl.innerHTML = '<span class="upl-dot upl-dot-loading"></span><span style="color:#f59e0b;">Mengupload...</span>';
                 if (cardEl2) { cardEl2.classList.remove('found','missing','done'); cardEl2.classList.add('uploading'); }
                 try {
-                    const fileHandle = detectedFiles[s.key];
-                    const file       = await fileHandle.getFile();
-                    const text       = await file.text();
-                    const jsonData   = JSON.parse(text);
-                    const content    = JSON.stringify(jsonData, null, 2);
+                    const fileHandle  = detectedFiles[s.key];
+                    const file        = await fileHandle.getFile();
+                    const text        = await file.text();
+                    const jsonData    = JSON.parse(text);
+                    const content     = JSON.stringify(jsonData, null, 2);
                     const recordCount = Array.isArray(jsonData.data) ? jsonData.data.length
                                       : (typeof jsonData.data === 'object' ? Object.keys(jsonData.data).length : 0);
-                    const depoMeta   = (jsonData.metadata && jsonData.metadata.depo) ? jsonData.metadata.depo : '';
+                    const depoMeta    = (jsonData.metadata && jsonData.metadata.depo) ? jsonData.metadata.depo : '';
+                    const uploadCell  = document.getElementById('upload-' + s.key);
 
-                    const uploadCell = document.getElementById('upload-' + s.key);
-                    const ok = await uploadToGitHub(file.name, content);
-                    if (ok) {
-                        await logUploadActivity(file.name, recordCount, depoMeta);
-                        detectEl.innerHTML = '<span class="upl-dot upl-dot-found"></span><span style="color:#16a34a;">Uploaded</span>';
-                        if (uploadCell) uploadCell.innerHTML = '<span style="color:#16a34a;font-weight:700;">✅ ' + recordCount + ' rec</span>';
-                        if (cardEl2) { cardEl2.classList.remove('uploading'); cardEl2.classList.add('done'); }
-                        results.push('✅ <strong>' + file.name + '</strong> — ' + recordCount + ' records');
-                        successCount++;
-                    } else {
-                        detectEl.innerHTML = '<span class="upl-dot upl-dot-missing"></span><span style="color:#dc2626;">Gagal</span>';
-                        if (uploadCell) uploadCell.innerHTML = '<span style="color:#dc2626;font-weight:700;">❌ Gagal</span>';
-                        if (cardEl2) { cardEl2.classList.remove('uploading'); cardEl2.classList.add('missing'); }
-                        results.push('❌ <strong>' + file.name + '</strong> — Gagal upload ke GitHub');
-                        failCount++;
-                    }
+                    await uploadToGitHub(file.name, content); // throws on failure
+                    await logUploadActivity(file.name, recordCount, depoMeta);
+                    detectEl.innerHTML = '<span class="upl-dot upl-dot-found"></span><span style="color:#16a34a;">Uploaded</span>';
+                    if (uploadCell) uploadCell.innerHTML = '<span style="color:#16a34a;font-weight:700;">✅ ' + recordCount + ' rec</span>';
+                    if (cardEl2) { cardEl2.classList.remove('uploading'); cardEl2.classList.add('done'); }
+                    results.push('✅ <strong>' + file.name + '</strong> — ' + recordCount + ' records');
+                    successCount++;
                 } catch(e) {
-                    const label = document.getElementById('label-' + s.key).textContent;
-                    document.getElementById('detect-' + s.key).innerHTML = '<span class="upl-dot upl-dot-missing"></span><span style="color:#dc2626;">Error</span>';
+                    const label = document.getElementById('label-' + s.key)?.textContent || s.label;
+                    detectEl.innerHTML = '<span class="upl-dot upl-dot-missing"></span><span style="color:#dc2626;">Gagal</span>';
                     if (cardEl2) { cardEl2.classList.remove('uploading'); cardEl2.classList.add('missing'); }
-                    results.push('❌ <strong>' + label + '</strong> — ' + e.message);
+                    results.push('❌ <strong>' + label + '</strong><br>&nbsp;&nbsp;&nbsp;↳ ' + e.message);
                     failCount++;
                 }
             }
@@ -842,63 +834,64 @@
         }
 
                 async function uploadToGitHub(filename, content) {
+            if (!GITHUB_CONFIG.token) {
+                throw new Error('Token GitHub tidak ditemukan. Pastikan file config.json ada dan berisi github_token yang valid.');
+            }
+
+            const baseUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${filename}`;
+            const headers  = {
+                'Authorization': `token ${GITHUB_CONFIG.token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            };
+
+            // Ambil SHA jika file sudah ada (diperlukan untuk update)
+            let sha = null;
             try {
-                // Check if file exists (to get SHA for update)
-                const checkUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${filename}`;
-                
-                let sha = null;
+                const checkRes = await fetch(baseUrl, { headers });
+                if (checkRes.ok) {
+                    const data = await checkRes.json();
+                    sha = data.sha;
+                } else if (checkRes.status === 401) {
+                    throw new Error('Token GitHub tidak valid atau sudah expired (401 Unauthorized). Hubungi admin untuk mendapatkan config.json terbaru.');
+                } else if (checkRes.status === 403) {
+                    throw new Error('Akses ditolak GitHub (403 Forbidden). Token tidak memiliki izin write ke repo ini.');
+                }
+            } catch (e) {
+                if (e.message.includes('401') || e.message.includes('403') || e.message.includes('Token')) throw e;
+                // Jika network error atau file belum ada, lanjut buat baru
+            }
+
+            const username = sessionStorage.getItem('user') || 'unknown';
+            const depoName = selectedDepo.replace('data_', '').replace('.json', '').replace(/_/g, ' ');
+            const body = {
+                message: `Update ${filename} by ${username} (${depoName}) - ${new Date().toLocaleString('id-ID')}`,
+                content: btoa(unescape(encodeURIComponent(content))),
+                branch: GITHUB_CONFIG.branch
+            };
+            if (sha) body.sha = sha;
+
+            const uploadRes = await fetch(baseUrl, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify(body)
+            });
+
+            if (!uploadRes.ok) {
+                let reason = `HTTP ${uploadRes.status}`;
                 try {
-                    const checkRes = await fetch(checkUrl, {
-                        headers: {
-                            'Authorization': `token ${GITHUB_CONFIG.token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    });
-                    if (checkRes.ok) {
-                        const data = await checkRes.json();
-                        sha = data.sha;
+                    const errJson = await uploadRes.json();
+                    if (uploadRes.status === 401) {
+                        reason = 'Token GitHub tidak valid atau sudah expired (401). Hubungi admin untuk config.json terbaru.';
+                    } else if (uploadRes.status === 403) {
+                        reason = 'Akses ditolak GitHub (403). Token tidak memiliki izin write ke repo ini.';
+                    } else if (uploadRes.status === 422) {
+                        reason = `Validasi GitHub gagal (422): ${errJson.message || 'SHA mismatch — coba ulangi upload.'}`;
+                    } else {
+                        reason = errJson.message || reason;
                     }
-                } catch (e) {
-                    console.log('File does not exist yet, will create new');
-                }
-                
-                // Upload/Update file
-                const uploadUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${filename}`;
-                
-                const username = sessionStorage.getItem('user') || 'unknown';
-                const depoName = selectedDepo.replace('data_', '').replace('.json', '').replace(/_/g, ' ');
-                
-                const body = {
-                    message: `Update ${filename} by ${username} (${depoName}) - ${new Date().toLocaleString('id-ID')}`,
-                    content: btoa(unescape(encodeURIComponent(content))), // Base64 encode
-                    branch: GITHUB_CONFIG.branch
-                };
-                
-                if (sha) {
-                    body.sha = sha; // Required for updating existing file
-                }
-                
-                const uploadRes = await fetch(uploadUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(body)
-                });
-                
-                if (!uploadRes.ok) {
-                    const error = await uploadRes.json();
-                    console.error('GitHub upload error:', error);
-                    return false;
-                }
-                
-                return true;
-                
-            } catch (error) {
-                console.error('Upload to GitHub failed:', error);
-                return false;
+                } catch (_) { /* pakai reason default */ }
+                throw new Error(reason);
             }
         }
         
