@@ -2523,6 +2523,11 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     });
                     html+='</tr></tbody></table>';
                     tipeWrap.innerHTML = html;
+                    // Sembunyikan By Nama Salesman di regional view
+                    const _rNw = document.getElementById('smProsesNamaWrap');
+                    const _rNt = document.getElementById('smProsesNamaTitle');
+                    if (_rNw) _rNw.style.display = 'none';
+                    if (_rNt) _rNt.style.display = 'none';
                     return;
                 }
 
@@ -2602,10 +2607,41 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     });
                     html += '</tr></tbody></table>';
                     tipeWrap.innerHTML = html;
+
+                    // ── Render "By Nama Salesman" table ─────────────────────────
+                    const namaWrap  = document.getElementById('smProsesNamaWrap');
+                    const namaTitle = document.getElementById('smProsesNamaTitle');
+                    if (namaWrap)  namaWrap.style.display  = '';
+                    if (namaTitle) { namaTitle.style.display = ''; namaTitle.textContent = 'By Nama Salesman'; }
+                    if (namaWrap) {
+                        const sortedRows = [...rows].sort((a,b) => {
+                            const na = a.szname || a['Nama Salesman'] || '';
+                            const nb = b.szname || b['Nama Salesman'] || '';
+                            return na.localeCompare(nb);
+                        });
+                        let namaHtml = '<table style="width:100%;border-collapse:collapse;table-layout:auto;min-width:320px;">';
+                        namaHtml += '<thead><tr><th style="'+thL+'">Nama Salesman</th>';
+                        cols.forEach(c => { namaHtml += '<th style="'+thS+'">'+c.label+'</th>'; });
+                        namaHtml += '</tr></thead><tbody>';
+                        sortedRows.forEach((r, i) => {
+                            const bg = i%2===0?'#ffffff':'#f8fafc';
+                            const nm = r.szname || r['Nama Salesman'] || '';
+                            namaHtml += '<tr style="background:'+bg+';">';
+                            namaHtml += '<td style="'+tdL+'">'+nm+'</td>';
+                            cols.forEach(c => { namaHtml += '<td style="'+tdS(r[c.key])+'">'+dot(r[c.key])+pctFmt(r[c.key])+'</td>'; });
+                            namaHtml += '</tr>';
+                        });
+                        namaHtml += '</tbody></table>';
+                        namaWrap.innerHTML = namaHtml;
+                    }
                 }
 
             } catch(e) {
                 tipeWrap.innerHTML = '<span style="padding:12px;display:block;color:#94a3b8;font-size:11px;">⚠️ File proses tidak ditemukan.</span>';
+                const _nw = document.getElementById('smProsesNamaWrap');
+                const _nt = document.getElementById('smProsesNamaTitle');
+                if (_nw) _nw.style.display = 'none';
+                if (_nt) _nt.style.display = 'none';
             }
         }
 
