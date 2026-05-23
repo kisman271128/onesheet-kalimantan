@@ -10,7 +10,7 @@ REM ========================================
 set GITHUB_USERNAME=kisman271128
 set GITHUB_REPO=onesheet-kalimantan
 set GIT_BRANCH=master
-set PY_SCRIPT=excel_to_json_depo.py
+set PY_SCRIPT=excel_to_json_depo_new.py
 set EXCEL_FILE=OneSheetDepo.xlsb
 
 REM ========================================
@@ -80,7 +80,7 @@ echo Output file yang akan dibuat per depo:
 echo   - data_DEPO_xxx.json       (data utama salesman)
 echo   - bti_DEPO_xxx.json        (BTI / achievement)
 echo   - bp_DEPO_xxx.json         (budget plan)
-echo   - tg_DEPO_xxx.json         (target growth)
+echo   - tg_DEPO_xxx.json         (target growth + summary MTD)
 echo   - trend_DEPO_xxx.json      (trend harian/mingguan)
 echo   - outlet_DEPO_xxx.json     (25 pareto outlet)
 echo   - sku_DEPO_xxx.json        (25 pareto SKU)
