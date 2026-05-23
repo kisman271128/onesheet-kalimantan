@@ -5,7 +5,7 @@ import os
 import math
 import time
 
-def export_tg(excel_file):
+def export_tg(excel_file, actual_mtd=0, bp_mtd=0):
     """Export sheet TG ke TG_DEPO_<n>.json per Depo"""
     try:
         print("📊 Membaca Sheet TG...")
@@ -69,6 +69,15 @@ def export_tg(excel_file):
             else:
                 tg_pct = 0.0
 
+            safe_name = str(depo_name).strip()
+            if safe_name.upper().startswith('DEPO '):
+                safe_name = safe_name[5:]
+            safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
+            filename = f"TG_DEPO_{safe_name}.json"
+
+            mtd_selisih   = round(actual_mtd - bp_mtd, 2)
+            mtd_pct_vs_bp = round(actual_mtd / bp_mtd * 100, 2) if bp_mtd else 0.0
+
             tg_json = {
                 "metadata": {
                     "source": excel_file,
@@ -83,15 +92,13 @@ def export_tg(excel_file):
                     "Sisa HK":       int(sisa_hk)     if sisa_hk     is not None else None,
                     "TG":            float(tg_raw)    if tg_raw      is not None else None,
                     "Day Closing":   day_closing_str,
-                    "TG_Percentage": tg_pct
+                    "TG_Percentage": tg_pct,
+                    "MTD_Actual":    actual_mtd,
+                    "MTD_BP":        bp_mtd,
+                    "MTD_Selisih":   mtd_selisih,
+                    "MTD_vs_BP_Pct": mtd_pct_vs_bp
                 }
             }
-
-            safe_name = str(depo_name).strip()
-            if safe_name.upper().startswith('DEPO '):
-                safe_name = safe_name[5:]
-            safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
-            filename = f"TG_DEPO_{safe_name}.json"
 
             with open(filename, 'w', encoding='utf-8') as f:
                 json.dump(tg_json, f, ensure_ascii=False, indent=2)
@@ -179,12 +186,13 @@ def export_data():
         print()
         
         created_files = []
-        
+        total_actual_mtd = 0.0
+
         for depo_name, depo_data in depo_groups:
             # Skip if depo name is None or empty
             if not depo_name or pd.isna(depo_name):
                 continue
-            
+
             # Convert to list of dicts
             records = depo_data.to_dict('records')
             
@@ -211,7 +219,9 @@ def export_data():
             # Generate filename
             safe_depo_name = str(depo_name).upper().replace(' ', '_').replace('/', '_')
             filename = f"data_{safe_depo_name}.json"
-            
+
+            total_actual_mtd += sum((r.get('MTD') or 0) for r in records)
+
             # Write JSON file with explicit flush
             with open(filename, 'w', encoding='utf-8') as f:
                 json.dump(json_data, f, ensure_ascii=False, indent=2, allow_nan=False)
@@ -235,14 +245,14 @@ def export_data():
         print("Files created:")
         for f in created_files:
             print(f"  - {f}")
-        
-        return True
+
+        return True, round(total_actual_mtd, 2)
 
     except Exception as e:
         print(f"❌ Error: {str(e)}")
         import traceback
         traceback.print_exc()
-        return False
+        return False, 0.0
 
 def export_project(excel_file):
     """Export sheet Project ke Project.json dan data_PROJECT_<name>.json per project"""
@@ -777,6 +787,7 @@ def export_bp(excel_file):
 
         depo_groups = df.groupby('Depo')
         created_files = []
+        total_bp_mtd = 0.0
 
         for depo_name, depo_data in depo_groups:
             if not depo_name or (isinstance(depo_name, float) and math.isnan(depo_name)):
@@ -807,6 +818,8 @@ def export_bp(excel_file):
             safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
             filename = f"bp_DEPO_{safe_name}.json"
 
+            total_bp_mtd += sum((r.get('MTD') or 0) for r in depo_records)
+
             with open(filename, 'w', encoding='utf-8') as f:
                 json.dump(json_data, f, ensure_ascii=False, indent=2, allow_nan=False)
                 f.flush()
@@ -818,13 +831,13 @@ def export_bp(excel_file):
             print(f"  ✅ {filename} - {len(depo_records)} records")
 
         print(f"✅ {len(created_files)} file BP per-Depo dibuat")
-        return True
+        return True, round(total_bp_mtd, 2)
 
     except Exception as e:
         print(f"⚠️  Gagal export BP: {str(e)}")
         import traceback
         traceback.print_exc()
-        return False
+        return False, 0.0
 
 
 def export_outlet(excel_file):
@@ -1114,11 +1127,9 @@ def export_depo_list(excel_file):
         print(f"❌ Gagal membuat depo_list.json: {e}")
 
 if __name__ == "__main__":
-    success = export_data()
+    data_result = export_data()
+    success, actual_mtd = data_result if isinstance(data_result, tuple) else (data_result, 0.0)
     if success:
-        print()
-        # Export TG_DEPO_*.json dari sheet TG
-        export_tg("OneSheetDepo.xlsb")
         print()
         # Export project_DEPO_*.json dari sheet Project
         export_project("OneSheetDepo.xlsb")
@@ -1129,8 +1140,11 @@ if __name__ == "__main__":
         # Export cat_DEPO_*.json dari sheet OneSheetCat
         export_onesheetcat("OneSheetDepo.xlsb")
         print()
-        # Export bp_DEPO_*.json dari sheet BP
-        export_bp("OneSheetDepo.xlsb")
+        # Export bp_DEPO_*.json — harus sebelum TG agar MTD_BP tersedia
+        _, bp_mtd = export_bp("OneSheetDepo.xlsb")
+        print()
+        # Export TG_DEPO_*.json — setelah data & bp agar summary MTD bisa disisipkan
+        export_tg("OneSheetDepo.xlsb", actual_mtd=actual_mtd, bp_mtd=bp_mtd)
         print()
         # Export trend_DEPO_*.json dari sheet Trend By Week & Trend By Day
         export_trend("OneSheetDepo.xlsb")
