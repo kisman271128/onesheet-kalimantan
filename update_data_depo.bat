@@ -10,7 +10,7 @@ REM ========================================
 set GITHUB_USERNAME=kisman271128
 set GITHUB_REPO=onesheet-kalimantan
 set GIT_BRANCH=master
-set PY_SCRIPT=excel_to_json_depo_new.py
+set PY_SCRIPT=excel_to_json_depo.py
 set EXCEL_FILE=OneSheetDepo.xlsb
 
 REM ========================================
@@ -24,34 +24,6 @@ if not exist "%EXCEL_FILE%" (
     exit /b 1
 )
 echo + %EXCEL_FILE% ditemukan
-
-REM ========================================
-REM [2/4] DOWNLOAD .PY TERBARU DARI GITHUB
-REM ========================================
-echo.
-echo [2/4] Mengunduh script terbaru dari GitHub...
-
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-  "$url = 'https://raw.githubusercontent.com/%GITHUB_USERNAME%/%GITHUB_REPO%/%GIT_BRANCH%/%PY_SCRIPT%';" ^
-  "$out = '%PY_SCRIPT%';" ^
-  "try {" ^
-  "  $wc = New-Object System.Net.WebClient;" ^
-  "  $wc.DownloadFile($url, $out);" ^
-  "  Write-Host '  + Script terbaru berhasil diunduh' -ForegroundColor Green" ^
-  "} catch {" ^
-  "  if (Test-Path $out) {" ^
-  "    Write-Host '  WARNING: Gagal unduh, menggunakan script lokal yang ada' -ForegroundColor Yellow" ^
-  "  } else {" ^
-  "    Write-Host '  ERROR: Tidak ada koneksi dan script lokal tidak ditemukan!' -ForegroundColor Red;" ^
-  "    exit 1" ^
-  "  }" ^
-  "}"
-
-if errorlevel 1 (
-    echo ERROR: Script tidak tersedia!
-    pause
-    exit /b 1
-)
 
 REM ========================================
 REM [3/4] CEK PYTHON & DEPENDENCIES
