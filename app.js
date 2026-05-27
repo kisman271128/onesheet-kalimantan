@@ -1218,6 +1218,7 @@
                 fetchJSON('cat_DEPO_'    + depo + '.json'),
                 fetchJSON('bti_DEPO_'    + depo + '.json'),
                 fetchJSON('project_DEPO_'+ depo + '.json'),
+                fetchJSON('TG_DEPO_'    + depo + '.json'),
             ])));
 
             // Agregasi + tracking status
@@ -1225,18 +1226,21 @@
             const depoAchMap  = {};
             const depoStatus  = {}; // { TANJUNG: { found: true, lastUpdate: '...', hasData: true } }
 
-            results.forEach(([dataR, bpR, catR, btiR, projR], idx) => {
+            results.forEach(([dataR, bpR, catR, btiR, projR, tgR], idx) => {
                 const depo     = depos[idx];
                 const rawDepo  = rawDepos[idx];
                 const hasData  = dataR !== null;
                 const hasBP    = bpR   !== null;
                 // Status & tanggal HANYA dari bp_DEPO — jika tidak ada = belum upload
                 const lastUpd  = hasBP ? (bpR?.meta?.last_updated || null) : null;
+                // Day Closing dari TG_DEPO (lebih akurat dari lastUpdate)
+                const dayClosing = tgR?.data?.['Day Closing'] || null;
 
                 depoStatus[depo] = {
                     label:      rawDepo,
                     found:      hasBP,
                     lastUpdate: lastUpd,
+                    dayClosing: dayClosing,
                 };
 
                 if (hasData) {
@@ -1313,8 +1317,8 @@
                 } catch { return null; }
             };
 
-            // Cari tanggal terbaru (date string, YYYY-MM-DD)
-            const datestrs = found.map(d => toDateStr(d.lastUpdate)).filter(Boolean);
+            // Cari tanggal terbaru berdasarkan Day Closing (date string, YYYY-MM-DD)
+            const datestrs = found.map(d => toDateStr(d.dayClosing || d.lastUpdate)).filter(Boolean);
             const maxDate  = datestrs.length > 0 ? datestrs.reduce((a,b) => a > b ? a : b) : null;
 
             const fmtDate = (s) => {
@@ -1331,13 +1335,14 @@
                 return ds === maxDate ? '#16a34a' : '#dc2626';
             };
 
-            const foundRows = found.map(d =>
-                '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f1f5f9;font-size:11px;">'
+            const foundRows = found.map(d => {
+                const displayDate = d.dayClosing || d.lastUpdate;
+                return '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f1f5f9;font-size:11px;">'
                 + '<span style="color:#16a34a;font-size:12px;">\u2705</span>'
                 + '<span style="flex:1;font-weight:600;color:#334155;">' + d.label + '</span>'
-                + '<span style="color:' + dateColor(d.lastUpdate) + ';font-size:10px;font-weight:700;white-space:nowrap;">' + fmtDate(d.lastUpdate) + '</span>'
-                + '</div>'
-            ).join('');
+                + '<span style="color:' + dateColor(displayDate) + ';font-size:10px;font-weight:700;white-space:nowrap;">' + fmtDate(displayDate) + '</span>'
+                + '</div>';
+            }).join('');
 
             const missingRows = missing.map(d =>
                 '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #fff7ed;font-size:11px;">'
