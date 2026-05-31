@@ -1540,7 +1540,7 @@
 
             wrap.innerHTML = `
 ${isRegional ? renderDepoStatusPanel() : ''}
-<div style="display:grid;grid-template-columns:220px 1fr 260px;gap:12px;height:calc(100vh-200px);">
+<div id="summaryDashContent" style="display:grid;grid-template-columns:220px 1fr 260px;gap:12px;height:calc(100vh-200px);">
 
   <!-- ═══ LEFT METRICS ═══ -->
   <div style="display:flex;flex-direction:column;gap:10px;">
@@ -1611,7 +1611,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
   <div style="display:flex;flex-direction:column;gap:10px;">
 
     <!-- Toggle buttons -->
-    <div style="display:flex;gap:8px;">
+    <div style="display:flex;gap:8px;align-items:center;">
       <button id="sdChartBtn1" onclick="switchSummaryDashChart('weekly')"
         style="padding:6px 16px;border-radius:20px;border:2px solid #0e7490;background:#0e7490;color:#fff;font-size:11px;font-weight:700;cursor:pointer;">
         📊 Progress Mingguan
@@ -1619,6 +1619,11 @@ ${isRegional ? renderDepoStatusPanel() : ''}
       <button id="sdChartBtn2" onclick="switchSummaryDashChart('daily')"
         style="padding:6px 16px;border-radius:20px;border:2px solid #0e7490;background:#fff;color:#0e7490;font-size:11px;font-weight:700;cursor:pointer;">
         📅 Trend Harian
+      </button>
+      <button onclick="saveSummaryImage(this)"
+        style="margin-left:auto;padding:5px 12px;background:white;border:1.5px solid #64748b;color:#64748b;
+               border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;">
+        📷 Simpan
       </button>
     </div>
 
@@ -1765,7 +1770,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
   </div><!-- end right -->
 
-</div><!-- end grid -->`;
+</div><!-- end grid --></div><!-- end summaryDashContent -->`;
 
             // ── Init float button status depo (hanya Summary Regional) ─────────
             if (isRegional) initDepoStatusFloat();
@@ -5559,6 +5564,13 @@ let trendChart = null;
             if (!el || !el.querySelector('.kls-card')) { alert('Klasemen belum dimuat.'); return; }
             const depo = (document.getElementById('depoName')?.textContent || 'Regional').replace(/\s+/g,'_');
             saveAsImage(el, `Klasemen_${depo}_{ts}`, btn);
+        }
+
+        function saveSummaryImage(btn) {
+            const el = document.getElementById('summaryDashContent');
+            if (!el) { alert('Summary belum dimuat.'); return; }
+            const depo = (document.getElementById('depoName')?.textContent || 'Regional').replace(/\s+/g,'_');
+            saveAsImage(el, `Summary_${depo}_{ts}`, btn);
         }
 
 		// ─────────────────────────────────────────────────────────────────────────
