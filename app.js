@@ -4139,7 +4139,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
         // ═══════════════════════════════════════════════════════════════
         // KLASEMEN DEPO — Weighted scoring from bp + proses per depo
-        // Bobot: AchSales 60% | %ECIns 15% | %GS 15% | ARColl 10%
+        // Bobot: AchSales 60% | %EC 15% | %GS 15% | ARColl 10%
         // Cap setiap komponen maks 120% sebelum dikali bobot
         // ═══════════════════════════════════════════════════════════════
         async function renderKlasemenDepo() {
@@ -4213,7 +4213,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 }
                 const achSalesRaw = tbp > 0 ? (mtd / tbp * 100) : 0;
 
-                // --- %ECIns, %GS, ARColl dari proses (avg semua salesman) ---
+                // --- %EC, %GS, ARColl dari proses (avg salesman Arjuna/Bima/Yudistira) ---
                 let ecInsRaw = 0, gsRaw = 0, arCollRaw = 0;
                 let hasProsesData = false;
                 if (prosesJson && prosesJson.data && prosesJson.data.length > 0) {
@@ -4222,44 +4222,28 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                         const vals = rows.map(r => r[key]).filter(v => v != null && !isNaN(v));
                         return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
                     };
-                    ecInsRaw   = avgOf('%ECIns') * 100;   // decimal → pct
-                    arCollRaw  = avgOf('ARColl') * 100;
-                    
-                    // T.GS = target GS per depo dari Master_GS.json
-                    let tgsValue = 0;
-                    if (masterGsJson && masterGsJson.data) {
-                        const depoCleaned = label
-                            .toUpperCase()
-                            .replace(/^DEPO\s+/i,'');
-                        const masterRow = masterGsJson.data.find(r => {
-                            const masterDepo = (r['Nama Depo'] || r.Nama_Dep || r.Depo || r.depo || '')
-                                .toString()
-                                .trim()
-                                .toUpperCase()
-                                .replace(/^DEPO\s+/i,'');
+                    arCollRaw = avgOf('ARColl') * 100;
 
-                            return masterDepo === depoCleaned;
-                        });
-                        tgsValue = masterRow ? Number(masterRow['T.GS'] || masterRow['TGS'] || 0) : 0;
-                    }
-                    
-                    // Hitung total A_GS actual dari proses_DEPO
-                    let totalAGS = 0;
-                    rows.forEach(r => {
-                        totalAGS += Number(r['A_GS'] || r.A_GS || 0);
+                    // Filter salesman tipe Arjuna / Bima / Yudistira
+                    const abKeywords = ['arjuna', 'bima', 'yudistira'];
+                    const abRows = rows.filter(r => {
+                        const tipe = (r['Tipe Salesman'] || '').toLowerCase();
+                        return abKeywords.some(k => tipe.includes(k));
                     });
-                    
-                    // Hitung %GS = (Actual GS / Target GS) / targetKuartal
-                    const rawGsRatio = (tgsValue > 0)
-                        ? ((totalAGS / tgsValue) * 100)
-                        : 0;
 
-                    const gsTargetPct = getQuarterGsTargetPct();
+                    // %EC per salesman = A_EC / PC, lalu di-average → dibagi target kuartal
+                    const ecPerSm = abRows
+                        .map(r => (Number(r.PC) > 0 ? Number(r.A_EC) / Number(r.PC) : null))
+                        .filter(v => v != null && !isNaN(v));
+                    const avgEC = ecPerSm.length ? ecPerSm.reduce((a,b)=>a+b,0) / ecPerSm.length : 0;
+                    const month = new Date().getMonth() + 1;
+                    const ecTargetPct = (month >= 7) ? 0.75 : 0.72; // Q3/Q4=75%, Q2=72%
+                    ecInsRaw = ecTargetPct > 0 ? (avgEC / ecTargetPct) * 100 : 0;
 
-                    gsRaw = (gsTargetPct > 0)
-                        ? ((rawGsRatio / gsTargetPct) * 100)
-                        : 0;
-                    
+                    // %GS = avg field %GS hanya salesman tipe Arjuna / Bima / Yudistira
+                    const gsVals = abRows.map(r => r['%GS']).filter(v => v != null && !isNaN(v));
+                    gsRaw = gsVals.length ? (gsVals.reduce((a,b)=>a+b,0) / gsVals.length) * 100 : 0;
+
                     hasProsesData = true;
                 }
 
@@ -4324,9 +4308,9 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 { key: 'achSales', label: 'Ach Sales', bobot: 60,
                   getRaw: d=>d.achSalesRaw, getCapped: d=>d.achSalesCapped,
                   color: '#475569', desc: 'MTD/T.BP' },
-                { key: 'ecIns',    label: '%ECIns',             bobot: 15,
+                { key: 'ecIns',    label: '%EC',                bobot: 15,
                   getRaw: d=>d.ecInsRaw,    getCapped: d=>d.ecInsCapped,
-                  color: '#64748b', desc: 'EC Insentif' },
+                  color: '#64748b', desc: 'Effective Call (Arjuna/Bima/Yudistira)' },
                 { key: 'gs',       label: '%GS',                bobot: 15,
                   getRaw: d=>d.gsRaw,       getCapped: d=>d.gsCapped,
                   color: '#64748b', desc: 'Green Store' },
