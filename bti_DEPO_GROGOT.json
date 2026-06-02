@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "BTI",
     "depo": "Depo Grogot",
-    "total_records": 35,
+    "total_records": 34,
     "columns": [
       "szSubRegionName",
       "szDepoId",
@@ -25,7 +25,7 @@
       "Ach_MTD",
       "Gap_MTD"
     ],
-    "last_updated": "2026-06-02 09:10:08"
+    "last_updated": "2026-06-02 09:37:52"
   },
   "data": [
     {
@@ -741,27 +741,6 @@
       "A.MTD": 14154945.370000001,
       "Ach_MTD": 1.0356266732513901,
       "Gap_MTD": 486945.37000000104
-    },
-    {
-      "szSubRegionName": "Kalimantan",
-      "szDepoId": 136,
-      "szWorkplaceName": "Depo Grogot",
-      "szSupervisorId": 17210036576,
-      "SAC Name": "Muhammad Yasir",
-      "szEmployeeId": 17210042423,
-      "szName": "Siti Fatimah Hadijah",
-      "szDepartmentId": "ACT",
-      "szSalesmanType": "0x2a",
-      "decSalesAvg": 9314646.749999994,
-      "decTarget": 6000000,
-      "decTargetAdjustment": 6000000,
-      "decMax": 6000000,
-      "decGrowth": -0.3558531889574874,
-      "szPrincipalGroupId": "OTHERS",
-      "LOB": "OTHERS",
-      "A.MTD": 0,
-      "Ach_MTD": 0,
-      "Gap_MTD": -6000000
     }
   ]
 }
