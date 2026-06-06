@@ -1081,6 +1081,200 @@ def export_proses(excel_file):
         return False
 
 
+def export_ipp(excel_file):
+    """Export sheet IPP ke IPP_DEPO_<n>.json per Depo.
+
+    Kolom Excel yang diharapkan (sheet "IPP"):
+      Depo | KPI | TYPE | WEIGHT | TARGET | SCORING | TARGET (numeric) | ACTUAL | ACH | SCORE | POINT/POIN
+
+    Output JSON: IPP_DEPO_<NAME>.json
+      { "metadata": {...}, "kpis": [
+          {"kpi","type","weight","target","scoring","actual","ach","score","point"}, ...
+      ] }
+    """
+    try:
+        print("📊 Membaca Sheet IPP...")
+        df = pd.read_excel(excel_file, sheet_name="IPP", engine='pyxlsb', header=0)
+        df.columns = df.columns.str.strip()
+
+        # Handle nama kolom duplikat (ada dua kolom TARGET di sheet ini)
+        seen_cols = {}
+        new_cols = []
+        for col in df.columns:
+            if col in seen_cols:
+                seen_cols[col] += 1
+                new_cols.append(f"{col}_{seen_cols[col]}")
+            else:
+                seen_cols[col] = 0
+                new_cols.append(col)
+        df.columns = new_cols
+
+        df = df.replace([np.nan, np.inf, -np.inf], None)
+        df = df.where(pd.notnull(df), None)
+
+        if df.empty:
+            print("⚠️  Sheet IPP kosong, tidak ada file yang dibuat")
+            return False
+
+        if 'Depo' not in df.columns:
+            print(f"❌ Kolom 'Depo' tidak ditemukan di sheet IPP")
+            print(f"   Kolom tersedia: {', '.join(df.columns)}")
+            return False
+
+        # --- Deteksi nama kolom (case-insensitive, toleran typo) ---
+        cols_upper = {c.upper(): c for c in df.columns}
+        col_kpi     = cols_upper.get('KPI')
+        col_type    = cols_upper.get('TYPE')
+        col_weight  = cols_upper.get('WEIGHT')
+        col_target  = cols_upper.get('TARGET')        # kolom pertama TARGET (tipe: BP / % / Index)
+        col_scoring = cols_upper.get('SCORING')
+        col_actual  = cols_upper.get('ACTUAL')
+        col_ach     = cols_upper.get('ACH')
+        col_score   = cols_upper.get('SCORE')
+        col_point   = cols_upper.get('POINT') or cols_upper.get('POIN')
+
+        print(f"   Kolom terdeteksi: KPI={col_kpi}, TYPE={col_type}, WEIGHT={col_weight}, "
+              f"TARGET={col_target}, SCORING={col_scoring}, ACTUAL={col_actual}, "
+              f"ACH={col_ach}, SCORE={col_score}, POINT={col_point}")
+
+        # --- Helper konversi nilai ---
+        def clean(v):
+            if v is None: return None
+            if isinstance(v, float) and (math.isnan(v) or math.isinf(v)): return None
+            return v
+
+        def to_str(v):
+            v = clean(v)
+            if v is None: return None
+            s = str(v).strip()
+            return s if s else None
+
+        def to_pct_float(v):
+            """Excel menyimpan persentase sebagai desimal (0.20 → tampil 20%).
+            Kembalikan sebagai float tampilan: 0.20 → 20.0"""
+            v = clean(v)
+            if v is None: return None
+            try:
+                f = float(v)
+                return round(f * 100, 1) if abs(f) <= 1.0 else round(f, 1)
+            except:
+                return None
+
+        def to_pct_str(v):
+            """Convert Excel desimal persentase ke string tampilan: 0.83 → '83.0%'"""
+            v = clean(v)
+            if v is None: return None
+            if isinstance(v, str):
+                s = v.strip()
+                return s if s else None
+            try:
+                f = float(v)
+                # xlsb menyimpan % sebagai desimal; nilai ACH bisa > 1 (misal 3.898 = 389.8%)
+                return f"{round(f * 100, 1)}%"
+            except:
+                return str(v).strip() or None
+
+        def to_float2(v):
+            v = clean(v)
+            if v is None: return None
+            try:
+                return round(float(v), 2)
+            except:
+                return None
+
+        def fmt_actual(v):
+            """Simpan nilai aktual apa adanya; konversi hanya NaN → None."""
+            v = clean(v)
+            if v is None: return None
+            if isinstance(v, str):
+                s = v.strip()
+                return s if s else None
+            try:
+                f = float(v)
+                # Jika merupakan integer (misal 5, 957), kembalikan sebagai int
+                return int(f) if f == int(f) else round(f, 4)
+            except:
+                return str(v)
+
+        # --- Hapus file lama IPP_DEPO_*.json ---
+        deleted = 0
+        for fname in os.listdir('.'):
+            if fname.upper().startswith('IPP_DEPO_') and fname.endswith('.json'):
+                try:
+                    os.remove(fname)
+                    deleted += 1
+                except:
+                    pass
+        if deleted:
+            print(f"🗑️  {deleted} file IPP_DEPO lama dihapus")
+
+        now_str = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+        created_files = []
+
+        for depo_name, depo_df in df.groupby('Depo'):
+            if not depo_name or (isinstance(depo_name, float) and math.isnan(depo_name)):
+                continue
+
+            kpis = []
+            for _, row in depo_df.iterrows():
+                kpi_name = to_str(row.get(col_kpi)) if col_kpi else None
+                if not kpi_name:
+                    continue  # skip baris kosong
+
+                kpi_obj = {
+                    "kpi":     kpi_name,
+                    "type":    to_str(row.get(col_type))      if col_type    else None,
+                    "weight":  to_pct_float(row.get(col_weight)) if col_weight else None,
+                    "target":  to_str(row.get(col_target))    if col_target  else None,
+                    "scoring": to_str(row.get(col_scoring))   if col_scoring else None,
+                    "actual":  fmt_actual(row.get(col_actual)) if col_actual  else None,
+                    "ach":     to_pct_str(row.get(col_ach))   if col_ach     else None,
+                    "score":   to_float2(row.get(col_score))  if col_score   else None,
+                    "point":   to_float2(row.get(col_point))  if col_point   else None,
+                }
+                kpis.append(kpi_obj)
+
+            if not kpis:
+                print(f"  ⚠️  {depo_name} — tidak ada KPI ditemukan, skip")
+                continue
+
+            safe_name = str(depo_name).strip()
+            if safe_name.upper().startswith('DEPO '):
+                safe_name = safe_name[5:]
+            safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
+            filename = f"IPP_DEPO_{safe_name}.json"
+
+            json_data = {
+                "metadata": {
+                    "source": excel_file,
+                    "sheet_name": "IPP",
+                    "depo": str(depo_name),
+                    "total_kpis": len(kpis),
+                    "last_updated": now_str
+                },
+                "kpis": kpis
+            }
+
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(json_data, f, ensure_ascii=False, indent=2, allow_nan=False)
+                f.flush()
+                os.fsync(f.fileno())
+
+            current_time = time.time()
+            os.utime(filename, (current_time, current_time))
+            created_files.append(filename)
+            print(f"  ✅ {filename} — {len(kpis)} KPI")
+
+        print(f"✅ {len(created_files)} file IPP per-Depo dibuat")
+        return True
+
+    except Exception as e:
+        print(f"⚠️  Gagal export IPP: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
 def export_depo_list(excel_file):
     """Generate depo_list.json dari daftar depo di sheet OneSheet"""
     try:
@@ -1160,6 +1354,9 @@ if __name__ == "__main__":
         print()
         # Generate depo_list.json
         export_depo_list("OneSheetDepo.xlsb")
+        print()
+        # Export IPP_DEPO_*.json dari sheet IPP
+        export_ipp("OneSheetDepo.xlsb")
         print()
         print("🎉 Export berhasil!")
         print()
