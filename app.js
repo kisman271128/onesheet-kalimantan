@@ -3379,15 +3379,15 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 data[`W${i}`] = { from, to, hk };
             }
             const json = JSON.stringify(data, null, 2);
-            const canUpload = typeof window.uploadToGitHub === 'function';
-            if (canUpload) {
-                const ok = await uploadToGitHub('HK.json', json);
-                if (ok) {
+            if (typeof window.uploadToGitHub === 'function') {
+                try {
+                    await uploadToGitHub('HK.json', json);
                     alert('HK.json berhasil diupload ke GitHub.');
                     document.getElementById('hariKerjaModal').classList.remove('show-flex');
                     return;
+                } catch(e) {
+                    alert('Upload ke GitHub gagal: ' + e.message + '\nFile akan disimpan secara lokal sebagai cadangan.');
                 }
-                alert('Upload ke GitHub gagal. File akan disimpan secara lokal sebagai cadangan.');
             }
             const blob = new Blob([json], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
