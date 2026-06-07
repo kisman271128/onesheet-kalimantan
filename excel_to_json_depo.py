@@ -1085,11 +1085,11 @@ def export_ipp(excel_file):
     """Export sheet IPP ke IPP_DEPO_<n>.json per Depo.
 
     Kolom Excel yang diharapkan (sheet "IPP"):
-      Depo | KPI | TYPE | WEIGHT | TARGET | SCORING | TARGET (numeric) | ACTUAL | ACH | SCORE | POINT/POIN
+      A=Depo | B=KPI | C=TYPE | D=WEIGHT | E=UOM | F=SCORING | G=TARGET | H=ACTUAL | I=ACH | J=SCORE | K=POIN
 
     Output JSON: IPP_DEPO_<NAME>.json
       { "metadata": {...}, "kpis": [
-          {"kpi","type","weight","target","scoring","actual","ach","score","point"}, ...
+          {"kpi","type","weight","uom","scoring","target","actual","ach","score","point"}, ...
       ] }
     """
     try:
@@ -1126,15 +1126,16 @@ def export_ipp(excel_file):
         col_kpi     = cols_upper.get('KPI')
         col_type    = cols_upper.get('TYPE')
         col_weight  = cols_upper.get('WEIGHT')
-        col_target  = cols_upper.get('TARGET')        # kolom pertama TARGET (tipe: BP / % / Index)
+        col_uom     = cols_upper.get('UOM')
         col_scoring = cols_upper.get('SCORING')
+        col_target  = cols_upper.get('TARGET')
         col_actual  = cols_upper.get('ACTUAL')
         col_ach     = cols_upper.get('ACH')
         col_score   = cols_upper.get('SCORE')
         col_point   = cols_upper.get('POINT') or cols_upper.get('POIN')
 
         print(f"   Kolom terdeteksi: KPI={col_kpi}, TYPE={col_type}, WEIGHT={col_weight}, "
-              f"TARGET={col_target}, SCORING={col_scoring}, ACTUAL={col_actual}, "
+              f"UOM={col_uom}, SCORING={col_scoring}, TARGET={col_target}, ACTUAL={col_actual}, "
               f"ACH={col_ach}, SCORE={col_score}, POINT={col_point}")
 
         # --- Helper konversi nilai ---
@@ -1166,7 +1167,15 @@ def export_ipp(excel_file):
             if v is None: return None
             if isinstance(v, str):
                 s = v.strip()
-                return s if s else None
+                if not s: return None
+                # Kalau string sudah mengandung '%', kembalikan langsung
+                if '%' in s: return s
+                # Kalau string adalah angka (pyxlsb baca cell % sebagai string angka)
+                try:
+                    f = float(s)
+                    return f"{round(f * 100, 1)}%"
+                except:
+                    return s
             try:
                 f = float(v)
                 # xlsb menyimpan % sebagai desimal; nilai ACH bisa > 1 (misal 3.898 = 389.8%)
@@ -1196,6 +1205,14 @@ def export_ipp(excel_file):
             except:
                 return str(v)
 
+        def smart_actual(v, target_is_pct):
+            """Jika KPI bertipe %, konversi actual desimal ke string persen."""
+            v2 = clean(v)
+            if v2 is None: return None
+            if target_is_pct and not isinstance(v2, str):
+                return to_pct_str(v2)
+            return fmt_actual(v2)
+
         # --- Hapus file lama IPP_DEPO_*.json ---
         deleted = 0
         for fname in os.listdir('.'):
@@ -1221,16 +1238,32 @@ def export_ipp(excel_file):
                 if not kpi_name:
                     continue  # skip baris kosong
 
+                # Deteksi apakah KPI bertipe persentase:
+                # pyxlsb membaca cell "%" sebagai desimal (100% → 1.0).
+                # Jika UOM-nya numeric (bukan "BP"/"Index"), berarti kolom UOM
+                # di Excel berformat %, begitu juga TARGET dan ACTUAL.
+                raw_uom    = clean(row.get(col_uom))    if col_uom    else None
+                raw_target = clean(row.get(col_target)) if col_target else None
+
+                uom_is_pct    = raw_uom    is not None and not isinstance(raw_uom,    str)
+                target_is_pct = False
+                if uom_is_pct and raw_target is not None and not isinstance(raw_target, str):
+                    try:
+                        target_is_pct = abs(float(raw_target)) <= 1.0001
+                    except:
+                        pass
+
                 kpi_obj = {
                     "kpi":     kpi_name,
-                    "type":    to_str(row.get(col_type))      if col_type    else None,
-                    "weight":  to_pct_float(row.get(col_weight)) if col_weight else None,
-                    "target":  to_str(row.get(col_target))    if col_target  else None,
-                    "scoring": to_str(row.get(col_scoring))   if col_scoring else None,
-                    "actual":  fmt_actual(row.get(col_actual)) if col_actual  else None,
-                    "ach":     to_pct_str(row.get(col_ach))   if col_ach     else None,
-                    "score":   to_float2(row.get(col_score))  if col_score   else None,
-                    "point":   to_float2(row.get(col_point))  if col_point   else None,
+                    "type":    to_str(row.get(col_type))                        if col_type    else None,
+                    "weight":  to_pct_float(row.get(col_weight))                if col_weight  else None,
+                    "uom":     to_pct_str(raw_uom) if raw_uom is not None else None,
+                    "scoring": to_str(row.get(col_scoring))                     if col_scoring else None,
+                    "target":  to_str(raw_target),
+                    "actual":  smart_actual(row.get(col_actual), target_is_pct) if col_actual  else None,
+                    "ach":     to_pct_str(row.get(col_ach))                     if col_ach     else None,
+                    "score":   to_float2(row.get(col_score))                    if col_score   else None,
+                    "point":   to_float2(row.get(col_point))                    if col_point   else None,
                 }
                 kpis.append(kpi_obj)
 
@@ -1320,6 +1353,114 @@ def export_depo_list(excel_file):
     except Exception as e:
         print(f"❌ Gagal membuat depo_list.json: {e}")
 
+def export_pom(excel_file):
+    """Export sheet POM ke POM_DEPO_<n>.json per Depo.
+
+    Kolom Excel (sheet "POM"):
+      RegionId | RegionName | DepotId | DepoName | SupervisorId | SupervisorName |
+      SalesmanId | SalesmanName | DepartmentId | ProductId | ProductName |
+      TargetGroupId | Target | TargetAdjustment | CustomerRoute | TargetCA | Year | Month | MTD
+    """
+    try:
+        print("📊 Membaca Sheet POM...")
+        df = pd.read_excel(excel_file, sheet_name="POM", engine='pyxlsb', header=0)
+        df.columns = df.columns.str.strip()
+
+        print(f"   Kolom tersedia: {', '.join(df.columns)}")
+
+        if df.empty:
+            print("⚠️  Sheet POM kosong, tidak ada file yang dibuat")
+            return False
+
+        # Cari kolom nama depo (DepoName / Depo / DepoId)
+        depo_col = None
+        for cand in ['DepoName', 'Depo', 'DepoId', 'DepotName']:
+            if cand in df.columns:
+                depo_col = cand
+                break
+        if depo_col is None:
+            print("❌ Kolom DepoName tidak ditemukan di sheet POM")
+            return False
+
+        df = df.replace([np.nan, np.inf, -np.inf], None)
+        df = df.where(pd.notnull(df), None)
+
+        # Konversi kolom numerik agar tidak tersimpan sebagai float berbuntut panjang
+        num_cols = ['Target', 'TargetAdjustment', 'CustomerRoute', 'TargetCA', 'MTD',
+                    'Year', 'Month', 'RegionId', 'DepotId']
+        for col in num_cols:
+            if col in df.columns:
+                df[col] = df[col].apply(
+                    lambda v: None if v is None else (
+                        int(v) if isinstance(v, float) and v == int(v) else
+                        round(v, 4) if isinstance(v, float) else v
+                    )
+                )
+
+        # Hapus file lama POM_DEPO_*.json
+        deleted = 0
+        for fname in os.listdir('.'):
+            if fname.upper().startswith('POM_DEPO_') and fname.endswith('.json'):
+                try:
+                    os.remove(fname)
+                    deleted += 1
+                except:
+                    pass
+        if deleted:
+            print(f"🗑️  {deleted} file POM_DEPO lama dihapus")
+
+        now_str = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+        created_files = []
+
+        for depo_name, depo_df in df.groupby(depo_col):
+            if not depo_name or (isinstance(depo_name, float) and math.isnan(depo_name)):
+                continue
+
+            records = depo_df.to_dict('records')
+            # Bersihkan sisa NaN di record level
+            for rec in records:
+                for k, v in rec.items():
+                    if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
+                        rec[k] = None
+
+            safe_name = str(depo_name).strip()
+            if safe_name.upper().startswith('DEPO '):
+                safe_name = safe_name[5:]
+            safe_name = safe_name.upper().replace(' ', '_').replace('/', '_')
+            filename = f"POM_DEPO_{safe_name}.json"
+
+            json_data = {
+                "metadata": {
+                    "source": excel_file,
+                    "sheet_name": "POM",
+                    "depo": str(depo_name),
+                    "total_records": len(records),
+                    "columns": list(depo_df.columns),
+                    "last_updated": now_str
+                },
+                "data": records
+            }
+
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(json_data, f, ensure_ascii=False, indent=2, allow_nan=False)
+                f.flush()
+                os.fsync(f.fileno())
+
+            current_time = time.time()
+            os.utime(filename, (current_time, current_time))
+            created_files.append(filename)
+            print(f"  ✅ {filename} — {len(records)} records")
+
+        print(f"✅ {len(created_files)} file POM per-Depo dibuat")
+        return True
+
+    except Exception as e:
+        print(f"⚠️  Gagal export POM: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
 if __name__ == "__main__":
     data_result = export_data()
     success, actual_mtd = data_result if isinstance(data_result, tuple) else (data_result, 0.0)
@@ -1357,6 +1498,9 @@ if __name__ == "__main__":
         print()
         # Export IPP_DEPO_*.json dari sheet IPP
         export_ipp("OneSheetDepo.xlsb")
+        print()
+        # Export POM_DEPO_*.json dari sheet POM
+        export_pom("OneSheetDepo.xlsb")
         print()
         print("🎉 Export berhasil!")
         print()
