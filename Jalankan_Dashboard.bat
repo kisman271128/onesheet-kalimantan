@@ -29,6 +29,7 @@ call :download_file "update_data_depo.bat"
 call :download_file "users.json"
 call :download_file "app.js"
 call :download_file "styles.css"
+call :download_file "HK.json"
 
 echo.
 
