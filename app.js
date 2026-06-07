@@ -3379,16 +3379,8 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 data[`W${i}`] = { from, to, hk };
             }
             const json = JSON.stringify(data, null, 2);
-            if (typeof window.uploadToGitHub === 'function') {
-                try {
-                    await uploadToGitHub('HK.json', json);
-                    alert('HK.json berhasil diupload ke GitHub.');
-                    document.getElementById('hariKerjaModal').classList.remove('show-flex');
-                    return;
-                } catch(e) {
-                    alert('Upload ke GitHub gagal: ' + e.message + '\nFile akan disimpan secara lokal sebagai cadangan.');
-                }
-            }
+
+            // Selalu simpan lokal terlebih dahulu
             const blob = new Blob([json], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -3398,7 +3390,19 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             a.click();
             a.remove();
             URL.revokeObjectURL(url);
-            alert('Pengaturan disimpan ke file HK.json (download).');
+
+            // Lalu upload ke GitHub
+            if (typeof window.uploadToGitHub === 'function') {
+                try {
+                    await uploadToGitHub('HK.json', json);
+                    alert('HK.json berhasil disimpan lokal dan diupload ke GitHub.');
+                } catch(e) {
+                    alert('File disimpan lokal.\nUpload ke GitHub gagal: ' + e.message);
+                }
+            } else {
+                alert('Pengaturan disimpan ke file HK.json (download).');
+            }
+            document.getElementById('hariKerjaModal').classList.remove('show-flex');
         }
 
         function loadHKModal() {
