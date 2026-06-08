@@ -26,6 +26,7 @@ set _GHRAW=https://raw.githubusercontent.com/kisman271128/onesheet-kalimantan/ma
 call :download_file "launcher.html"
 call :download_file "index.html"
 call :download_file "update_data_depo.bat"
+call :download_file "excel_to_json_depo.py"
 call :download_file "users.json"
 call :download_file "app.js"
 call :download_file "styles.css"
