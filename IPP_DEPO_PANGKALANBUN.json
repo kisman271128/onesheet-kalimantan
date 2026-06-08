@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "source": "OneSheetDepo.xlsb",
+    "sheet_name": "IPP",
+    "depo": "Depo Pangkalanbun",
+    "total_kpis": 10,
+    "last_updated": "2026-06-08 17:19:04"
+  },
+  "kpis": [
+    {
+      "kpi": "Sales Achievement Depo - Exc. Abbott, Flora, Bauli & Quaker",
+      "type": "LEAD",
+      "weight": 20,
+      "uom": "BP",
+      "scoring": "General Scoring",
+      "target": "23580957021.27823",
+      "actual": 22708501131.0964,
+      "ach": "96.3%",
+      "score": 2,
+      "point": 0.4
+    },
+    {
+      "kpi": "Drive ND : Sales Growth Whs Med & Small",
+      "type": "LEAD",
+      "weight": 10,
+      "uom": "BP",
+      "scoring": "General Scoring",
+      "target": "6164033832.138187",
+      "actual": 6082687719.2894,
+      "ach": "-1.3%",
+      "score": 1,
+      "point": 0.1
+    },
+    {
+      "kpi": "%EC Salesman",
+      "type": "LEAD",
+      "weight": 10,
+      "uom": "100.0%",
+      "scoring": "General Scoring",
+      "target": "0.71",
+      "actual": "69.4%",
+      "ach": "97.7%",
+      "score": 2,
+      "point": 0.2
+    },
+    {
+      "kpi": "CA Productivity Depo : All",
+      "type": "LEAD",
+      "weight": 10,
+      "uom": "Index",
+      "scoring": "Index Scoring",
+      "target": "0.8033333333333332",
+      "actual": 1.055,
+      "ach": "131.3%",
+      "score": 5,
+      "point": 0.5
+    },
+    {
+      "kpi": "CR Expansion - Direct (50% Rtl, 50% School)",
+      "type": "LEAD",
+      "weight": 10,
+      "uom": "100.0%",
+      "scoring": "General Scoring",
+      "target": "40.0",
+      "actual": 40,
+      "ach": "90.0%",
+      "score": 2,
+      "point": 0.2
+    },
+    {
+      "kpi": "Green Store (Depo Only) - phasing quarter",
+      "type": "LEAD",
+      "weight": 10,
+      "uom": "100.0%",
+      "scoring": "General Scoring",
+      "target": "412.15",
+      "actual": 853,
+      "ach": "207.0%",
+      "score": 5,
+      "point": 0.5
+    },
+    {
+      "kpi": "Ways of Working : Business Review Top 25 Pareto",
+      "type": "LEAD",
+      "weight": 10,
+      "uom": "100.0%",
+      "scoring": "General Scoring",
+      "target": "1.0",
+      "actual": "10.8%",
+      "ach": "10.8%",
+      "score": 1,
+      "point": 0.1
+    },
+    {
+      "kpi": "Coaching Evaluation",
+      "type": "LEAD",
+      "weight": 4,
+      "uom": "100.0%",
+      "scoring": "General Scoring",
+      "target": "1.0",
+      "actual": "100.0%",
+      "ach": "100.0%",
+      "score": 3,
+      "point": 0.12
+    },
+    {
+      "kpi": "Coaching Session",
+      "type": "LEAD",
+      "weight": 6,
+      "uom": "100.0%",
+      "scoring": "General Scoring",
+      "target": "1.0",
+      "actual": "100.0%",
+      "ach": "100.0%",
+      "score": 3,
+      "point": 0.18
+    },
+    {
+      "kpi": "Continous Improvement",
+      "type": "LEAD",
+      "weight": 10,
+      "uom": "100.0%",
+      "scoring": "IM Index",
+      "target": "1.0",
+      "actual": "0.0%",
+      "ach": "0.0%",
+      "score": 1,
+      "point": 0.1
+    }
+  ]
+}
