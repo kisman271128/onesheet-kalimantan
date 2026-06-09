@@ -2337,11 +2337,15 @@ ${isRegional ? renderDepoStatusPanel() : ''}
         // ===== SALESMAN SUB-TAB: CHANNEL / PROSES =====
         function switchSalesmanSubTab(tab) {
             const isChannel = tab === 'channel';
+            const isProses  = tab === 'proses';
+            const isProject = tab === 'project';
             document.getElementById('smSubTabChannel').classList.toggle('active', isChannel);
-            document.getElementById('smSubTabProses').classList.toggle('active', !isChannel);
+            document.getElementById('smSubTabProses').classList.toggle('active', isProses);
+            document.getElementById('smSubTabProject').classList.toggle('active', isProject);
             document.getElementById('smSubBtnChannel').classList.toggle('active', isChannel);
-            document.getElementById('smSubBtnProses').classList.toggle('active', !isChannel);
-            if (!isChannel) {
+            document.getElementById('smSubBtnProses').classList.toggle('active', isProses);
+            document.getElementById('smSubBtnProject').classList.toggle('active', isProject);
+            if (isProses) {
                 // Reload jika belum load ATAU jika mode berubah (regional vs per-depo)
                 const isRegional = (selectedDepo === 'data_SUMMARY');
                 const wasRegional = window._smProsesWasRegional;
@@ -2351,6 +2355,9 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     window._smProsesWasRegional = isRegional;
                     loadSmProsesData();
                 }
+            }
+            if (isProject) {
+                loadSmProjectDepo();
             }
         }
 
