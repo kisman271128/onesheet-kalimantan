@@ -3666,10 +3666,15 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             } else {
                 let json;
                 try {
-                    const res = await fetch(fileName);
+                    const depoSuffix = selectedDepo.replace('data_DEPO_', '');
+                    const [res, resBti] = await Promise.all([
+                        fetch(fileName),
+                        fetch('bti_DEPO_' + depoSuffix + '.json'),
+                    ]);
                     if (!res.ok) throw new Error('File not found');
                     json = await res.json();
                     rawData = json.data || [];
+                    window.catBtiData = resBti.ok ? ((await resBti.json()).data || []) : [];
                     console.log('Data loaded from GitHub');
                 } catch (error) {
                     console.error('Error loading data:', error);
