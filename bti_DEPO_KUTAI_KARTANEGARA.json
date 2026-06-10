@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "BTI",
     "depo": "Depo Kutai Kartanegara",
-    "total_records": 49,
+    "total_records": 56,
     "columns": [
       "RegionId",
       "RegionName",
@@ -29,7 +29,7 @@
       "Ach_MTD",
       "Gap_MTD"
     ],
-    "last_updated": "2026-06-09 08:00:58"
+    "last_updated": "2026-06-10 08:59:01"
   },
   "data": [
     {
@@ -78,9 +78,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GEN",
-      "A.MTD": 11044907.206022,
-      "Ach_MTD": 0.4952873186556951,
-      "Gap_MTD": -11255092.793978
+      "A.MTD": 11044907.206021998,
+      "Ach_MTD": 0.495287318655695,
+      "Gap_MTD": -11255092.793978002
     },
     {
       "RegionId": 9,
@@ -103,8 +103,8 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 50259328.98147899,
-      "Ach_MTD": 0.27389280098898633,
+      "A.MTD": 50259328.98147898,
+      "Ach_MTD": 0.2738928009889863,
       "Gap_MTD": -133240671.01852101
     },
     {
@@ -167,11 +167,36 @@
       "szEmployeeId": 25710015088,
       "szName": "Hamsaruding",
       "DepartmentId": "ADD",
-      "szPrincipalGroupId": "MBR",
+      "szPrincipalGroupId": "MBR-A",
+      "TargetGroupId": "Sales GT",
+      "SalesAvg": 828254.4052846667,
+      "Target": 1921061.4305097891,
+      "decTargetAdjustment": 2000000,
+      "Max": 2715104.61,
+      "Growth": 23.66,
+      "Year": 2026,
+      "Month": 6,
+      "szSalesmanType": "Sales Representative Mix Yudistira",
+      "LOB": "MBR",
+      "A.MTD": 0,
+      "Ach_MTD": 0,
+      "Gap_MTD": -2000000
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 257,
+      "szWorkplaceName": "Depo Kutai Kartanegara",
+      "SupervisorId": 25701028476,
+      "SAC Name": "Haidir Hafid",
+      "szEmployeeId": 25710015088,
+      "szName": "Hamsaruding",
+      "DepartmentId": "ADD",
+      "szPrincipalGroupId": "MBR-B",
       "TargetGroupId": "Sales GT",
       "SalesAvg": 1110834.5153136668,
       "Target": 1770107.2959000356,
-      "decTargetAdjustment": 3800000,
+      "decTargetAdjustment": 1800000,
       "Max": 2715104.61,
       "Growth": 14.53,
       "Year": 2026,
@@ -179,8 +204,8 @@
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "MBR",
       "A.MTD": 71051.35,
-      "Ach_MTD": 0.018697723684210528,
-      "Gap_MTD": -3728948.65
+      "Ach_MTD": 0.03947297222222223,
+      "Gap_MTD": -1728948.65
     },
     {
       "RegionId": 9,
@@ -228,9 +253,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GBS",
-      "A.MTD": 12688046.918627998,
-      "Ach_MTD": 0.1562567354510837,
-      "Gap_MTD": -68511953.08137201
+      "A.MTD": 13479398.280787999,
+      "Ach_MTD": 0.1660024418816256,
+      "Gap_MTD": -67720601.719212
     },
     {
       "RegionId": 9,
@@ -253,9 +278,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GEN",
-      "A.MTD": 3346414.411977,
-      "Ach_MTD": 0.09244238707118785,
-      "Gap_MTD": -32853585.588023
+      "A.MTD": 3776144.132877,
+      "Ach_MTD": 0.10431337383638122,
+      "Gap_MTD": -32423855.867123
     },
     {
       "RegionId": 9,
@@ -278,9 +303,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 66652818.809020996,
-      "Ach_MTD": 0.2513303876659917,
-      "Gap_MTD": -198547181.190979
+      "A.MTD": 87112400.78031999,
+      "Ach_MTD": 0.3284781326558069,
+      "Gap_MTD": -178087599.21968
     },
     {
       "RegionId": 9,
@@ -303,9 +328,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 21233838.695019007,
-      "Ach_MTD": 0.3050838892962501,
-      "Gap_MTD": -48366161.30498099
+      "A.MTD": 25324649.497810006,
+      "Ach_MTD": 0.36385990657773,
+      "Gap_MTD": -44275350.502189994
     },
     {
       "RegionId": 9,
@@ -342,20 +367,45 @@
       "szEmployeeId": 25710022644,
       "szName": "Holidin",
       "DepartmentId": "ADD",
-      "szPrincipalGroupId": "MBR",
+      "szPrincipalGroupId": "MBR-A",
+      "TargetGroupId": "Sales GT",
+      "SalesAvg": 563777.5370563328,
+      "Target": 1307631.1757792407,
+      "decTargetAdjustment": 1400000,
+      "Max": 4776302.79,
+      "Growth": 53.05,
+      "Year": 2026,
+      "Month": 6,
+      "szSalesmanType": "Sales Representative Mix Yudistira",
+      "LOB": "MBR",
+      "A.MTD": 0,
+      "Ach_MTD": 0,
+      "Gap_MTD": -1400000
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 257,
+      "szWorkplaceName": "Depo Kutai Kartanegara",
+      "SupervisorId": 25701028476,
+      "SAC Name": "Haidir Hafid",
+      "szEmployeeId": 25710022644,
+      "szName": "Holidin",
+      "DepartmentId": "ADD",
+      "szPrincipalGroupId": "MBR-B",
       "TargetGroupId": "Sales GT",
       "SalesAvg": 3147251.626723667,
       "Target": 5015124.205898249,
-      "decTargetAdjustment": 6500000,
+      "decTargetAdjustment": 5100000,
       "Max": 4776302.79,
       "Growth": 32.57,
       "Year": 2026,
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "MBR",
-      "A.MTD": 297471.169009,
-      "Ach_MTD": 0.04576479523215385,
-      "Gap_MTD": -6202528.830991
+      "A.MTD": 346184.686396,
+      "Ach_MTD": 0.06787935027372549,
+      "Gap_MTD": -4753815.313604
     },
     {
       "RegionId": 9,
@@ -378,9 +428,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "OTHERS",
-      "A.MTD": 493118.92000000004,
-      "Ach_MTD": 0.1006365142857143,
-      "Gap_MTD": -4406881.08
+      "A.MTD": 548754.0700000001,
+      "Ach_MTD": 0.11199062653061226,
+      "Gap_MTD": -4351245.93
     },
     {
       "RegionId": 9,
@@ -403,9 +453,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GBS",
-      "A.MTD": 6410450.505209002,
-      "Ach_MTD": 0.11148609574276525,
-      "Gap_MTD": -51089549.494791
+      "A.MTD": 11467770.306369003,
+      "Ach_MTD": 0.19943948358902613,
+      "Gap_MTD": -46032229.69363099
     },
     {
       "RegionId": 9,
@@ -428,9 +478,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GEN",
-      "A.MTD": 8257284.713042998,
-      "Ach_MTD": 0.18982263708144823,
-      "Gap_MTD": -35242715.286957
+      "A.MTD": 9991158.605198996,
+      "Ach_MTD": 0.22968180701606888,
+      "Gap_MTD": -33508841.394801006
     },
     {
       "RegionId": 9,
@@ -453,9 +503,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 59146369.39193102,
-      "Ach_MTD": 0.22168804119914176,
-      "Gap_MTD": -207653630.60806897
+      "A.MTD": 70686663.00370102,
+      "Ach_MTD": 0.2649425150063756,
+      "Gap_MTD": -196113336.99629897
     },
     {
       "RegionId": 9,
@@ -478,9 +528,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 14618909.983377008,
-      "Ach_MTD": 0.2036059886264207,
-      "Gap_MTD": -57181090.01662299
+      "A.MTD": 18786062.270838007,
+      "Ach_MTD": 0.2616443213208636,
+      "Gap_MTD": -53013937.72916199
     },
     {
       "RegionId": 9,
@@ -517,20 +567,45 @@
       "szEmployeeId": 25710034041,
       "szName": "Ridho Wahyudin",
       "DepartmentId": "ADD",
-      "szPrincipalGroupId": "MBR",
+      "szPrincipalGroupId": "MBR-A",
       "TargetGroupId": "Sales GT",
-      "SalesAvg": 2294816.7839316684,
-      "Target": 3656775.042540241,
-      "decTargetAdjustment": 5100000,
+      "SalesAvg": 577081.7003586666,
+      "Target": 1338488.9832623568,
+      "decTargetAdjustment": 1400000,
       "Max": 3815260.34,
-      "Growth": 22.29,
+      "Growth": 36.3,
       "Year": 2026,
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "MBR",
       "A.MTD": 0,
       "Ach_MTD": 0,
-      "Gap_MTD": -5100000
+      "Gap_MTD": -1400000
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 257,
+      "szWorkplaceName": "Depo Kutai Kartanegara",
+      "SupervisorId": 25701028476,
+      "SAC Name": "Haidir Hafid",
+      "szEmployeeId": 25710034041,
+      "szName": "Ridho Wahyudin",
+      "DepartmentId": "ADD",
+      "szPrincipalGroupId": "MBR-B",
+      "TargetGroupId": "Sales GT",
+      "SalesAvg": 2294816.7839316684,
+      "Target": 3656775.042540241,
+      "decTargetAdjustment": 3700000,
+      "Max": 3815260.34,
+      "Growth": 22.29,
+      "Year": 2026,
+      "Month": 6,
+      "szSalesmanType": "Sales Representative Mix Yudistira",
+      "LOB": "MBR",
+      "A.MTD": 315148.641351,
+      "Ach_MTD": 0.08517530847324324,
+      "Gap_MTD": -3384851.358649
     },
     {
       "RegionId": 9,
@@ -553,9 +628,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "OTHERS",
-      "A.MTD": 406138.81,
-      "Ach_MTD": 0.05972629558823529,
-      "Gap_MTD": -6393861.19
+      "A.MTD": 1223987.44,
+      "Ach_MTD": 0.17999815294117646,
+      "Gap_MTD": -5576012.5600000005
     },
     {
       "RegionId": 9,
@@ -578,9 +653,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GBS",
-      "A.MTD": 4719503.630888,
-      "Ach_MTD": 0.14172683576240241,
-      "Gap_MTD": -28580496.369112
+      "A.MTD": 5922118.972057999,
+      "Ach_MTD": 0.1778414105723123,
+      "Gap_MTD": -27377881.027942
     },
     {
       "RegionId": 9,
@@ -603,9 +678,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GEN",
-      "A.MTD": 2841612.6471100003,
-      "Ach_MTD": 0.16237786554914288,
-      "Gap_MTD": -14658387.35289
+      "A.MTD": 3151522.5543170003,
+      "Ach_MTD": 0.18008700310382858,
+      "Gap_MTD": -14348477.445682999
     },
     {
       "RegionId": 9,
@@ -628,9 +703,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 29063915.48677701,
-      "Ach_MTD": 0.2321399000541295,
-      "Gap_MTD": -96136084.51322299
+      "A.MTD": 36162838.02892101,
+      "Ach_MTD": 0.28884055933642977,
+      "Gap_MTD": -89037161.97107899
     },
     {
       "RegionId": 9,
@@ -653,9 +728,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 6462064.869983999,
-      "Ach_MTD": 0.1583839428917647,
-      "Gap_MTD": -34337935.130016
+      "A.MTD": 8728010.808357,
+      "Ach_MTD": 0.21392183353816177,
+      "Gap_MTD": -32071989.191643
     },
     {
       "RegionId": 9,
@@ -692,11 +767,36 @@
       "szEmployeeId": 25710035939,
       "szName": "Nur Ali Maulana Akbar",
       "DepartmentId": "ADD",
-      "szPrincipalGroupId": "MBR",
+      "szPrincipalGroupId": "MBR-A",
+      "TargetGroupId": "Sales GT",
+      "SalesAvg": 234379.90333333338,
+      "Target": 543623.0577313117,
+      "decTargetAdjustment": 600000,
+      "Max": 761062.23,
+      "Growth": 7.29,
+      "Year": 2026,
+      "Month": 6,
+      "szSalesmanType": "Sales Representative Mix Yudistira",
+      "LOB": "MBR",
+      "A.MTD": 0,
+      "Ach_MTD": 0,
+      "Gap_MTD": -600000
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 257,
+      "szWorkplaceName": "Depo Kutai Kartanegara",
+      "SupervisorId": 25701028476,
+      "SAC Name": "Haidir Hafid",
+      "szEmployeeId": 25710035939,
+      "szName": "Nur Ali Maulana Akbar",
+      "DepartmentId": "ADD",
+      "szPrincipalGroupId": "MBR-B",
       "TargetGroupId": "Sales GT",
       "SalesAvg": 256835.1324923333,
       "Target": 409265.0485745472,
-      "decTargetAdjustment": 1100000,
+      "decTargetAdjustment": 500000,
       "Max": 761062.23,
       "Growth": 4.48,
       "Year": 2026,
@@ -705,7 +805,7 @@
       "LOB": "MBR",
       "A.MTD": 0,
       "Ach_MTD": 0,
-      "Gap_MTD": -1100000
+      "Gap_MTD": -500000
     },
     {
       "RegionId": 9,
@@ -753,9 +853,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GBS",
-      "A.MTD": 12245246.877254,
-      "Ach_MTD": 0.24638323696688127,
-      "Gap_MTD": -37454753.122746
+      "A.MTD": 12477225.266982,
+      "Ach_MTD": 0.2510508102008451,
+      "Gap_MTD": -37222774.733017996
     },
     {
       "RegionId": 9,
@@ -778,9 +878,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GEN",
-      "A.MTD": 4488754.975399,
-      "Ach_MTD": 0.16563671495937268,
-      "Gap_MTD": -22611245.024601
+      "A.MTD": 4557822.546299,
+      "Ach_MTD": 0.16818533381177123,
+      "Gap_MTD": -22542177.453701
     },
     {
       "RegionId": 9,
@@ -803,9 +903,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 38832533.43379299,
-      "Ach_MTD": 0.25248721348369957,
-      "Gap_MTD": -114967466.566207
+      "A.MTD": 39352843.346493006,
+      "Ach_MTD": 0.25587024282505205,
+      "Gap_MTD": -114447156.653507
     },
     {
       "RegionId": 9,
@@ -828,9 +928,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 9208662.117107999,
-      "Ach_MTD": 0.17506962199825093,
-      "Gap_MTD": -43391337.882892
+      "A.MTD": 9345339.607107997,
+      "Ach_MTD": 0.1776680533670722,
+      "Gap_MTD": -43254660.392892
     },
     {
       "RegionId": 9,
@@ -867,11 +967,36 @@
       "szEmployeeId": 25710042130,
       "szName": "M Aulia Fathur Rahman",
       "DepartmentId": "ADD",
-      "szPrincipalGroupId": "MBR",
+      "szPrincipalGroupId": "MBR-A",
+      "TargetGroupId": "Sales GT",
+      "SalesAvg": 500482.34075033315,
+      "Target": 1160823.6736589104,
+      "decTargetAdjustment": 1200000,
+      "Max": 3304227.13,
+      "Growth": 21.27,
+      "Year": 2026,
+      "Month": 6,
+      "szSalesmanType": "Sales Representative Mix Yudistira",
+      "LOB": "MBR",
+      "A.MTD": 0,
+      "Ach_MTD": 0,
+      "Gap_MTD": -1200000
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 257,
+      "szWorkplaceName": "Depo Kutai Kartanegara",
+      "SupervisorId": 25701028476,
+      "SAC Name": "Haidir Hafid",
+      "szEmployeeId": 25710042130,
+      "szName": "M Aulia Fathur Rahman",
+      "DepartmentId": "ADD",
+      "szPrincipalGroupId": "MBR-B",
       "TargetGroupId": "Sales GT",
       "SalesAvg": 884290.3881370001,
       "Target": 1409110.7596648517,
-      "decTargetAdjustment": 2700000,
+      "decTargetAdjustment": 1500000,
       "Max": 3304227.13,
       "Growth": 13.06,
       "Year": 2026,
@@ -879,8 +1004,8 @@
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "MBR",
       "A.MTD": 290792.788108,
-      "Ach_MTD": 0.10770103263259259,
-      "Gap_MTD": -2409207.211892
+      "Ach_MTD": 0.19386185873866668,
+      "Gap_MTD": -1209207.211892
     },
     {
       "RegionId": 9,
@@ -953,9 +1078,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GEN",
-      "A.MTD": 8110102.718996,
-      "Ach_MTD": 0.7951081097054902,
-      "Gap_MTD": -2089897.2810040005
+      "A.MTD": 8110102.718995999,
+      "Ach_MTD": 0.7951081097054901,
+      "Gap_MTD": -2089897.2810040014
     },
     {
       "RegionId": 9,
@@ -978,9 +1103,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 89177130.64008301,
-      "Ach_MTD": 0.9537661031024921,
-      "Gap_MTD": -4322869.359916985
+      "A.MTD": 89177130.640083,
+      "Ach_MTD": 0.953766103102492,
+      "Gap_MTD": -4322869.359917
     },
     {
       "RegionId": 9,
@@ -1042,11 +1167,36 @@
       "szEmployeeId": 25710042672,
       "szName": "Riansyah",
       "DepartmentId": "ADD",
-      "szPrincipalGroupId": "MBR",
+      "szPrincipalGroupId": "MBR-A",
+      "TargetGroupId": "Sales GT",
+      "SalesAvg": 926197.021440333,
+      "Target": 2148230.4996983893,
+      "decTargetAdjustment": 400000,
+      "Max": 2767256.78,
+      "Growth": 25.29,
+      "Year": 2026,
+      "Month": 6,
+      "szSalesmanType": "Sales Representative Mix Yudistira",
+      "LOB": "MBR",
+      "A.MTD": 0,
+      "Ach_MTD": 0,
+      "Gap_MTD": -400000
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 257,
+      "szWorkplaceName": "Depo Kutai Kartanegara",
+      "SupervisorId": 25701028476,
+      "SAC Name": "Haidir Hafid",
+      "szEmployeeId": 25710042672,
+      "szName": "Riansyah",
+      "DepartmentId": "ADD",
+      "szPrincipalGroupId": "MBR-B",
       "TargetGroupId": "Sales GT",
       "SalesAvg": 910387.3729726666,
       "Target": 1450696.1287020766,
-      "decTargetAdjustment": 650000,
+      "decTargetAdjustment": 250000,
       "Max": 2767256.78,
       "Growth": 15.53,
       "Year": 2026,
@@ -1054,8 +1204,8 @@
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "MBR",
       "A.MTD": 88072.97,
-      "Ach_MTD": 0.13549687692307694,
-      "Gap_MTD": -561927.03
+      "Ach_MTD": 0.35229188,
+      "Gap_MTD": -161927.03
     },
     {
       "RegionId": 9,
@@ -1103,9 +1253,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GBS",
-      "A.MTD": 10182115.280784002,
-      "Ach_MTD": 0.12648590410911803,
-      "Gap_MTD": -70317884.719216
+      "A.MTD": 10849576.524834,
+      "Ach_MTD": 0.13477734813458384,
+      "Gap_MTD": -69650423.475166
     },
     {
       "RegionId": 9,
@@ -1128,9 +1278,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GEN",
-      "A.MTD": 5705225.176658,
-      "Ach_MTD": 0.11208693863768172,
-      "Gap_MTD": -45194774.823342
+      "A.MTD": 6027117.076658,
+      "Ach_MTD": 0.11841094453159136,
+      "Gap_MTD": -44872882.923342
     },
     {
       "RegionId": 9,
@@ -1153,9 +1303,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 51731666.690777,
-      "Ach_MTD": 0.11089317618601714,
-      "Gap_MTD": -414768333.309223
+      "A.MTD": 55069966.681222,
+      "Ach_MTD": 0.11804923189972562,
+      "Gap_MTD": -411430033.318778
     },
     {
       "RegionId": 9,
@@ -1178,9 +1328,9 @@
       "Month": 6,
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "GPPJ",
-      "A.MTD": 14865855.790784001,
-      "Ach_MTD": 0.1722578886533488,
-      "Gap_MTD": -71434144.209216
+      "A.MTD": 16730576.487628,
+      "Ach_MTD": 0.19386531271874854,
+      "Gap_MTD": -69569423.512372
     },
     {
       "RegionId": 9,
@@ -1217,11 +1367,36 @@
       "szEmployeeId": 25710042998,
       "szName": "Hairun Nasir",
       "DepartmentId": "ADD",
-      "szPrincipalGroupId": "MBR",
+      "szPrincipalGroupId": "MBR-A",
+      "TargetGroupId": "Sales GT",
+      "SalesAvg": 500482.34075033315,
+      "Target": 1160823.6736589104,
+      "decTargetAdjustment": 1800000,
+      "Max": 3304227.13,
+      "Growth": 21.27,
+      "Year": 2026,
+      "Month": 6,
+      "szSalesmanType": "Sales Representative Mix Yudistira",
+      "LOB": "MBR",
+      "A.MTD": 0,
+      "Ach_MTD": 0,
+      "Gap_MTD": -1800000
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 257,
+      "szWorkplaceName": "Depo Kutai Kartanegara",
+      "SupervisorId": 25701028476,
+      "SAC Name": "Haidir Hafid",
+      "szEmployeeId": 25710042998,
+      "szName": "Hairun Nasir",
+      "DepartmentId": "ADD",
+      "szPrincipalGroupId": "MBR-B",
       "TargetGroupId": "Sales GT",
       "SalesAvg": 884290.3881370001,
       "Target": 1409110.7596648517,
-      "decTargetAdjustment": 3050000,
+      "decTargetAdjustment": 1250000,
       "Max": 3304227.13,
       "Growth": 13.06,
       "Year": 2026,
@@ -1229,8 +1404,8 @@
       "szSalesmanType": "Sales Representative Mix Yudistira",
       "LOB": "MBR",
       "A.MTD": 989305.3899089999,
-      "Ach_MTD": 0.32436242292098355,
-      "Gap_MTD": -2060694.610091
+      "Ach_MTD": 0.7914443119271999,
+      "Gap_MTD": -260694.6100910001
     },
     {
       "RegionId": 9,
