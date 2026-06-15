@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Sangatta",
     "total_kpis": 10,
-    "last_updated": "2026-06-14 10:12:36"
+    "last_updated": "2026-06-16 07:29:39"
   },
   "kpis": [
     {
@@ -13,11 +13,11 @@
       "weight": 20,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "14345655467.96681",
-      "actual": 13817675720.012,
-      "ach": "96.3%",
-      "score": 2,
-      "point": 0.4
+      "target": "17266589855.29502",
+      "actual": 15254645090.6857,
+      "ach": "88.3%",
+      "score": 1,
+      "point": 0.2
     },
     {
       "kpi": "Drive ND : Sales Growth Whs Med & Small",
@@ -26,10 +26,10 @@
       "uom": "BP",
       "scoring": "General Scoring",
       "target": "4915916476.350005",
-      "actual": 5196518088.0746,
-      "ach": "5.7%",
-      "score": 1,
-      "point": 0.1
+      "actual": 5746551400.8213,
+      "ach": "16.9%",
+      "score": 5,
+      "point": 0.5
     },
     {
       "kpi": "%EC Salesman",
@@ -38,10 +38,10 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "0.71",
-      "actual": "0x7",
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "actual": "49.7%",
+      "ach": "69.9%",
+      "score": 1,
+      "point": 0.1
     },
     {
       "kpi": "CA Productivity Depo : All",
@@ -50,10 +50,10 @@
       "uom": "Index",
       "scoring": "Index Scoring",
       "target": "0.8033333333333332",
-      "actual": "0x7",
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "actual": 0.8407,
+      "ach": "104.7%",
+      "score": 5,
+      "point": 0.5
     },
     {
       "kpi": "CR Expansion - Direct (50% Rtl, 50% School)",
@@ -62,8 +62,8 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "40.0",
-      "actual": 20,
-      "ach": "45.8%",
+      "actual": 25,
+      "ach": "57.4%",
       "score": 1,
       "point": 0.1
     },
@@ -73,9 +73,9 @@
       "weight": 10,
       "uom": "100.0%",
       "scoring": "General Scoring",
-      "target": "587.65",
-      "actual": 2055,
-      "ach": "349.7%",
+      "target": "169.0",
+      "actual": 396,
+      "ach": "234.3%",
       "score": 5,
       "point": 0.5
     },
