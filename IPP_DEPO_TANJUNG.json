@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Tanjung",
     "total_kpis": 10,
-    "last_updated": "2026-06-29 02:49:57"
+    "last_updated": "2026-07-01 13:17:44"
   },
   "kpis": [
     {
@@ -14,10 +14,10 @@
       "uom": "BP",
       "scoring": "General Scoring",
       "target": "19139731237.213856",
-      "actual": 18656482282.2317,
-      "ach": "97.5%",
-      "score": 2,
-      "point": 0.4
+      "actual": 19208243247.2146,
+      "ach": "100.4%",
+      "score": 3,
+      "point": 0.6
     },
     {
       "kpi": "Drive ND : Sales Growth Whs Med & Small",
@@ -25,11 +25,11 @@
       "weight": 10,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "6792541948.729468",
-      "actual": 7390776676.6087,
-      "ach": "8.8%",
-      "score": 3,
-      "point": 0.3
+      "target": "6792541948.729467",
+      "actual": 7578228456.8683,
+      "ach": "11.6%",
+      "score": 4,
+      "point": 0.4
     },
     {
       "kpi": "%EC Salesman",
@@ -39,7 +39,7 @@
       "scoring": "General Scoring",
       "target": "0.71",
       "actual": "79.6%",
-      "ach": "112.2%",
+      "ach": "112.1%",
       "score": 5,
       "point": 0.5
     },
@@ -50,8 +50,8 @@
       "uom": "Index",
       "scoring": "Index Scoring",
       "target": "0.8033333333333332",
-      "actual": 1.0081,
-      "ach": "125.5%",
+      "actual": 0.9864,
+      "ach": "122.8%",
       "score": 5,
       "point": 0.5
     },
@@ -74,8 +74,8 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "591.15",
-      "actual": 2306,
-      "ach": "390.1%",
+      "actual": 2343,
+      "ach": "396.3%",
       "score": 5,
       "point": 0.5
     },
@@ -122,10 +122,10 @@
       "uom": "100.0%",
       "scoring": "IM Index",
       "target": "1.0",
-      "actual": "100.0%",
-      "ach": "100.0%",
-      "score": 3,
-      "point": 0.3
+      "actual": "120.0%",
+      "ach": "120.0%",
+      "score": 5,
+      "point": 0.5
     }
   ]
 }
