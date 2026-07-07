@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "Proses",
     "depo": "Depo Batulicin",
-    "total_records": 8,
+    "total_records": 9,
     "columns": [
       "Depo",
       "szname",
@@ -34,7 +34,7 @@
       "%SKU",
       "%GS"
     ],
-    "last_updated": "2026-07-07 09:00:51"
+    "last_updated": "2026-07-07 09:08:35"
   },
   "data": [
     {
@@ -276,6 +276,36 @@
       "%ECIns": 0.832,
       "%SKU": 0.577976817702845,
       "%GS": 1.3703703703703705
+    },
+    {
+      "Depo": "Depo Batulicin",
+      "szname": "Ahmad Fajriansyah",
+      "Tipe Salesman": "Sales Representative Retailer Arjuna",
+      "CR": 250,
+      "PC": 25,
+      "AC": 24,
+      "EC": 22,
+      "ET": 20,
+      "AvgSKU": 19,
+      "GS": 45,
+      "ECIns": 18.75,
+      "A_CR": 132,
+      "CA": 53,
+      "A_PC": 26.4,
+      "A_AC": 26.4,
+      "A_EC": 20,
+      "A_ET": 17.666666666666668,
+      "A_AvgSKU": 12.943396226415095,
+      "ARColl": 1,
+      "A_GS": 11,
+      "%CR": 0.528,
+      "%CA": 0.4015151515151515,
+      "%PC": 1.056,
+      "%AC": 1.0999999999999999,
+      "%EC": 0.9090909090909091,
+      "%ECIns": 1.0666666666666667,
+      "%SKU": 0.6812313803376365,
+      "%GS": 0.24444444444444444
     }
   ]
 }
