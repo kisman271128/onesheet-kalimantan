@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Kutai Kartanegara",
     "total_kpis": 10,
-    "last_updated": "2026-07-07 06:51:16"
+    "last_updated": "2026-07-09 06:52:52"
   },
   "kpis": [
     {
@@ -13,11 +13,11 @@
       "weight": 20,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "0.0",
-      "actual": 0,
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "target": "17989937804.371857",
+      "actual": 600206028.3494,
+      "ach": "3.3%",
+      "score": 1,
+      "point": 0.2
     },
     {
       "kpi": "Drive ND : Sales Growth Whs Med & Small",
@@ -25,7 +25,7 @@
       "weight": 10,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "6419471582.854183",
+      "target": "6419471582.854189",
       "actual": 6986492236.8073,
       "ach": "8.8%",
       "score": 3,
@@ -38,8 +38,8 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "0.71",
-      "actual": "66.5%",
-      "ach": "93.7%",
+      "actual": "71.0%",
+      "ach": "99.9%",
       "score": 2,
       "point": 0.2
     },
@@ -50,10 +50,10 @@
       "uom": "Index",
       "scoring": "Index Scoring",
       "target": "0.8033333333333332",
-      "actual": "0x7",
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "actual": 0.508,
+      "ach": "63.2%",
+      "score": 1,
+      "point": 0.1
     },
     {
       "kpi": "CR Expansion - Direct (50% Rtl, 50% School)",
@@ -62,8 +62,8 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "70.0",
-      "actual": 129,
-      "ach": "145.2%",
+      "actual": 141,
+      "ach": "159.2%",
       "score": 5,
       "point": 0.5
     },
