@@ -3,7 +3,7 @@
     "source": "OneSheetDepo.xlsb",
     "sheet_name": "OneSheetCat",
     "depo": "DEPO SANGATTA",
-    "total_records": 17644,
+    "total_records": 17833,
     "columns": [
       "Nama Salesman",
       "Tim",
@@ -17,7 +17,7 @@
       "NetSalesPKD"
     ],
     "note": "Agregat level SzCustId, tanpa TYPE, semua periode",
-    "last_updated": "2026-07-10 04:25:55"
+    "last_updated": "2026-07-11 09:37:21"
   },
   "data": [
     {
@@ -37396,8 +37396,44 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0078-08-000000652",
+      "NetSalesPKD": 745405.4,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-17-000000880",
       "NetSalesPKD": 79864.86,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001377",
+      "NetSalesPKD": 319459.46,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "PET",
+      "SzCustId": "0078-08-000000652",
+      "NetSalesPKD": 351351.35,
       "Nama Pelanggan": ""
     },
     {
@@ -37492,6 +37528,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
+      "SzCustId": "0126-18-000001377",
+      "NetSalesPKD": 724324.33,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-18-000001385",
       "NetSalesPKD": 144864.88,
       "Nama Pelanggan": ""
@@ -37529,7 +37577,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-18-000001400",
-      "NetSalesPKD": -126756.76,
+      "NetSalesPKD": -36216.21,
       "Nama Pelanggan": ""
     },
     {
@@ -37577,7 +37625,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-18-000001532",
-      "NetSalesPKD": 144864.88,
+      "NetSalesPKD": 325945.95,
       "Nama Pelanggan": ""
     },
     {
@@ -37590,6 +37638,18 @@
       "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-18-000001677",
       "NetSalesPKD": 181081.1,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 724324.33,
       "Nama Pelanggan": ""
     },
     {
@@ -37614,6 +37674,18 @@
       "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-23-000002102",
       "NetSalesPKD": 144864.88,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "SzCustId": "0126-23-000002123",
+      "NetSalesPKD": 271621.62,
       "Nama Pelanggan": ""
     },
     {
@@ -37805,7 +37877,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001377",
-      "NetSalesPKD": 245045.04,
+      "NetSalesPKD": 465585.58,
       "Nama Pelanggan": ""
     },
     {
@@ -37817,7 +37889,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001387",
-      "NetSalesPKD": 343063.06,
+      "NetSalesPKD": 808648.65,
       "Nama Pelanggan": ""
     },
     {
@@ -37841,7 +37913,31 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001400",
-      "NetSalesPKD": 441081.08,
+      "NetSalesPKD": 447545.94,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-18-000001402",
+      "NetSalesPKD": 122522.52,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-18-000001515",
+      "NetSalesPKD": 122522.52,
       "Nama Pelanggan": ""
     },
     {
@@ -37890,6 +37986,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001677",
       "NetSalesPKD": 15315.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 483963.96,
       "Nama Pelanggan": ""
     },
     {
@@ -37950,6 +38058,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002400",
       "NetSalesPKD": 140135.13,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-25-000002406",
+      "NetSalesPKD": 441081.08,
       "Nama Pelanggan": ""
     },
     {
@@ -38081,7 +38201,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001387",
-      "NetSalesPKD": 220540.54,
+      "NetSalesPKD": 441081.08,
       "Nama Pelanggan": ""
     },
     {
@@ -38116,8 +38236,44 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001400",
+      "NetSalesPKD": 441081.08,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001402",
       "NetSalesPKD": 108108.11,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001503",
+      "NetSalesPKD": 220540.54,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001515",
+      "NetSalesPKD": 358423.42,
       "Nama Pelanggan": ""
     },
     {
@@ -38166,6 +38322,18 @@
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001677",
       "NetSalesPKD": 220540.54,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 441081.08,
       "Nama Pelanggan": ""
     },
     {
@@ -38249,7 +38417,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0078-08-000000652",
-      "NetSalesPKD": 18413393.68,
+      "NetSalesPKD": 32264745.03,
       "Nama Pelanggan": ""
     },
     {
@@ -38393,7 +38561,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001377",
-      "NetSalesPKD": 1772972.96,
+      "NetSalesPKD": 6246486.46,
       "Nama Pelanggan": ""
     },
     {
@@ -38417,7 +38585,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001387",
-      "NetSalesPKD": 1070270.28,
+      "NetSalesPKD": 3237837.83,
       "Nama Pelanggan": ""
     },
     {
@@ -38477,7 +38645,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001400",
-      "NetSalesPKD": 972972.97,
+      "NetSalesPKD": 1342702.7,
       "Nama Pelanggan": ""
     },
     {
@@ -38489,7 +38657,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001402",
-      "NetSalesPKD": 956216.21,
+      "NetSalesPKD": 2225405.39,
       "Nama Pelanggan": ""
     },
     {
@@ -38513,7 +38681,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001503",
-      "NetSalesPKD": 605810.81,
+      "NetSalesPKD": 717522.53,
       "Nama Pelanggan": ""
     },
     {
@@ -38526,6 +38694,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001504",
       "NetSalesPKD": 594594.6,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-18-000001515",
+      "NetSalesPKD": 1610810.8,
       "Nama Pelanggan": ""
     },
     {
@@ -38573,7 +38753,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001532",
-      "NetSalesPKD": 228198.2,
+      "NetSalesPKD": 522252.25,
       "Nama Pelanggan": ""
     },
     {
@@ -38596,8 +38776,32 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-18-000001713",
+      "NetSalesPKD": 445405.41,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001714",
       "NetSalesPKD": 269189.22,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 4673513.52,
       "Nama Pelanggan": ""
     },
     {
@@ -38680,6 +38884,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-23-000002123",
+      "NetSalesPKD": 1221621.62,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-23-000002131",
       "NetSalesPKD": 306891.89,
       "Nama Pelanggan": ""
@@ -38730,6 +38946,30 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002403",
       "NetSalesPKD": 302702.7,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-25-000002405",
+      "NetSalesPKD": 812432.43,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-25-000002406",
+      "NetSalesPKD": 598918.93,
       "Nama Pelanggan": ""
     },
     {
@@ -38849,7 +39089,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0078-08-000000652",
-      "NetSalesPKD": 14748937.82,
+      "NetSalesPKD": 18520829.71,
       "Nama Pelanggan": ""
     },
     {
@@ -38957,7 +39197,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-18-000001377",
-      "NetSalesPKD": 1574774.77,
+      "NetSalesPKD": 2327927.92,
       "Nama Pelanggan": ""
     },
     {
@@ -38969,7 +39209,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-18-000001387",
-      "NetSalesPKD": 205405.4,
+      "NetSalesPKD": 1550991,
       "Nama Pelanggan": ""
     },
     {
@@ -39005,7 +39245,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-18-000001400",
-      "NetSalesPKD": 387027.03,
+      "NetSalesPKD": 1495675.67,
       "Nama Pelanggan": ""
     },
     {
@@ -39017,7 +39257,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-18-000001402",
-      "NetSalesPKD": 205405.4,
+      "NetSalesPKD": 385945.94,
       "Nama Pelanggan": ""
     },
     {
@@ -39041,7 +39281,19 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-18-000001503",
-      "NetSalesPKD": 136936.94,
+      "NetSalesPKD": 684684.7,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-18-000001515",
+      "NetSalesPKD": 821621.61,
       "Nama Pelanggan": ""
     },
     {
@@ -39102,6 +39354,18 @@
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-18-000001714",
       "NetSalesPKD": 205405.41,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 616216.23,
       "Nama Pelanggan": ""
     },
     {
@@ -39184,6 +39448,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-23-000002123",
+      "NetSalesPKD": 410810.82,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-23-000002133",
       "NetSalesPKD": 750415.32,
       "Nama Pelanggan": ""
@@ -39222,6 +39498,30 @@
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-25-000002404",
       "NetSalesPKD": 648648.66,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-25-000002405",
+      "NetSalesPKD": 342342.34,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-25-000002406",
+      "NetSalesPKD": 273873.88,
       "Nama Pelanggan": ""
     },
     {
@@ -39281,7 +39581,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0078-08-000000652",
-      "NetSalesPKD": 3214475.69,
+      "NetSalesPKD": 7349610.82,
       "Nama Pelanggan": ""
     },
     {
@@ -39388,8 +39688,20 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-18-000001377",
+      "NetSalesPKD": 1022702.71,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-18-000001387",
-      "NetSalesPKD": 271351.35,
+      "NetSalesPKD": 498378.37,
       "Nama Pelanggan": ""
     },
     {
@@ -39437,7 +39749,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-18-000001400",
-      "NetSalesPKD": 412972.98,
+      "NetSalesPKD": 669189.19,
       "Nama Pelanggan": ""
     },
     {
@@ -39449,7 +39761,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-18-000001402",
-      "NetSalesPKD": 266977.48,
+      "NetSalesPKD": 635626.12,
       "Nama Pelanggan": ""
     },
     {
@@ -39473,7 +39785,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-18-000001503",
-      "NetSalesPKD": 90270.28,
+      "NetSalesPKD": 271171.2,
       "Nama Pelanggan": ""
     },
     {
@@ -39486,6 +39798,18 @@
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-18-000001504",
       "NetSalesPKD": 89729.73,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-18-000001515",
+      "NetSalesPKD": 916756.75,
       "Nama Pelanggan": ""
     },
     {
@@ -39533,7 +39857,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-18-000001532",
-      "NetSalesPKD": 45405.41,
+      "NetSalesPKD": 181621.64,
       "Nama Pelanggan": ""
     },
     {
@@ -39570,6 +39894,18 @@
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-18-000001714",
       "NetSalesPKD": 45045.05,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 679639.64,
       "Nama Pelanggan": ""
     },
     {
@@ -39736,6 +40072,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-15-000000714",
+      "NetSalesPKD": 2036756.76,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-15-000000724",
       "NetSalesPKD": 162162.17,
       "Nama Pelanggan": ""
@@ -39773,7 +40121,19 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001387",
-      "NetSalesPKD": 162162.16,
+      "NetSalesPKD": 324324.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001400",
+      "NetSalesPKD": 486486.48,
       "Nama Pelanggan": ""
     },
     {
@@ -39820,7 +40180,31 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001532",
+      "NetSalesPKD": 162162.16,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001677",
+      "NetSalesPKD": 162162.16,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001713",
       "NetSalesPKD": 162162.16,
       "Nama Pelanggan": ""
     },
@@ -39834,6 +40218,18 @@
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001714",
       "NetSalesPKD": 137837.84,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 162162.16,
       "Nama Pelanggan": ""
     },
     {
@@ -39989,7 +40385,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-18-000001377",
-      "NetSalesPKD": 288288.29,
+      "NetSalesPKD": 864864.86,
       "Nama Pelanggan": ""
     },
     {
@@ -40013,7 +40409,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-18-000001387",
-      "NetSalesPKD": 432432.43,
+      "NetSalesPKD": 864864.86,
       "Nama Pelanggan": ""
     },
     {
@@ -40037,7 +40433,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-18-000001400",
-      "NetSalesPKD": 432432.43,
+      "NetSalesPKD": 1297297.3,
       "Nama Pelanggan": ""
     },
     {
@@ -40049,7 +40445,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-18-000001402",
-      "NetSalesPKD": 144144.15,
+      "NetSalesPKD": 288288.29,
       "Nama Pelanggan": ""
     },
     {
@@ -40108,7 +40504,31 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-18-000001532",
+      "NetSalesPKD": 288288.28,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0126-18-000001677",
+      "NetSalesPKD": 144144.14,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-18-000001713",
       "NetSalesPKD": 144144.14,
       "Nama Pelanggan": ""
     },
@@ -40122,6 +40542,18 @@
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-18-000001714",
       "NetSalesPKD": 108108.11,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 432432.43,
       "Nama Pelanggan": ""
     },
     {
@@ -40288,6 +40720,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "LIQUID MILK",
+      "SzCustId": "0126-18-000001402",
+      "NetSalesPKD": 248648.65,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-18-000001519",
       "NetSalesPKD": 1657657.66,
       "Nama Pelanggan": ""
@@ -40314,6 +40758,18 @@
       "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-18-000001677",
       "NetSalesPKD": 248648.65,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Achmad Efendi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
+      "SzCustId": "0126-19-000001822",
+      "NetSalesPKD": 1243243.24,
       "Nama Pelanggan": ""
     },
     {
@@ -58228,6 +58684,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-10-000000054",
+      "NetSalesPKD": 174324.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-10-000000065",
       "NetSalesPKD": 611036.03,
       "Nama Pelanggan": ""
@@ -58254,6 +58722,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-15-000000703",
       "NetSalesPKD": 390866.67,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-16-000000757",
+      "NetSalesPKD": 667747.74,
       "Nama Pelanggan": ""
     },
     {
@@ -58300,6 +58780,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-10-000000054",
+      "NetSalesPKD": 307905.41,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-10-000000065",
       "NetSalesPKD": 578963.96,
       "Nama Pelanggan": ""
@@ -58326,6 +58818,18 @@
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-15-000000703",
       "NetSalesPKD": 110270.27,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-16-000000757",
+      "NetSalesPKD": 1084256.76,
       "Nama Pelanggan": ""
     },
     {
@@ -58420,6 +58924,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-10-000000054",
+      "NetSalesPKD": 3313783.78,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-10-000000065",
       "NetSalesPKD": 1245405.42,
       "Nama Pelanggan": ""
@@ -58480,6 +58996,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-16-000000757",
+      "NetSalesPKD": 796036.04,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-16-000000803",
       "NetSalesPKD": 5513648.65,
       "Nama Pelanggan": ""
@@ -58506,6 +59034,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000001045",
       "NetSalesPKD": 171351.35,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-17-000001185",
+      "NetSalesPKD": 326486.47,
       "Nama Pelanggan": ""
     },
     {
@@ -58648,6 +59188,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-10-000000054",
+      "NetSalesPKD": 908162.16,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-10-000000065",
       "NetSalesPKD": 1241981.99,
       "Nama Pelanggan": ""
@@ -58734,6 +59286,18 @@
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-15-000000726",
       "NetSalesPKD": -18828.83,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-16-000000757",
+      "NetSalesPKD": 1277027.04,
       "Nama Pelanggan": ""
     },
     {
@@ -58853,7 +59417,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-22-000001958",
-      "NetSalesPKD": 438873.88,
+      "NetSalesPKD": 663558.57,
       "Nama Pelanggan": ""
     },
     {
@@ -58924,6 +59488,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-10-000000054",
+      "NetSalesPKD": 592792.8,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-14-000000298",
       "NetSalesPKD": 167567.58,
       "Nama Pelanggan": ""
@@ -58960,6 +59536,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-16-000000757",
+      "NetSalesPKD": 2039639.65,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-16-000000803",
       "NetSalesPKD": 3661261.28,
       "Nama Pelanggan": ""
@@ -58974,6 +59562,18 @@
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-17-000001020",
       "NetSalesPKD": 45045.05,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-17-000001185",
+      "NetSalesPKD": 122522.53,
       "Nama Pelanggan": ""
     },
     {
@@ -59008,6 +59608,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-22-000001958",
+      "NetSalesPKD": 77585.59,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-25-000002376",
       "NetSalesPKD": 1390270.26,
       "Nama Pelanggan": ""
@@ -59032,6 +59644,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-10-000000054",
+      "NetSalesPKD": 174774.77,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-14-000000326",
       "NetSalesPKD": 64864.86,
       "Nama Pelanggan": ""
@@ -59044,8 +59668,44 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-16-000000757",
+      "NetSalesPKD": 324324.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-17-000000978",
       "NetSalesPKD": -108108.11,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-17-000001185",
+      "NetSalesPKD": 81081.08,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-22-000001958",
+      "NetSalesPKD": 48648.65,
       "Nama Pelanggan": ""
     },
     {
@@ -59092,6 +59752,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-10-000000054",
+      "NetSalesPKD": 322162.16,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0126-10-000000065",
       "NetSalesPKD": 655855.84,
       "Nama Pelanggan": ""
@@ -59106,6 +59778,18 @@
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-15-000000703",
       "NetSalesPKD": 144144.14,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-16-000000757",
+      "NetSalesPKD": 81891.89,
       "Nama Pelanggan": ""
     },
     {
@@ -59140,6 +59824,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-17-000001185",
+      "NetSalesPKD": 54054.05,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0126-25-000002376",
       "NetSalesPKD": 672837.83,
       "Nama Pelanggan": ""
@@ -59154,6 +59850,18 @@
       "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-10-000000050",
       "NetSalesPKD": 180180.18,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
+      "SzCustId": "0126-10-000000054",
+      "NetSalesPKD": 90090.09,
       "Nama Pelanggan": ""
     },
     {
@@ -59190,6 +59898,18 @@
       "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-25-000002376",
       "NetSalesPKD": 180180.18,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Dwi Anggraini",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "HGJ",
+      "Principle": "HGJ",
+      "PwC_Grp3": "BOTTLE",
+      "SzCustId": "0126-16-000000757",
+      "NetSalesPKD": 133218.02,
       "Nama Pelanggan": ""
     },
     {
@@ -103360,6 +104080,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "BIG CUP",
+      "SzCustId": "0126-17-000001210",
+      "NetSalesPKD": 2129729.72,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "BIG CUP",
       "SzCustId": "0126-18-000001354",
       "NetSalesPKD": 354954.95,
       "Nama Pelanggan": ""
@@ -103397,7 +104129,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "BIG CUP",
       "SzCustId": "0126-24-000002332",
-      "NetSalesPKD": 70990.99,
+      "NetSalesPKD": 212972.97,
       "Nama Pelanggan": ""
     },
     {
@@ -103552,6 +104284,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-15-000000681",
+      "NetSalesPKD": 17747.75,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-17-000001064",
       "NetSalesPKD": 106486.48,
       "Nama Pelanggan": ""
@@ -103588,6 +104332,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-17-000001210",
+      "NetSalesPKD": 106486.49,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-17-000001212",
       "NetSalesPKD": 8873.87,
       "Nama Pelanggan": ""
@@ -103602,6 +104358,18 @@
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-17-000001290",
       "NetSalesPKD": 319459.46,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-17-000001340",
+      "NetSalesPKD": 8873.87,
       "Nama Pelanggan": ""
     },
     {
@@ -103720,6 +104488,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-20-000001883",
+      "NetSalesPKD": 106486.49,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-22-000001927",
       "NetSalesPKD": 212972.97,
       "Nama Pelanggan": ""
@@ -103756,8 +104536,32 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-22-000001975",
+      "NetSalesPKD": 53243.24,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-23-000002077",
       "NetSalesPKD": 26621.61,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-23-000002086",
+      "NetSalesPKD": 17747.75,
       "Nama Pelanggan": ""
     },
     {
@@ -103888,6 +104692,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "PET",
+      "SzCustId": "0126-17-000001230",
+      "NetSalesPKD": 35135.13,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "PET",
       "SzCustId": "0126-17-000001288",
       "NetSalesPKD": 35135.13,
       "Nama Pelanggan": ""
@@ -103974,6 +104790,18 @@
       "PwC_Grp3": "RTS",
       "SzCustId": "0126-12-000000161",
       "NetSalesPKD": 210810.81,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "SzCustId": "0126-17-000001230",
+      "NetSalesPKD": 105405.41,
       "Nama Pelanggan": ""
     },
     {
@@ -104152,6 +104980,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
+      "SzCustId": "0126-17-000001210",
+      "NetSalesPKD": 181081.08,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-18-000001351",
       "NetSalesPKD": 724324.33,
       "Nama Pelanggan": ""
@@ -104261,7 +105101,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-24-000002332",
-      "NetSalesPKD": 144864.88,
+      "NetSalesPKD": 344054.09,
       "Nama Pelanggan": ""
     },
     {
@@ -104632,6 +105472,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-17-000001210",
+      "NetSalesPKD": 122522.52,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000001212",
       "NetSalesPKD": 35225.23,
       "Nama Pelanggan": ""
@@ -104645,7 +105497,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000001230",
-      "NetSalesPKD": 465585.59,
+      "NetSalesPKD": 659536.94,
       "Nama Pelanggan": ""
     },
     {
@@ -104670,6 +105522,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000001290",
       "NetSalesPKD": 974054.06,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-17-000001340",
+      "NetSalesPKD": 15315.32,
       "Nama Pelanggan": ""
     },
     {
@@ -104776,6 +105640,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-18-000001730",
+      "NetSalesPKD": 187850.46,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-19-000001802",
       "NetSalesPKD": 61261.26,
       "Nama Pelanggan": ""
@@ -104790,6 +105666,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-20-000001870",
       "NetSalesPKD": 15315.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-20-000001883",
+      "NetSalesPKD": 245045.04,
       "Nama Pelanggan": ""
     },
     {
@@ -104848,6 +105736,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-22-000001975",
+      "NetSalesPKD": 61261.26,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-22-000001994",
       "NetSalesPKD": 55135.14,
       "Nama Pelanggan": ""
@@ -104885,7 +105785,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-23-000002086",
-      "NetSalesPKD": 15315.32,
+      "NetSalesPKD": 89080.19,
       "Nama Pelanggan": ""
     },
     {
@@ -105149,7 +106049,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-17-000001230",
-      "NetSalesPKD": 220540.54,
+      "NetSalesPKD": 404324.32,
       "Nama Pelanggan": ""
     },
     {
@@ -105256,6 +106156,30 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001728",
+      "NetSalesPKD": -55135.14,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-18-000001730",
+      "NetSalesPKD": 55135.14,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-20-000001870",
       "NetSalesPKD": 36756.76,
       "Nama Pelanggan": ""
@@ -105268,8 +106192,32 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-20-000001883",
+      "NetSalesPKD": 564243.25,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-22-000001927",
       "NetSalesPKD": -162162.16,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-22-000001931",
+      "NetSalesPKD": 55135.14,
       "Nama Pelanggan": ""
     },
     {
@@ -105294,6 +106242,30 @@
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-22-000001952",
       "NetSalesPKD": 110270.28,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-23-000002086",
+      "NetSalesPKD": 55135.14,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-24-000002332",
+      "NetSalesPKD": 110270.27,
       "Nama Pelanggan": ""
     },
     {
@@ -105821,7 +106793,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000001159",
-      "NetSalesPKD": 263423.42,
+      "NetSalesPKD": 604774.77,
       "Nama Pelanggan": ""
     },
     {
@@ -105834,6 +106806,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000001165",
       "NetSalesPKD": 97702.71,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-17-000001210",
+      "NetSalesPKD": 2839774.77,
       "Nama Pelanggan": ""
     },
     {
@@ -105857,7 +106841,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000001230",
-      "NetSalesPKD": 808108.11,
+      "NetSalesPKD": 2445945.95,
       "Nama Pelanggan": ""
     },
     {
@@ -105893,7 +106877,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000001340",
-      "NetSalesPKD": 215675.67,
+      "NetSalesPKD": 246531.54,
       "Nama Pelanggan": ""
     },
     {
@@ -105977,7 +106961,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001578",
-      "NetSalesPKD": 557567.55,
+      "NetSalesPKD": 972162.15,
       "Nama Pelanggan": ""
     },
     {
@@ -106025,7 +107009,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001728",
-      "NetSalesPKD": 578828.83,
+      "NetSalesPKD": 769909.91,
       "Nama Pelanggan": ""
     },
     {
@@ -106037,7 +107021,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001730",
-      "NetSalesPKD": 431351.34,
+      "NetSalesPKD": 714054.06,
       "Nama Pelanggan": ""
     },
     {
@@ -106062,6 +107046,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-20-000001870",
       "NetSalesPKD": 46396.4,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-20-000001883",
+      "NetSalesPKD": 1611351.35,
       "Nama Pelanggan": ""
     },
     {
@@ -106097,7 +107093,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-22-000001931",
-      "NetSalesPKD": 138918.92,
+      "NetSalesPKD": 251351.36,
       "Nama Pelanggan": ""
     },
     {
@@ -106134,6 +107130,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-22-000001952",
       "NetSalesPKD": 102432.44,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-22-000001975",
+      "NetSalesPKD": 258108.11,
       "Nama Pelanggan": ""
     },
     {
@@ -106241,7 +107249,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-24-000002327",
-      "NetSalesPKD": 134504.51,
+      "NetSalesPKD": 323513.53,
       "Nama Pelanggan": ""
     },
     {
@@ -106253,7 +107261,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-24-000002332",
-      "NetSalesPKD": 789369.39,
+      "NetSalesPKD": 1297387.42,
       "Nama Pelanggan": ""
     },
     {
@@ -106552,6 +107560,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-15-000000681",
+      "NetSalesPKD": 273873.88,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-15-000000716",
       "NetSalesPKD": 297297.29,
       "Nama Pelanggan": ""
@@ -106612,6 +107632,30 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-17-000001159",
+      "NetSalesPKD": 292567.57,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-17-000001210",
+      "NetSalesPKD": 410810.81,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-17-000001230",
       "NetSalesPKD": 411531.52,
       "Nama Pelanggan": ""
@@ -106626,6 +107670,18 @@
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-17-000001290",
       "NetSalesPKD": 1905495.51,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-17-000001340",
+      "NetSalesPKD": 45405.41,
       "Nama Pelanggan": ""
     },
     {
@@ -106673,7 +107729,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-18-000001578",
-      "NetSalesPKD": 261306.3,
+      "NetSalesPKD": 482252.25,
       "Nama Pelanggan": ""
     },
     {
@@ -106708,8 +107764,32 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-18-000001728",
+      "NetSalesPKD": 205135.15,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-18-000001730",
       "NetSalesPKD": 68468.47,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-20-000001883",
+      "NetSalesPKD": 205405.41,
       "Nama Pelanggan": ""
     },
     {
@@ -106733,7 +107813,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-22-000001931",
-      "NetSalesPKD": 45405.41,
+      "NetSalesPKD": 182342.35,
       "Nama Pelanggan": ""
     },
     {
@@ -106746,6 +107826,18 @@
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-22-000001936",
       "NetSalesPKD": 92342.34,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-22-000001975",
+      "NetSalesPKD": 68468.47,
       "Nama Pelanggan": ""
     },
     {
@@ -106781,7 +107873,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-23-000002086",
-      "NetSalesPKD": 216441.43,
+      "NetSalesPKD": 309549.54,
       "Nama Pelanggan": ""
     },
     {
@@ -106829,7 +107921,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-24-000002332",
-      "NetSalesPKD": 45945.95,
+      "NetSalesPKD": 73648.65,
       "Nama Pelanggan": ""
     },
     {
@@ -107092,6 +108184,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-15-000000681",
+      "NetSalesPKD": 90090.1,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-15-000000700",
       "NetSalesPKD": 32540.54,
       "Nama Pelanggan": ""
@@ -107154,6 +108258,30 @@
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-17-000001119",
       "NetSalesPKD": 209189.19,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-17-000001159",
+      "NetSalesPKD": 118018.03,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-17-000001210",
+      "NetSalesPKD": 361441.45,
       "Nama Pelanggan": ""
     },
     {
@@ -107296,8 +108424,32 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-18-000001730",
+      "NetSalesPKD": 209189.19,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-19-000001802",
       "NetSalesPKD": 544864.86,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-20-000001883",
+      "NetSalesPKD": 30590.09,
       "Nama Pelanggan": ""
     },
     {
@@ -107321,7 +108473,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-22-000001931",
-      "NetSalesPKD": 110126.13,
+      "NetSalesPKD": 249585.59,
       "Nama Pelanggan": ""
     },
     {
@@ -107346,6 +108498,18 @@
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-23-000002077",
       "NetSalesPKD": 36036.04,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-23-000002086",
+      "NetSalesPKD": 116810.81,
       "Nama Pelanggan": ""
     },
     {
@@ -107393,7 +108557,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-24-000002332",
-      "NetSalesPKD": 208108.12,
+      "NetSalesPKD": 343243.26,
       "Nama Pelanggan": ""
     },
     {
@@ -107704,6 +108868,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-17-000001340",
+      "NetSalesPKD": 81081.08,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001354",
       "NetSalesPKD": 486486.48,
       "Nama Pelanggan": ""
@@ -107717,7 +108893,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001578",
-      "NetSalesPKD": 48648.65,
+      "NetSalesPKD": 100540.54,
       "Nama Pelanggan": ""
     },
     {
@@ -107729,7 +108905,19 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001728",
-      "NetSalesPKD": 17297.3,
+      "NetSalesPKD": 199459.46,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-20-000001883",
+      "NetSalesPKD": 162162.16,
       "Nama Pelanggan": ""
     },
     {
@@ -107741,7 +108929,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-22-000001931",
-      "NetSalesPKD": 48648.65,
+      "NetSalesPKD": 100540.54,
       "Nama Pelanggan": ""
     },
     {
@@ -107765,7 +108953,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-23-000002086",
-      "NetSalesPKD": 24324.32,
+      "NetSalesPKD": 39639.64,
       "Nama Pelanggan": ""
     },
     {
@@ -107813,7 +109001,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-24-000002332",
-      "NetSalesPKD": 81081.08,
+      "NetSalesPKD": 127027.03,
       "Nama Pelanggan": ""
     },
     {
@@ -108220,6 +109408,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-17-000001210",
+      "NetSalesPKD": 260900.9,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0126-17-000001212",
       "NetSalesPKD": 18018.02,
       "Nama Pelanggan": ""
@@ -108233,7 +109433,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-17-000001230",
-      "NetSalesPKD": 432432.43,
+      "NetSalesPKD": 720720.73,
       "Nama Pelanggan": ""
     },
     {
@@ -108258,6 +109458,18 @@
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-17-000001290",
       "NetSalesPKD": 1585585.59,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-17-000001340",
+      "NetSalesPKD": 18018.02,
       "Nama Pelanggan": ""
     },
     {
@@ -108317,7 +109529,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-18-000001578",
-      "NetSalesPKD": 257117.11,
+      "NetSalesPKD": 329189.18,
       "Nama Pelanggan": ""
     },
     {
@@ -108352,6 +109564,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-18-000001728",
+      "NetSalesPKD": 72072.07,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0126-19-000001802",
       "NetSalesPKD": 72072.07,
       "Nama Pelanggan": ""
@@ -108366,6 +109590,18 @@
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-20-000001870",
       "NetSalesPKD": 29189.19,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-20-000001883",
+      "NetSalesPKD": 432432.43,
       "Nama Pelanggan": ""
     },
     {
@@ -108557,7 +109793,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-24-000002332",
-      "NetSalesPKD": 215045.04,
+      "NetSalesPKD": 287117.11,
       "Nama Pelanggan": ""
     },
     {
@@ -108761,7 +109997,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-24-000002327",
-      "NetSalesPKD": 49729.72,
+      "NetSalesPKD": 91171.16,
       "Nama Pelanggan": ""
     },
     {
@@ -108809,7 +110045,7 @@
       "Principle": "HGJ",
       "PwC_Grp3": "BOTTLE",
       "SzCustId": "0126-24-000002327",
-      "NetSalesPKD": -187403.6,
+      "NetSalesPKD": -294878.37,
       "Nama Pelanggan": ""
     },
     {
@@ -108846,6 +110082,18 @@
       "PwC_Grp3": "SNACK",
       "SzCustId": "0126-17-000001290",
       "NetSalesPKD": 172903.61,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "OTHERS",
+      "Principle": "GSJ",
+      "PwC_Grp3": "OBAT TRADISIONAL",
+      "SzCustId": "0126-18-000001728",
+      "NetSalesPKD": 106486.49,
       "Nama Pelanggan": ""
     },
     {
@@ -108906,6 +110154,42 @@
       "PwC_Grp3": "SEAWEED SNACK",
       "SzCustId": "0126-17-000001064",
       "NetSalesPKD": 215864.88,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "OTHERS",
+      "Principle": "RANS",
+      "PwC_Grp3": "SEAWEED SNACK",
+      "SzCustId": "0126-17-000001230",
+      "NetSalesPKD": 534108.12,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "OTHERS",
+      "Principle": "RANS",
+      "PwC_Grp3": "SEAWEED SNACK",
+      "SzCustId": "0126-17-000001340",
+      "NetSalesPKD": 185454.95,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Erica Agustina",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "OTHERS",
+      "Principle": "RANS",
+      "PwC_Grp3": "SEAWEED SNACK",
+      "SzCustId": "0126-18-000001728",
+      "NetSalesPKD": 179890.1,
       "Nama Pelanggan": ""
     },
     {
@@ -153436,6 +154720,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "BIG CUP",
+      "SzCustId": "0078-25-000005792",
+      "NetSalesPKD": -35495.5,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "BIG CUP",
       "SzCustId": "0126-12-000000177",
       "NetSalesPKD": 1064864.86,
       "Nama Pelanggan": ""
@@ -153450,6 +154746,18 @@
       "PwC_Grp3": "BIG CUP",
       "SzCustId": "0126-13-000000199",
       "NetSalesPKD": 1064864.86,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "BIG CUP",
+      "SzCustId": "0126-14-000000322",
+      "NetSalesPKD": 177477.47,
       "Nama Pelanggan": ""
     },
     {
@@ -153591,9 +154899,33 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "BIG CUP",
+      "SzCustId": "0126-25-000002377",
+      "NetSalesPKD": 532432.43,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0078-02-000000377",
+      "NetSalesPKD": 106486.49,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0078-25-000005673",
-      "NetSalesPKD": 8962.16,
+      "NetSalesPKD": 26887.39,
       "Nama Pelanggan": ""
     },
     {
@@ -153832,6 +155164,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-22-000001953",
+      "NetSalesPKD": 53243.24,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-22-000001960",
       "NetSalesPKD": 17747.74,
       "Nama Pelanggan": ""
@@ -153880,6 +155224,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-22-000002038",
+      "NetSalesPKD": 35495.49,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-22-000002039",
       "NetSalesPKD": 17747.75,
       "Nama Pelanggan": ""
@@ -153904,7 +155260,31 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-24-000002192",
+      "NetSalesPKD": 106486.49,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-24-000002320",
+      "NetSalesPKD": 17747.75,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-25-000002377",
       "NetSalesPKD": 17747.75,
       "Nama Pelanggan": ""
     },
@@ -153999,6 +155379,18 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
+      "PwC_Grp3": "RTS",
+      "SzCustId": "0126-22-000001953",
+      "NetSalesPKD": 105405.41,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0078-25-000005787",
       "NetSalesPKD": 217297.28,
@@ -154038,6 +155430,18 @@
       "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-13-000000199",
       "NetSalesPKD": 724324.33,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "SzCustId": "0126-14-000000322",
+      "NetSalesPKD": 108648.66,
       "Nama Pelanggan": ""
     },
     {
@@ -154192,8 +155596,44 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0078-25-000005753",
+      "NetSalesPKD": 122522.52,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0078-25-000005787",
       "NetSalesPKD": 183783.78,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0078-25-000005789",
+      "NetSalesPKD": 38790.09,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0078-25-000005792",
+      "NetSalesPKD": 122522.52,
       "Nama Pelanggan": ""
     },
     {
@@ -154444,6 +155884,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-22-000002038",
+      "NetSalesPKD": 15315.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-22-000002039",
       "NetSalesPKD": 52072.08,
       "Nama Pelanggan": ""
@@ -154458,6 +155910,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-23-000002087",
       "NetSalesPKD": 55135.14,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-24-000002192",
+      "NetSalesPKD": 122522.52,
       "Nama Pelanggan": ""
     },
     {
@@ -154504,6 +155968,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-25-000002377",
+      "NetSalesPKD": 32325.23,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002470",
       "NetSalesPKD": 30630.63,
       "Nama Pelanggan": ""
@@ -154517,7 +155993,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002474",
-      "NetSalesPKD": 15315.32,
+      "NetSalesPKD": 30630.64,
       "Nama Pelanggan": ""
     },
     {
@@ -154768,8 +156244,32 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0078-02-000000377",
+      "NetSalesPKD": 2540540.54,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0078-25-000005671",
-      "NetSalesPKD": 500086.48,
+      "NetSalesPKD": 1232745.94,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0078-25-000005673",
+      "NetSalesPKD": 15923.43,
       "Nama Pelanggan": ""
     },
     {
@@ -154805,7 +156305,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0078-25-000005753",
-      "NetSalesPKD": 673693.68,
+      "NetSalesPKD": 1340720.72,
       "Nama Pelanggan": ""
     },
     {
@@ -154864,8 +156364,20 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0078-25-000005789",
+      "NetSalesPKD": 334864.86,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0078-25-000005792",
-      "NetSalesPKD": 394594.59,
+      "NetSalesPKD": 988108.1,
       "Nama Pelanggan": ""
     },
     {
@@ -155404,6 +156916,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-22-000001953",
+      "NetSalesPKD": 47297.3,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-22-000001959",
       "NetSalesPKD": 1132072.07,
       "Nama Pelanggan": ""
@@ -155548,6 +157072,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-22-000002038",
+      "NetSalesPKD": 77342.34,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-22-000002039",
       "NetSalesPKD": 76756.75,
       "Nama Pelanggan": ""
@@ -155656,8 +157192,20 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-23-000002174",
+      "NetSalesPKD": 7882.89,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-24-000002192",
-      "NetSalesPKD": 261621.62,
+      "NetSalesPKD": 494054.06,
       "Nama Pelanggan": ""
     },
     {
@@ -155669,7 +157217,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-24-000002198",
-      "NetSalesPKD": 327027.02,
+      "NetSalesPKD": 680810.8,
       "Nama Pelanggan": ""
     },
     {
@@ -155717,7 +157265,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002377",
-      "NetSalesPKD": 297387.42,
+      "NetSalesPKD": 408468.52,
       "Nama Pelanggan": ""
     },
     {
@@ -155765,7 +157313,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002439",
-      "NetSalesPKD": 287567.56,
+      "NetSalesPKD": 334864.86,
       "Nama Pelanggan": ""
     },
     {
@@ -155789,7 +157337,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002474",
-      "NetSalesPKD": 14954.95,
+      "NetSalesPKD": 130675.69,
       "Nama Pelanggan": ""
     },
     {
@@ -155860,8 +157408,20 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0078-25-000005671",
+      "NetSalesPKD": 207459.46,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0078-25-000005673",
-      "NetSalesPKD": 373063.06,
+      "NetSalesPKD": 649675.67,
       "Nama Pelanggan": ""
     },
     {
@@ -155886,6 +157446,18 @@
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0078-25-000005789",
       "NetSalesPKD": 68468.47,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0078-25-000005792",
+      "NetSalesPKD": 90810.81,
       "Nama Pelanggan": ""
     },
     {
@@ -156352,6 +157924,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-23-000002174",
+      "NetSalesPKD": 92342.34,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-24-000002192",
       "NetSalesPKD": 76036.04,
       "Nama Pelanggan": ""
@@ -156365,7 +157949,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-24-000002198",
-      "NetSalesPKD": 181621.62,
+      "NetSalesPKD": 455495.5,
       "Nama Pelanggan": ""
     },
     {
@@ -156412,6 +157996,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-25-000002439",
+      "NetSalesPKD": 75000,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-25-000002470",
       "NetSalesPKD": -74324.32,
       "Nama Pelanggan": ""
@@ -156448,6 +158044,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0078-25-000005671",
+      "NetSalesPKD": 561232.44,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0078-25-000005751",
       "NetSalesPKD": 135135.15,
       "Nama Pelanggan": ""
@@ -156472,6 +158080,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0078-25-000005753",
+      "NetSalesPKD": 232432.43,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0078-25-000005755",
       "NetSalesPKD": 136216.23,
       "Nama Pelanggan": ""
@@ -156485,7 +158105,19 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0078-25-000005789",
-      "NetSalesPKD": 46486.49,
+      "NetSalesPKD": 139459.46,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0078-25-000005792",
+      "NetSalesPKD": 180540.56,
       "Nama Pelanggan": ""
     },
     {
@@ -156917,7 +158549,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-25-000002377",
-      "NetSalesPKD": 122342.33,
+      "NetSalesPKD": 138108.1,
       "Nama Pelanggan": ""
     },
     {
@@ -156940,8 +158572,32 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-25-000002439",
+      "NetSalesPKD": 90810.82,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-25-000002470",
       "NetSalesPKD": -30991,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-25-000002474",
+      "NetSalesPKD": 135135.15,
       "Nama Pelanggan": ""
     },
     {
@@ -157181,7 +158837,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0078-25-000005671",
-      "NetSalesPKD": 145585.59,
+      "NetSalesPKD": 291171.18,
       "Nama Pelanggan": ""
     },
     {
@@ -157228,6 +158884,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0078-25-000005753",
+      "NetSalesPKD": 144144.14,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0078-25-000005755",
       "NetSalesPKD": 576576.58,
       "Nama Pelanggan": ""
@@ -157253,7 +158921,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0078-25-000005792",
-      "NetSalesPKD": 116756.76,
+      "NetSalesPKD": 188828.83,
       "Nama Pelanggan": ""
     },
     {
@@ -157552,6 +159220,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-22-000001953",
+      "NetSalesPKD": 144144.14,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Karmila Ali",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0126-22-000001959",
       "NetSalesPKD": 116756.76,
       "Nama Pelanggan": ""
@@ -157721,7 +159401,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-25-000002377",
-      "NetSalesPKD": 22747.75,
+      "NetSalesPKD": 40765.77,
       "Nama Pelanggan": ""
     },
     {
@@ -157829,7 +159509,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-14-000000322",
-      "NetSalesPKD": 165765.76,
+      "NetSalesPKD": 248648.64,
       "Nama Pelanggan": ""
     },
     {
@@ -157889,7 +159569,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-25-000002377",
-      "NetSalesPKD": 82882.88,
+      "NetSalesPKD": 165765.76,
       "Nama Pelanggan": ""
     },
     {
@@ -158033,7 +159713,7 @@
       "Principle": "RANS",
       "PwC_Grp3": "SEAWEED SNACK",
       "SzCustId": "0126-25-000002377",
-      "NetSalesPKD": 89945.05,
+      "NetSalesPKD": 233854.97,
       "Nama Pelanggan": ""
     },
     {
@@ -170177,7 +171857,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-15-000000684",
-      "NetSalesPKD": 175315.34,
+      "NetSalesPKD": 183873.9,
       "Nama Pelanggan": ""
     },
     {
@@ -170248,6 +171928,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-15-000000684",
+      "NetSalesPKD": 15765.77,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "No Salesman",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-23-000002190",
       "NetSalesPKD": 15135.14,
       "Nama Pelanggan": ""
@@ -170262,6 +171954,18 @@
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-26-000002531",
       "NetSalesPKD": 469194.6,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "No Salesman",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-15-000000684",
+      "NetSalesPKD": 4549.55,
       "Nama Pelanggan": ""
     },
     {
@@ -202889,7 +204593,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "BIG CUP",
       "SzCustId": "0078-04-000000303",
-      "NetSalesPKD": 3904504.5,
+      "NetSalesPKD": 6389189.18,
       "Nama Pelanggan": ""
     },
     {
@@ -203080,6 +204784,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-17-000000918",
+      "NetSalesPKD": 17747.75,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-17-000000974",
       "NetSalesPKD": 106486.49,
       "Nama Pelanggan": ""
@@ -203094,6 +204810,18 @@
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-17-000001009",
       "NetSalesPKD": 17747.75,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-17-000001310",
+      "NetSalesPKD": 17747.74,
       "Nama Pelanggan": ""
     },
     {
@@ -203176,8 +204904,20 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-24-000002280",
+      "NetSalesPKD": 17747.75,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-25-000002356",
-      "NetSalesPKD": 8873.87,
+      "NetSalesPKD": 26621.62,
       "Nama Pelanggan": ""
     },
     {
@@ -203309,7 +205049,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-25-000002518",
-      "NetSalesPKD": 8873.87,
+      "NetSalesPKD": 26621.61,
       "Nama Pelanggan": ""
     },
     {
@@ -203345,7 +205085,7 @@
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0078-04-000000303",
-      "NetSalesPKD": 2716216.21,
+      "NetSalesPKD": 5432432.42,
       "Nama Pelanggan": ""
     },
     {
@@ -203488,8 +205228,32 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
+      "SzCustId": "0126-18-000001637",
+      "NetSalesPKD": 90540.55,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-21-000001899",
       "NetSalesPKD": 181081.08,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
+      "SzCustId": "0126-23-000002151",
+      "NetSalesPKD": -18108.11,
       "Nama Pelanggan": ""
     },
     {
@@ -203524,6 +205288,18 @@
       "szPrincipalGroupId": "GBS",
       "Principle": "GBS",
       "PwC_Grp3": "SMALL CUP",
+      "SzCustId": "0126-24-000002282",
+      "NetSalesPKD": 181081.08,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GBS",
+      "Principle": "GBS",
+      "PwC_Grp3": "SMALL CUP",
       "SzCustId": "0126-25-000002486",
       "NetSalesPKD": 54324.32,
       "Nama Pelanggan": ""
@@ -203548,8 +205324,20 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0078-04-000000292",
+      "NetSalesPKD": 122522.52,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0078-04-000000303",
-      "NetSalesPKD": 1102702.7,
+      "NetSalesPKD": 2174774.77,
       "Nama Pelanggan": ""
     },
     {
@@ -203574,6 +205362,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-11-000000113",
       "NetSalesPKD": 367567.57,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-13-000000284",
+      "NetSalesPKD": 193951.35,
       "Nama Pelanggan": ""
     },
     {
@@ -203668,6 +205468,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-17-000001310",
+      "NetSalesPKD": 15315.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-19-000001789",
       "NetSalesPKD": 220540.54,
       "Nama Pelanggan": ""
@@ -203716,6 +205528,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-23-000002151",
+      "NetSalesPKD": 367061.26,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-23-000002167",
       "NetSalesPKD": 385945.94,
       "Nama Pelanggan": ""
@@ -203740,6 +205564,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-24-000002280",
+      "NetSalesPKD": 15315.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-24-000002281",
       "NetSalesPKD": 36756.76,
       "Nama Pelanggan": ""
@@ -203753,7 +205589,7 @@
       "Principle": "GEN",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002356",
-      "NetSalesPKD": 15315.32,
+      "NetSalesPKD": 30630.64,
       "Nama Pelanggan": ""
     },
     {
@@ -203835,9 +205671,57 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-25-000002518",
+      "NetSalesPKD": 15315.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0078-04-000000292",
+      "NetSalesPKD": 165405.41,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0078-04-000000303",
+      "NetSalesPKD": 1874594.6,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-10-000000084",
       "NetSalesPKD": 1102702.7,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-13-000000284",
+      "NetSalesPKD": 205270.27,
       "Nama Pelanggan": ""
     },
     {
@@ -203968,6 +205852,18 @@
       "szPrincipalGroupId": "GEN",
       "Principle": "GEN",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-17-000001310",
+      "NetSalesPKD": 36756.76,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001350",
       "NetSalesPKD": 20540.54,
       "Nama Pelanggan": ""
@@ -204018,6 +205914,18 @@
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-23-000002127",
       "NetSalesPKD": -220540.54,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GEN",
+      "Principle": "GEN",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-23-000002151",
+      "NetSalesPKD": 652073.87,
       "Nama Pelanggan": ""
     },
     {
@@ -204088,8 +205996,20 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0078-04-000000292",
+      "NetSalesPKD": 691351.36,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0078-04-000000303",
-      "NetSalesPKD": 12390450.46,
+      "NetSalesPKD": 28773333.32,
       "Nama Pelanggan": ""
     },
     {
@@ -204185,7 +206105,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-13-000000284",
-      "NetSalesPKD": 1648828.82,
+      "NetSalesPKD": 2726126.12,
       "Nama Pelanggan": ""
     },
     {
@@ -204328,6 +206248,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-17-000000918",
+      "NetSalesPKD": 27567.57,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-17-000000920",
       "NetSalesPKD": 11329909.89,
       "Nama Pelanggan": ""
@@ -204400,6 +206332,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-17-000001310",
+      "NetSalesPKD": 180045.05,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001350",
       "NetSalesPKD": 2589421.62,
       "Nama Pelanggan": ""
@@ -204414,6 +206358,18 @@
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-18-000001360",
       "NetSalesPKD": 137747.76,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-18-000001637",
+      "NetSalesPKD": 440720.72,
       "Nama Pelanggan": ""
     },
     {
@@ -204544,6 +206500,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-23-000002151",
+      "NetSalesPKD": 5064559.47,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-23-000002167",
       "NetSalesPKD": 1899504.47,
       "Nama Pelanggan": ""
@@ -204616,8 +206584,32 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-24-000002280",
+      "NetSalesPKD": 72747.75,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-24-000002281",
       "NetSalesPKD": 123558.56,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "BISCUIT",
+      "SzCustId": "0126-24-000002282",
+      "NetSalesPKD": 990630.63,
       "Nama Pelanggan": ""
     },
     {
@@ -204665,7 +206657,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002356",
-      "NetSalesPKD": 73738.75,
+      "NetSalesPKD": 117567.58,
       "Nama Pelanggan": ""
     },
     {
@@ -204857,7 +206849,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "BISCUIT",
       "SzCustId": "0126-25-000002518",
-      "NetSalesPKD": 22837.84,
+      "NetSalesPKD": 68783.79,
       "Nama Pelanggan": ""
     },
     {
@@ -204881,7 +206873,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0078-04-000000303",
-      "NetSalesPKD": 7778220.72,
+      "NetSalesPKD": 11007049.54,
       "Nama Pelanggan": ""
     },
     {
@@ -204977,7 +206969,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-13-000000284",
-      "NetSalesPKD": 1679819.83,
+      "NetSalesPKD": 2799099.12,
       "Nama Pelanggan": ""
     },
     {
@@ -205264,6 +207256,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-23-000002151",
+      "NetSalesPKD": 829486.49,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-23-000002167",
       "NetSalesPKD": 90810.81,
       "Nama Pelanggan": ""
@@ -205336,6 +207340,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-25-000002356",
+      "NetSalesPKD": 46171.17,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
       "SzCustId": "0126-25-000002357",
       "NetSalesPKD": 136936.92,
       "Nama Pelanggan": ""
@@ -205383,9 +207399,33 @@
       "Periode1": "MTD",
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
+      "PwC_Grp3": "PEANUTS",
+      "SzCustId": "0126-25-000002519",
+      "NetSalesPKD": 160810.81,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0078-04-000000292",
+      "NetSalesPKD": 228108.11,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0078-04-000000303",
-      "NetSalesPKD": 1645945.94,
+      "NetSalesPKD": 7530270.23,
       "Nama Pelanggan": ""
     },
     {
@@ -205457,7 +207497,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-13-000000284",
-      "NetSalesPKD": 302702.7,
+      "NetSalesPKD": 1394234.23,
       "Nama Pelanggan": ""
     },
     {
@@ -205564,6 +207604,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-17-000000918",
+      "NetSalesPKD": 27117.12,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-17-000000920",
       "NetSalesPKD": 5634234.21,
       "Nama Pelanggan": ""
@@ -205624,6 +207676,18 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-17-000001310",
+      "NetSalesPKD": 15315.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-18-000001350",
       "NetSalesPKD": 1376936.96,
       "Nama Pelanggan": ""
@@ -205672,8 +207736,32 @@
       "szPrincipalGroupId": "GPPJ-A",
       "Principle": "GPPJ",
       "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-23-000002043",
+      "NetSalesPKD": 7567.57,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-23-000002127",
       "NetSalesPKD": -442342.36,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-23-000002151",
+      "NetSalesPKD": 2216766.69,
       "Nama Pelanggan": ""
     },
     {
@@ -205710,6 +207798,18 @@
       "PwC_Grp3": "SNACK FOOD",
       "SzCustId": "0126-24-000002266",
       "NetSalesPKD": 22522.52,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-24-000002280",
+      "NetSalesPKD": 45225.23,
       "Nama Pelanggan": ""
     },
     {
@@ -205789,11 +207889,35 @@
       "Tim": "Yudistira",
       "Periode": "MTD",
       "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-A",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "SNACK FOOD",
+      "SzCustId": "0126-25-000002519",
+      "NetSalesPKD": 45045.04,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0078-04-000000292",
+      "NetSalesPKD": 91891.89,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0078-04-000000303",
-      "NetSalesPKD": 650000,
+      "NetSalesPKD": 1460810.81,
       "Nama Pelanggan": ""
     },
     {
@@ -205936,6 +208060,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-17-000001310",
+      "NetSalesPKD": 48648.65,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-18-000001350",
       "NetSalesPKD": 436936.94,
       "Nama Pelanggan": ""
@@ -205973,7 +208109,7 @@
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-23-000002043",
-      "NetSalesPKD": 51891.89,
+      "NetSalesPKD": 138378.38,
       "Nama Pelanggan": ""
     },
     {
@@ -205996,8 +208132,32 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-23-000002151",
+      "NetSalesPKD": 91761.26,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-24-000002266",
       "NetSalesPKD": 24324.32,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-24-000002282",
+      "NetSalesPKD": 48648.65,
       "Nama Pelanggan": ""
     },
     {
@@ -206022,6 +208182,30 @@
       "PwC_Grp3": "CONFECTIONERY",
       "SzCustId": "0126-25-000002493",
       "NetSalesPKD": 17297.3,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "CONFECTIONERY",
+      "SzCustId": "0126-25-000002518",
+      "NetSalesPKD": 40540.55,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "SzCustId": "0078-04-000000292",
+      "NetSalesPKD": 216216.22,
       "Nama Pelanggan": ""
     },
     {
@@ -206106,6 +208290,18 @@
       "PwC_Grp3": "DRINK",
       "SzCustId": "0126-11-000000113",
       "NetSalesPKD": 362522.52,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-13-000000284",
+      "NetSalesPKD": 144144.14,
       "Nama Pelanggan": ""
     },
     {
@@ -206260,6 +208456,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-23-000002043",
+      "NetSalesPKD": 18018.02,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0126-23-000002127",
       "NetSalesPKD": 432432.43,
       "Nama Pelanggan": ""
@@ -206332,8 +208540,20 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "DRINK",
+      "SzCustId": "0126-24-000002280",
+      "NetSalesPKD": 18018.02,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "DRINK",
       "SzCustId": "0126-25-000002356",
-      "NetSalesPKD": 29189.19,
+      "NetSalesPKD": 65225.23,
       "Nama Pelanggan": ""
     },
     {
@@ -206476,6 +208696,18 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "LIQUID MILK",
+      "SzCustId": "0078-04-000000303",
+      "NetSalesPKD": 270270.27,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-16-000000783",
       "NetSalesPKD": 4116135.14,
       "Nama Pelanggan": ""
@@ -206500,8 +208732,32 @@
       "szPrincipalGroupId": "GPPJ-B",
       "Principle": "GPPJ",
       "PwC_Grp3": "LIQUID MILK",
+      "SzCustId": "0126-18-000001637",
+      "NetSalesPKD": 165765.76,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
       "SzCustId": "0126-21-000001899",
       "NetSalesPKD": 864864.86,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "GPPJ-B",
+      "Principle": "GPPJ",
+      "PwC_Grp3": "LIQUID MILK",
+      "SzCustId": "0126-23-000002151",
+      "NetSalesPKD": 413831.53,
       "Nama Pelanggan": ""
     },
     {
@@ -206538,6 +208794,18 @@
       "PwC_Grp3": "SEAWEED SNACK",
       "SzCustId": "0126-17-000000920",
       "NetSalesPKD": 1937992.78,
+      "Nama Pelanggan": ""
+    },
+    {
+      "Nama Salesman": "Redi Tappi",
+      "Tim": "Yudistira",
+      "Periode": "MTD",
+      "Periode1": "MTD",
+      "szPrincipalGroupId": "OTHERS",
+      "Principle": "RANS",
+      "PwC_Grp3": "SEAWEED SNACK",
+      "SzCustId": "0126-17-000001310",
+      "NetSalesPKD": 74181.98,
       "Nama Pelanggan": ""
     },
     {
