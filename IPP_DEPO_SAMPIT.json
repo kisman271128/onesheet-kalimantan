@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Sampit",
     "total_kpis": 10,
-    "last_updated": "2026-07-21 06:17:54"
+    "last_updated": "2026-07-23 09:07:46"
   },
   "kpis": [
     {
@@ -13,9 +13,9 @@
       "weight": 20,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "32013533522.362686",
-      "actual": 3551943933.2032,
-      "ach": "11.1%",
+      "target": "32013533522.362663",
+      "actual": 3966744944.7017,
+      "ach": "12.4%",
       "score": 1,
       "point": 0.2
     },
@@ -26,7 +26,7 @@
       "uom": "BP",
       "scoring": "General Scoring",
       "target": "0.0",
-      "actual": 1532811090.1769,
+      "actual": 1741688964.0296,
       "ach": "0x7",
       "score": null,
       "point": null
@@ -38,10 +38,10 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "0.71",
-      "actual": "72.0%",
-      "ach": "101.4%",
-      "score": 3,
-      "point": 0.3
+      "actual": "70.9%",
+      "ach": "99.9%",
+      "score": 2,
+      "point": 0.2
     },
     {
       "kpi": "CA Productivity Depo : All",
@@ -50,8 +50,8 @@
       "uom": "Index",
       "scoring": "Index Scoring",
       "target": "0.8033333333333332",
-      "actual": 0.9443,
-      "ach": "117.6%",
+      "actual": 0.9855,
+      "ach": "122.7%",
       "score": 5,
       "point": 0.5
     },
@@ -62,8 +62,8 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "40.0",
-      "actual": 159,
-      "ach": "365.6%",
+      "actual": 163,
+      "ach": "375.8%",
       "score": 5,
       "point": 0.5
     },
