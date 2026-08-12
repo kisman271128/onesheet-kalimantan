@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Grogot",
     "total_kpis": 10,
-    "last_updated": "2026-08-11 10:14:09"
+    "last_updated": "2026-08-12 17:54:02"
   },
   "kpis": [
     {
@@ -13,11 +13,11 @@
       "weight": 20,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "22110738690.704567",
-      "actual": 20374741427.7845,
-      "ach": "92.1%",
-      "score": 1,
-      "point": 0.2
+      "target": "0.0",
+      "actual": 0,
+      "ach": "0x7",
+      "score": null,
+      "point": null
     },
     {
       "kpi": "Drive ND : Sales Growth Whs Med & Small",
@@ -25,7 +25,7 @@
       "weight": 10,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "7802181756.107234",
+      "target": "7802181756.107233",
       "actual": 7940316551.1261,
       "ach": "1.8%",
       "score": 1,
@@ -38,8 +38,8 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "0.71",
-      "actual": "63.9%",
-      "ach": "90.0%",
+      "actual": "67.9%",
+      "ach": "95.6%",
       "score": 2,
       "point": 0.2
     },
@@ -62,10 +62,10 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "40.0",
-      "actual": 37,
-      "ach": "80.4%",
-      "score": 1,
-      "point": 0.1
+      "actual": 58,
+      "ach": "126.9%",
+      "score": 5,
+      "point": 0.5
     },
     {
       "kpi": "Green Store (Depo Only) - phasing quarter",
