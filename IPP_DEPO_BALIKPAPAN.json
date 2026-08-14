@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Balikpapan",
     "total_kpis": 10,
-    "last_updated": "2026-08-14 07:50:10"
+    "last_updated": "2026-08-14 20:44:38"
   },
   "kpis": [
     {
@@ -13,9 +13,9 @@
       "weight": 20,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "5993922988.847151",
-      "actual": 5266037550.3871,
-      "ach": "87.9%",
+      "target": "11711089769.625002",
+      "actual": 7224959264.2254,
+      "ach": "61.7%",
       "score": 1,
       "point": 0.2
     },
@@ -25,11 +25,11 @@
       "weight": 10,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "8265571107.316555",
+      "target": "8265571107.316554",
       "actual": 1886220576.6654,
-      "ach": "22.8%",
-      "score": 5,
-      "point": 0.5
+      "ach": "-77.2%",
+      "score": 1,
+      "point": 0.1
     },
     {
       "kpi": "%EC Salesman",
@@ -37,9 +37,9 @@
       "weight": 10,
       "uom": "100.0%",
       "scoring": "General Scoring",
-      "target": "0.71",
-      "actual": "98.2%",
-      "ach": "138.2%",
+      "target": "0.75",
+      "actual": "88.2%",
+      "ach": "117.6%",
       "score": 5,
       "point": 0.5
     },
@@ -50,10 +50,10 @@
       "uom": "Index",
       "scoring": "Index Scoring",
       "target": "0.8033333333333332",
-      "actual": "0x7",
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "actual": 0.8335,
+      "ach": "103.8%",
+      "score": 5,
+      "point": 0.5
     },
     {
       "kpi": "CR Expansion - Direct (50% Rtl, 50% School)",
@@ -62,8 +62,8 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "90.0",
-      "actual": 202,
-      "ach": "150.7%",
+      "actual": 224,
+      "ach": "168.0%",
       "score": 5,
       "point": 0.5
     },
@@ -73,11 +73,11 @@
       "weight": 10,
       "uom": "100.0%",
       "scoring": "General Scoring",
-      "target": "810.74",
-      "actual": 1167,
-      "ach": "143.9%",
-      "score": 5,
-      "point": 0.5
+      "target": "821.0",
+      "actual": 510,
+      "ach": "62.1%",
+      "score": 1,
+      "point": 0.1
     },
     {
       "kpi": "Ways of Working : Business Review Top 25 Pareto",
