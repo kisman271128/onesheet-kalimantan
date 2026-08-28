@@ -25,7 +25,7 @@
       "Month",
       "MTD"
     ],
-    "last_updated": "2026-08-27 10:06:52"
+    "last_updated": "2026-08-28 05:50:41"
   },
   "data": [
     {
@@ -47,7 +47,7 @@
       "TargetCA": 378,
       "Year": 2026,
       "Month": 8,
-      "MTD": 63
+      "MTD": 65
     },
     {
       "RegionId": 9,
@@ -68,7 +68,7 @@
       "TargetCA": 378,
       "Year": 2026,
       "Month": 8,
-      "MTD": 99
+      "MTD": 106
     },
     {
       "RegionId": 9,
@@ -89,7 +89,7 @@
       "TargetCA": 378,
       "Year": 2026,
       "Month": 8,
-      "MTD": 60
+      "MTD": 66
     },
     {
       "RegionId": 9,
@@ -110,7 +110,7 @@
       "TargetCA": 378,
       "Year": 2026,
       "Month": 8,
-      "MTD": 62
+      "MTD": 64
     },
     {
       "RegionId": 9,
@@ -131,7 +131,7 @@
       "TargetCA": 378,
       "Year": 2026,
       "Month": 8,
-      "MTD": 66
+      "MTD": 67
     },
     {
       "RegionId": 9,
@@ -152,7 +152,7 @@
       "TargetCA": 378,
       "Year": 2026,
       "Month": 8,
-      "MTD": 45
+      "MTD": 46
     },
     {
       "RegionId": 9,
@@ -173,7 +173,7 @@
       "TargetCA": 360,
       "Year": 2026,
       "Month": 8,
-      "MTD": 166
+      "MTD": 169
     },
     {
       "RegionId": 9,
@@ -194,7 +194,7 @@
       "TargetCA": 360,
       "Year": 2026,
       "Month": 8,
-      "MTD": 47
+      "MTD": 48
     },
     {
       "RegionId": 9,
@@ -236,7 +236,7 @@
       "TargetCA": 360,
       "Year": 2026,
       "Month": 8,
-      "MTD": 42
+      "MTD": 43
     },
     {
       "RegionId": 9,
@@ -254,69 +254,6 @@
       "Target": 90,
       "TargetAdjustment": 90,
       "CustomerRoute": 141,
-      "TargetCA": 620,
-      "Year": 2026,
-      "Month": 8,
-      "MTD": 89
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 172,
-      "DepoName": "Depo Tanjung",
-      "SupervisorId": 17210036576,
-      "SupervisorName": "Muhammad Yasir",
-      "SalesmanId": 17210043127,
-      "SalesmanName": "Mahrita",
-      "DepartmentId": "ACS",
-      "ProductId": 90101232171101,
-      "ProductName": "CWSCM8P/Chocolatos WS Cokelat Mede Promo -13.2g",
-      "TargetGroupId": "POM",
-      "Target": 200,
-      "TargetAdjustment": 200,
-      "CustomerRoute": 350,
-      "TargetCA": 620,
-      "Year": 2026,
-      "Month": 8,
-      "MTD": 141
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 172,
-      "DepoName": "Depo Tanjung",
-      "SupervisorId": 17210036576,
-      "SupervisorName": "Muhammad Yasir",
-      "SalesmanId": 17210037897,
-      "SalesmanName": "Hindra",
-      "DepartmentId": "ADD",
-      "ProductId": 90101232171101,
-      "ProductName": "CWSCM8P/Chocolatos WS Cokelat Mede Promo -13.2g",
-      "TargetGroupId": "POM",
-      "Target": 110,
-      "TargetAdjustment": 110,
-      "CustomerRoute": 196,
-      "TargetCA": 620,
-      "Year": 2026,
-      "Month": 8,
-      "MTD": 102
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 172,
-      "DepoName": "Depo Tanjung",
-      "SupervisorId": 17210036576,
-      "SupervisorName": "Muhammad Yasir",
-      "SalesmanId": 17210042412,
-      "SalesmanName": "Muhammad Rizky Algifari",
-      "DepartmentId": "ADD",
-      "ProductId": 90101232171101,
-      "ProductName": "CWSCM8P/Chocolatos WS Cokelat Mede Promo -13.2g",
-      "TargetGroupId": "POM",
-      "Target": 110,
-      "TargetAdjustment": 110,
-      "CustomerRoute": 204,
       "TargetCA": 620,
       "Year": 2026,
       "Month": 8,
@@ -329,6 +266,69 @@
       "DepoName": "Depo Tanjung",
       "SupervisorId": 17210036576,
       "SupervisorName": "Muhammad Yasir",
+      "SalesmanId": 17210043127,
+      "SalesmanName": "Mahrita",
+      "DepartmentId": "ACS",
+      "ProductId": 90101232171101,
+      "ProductName": "CWSCM8P/Chocolatos WS Cokelat Mede Promo -13.2g",
+      "TargetGroupId": "POM",
+      "Target": 200,
+      "TargetAdjustment": 200,
+      "CustomerRoute": 350,
+      "TargetCA": 620,
+      "Year": 2026,
+      "Month": 8,
+      "MTD": 148
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 172,
+      "DepoName": "Depo Tanjung",
+      "SupervisorId": 17210036576,
+      "SupervisorName": "Muhammad Yasir",
+      "SalesmanId": 17210037897,
+      "SalesmanName": "Hindra",
+      "DepartmentId": "ADD",
+      "ProductId": 90101232171101,
+      "ProductName": "CWSCM8P/Chocolatos WS Cokelat Mede Promo -13.2g",
+      "TargetGroupId": "POM",
+      "Target": 110,
+      "TargetAdjustment": 110,
+      "CustomerRoute": 196,
+      "TargetCA": 620,
+      "Year": 2026,
+      "Month": 8,
+      "MTD": 108
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 172,
+      "DepoName": "Depo Tanjung",
+      "SupervisorId": 17210036576,
+      "SupervisorName": "Muhammad Yasir",
+      "SalesmanId": 17210042412,
+      "SalesmanName": "Muhammad Rizky Algifari",
+      "DepartmentId": "ADD",
+      "ProductId": 90101232171101,
+      "ProductName": "CWSCM8P/Chocolatos WS Cokelat Mede Promo -13.2g",
+      "TargetGroupId": "POM",
+      "Target": 110,
+      "TargetAdjustment": 110,
+      "CustomerRoute": 204,
+      "TargetCA": 620,
+      "Year": 2026,
+      "Month": 8,
+      "MTD": 99
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 172,
+      "DepoName": "Depo Tanjung",
+      "SupervisorId": 17210036576,
+      "SupervisorName": "Muhammad Yasir",
       "SalesmanId": 17210037632,
       "SalesmanName": "Robianor",
       "DepartmentId": "ADD",
@@ -341,7 +341,7 @@
       "TargetCA": 620,
       "Year": 2026,
       "Month": 8,
-      "MTD": 109
+      "MTD": 112
     },
     {
       "RegionId": 9,
@@ -362,7 +362,7 @@
       "TargetCA": 620,
       "Year": 2026,
       "Month": 8,
-      "MTD": 63
+      "MTD": 67
     },
     {
       "RegionId": 9,
@@ -383,7 +383,7 @@
       "TargetCA": 620,
       "Year": 2026,
       "Month": 8,
-      "MTD": 73
+      "MTD": 79
     },
     {
       "RegionId": 9,
@@ -404,7 +404,7 @@
       "TargetCA": 620,
       "Year": 2026,
       "Month": 8,
-      "MTD": 71
+      "MTD": 81
     },
     {
       "RegionId": 9,
@@ -425,7 +425,7 @@
       "TargetCA": 620,
       "Year": 2026,
       "Month": 8,
-      "MTD": 54
+      "MTD": 58
     },
     {
       "RegionId": 9,
@@ -446,7 +446,7 @@
       "TargetCA": 620,
       "Year": 2026,
       "Month": 8,
-      "MTD": 88
+      "MTD": 92
     },
     {
       "RegionId": 9,
@@ -467,7 +467,7 @@
       "TargetCA": 639,
       "Year": 2026,
       "Month": 8,
-      "MTD": 55
+      "MTD": 59
     },
     {
       "RegionId": 9,
@@ -488,7 +488,7 @@
       "TargetCA": 639,
       "Year": 2026,
       "Month": 8,
-      "MTD": 67
+      "MTD": 74
     },
     {
       "RegionId": 9,
@@ -509,7 +509,7 @@
       "TargetCA": 639,
       "Year": 2026,
       "Month": 8,
-      "MTD": 48
+      "MTD": 54
     },
     {
       "RegionId": 9,
@@ -530,7 +530,7 @@
       "TargetCA": 639,
       "Year": 2026,
       "Month": 8,
-      "MTD": 55
+      "MTD": 58
     },
     {
       "RegionId": 9,
@@ -551,7 +551,7 @@
       "TargetCA": 639,
       "Year": 2026,
       "Month": 8,
-      "MTD": 92
+      "MTD": 96
     },
     {
       "RegionId": 9,
@@ -572,7 +572,7 @@
       "TargetCA": 543,
       "Year": 2026,
       "Month": 8,
-      "MTD": 34
+      "MTD": 43
     },
     {
       "RegionId": 9,
@@ -593,7 +593,7 @@
       "TargetCA": 543,
       "Year": 2026,
       "Month": 8,
-      "MTD": 137
+      "MTD": 143
     },
     {
       "RegionId": 9,
@@ -614,7 +614,7 @@
       "TargetCA": 543,
       "Year": 2026,
       "Month": 8,
-      "MTD": 15
+      "MTD": 22
     },
     {
       "RegionId": 9,
@@ -635,7 +635,7 @@
       "TargetCA": 543,
       "Year": 2026,
       "Month": 8,
-      "MTD": 24
+      "MTD": 26
     },
     {
       "RegionId": 9,
@@ -656,7 +656,7 @@
       "TargetCA": 543,
       "Year": 2026,
       "Month": 8,
-      "MTD": 35
+      "MTD": 39
     },
     {
       "RegionId": 9,
@@ -677,7 +677,7 @@
       "TargetCA": 9,
       "Year": 2026,
       "Month": 8,
-      "MTD": 9
+      "MTD": 10
     },
     {
       "RegionId": 9,
@@ -698,7 +698,7 @@
       "TargetCA": 9,
       "Year": 2026,
       "Month": 8,
-      "MTD": 3
+      "MTD": 5
     },
     {
       "RegionId": 9,
@@ -740,7 +740,7 @@
       "TargetCA": 9,
       "Year": 2026,
       "Month": 8,
-      "MTD": 1
+      "MTD": 2
     },
     {
       "RegionId": 9,
@@ -761,7 +761,7 @@
       "TargetCA": 9,
       "Year": 2026,
       "Month": 8,
-      "MTD": 0
+      "MTD": 2
     },
     {
       "RegionId": 9,
@@ -845,7 +845,7 @@
       "TargetCA": 9,
       "Year": 2026,
       "Month": 8,
-      "MTD": 0
+      "MTD": 1
     },
     {
       "RegionId": 9,
@@ -908,7 +908,7 @@
       "TargetCA": 9,
       "Year": 2026,
       "Month": 8,
-      "MTD": 1
+      "MTD": 3
     },
     {
       "RegionId": 9,
@@ -950,7 +950,7 @@
       "TargetCA": 9,
       "Year": 2026,
       "Month": 8,
-      "MTD": 0
+      "MTD": 1
     },
     {
       "RegionId": 9,
@@ -971,7 +971,7 @@
       "TargetCA": 9,
       "Year": 2026,
       "Month": 8,
-      "MTD": 0
+      "MTD": 2
     }
   ]
 }
