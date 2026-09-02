@@ -3479,7 +3479,18 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             
             let html = '<tr><th rowspan="2" class="sticky-col">CHANNEL</th>';
             weeks.forEach(w => {
-                html += `<th colspan="9" class="${w.class}" data-week="${w.num}" data-full="9" data-small="4" style="cursor:default;">W${w.num} (${w.start}-${w.end} ${monthName})<button class="wk-per-btn" data-wnum="${w.num}" onclick="event.stopPropagation();toggleWeekCols(${w.num})" title="Sembunyikan/tampilkan kolom detail W${w.num}">−</button></th>`;
+                // Nama bulan diambil dari HK.json (w.from / w.to); fallback ke bulan sistem
+                let range;
+                if (w.from && w.to) {
+                    const mFrom = monthNames[new Date(w.from).getMonth()];
+                    const mTo   = monthNames[new Date(w.to).getMonth()];
+                    range = (mFrom === mTo)
+                        ? `${w.start}-${w.end} ${mFrom}`
+                        : `${w.start} ${mFrom}-${w.end} ${mTo}`;
+                } else {
+                    range = `${w.start}-${w.end} ${monthName}`;
+                }
+                html += `<th colspan="9" class="${w.class}" data-week="${w.num}" data-full="9" data-small="4" style="cursor:default;">W${w.num} (${range})<button class="wk-per-btn" data-wnum="${w.num}" onclick="event.stopPropagation();toggleWeekCols(${w.num})" title="Sembunyikan/tampilkan kolom detail W${w.num}">−</button></th>`;
             });
             html += '<th colspan="13" class="mtd">MTD</th></tr>';
             
