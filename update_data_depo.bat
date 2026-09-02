@@ -7,9 +7,19 @@ echo.
 REM ========================================
 REM CONFIGURATION
 REM ========================================
-set GITHUB_USERNAME=kisman271128
-set GITHUB_REPO=onesheet-kalimantan
-set GIT_BRANCH=master
+REM Try to load from .env file if exists
+if exist ".env" (
+    for /f "tokens=1,2 delims==" %%a in (.env) do (
+        if not "%%a"=="" if not "%%a:~0,1%"=="#" (
+            set %%a=%%b
+        )
+    )
+)
+
+REM Default values if not in .env
+set GITHUB_USERNAME=%GITHUB_USERNAME:kisman271128=%
+set GITHUB_REPO=%GITHUB_REPO:onesheet-kalimantan=%
+set GIT_BRANCH=%GIT_BRANCH:master=%
 set PY_SCRIPT=excel_to_json_depo.py
 set EXCEL_FILE=OneSheetDepo.xlsb
 
