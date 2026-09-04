@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Pangkalanbun",
     "total_kpis": 10,
-    "last_updated": "2026-09-01 22:32:03"
+    "last_updated": "2026-09-05 05:39:30"
   },
   "kpis": [
     {
@@ -13,11 +13,11 @@
       "weight": 20,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "0.0",
-      "actual": 0,
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "target": "10635431925.90681",
+      "actual": 11230035948.2903,
+      "ach": "105.6%",
+      "score": 4,
+      "point": 0.8
     },
     {
       "kpi": "Drive ND : Sales Growth Whs Med & Small",
@@ -25,11 +25,11 @@
       "weight": 10,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "6440130813.028267",
-      "actual": 6510537333.9596,
-      "ach": "1.1%",
-      "score": 1,
-      "point": 0.1
+      "target": "2876935905.247697",
+      "actual": 3786979128.6585,
+      "ach": "31.6%",
+      "score": 5,
+      "point": 0.5
     },
     {
       "kpi": "%EC Salesman",
@@ -37,11 +37,11 @@
       "weight": 10,
       "uom": "100.0%",
       "scoring": "General Scoring",
-      "target": "0.71",
-      "actual": "75.4%",
-      "ach": "106.2%",
-      "score": 5,
-      "point": 0.5
+      "target": "0.75",
+      "actual": "73.1%",
+      "ach": "97.4%",
+      "score": 2,
+      "point": 0.2
     },
     {
       "kpi": "CA Productivity Depo : All",
@@ -50,10 +50,10 @@
       "uom": "Index",
       "scoring": "Index Scoring",
       "target": "0.8033333333333332",
-      "actual": "0x7",
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "actual": 1.0016,
+      "ach": "124.7%",
+      "score": 5,
+      "point": 0.5
     },
     {
       "kpi": "CR Expansion - Direct (50% Rtl, 50% School)",
@@ -62,8 +62,8 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "1127.0",
-      "actual": 1100,
-      "ach": "78.7%",
+      "actual": 1098,
+      "ach": "80.5%",
       "score": 1,
       "point": 0.1
     },
@@ -73,11 +73,11 @@
       "weight": 10,
       "uom": "100.0%",
       "scoring": "General Scoring",
-      "target": "0.0",
-      "actual": "0.0%",
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "target": "120.0",
+      "actual": 120,
+      "ach": "100.0%",
+      "score": 3,
+      "point": 0.3
     },
     {
       "kpi": "Ways of Working : Business Review Top 25 Pareto",
