@@ -5952,16 +5952,17 @@ let trendChart = null;
         // ═══════════════════════════════════════════════════════════════
 
         const _AI = {
-            groq: {
-                url:   'https://api.groq.com/openai/v1/chat/completions',
-                model: 'llama-3.1-8b-instant',
-                label: '⚡ Groq',
-                get key() { return localStorage.getItem('ai_key_groq') || ''; }
+            openai: {
+                url:   'https://api.openai.com/v1/chat/completions',
+                model: 'gpt-4o-mini',
+                label: '💬 ChatGPT',
+                get key() { return localStorage.getItem('ai_key_openai') || ''; }
             },
-            gemini: {
-                url:   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
-                label: '✨ Gemini',
-                get key() { return localStorage.getItem('ai_key_gemini') || ''; }
+            deepseek: {
+                url:   'https://api.deepseek.com/chat/completions',
+                model: 'deepseek-chat',
+                label: '🐋 DeepSeek',
+                get key() { return localStorage.getItem('ai_key_deepseek') || ''; }
             },
             gemini15pro: {
                 url:   'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent',
@@ -5982,7 +5983,7 @@ let trendChart = null;
             }
         };
 
-        let _aiProv     = localStorage.getItem('ai_provider') || 'groq';
+        let _aiProv     = localStorage.getItem('ai_provider') || 'openai';
         let _aiConv     = [];
         let _aiBusy     = false;
         let _aiProses   = null;
@@ -5992,7 +5993,7 @@ let trendChart = null;
         function initAIInsight() {
             window._aiInitialized = true;
             _aiUpdateProvUI();
-            const hasKey = _AI.groq.key || _AI.gemini.key || _AI.openrouter.key || _AI.cohere.key;
+            const hasKey = _AI.openai.key || _AI.deepseek.key || _AI.gemini15pro.key || _AI.openrouter.key || _AI.cohere.key;
             if (!hasKey) { setTimeout(aiOpenSettings, 400); return; }
             _aiAnalyze();
         }
@@ -6017,11 +6018,11 @@ let trendChart = null;
         }
 
         function _aiUpdateProvUI() {
-            ['groq','gemini','gem15','or','coh','auto'].forEach(id => {
+            ['openai','deepseek','gem15','or','coh','auto'].forEach(id => {
                 const btn = document.getElementById('aiBtn_' + id);
                 if (btn) btn.classList.remove('active');
             });
-            const map = { groq:'groq', gemini:'gemini', gemini15pro:'gem15', openrouter:'or', cohere:'coh', auto:'auto' };
+            const map = { openai:'openai', deepseek:'deepseek', gemini15pro:'gem15', openrouter:'or', cohere:'coh', auto:'auto' };
             const btn = document.getElementById('aiBtn_' + (map[_aiProv] || _aiProv));
             if (btn) btn.classList.add('active');
             const label = _aiProv === 'auto' ? '🟢 Auto' : (_AI[_aiProv]?.label || _aiProv);
@@ -6408,7 +6409,7 @@ Berikan analisis dalam format JSON persis (tanpa markdown, tanpa kode blok):
             const wrap = document.getElementById('aiChatMessages');
             if (!wrap) return;
             const prov = _AI[_aiProv];
-            const tagClr = { groq:{bg:'#fed7aa',fg:'#c2410c'}, gemini:{bg:'#bfdbfe',fg:'#1d4ed8'}, gemini15pro:{bg:'#dbeafe',fg:'#1a73e8'}, openrouter:{bg:'#ede9fe',fg:'#7c3aed'}, cohere:{bg:'#fef3c7',fg:'#d97706'}, auto:{bg:'#dcfce7',fg:'#16a34a'} };
+            const tagClr = { openai:{bg:'#d1fae5',fg:'#047857'}, deepseek:{bg:'#dbeafe',fg:'#2563eb'}, gemini15pro:{bg:'#e0e7ff',fg:'#4f46e5'}, openrouter:{bg:'#ede9fe',fg:'#7c3aed'}, cohere:{bg:'#fef3c7',fg:'#d97706'}, auto:{bg:'#dcfce7',fg:'#16a34a'} };
             const tc = tagClr[_aiProv] || {bg:'#e2e8f0',fg:'#475569'};
             const provTag = role === 'bot'
                 ? `<span style="font-size:9px;background:${tc.bg};color:${tc.fg};padding:1px 6px;border-radius:8px;">${prov?.label||_aiProv}</span>`
@@ -6434,11 +6435,11 @@ Berikan analisis dalam format JSON persis (tanpa markdown, tanpa kode blok):
         // ── API Calls ─────────────────────────────────────────────────
         async function _aiCallAPI(messages, maxTokens=800) {
             if (_aiProv === 'auto')       return _aiCallAuto(messages, maxTokens);
-            if (_aiProv === 'gemini')     return _aiCallGemini(messages, maxTokens);
+            if (_aiProv === 'deepseek')   return _aiCallDeepSeek(messages, maxTokens);
             if (_aiProv === 'gemini15pro') return _aiCallGemini15Pro(messages, maxTokens);
             if (_aiProv === 'openrouter') return _aiCallOR(messages, maxTokens);
             if (_aiProv === 'cohere')     return _aiCallCohere(messages, maxTokens);
-            return _aiCallGroq(messages, maxTokens);
+            return _aiCallOpenAI(messages, maxTokens);
         }
 
         function _aiSysPrompt() {
@@ -6460,35 +6461,41 @@ Tugas utamamu: identifikasi masalah, temukan root cause, buat activity plan konk
 Jawab dalam Bahasa Indonesia profesional. Selalu sebutkan angka/nama spesifik. Untuk activity plan, output wajib berupa JSON array dengan field: aksi, PIC, timeline, target.`;
         }
 
-        async function _aiCallGroq(messages, maxTokens) {
-            const key = _AI.groq.key;
-            if (!key) throw new Error('Groq API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
-            const res = await fetch(_AI.groq.url, {
+        async function _aiCallOpenAI(messages, maxTokens) {
+            const key = _AI.openai.key;
+            if (!key) throw new Error('ChatGPT (OpenAI) API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
+            const res = await fetch(_AI.openai.url, {
                 method:'POST',
                 headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+key },
-                body: JSON.stringify({ model:_AI.groq.model, messages:[{role:'system',content:_aiSysPrompt()},...messages], max_tokens:maxTokens, temperature:0.3 })
+                body: JSON.stringify({ model:_AI.openai.model, messages:[{role:'system',content:_aiSysPrompt()},...messages], max_tokens:maxTokens, temperature:0.3 })
             });
-            if (!res.ok) { const e=await res.json().catch(()=>({})); throw new Error(e.error?.message||`Groq HTTP ${res.status}`); }
+            if (!res.ok) {
+                const e=await res.json().catch(()=>({}));
+                if (res.status===401) throw new Error('OpenAI API key tidak valid. Cek kembali di ⚙️ API Key.');
+                if (res.status===429) throw new Error('Rate limit / kuota OpenAI habis. Tunggu sebentar atau cek billing akun.');
+                throw new Error(e.error?.message||`OpenAI HTTP ${res.status}`);
+            }
             const d = await res.json();
             return d.choices?.[0]?.message?.content || '(tidak ada respons)';
         }
 
-        async function _aiCallGemini(messages, maxTokens) {
-            const key = _AI.gemini.key;
-            if (!key) throw new Error('Gemini API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
-            const contents = messages.map(m=>({ role:m.role==='assistant'?'model':'user', parts:[{text:m.content}] }));
-            const res = await fetch(_AI.gemini.url + '?key=' + key, {
+        async function _aiCallDeepSeek(messages, maxTokens) {
+            const key = _AI.deepseek.key;
+            if (!key) throw new Error('DeepSeek API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
+            const res = await fetch(_AI.deepseek.url, {
                 method:'POST',
-                headers:{ 'Content-Type':'application/json' },
-                body: JSON.stringify({
-                    system_instruction:{ parts:[{text:_aiSysPrompt()}] },
-                    contents,
-                    generationConfig:{ maxOutputTokens:maxTokens, temperature:0.3 }
-                })
+                headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+key },
+                body: JSON.stringify({ model:_AI.deepseek.model, messages:[{role:'system',content:_aiSysPrompt()},...messages], max_tokens:maxTokens, temperature:0.3 })
             });
-            if (!res.ok) { const e=await res.json().catch(()=>({})); throw new Error(e.error?.message||`Gemini HTTP ${res.status}`); }
+            if (!res.ok) {
+                const e=await res.json().catch(()=>({}));
+                if (res.status===401) throw new Error('DeepSeek API key tidak valid. Cek kembali di ⚙️ API Key.');
+                if (res.status===402) throw new Error('Saldo DeepSeek habis. Top up di platform.deepseek.com.');
+                if (res.status===429) throw new Error('Rate limit DeepSeek. Tunggu sebentar atau ganti provider lain.');
+                throw new Error(e.error?.message||`DeepSeek HTTP ${res.status}`);
+            }
             const d = await res.json();
-            return d.candidates?.[0]?.content?.parts?.[0]?.text || '(tidak ada respons)';
+            return d.choices?.[0]?.message?.content || '(tidak ada respons)';
         }
 
         async function _aiCallOR(messages, maxTokens) {
@@ -6519,7 +6526,7 @@ Jawab dalam Bahasa Indonesia profesional. Selalu sebutkan angka/nama spesifik. U
 
         async function _aiCallGemini15Pro(messages, maxTokens) {
             const key = _AI.gemini15pro.key;
-            if (!key) throw new Error('Gemini API key belum diisi. Klik ⚙️ API Key untuk mengatur. (Key sama dengan Gemini 2.0)');
+            if (!key) throw new Error('Gemini API key belum diisi. Klik ⚙️ API Key untuk mengatur.');
             const contents = messages.map(m=>({ role:m.role==='assistant'?'model':'user', parts:[{text:m.content}] }));
             const res = await fetch(_AI.gemini15pro.url + '?key=' + key, {
                 method:'POST',
@@ -6557,8 +6564,8 @@ Jawab dalam Bahasa Indonesia profesional. Selalu sebutkan angka/nama spesifik. U
 
         async function _aiCallAuto(messages, maxTokens) {
             const order = [
-                { name:'groq',       fn: ()=>_aiCallGroq(messages, maxTokens) },
-                { name:'gemini',     fn: ()=>_aiCallGemini(messages, maxTokens) },
+                { name:'openai',     fn: ()=>_aiCallOpenAI(messages, maxTokens) },
+                { name:'deepseek',   fn: ()=>_aiCallDeepSeek(messages, maxTokens) },
                 { name:'gemini15pro',fn: ()=>_aiCallGemini15Pro(messages, maxTokens) },
                 { name:'openrouter', fn: ()=>_aiCallOR(messages, maxTokens) },
                 { name:'cohere',     fn: ()=>_aiCallCohere(messages, maxTokens) }
@@ -6864,8 +6871,9 @@ Jawab dalam Bahasa Indonesia profesional. Selalu sebutkan angka/nama spesifik. U
 
         // ── Settings ──────────────────────────────────────────────────
         function aiOpenSettings() {
-            document.getElementById('aiGK').value    = _AI.groq.key;
-            document.getElementById('aiGemK').value  = _AI.gemini.key;
+            document.getElementById('aiGK').value    = _AI.openai.key;
+            document.getElementById('aiDsK').value   = _AI.deepseek.key;
+            document.getElementById('aiGemK').value  = _AI.gemini15pro.key;
             document.getElementById('aiOrK').value   = _AI.openrouter.key;
             document.getElementById('aiCohK').value  = _AI.cohere.key;
             const sel = document.getElementById('aiOrModel');
@@ -6946,11 +6954,13 @@ Jawab dalam Bahasa Indonesia profesional. Selalu sebutkan angka/nama spesifik. U
 
         function aiSaveSettings() {
             const gk  = document.getElementById('aiGK')?.value.trim();
+            const dsk = document.getElementById('aiDsK')?.value.trim();
             const gmk = document.getElementById('aiGemK')?.value.trim();
             const ork = document.getElementById('aiOrK')?.value.trim();
             const cok = document.getElementById('aiCohK')?.value.trim();
             const orm = document.getElementById('aiOrModel')?.value;
-            if (gk)  localStorage.setItem('ai_key_groq', gk);       else localStorage.removeItem('ai_key_groq');
+            if (gk)  localStorage.setItem('ai_key_openai', gk);      else localStorage.removeItem('ai_key_openai');
+            if (dsk) localStorage.setItem('ai_key_deepseek', dsk);   else localStorage.removeItem('ai_key_deepseek');
             if (gmk) localStorage.setItem('ai_key_gemini', gmk);     else localStorage.removeItem('ai_key_gemini');
             if (ork) localStorage.setItem('ai_key_openrouter', ork); else localStorage.removeItem('ai_key_openrouter');
             if (cok) localStorage.setItem('ai_key_cohere', cok);     else localStorage.removeItem('ai_key_cohere');
