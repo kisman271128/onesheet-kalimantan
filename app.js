@@ -2336,15 +2336,28 @@ ${isRegional ? renderDepoStatusPanel() : ''}
 
         // ===== SALESMAN SUB-TAB: CHANNEL / PROSES =====
         function switchSalesmanSubTab(tab) {
-            const isChannel = tab === 'channel';
-            const isProses  = tab === 'proses';
-            const isProject = tab === 'project';
+            const isChannel    = tab === 'channel';
+            const isBySalesman = tab === 'bysalesman';
+            const isProses     = tab === 'proses';
+            const isProject    = tab === 'project';
             document.getElementById('smSubTabChannel').classList.toggle('active', isChannel);
+            document.getElementById('smSubTabBySalesman').classList.toggle('active', isBySalesman);
             document.getElementById('smSubTabProses').classList.toggle('active', isProses);
             document.getElementById('smSubTabProject').classList.toggle('active', isProject);
             document.getElementById('smSubBtnChannel').classList.toggle('active', isChannel);
+            document.getElementById('smSubBtnBySalesman').classList.toggle('active', isBySalesman);
             document.getElementById('smSubBtnProses').classList.toggle('active', isProses);
             document.getElementById('smSubBtnProject').classList.toggle('active', isProject);
+            if (isBySalesman) {
+                // Reload jika belum load ATAU jika mode berubah (regional vs per-depo)
+                const isRegional = (selectedDepo === 'data_SUMMARY');
+                const wasRegional = window._smBySalesmanWasRegional;
+                if (!window._smBySalesmanLoaded || wasRegional !== isRegional) {
+                    window._smBySalesmanLoaded = true;
+                    window._smBySalesmanWasRegional = isRegional;
+                    loadSmBySalesmanTab();
+                }
+            }
             if (isProses) {
                 // Reload jika belum load ATAU jika mode berubah (regional vs per-depo)
                 const isRegional = (selectedDepo === 'data_SUMMARY');
@@ -2689,7 +2702,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 // Match only cells that belong to this week class
             });
             // More reliable: toggle sub-header TH with week class wN
-            ['tableHeaderWeekly','tableHeaderSalesman','tableHeaderSummaryDepo','tableHeaderSummaryTipe'].forEach(id => {
+            ['tableHeaderWeekly','tableHeaderSalesman','tableHeaderSalesmanBySalesman','tableHeaderSummaryDepo','tableHeaderSummaryTipe'].forEach(id => {
                 const hdr = document.getElementById(id);
                 if (!hdr) return;
                 hdr.querySelectorAll(`th.w${wNum}.wk-detail`).forEach(el => {
@@ -2723,7 +2736,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 document.querySelectorAll(`td.wk-detail[data-w="${n}"]`).forEach(el => {
                     el.classList.toggle('wk-hidden', !wkDetailVisible);
                 });
-                ['tableHeaderWeekly','tableHeaderSalesman','tableHeaderSummaryDepo','tableHeaderSummaryTipe'].forEach(id => {
+                ['tableHeaderWeekly','tableHeaderSalesman','tableHeaderSalesmanBySalesman','tableHeaderSummaryDepo','tableHeaderSummaryTipe'].forEach(id => {
                     const hdr = document.getElementById(id);
                     if (!hdr) return;
                     hdr.querySelectorAll(`th.w${n}.wk-detail`).forEach(el => el.classList.toggle('wk-hidden', !wkDetailVisible));
@@ -3467,17 +3480,17 @@ ${isRegional ? renderDepoStatusPanel() : ''}
             return weeks;
         }
 
-        function generateTableHeader(targetId) {
+        function generateTableHeader(targetId, leftLabel) {
             const now = new Date();
             const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             const monthName = monthNames[now.getMonth()];
-            
+
             const weeks = getWeeksForMonth();
-            
+
             WEEKS_CONFIG = weeks.map(w => `W${w.num}`);
             WEEKS_CONFIG.push('MTD');
-            
-            let html = '<tr><th rowspan="2" class="sticky-col">CHANNEL</th>';
+
+            let html = '<tr><th rowspan="2" class="sticky-col">' + (leftLabel || 'CHANNEL') + '</th>';
             weeks.forEach(w => {
                 // Nama bulan diambil dari HK.json (w.from / w.to); fallback ke bulan sistem
                 let range;
@@ -3724,6 +3737,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                 // Generate headers for all tabs
                 generateTableHeader('tableHeaderWeekly');
                 generateTableHeader('tableHeaderSalesman');
+                generateTableHeader('tableHeaderSalesmanBySalesman', 'SALESMAN');
                 if (isSummaryRegional) {
                     generateTableHeader('tableHeaderSummaryDepo');
                     generateTableHeader('tableHeaderSummaryTipe');
@@ -4833,6 +4847,119 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                    `<td class="wk-mtd-cell">${fmtM(d.Actual)}</td>` +
                    `<td class="wk-mtd-cell ${bpClass}">${vsBP}%</td><td class="wk-mtd-cell">${gapBPFmt}</td>` +
                    `<td class="wk-mtd-cell ${beClass}">${vsBE}%</td><td class="wk-mtd-cell">${gapBEFmt}</td>`;
+        }
+
+        // Loader untuk sub-tab "By Salesman": tampilkan seluruh salesman (tanpa filter),
+        // per-depo pakai rawData yang sudah ada; Summary Regional gabungkan data semua depo.
+        async function loadSmBySalesmanTab() {
+            const loading = document.getElementById('loadingSmBySalesman');
+            const isRegional = (selectedDepo === 'data_SUMMARY');
+
+            if (!isRegional) {
+                if (loading) loading.style.display = 'none';
+                renderBySalesmanTable(rawData);
+                return;
+            }
+
+            if (loading) { loading.style.display = 'block'; loading.textContent = '⏳ Memuat data semua depo...'; }
+            try {
+                const depoRes  = await fetch('depo_list.json');
+                const depoData = await depoRes.json();
+                const results  = await Promise.all((depoData.depos || []).map(async depo => {
+                    const suffix = depo.toUpperCase().trim().replace(/^DEPO\s+/i, '').replace(/\s+/g, '_');
+                    try {
+                        let rows = (window._depoDataByLabel || {})[suffix];
+                        if (!rows) {
+                            const r = await fetch('data_DEPO_' + suffix + '.json');
+                            if (!r.ok) return [];
+                            const j = await r.json();
+                            rows = j.data || [];
+                            if (!window._depoDataByLabel) window._depoDataByLabel = {};
+                            window._depoDataByLabel[suffix] = rows;
+                        }
+                        return rows;
+                    } catch(e) { return []; }
+                }));
+
+                if (loading) loading.style.display = 'none';
+                renderBySalesmanTable(results.flat());
+            } catch(e) {
+                if (loading) { loading.style.display = 'block'; loading.textContent = '❌ Gagal memuat data: ' + e.message; }
+            }
+        }
+
+        // Sub-tabulasi "By Salesman": baris kiri = Nama Salesman (bukan Channel),
+        // kolom-kolom sama seperti tabel By Channel (LY/LM/BE/BP/Act/%BP/G-BP/%BE/G-BE per minggu + MTD).
+        function renderBySalesmanTable(data) {
+            const weeks = WEEKS_CONFIG.length > 0 ? WEEKS_CONFIG : ['W1', 'W2', 'W3', 'W4', 'MTD'];
+            const tbody = document.getElementById('tableBodySalesmanBySalesman');
+            if (!tbody) return;
+
+            if (!data || !data.length) { tbody.innerHTML = ''; return; }
+
+            const bySalesman = {};
+            data.forEach(row => {
+                const nm = row['Nama Salesman'] || row['nama salesman'] || row.Salesman || row.salesman || '';
+                if (!nm) return;
+                if (!bySalesman[nm]) {
+                    bySalesman[nm] = {};
+                    weeks.forEach(w => bySalesman[nm][w] = makeEmptyBucket());
+                }
+                const idPelanggan = row['Id Pelanggan'] || row['ID Pelanggan'] || row.id_pelanggan || '';
+
+                weeks.forEach(w => {
+                    const wNum = w.replace('W', '').replace('MTD', '');
+                    const isMTD = w === 'MTD';
+                    const bkt = bySalesman[nm][w];
+
+                    if (idPelanggan) bkt.CR.add(idPelanggan);
+                    if (idPelanggan && Number(row.CA || 0) > 0) bkt.CA.add(idPelanggan);
+                    bkt.LY     += Number(row[isMTD ? 'LY'  : `LYW${wNum}`]  || 0);
+                    bkt.LM     += Number(row[isMTD ? 'LM'  : `LMW${wNum}`]  || 0);
+                    bkt.L3M    += Number(row.L3M || row.l3m || 0);
+                    bkt.BE     += Number(row[isMTD ? 'BE'  : `BEW${wNum}`]  || 0);
+                    bkt.BP     += Number(row[isMTD ? 'BP'  : `BPW${wNum}`]  || 0);
+                    bkt.Actual += Number(row[isMTD ? 'MTD' : `MTDW${wNum}`] || 0);
+                });
+            });
+
+            const salesmanNames = Object.keys(bySalesman).sort();
+
+            // Convert Sets → sizes
+            salesmanNames.forEach(nm => {
+                weeks.forEach(w => {
+                    bySalesman[nm][w].CR = bySalesman[nm][w].CR.size;
+                    bySalesman[nm][w].CA = bySalesman[nm][w].CA.size;
+                });
+            });
+
+            let html = '';
+            salesmanNames.forEach(nm => {
+                html += `<tr><td class="sticky-col row-channel">${nm}</td>`;
+                weeks.forEach(w => { html += renderCells(bySalesman[nm][w], w === 'MTD', w); });
+                html += '</tr>';
+            });
+
+            // Baris TOTAL
+            html += '<tr><td class="sticky-col row-total">TOTAL</td>';
+            weeks.forEach(w => {
+                const total = { CR: 0, CA: 0, LY: 0, LM: 0, L3M: 0, BE: 0, BP: 0, Actual: 0 };
+                salesmanNames.forEach(nm => {
+                    const bkt = bySalesman[nm][w];
+                    total.CR += bkt.CR;
+                    total.CA += bkt.CA;
+                    total.LY += bkt.LY;
+                    total.LM += bkt.LM;
+                    total.L3M += bkt.L3M;
+                    total.BE += bkt.BE;
+                    total.BP += bkt.BP;
+                    total.Actual += bkt.Actual;
+                });
+                html += renderCells(total, w === 'MTD', w);
+            });
+            html += '</tr>';
+
+            tbody.innerHTML = html;
         }
 
         function fmtN(n) {
