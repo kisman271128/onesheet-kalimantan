@@ -2597,7 +2597,7 @@ ${isRegional ? renderDepoStatusPanel() : ''}
                     const tipeMap = {};
                     rows.forEach(r => {
                         const nm   = r.szname || r['Nama Salesman'] || '';
-                        const tipe = r.Tim || r['Tim'] || r['Tipe Sales'] || r['Tipe'] || r['tipe']
+                        const tipe = r['Tipe Salesman'] || r.Tim || r['Tim'] || r['Tipe Sales'] || r['Tipe'] || r['tipe']
                                      || (window.salesmanToTipe && window.salesmanToTipe[nm])
                                      || 'Lainnya';
                         if (!tipeMap[tipe]) tipeMap[tipe] = [];
