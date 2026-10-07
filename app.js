@@ -310,6 +310,7 @@
             showUploadStatus('info', '⏳ Memulai upload ' + toUpload.length + ' file...');
 
             let successCount = 0, failCount = 0;
+            let lastUploadedFilename = '';
             const results = [];
 
             for (const s of toUpload) {
@@ -330,6 +331,7 @@
 
                     await uploadToGitHub(file.name, content); // throws on failure
                     await logUploadActivity(file.name, recordCount, depoMeta);
+                    lastUploadedFilename = file.name;
                     detectEl.innerHTML = '<span class="upl-dot upl-dot-found"></span><span style="color:#16a34a;">Uploaded</span>';
                     if (uploadCell) uploadCell.innerHTML = '<span style="color:#16a34a;font-weight:700;">✅ ' + recordCount + ' rec</span>';
                     if (cardEl2) { cardEl2.classList.remove('uploading'); cardEl2.classList.add('done'); }
@@ -351,7 +353,14 @@
                           + '<br><br>' + results.join('<br>');
             showUploadStatus(type, summary + (successCount > 0 ? '<br><br>⏳ Dashboard akan reload dalam 3 detik...' : ''));
 
-            if (successCount > 0) setTimeout(() => location.reload(), 3000);
+            if (successCount > 0) {
+                // Pastikan depo ini terdaftar di depo_list.json agar muncul di Summary Regional
+                try {
+                    const _m = (lastUploadedFilename || '').match(/DEPO_(.+)\.json$/i);
+                    if (_m) await registerDepoInList(_m[1]);
+                } catch(e) { console.warn('registerDepoInList gagal:', e); }
+                setTimeout(() => location.reload(), 3000);
+            }
         }
 
         async function uploadJSON() { await uploadAllFiles(); }
@@ -969,6 +978,52 @@
             }
         }
         
+        async function registerDepoInList(depoSuffix) {
+            // Daftarkan depo yang baru upload ke depo_list.json (add-only, tidak menghapus depo lain)
+            // agar otomatis muncul di Summary Regional.
+            try {
+                if (!GITHUB_CONFIG.owner || !GITHUB_CONFIG.repo || !GITHUB_CONFIG.token) return;
+                const normalize = (v) => String(v || '').trim().toUpperCase()
+                    .replace(/^DEPO[_ ]/i, '').replace(/\s+/g, '_').replace(/\//g, '_');
+                const name = normalize(depoSuffix);
+                if (!name || name === 'SUMMARY') return;
+                const fileUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/depo_list.json`;
+                const headers = {
+                    'Authorization': `token ${GITHUB_CONFIG.token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                };
+                let sha = null, list = [];
+                try {
+                    const res = await fetch(fileUrl, { headers, cache: 'no-store' });
+                    if (res.ok) {
+                        const j = await res.json();
+                        sha = j.sha;
+                        const txt = decodeURIComponent(escape(atob((j.content || '').replace(/\n/g, ''))));
+                        const parsed = JSON.parse(txt);
+                        list = Array.isArray(parsed.depos) ? parsed.depos.slice() : [];
+                    }
+                } catch(e) { /* file belum ada -> buat baru */ }
+                if (list.some(x => normalize(x) === name)) return; // sudah terdaftar
+                list.push(name);
+                list.sort();
+                const payload = {
+                    depos: list,
+                    metadata: { last_updated: new Date().toLocaleString('id-ID'), total: list.length }
+                };
+                const body = {
+                    message: `Register depo ke depo_list.json: ${name}`,
+                    content: btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2)))),
+                    branch: GITHUB_CONFIG.branch
+                };
+                if (sha) body.sha = sha;
+                await fetch(fileUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
+                console.log('depo_list.json diperbarui: +' + name);
+            } catch (e) {
+                console.warn('registerDepoInList gagal:', e);
+            }
+        }
+
         function clearUploadedData() {
             showUploadStatus('info', 'ℹ️ Upload ke GitHub bersifat permanen.<br>Untuk menghapus, hubungi admin atau upload file baru untuk replace.');
         }
