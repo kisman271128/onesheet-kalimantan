@@ -1356,9 +1356,6 @@
 
             const found   = entries.filter(d => d.found);
             const missing = entries.filter(d => !d.found);
-            const allOk   = missing.length === 0;
-            const btnBg   = allOk ? '#16a34a' : '#f97316';
-            const badge   = missing.length > 0 ? String(missing.length) : '\u2713';
 
             // Ambil tanggal saja (tanpa jam) untuk perbandingan
             const toDateStr = (s) => {
@@ -1375,6 +1372,17 @@
             // Cari tanggal terbaru berdasarkan Day Closing (date string, YYYY-MM-DD)
             const datestrs = found.map(d => toDateStr(d.dayClosing || d.lastUpdate)).filter(Boolean);
             const maxDate  = datestrs.length > 0 ? datestrs.reduce((a,b) => a > b ? a : b) : null;
+
+            // Depo "belum upload di tanggal terbaru" = belum upload sama sekali (missing),
+            // atau sudah upload tapi tanggal Day Closing-nya lebih lama dari tanggal terbaru (maxDate).
+            const outdated    = found.filter(d => {
+                const ds = toDateStr(d.dayClosing || d.lastUpdate);
+                return ds && maxDate && ds !== maxDate;
+            });
+            const notUpToDate = missing.length + outdated.length;
+            const allOk       = notUpToDate === 0;
+            const btnBg       = allOk ? '#16a34a' : '#f97316';
+            const badge       = notUpToDate > 0 ? String(notUpToDate) : '\u2713';
 
             const fmtDate = (s) => {
                 if (!s) return '\u2014';
