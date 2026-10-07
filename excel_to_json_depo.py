@@ -1336,19 +1336,38 @@ def export_depo_list(excel_file):
 
         depo_list.sort()
 
+        # Gabungkan dengan depo_list.json yang sudah ada supaya depo lain tidak hilang
+        # ketika file Excel yang diproses hanya memuat sebagian depo.
+        def _norm_depo(x):
+            s = str(x).strip().upper()
+            if s.startswith('DEPO '):
+                s = s[5:]
+            return s.replace(' ', '_').replace('/', '_')
+        existing = []
+        try:
+            if os.path.exists("depo_list.json"):
+                with open("depo_list.json", "r", encoding="utf-8") as f:
+                    prev = json.load(f)
+                prev_depos = prev.get("depos", []) if isinstance(prev, dict) else []
+                existing = [_norm_depo(x) for x in prev_depos if str(x).strip()]
+        except Exception:
+            existing = []
+
+        merged = sorted(set(depo_list) | set(existing))
+
         import datetime
         output = {
-            "depos": depo_list,
+            "depos": merged,
             "metadata": {
                 "last_updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "total": len(depo_list)
+                "total": len(merged)
             }
         }
 
         with open("depo_list.json", "w", encoding="utf-8") as f:
             json.dump(output, f, ensure_ascii=False, indent=2)
 
-        print(f"✅ depo_list.json dibuat — {len(depo_list)} depo: {', '.join(depo_list)}")
+        print(f"✅ depo_list.json dibuat — {len(merged)} depo: {', '.join(merged)}")
 
     except Exception as e:
         print(f"❌ Gagal membuat depo_list.json: {e}")
