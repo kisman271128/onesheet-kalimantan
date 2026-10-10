@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Banjarmasin",
     "total_kpis": 10,
-    "last_updated": "2026-10-09 10:02:37"
+    "last_updated": "2026-10-10 13:58:55"
   },
   "kpis": [
     {
@@ -13,11 +13,11 @@
       "weight": 20,
       "uom": "BP",
       "scoring": "General Scoring",
-      "target": "0.0",
-      "actual": 0,
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "target": "28028800918.611374",
+      "actual": 29260369388.1916,
+      "ach": "104.4%",
+      "score": 4,
+      "point": 0.8
     },
     {
       "kpi": "Drive ND : Sales Growth Whs Med & Small",
@@ -50,10 +50,10 @@
       "uom": "Index",
       "scoring": "Index Scoring",
       "target": "0.8033333333333332",
-      "actual": "0x7",
-      "ach": "0x7",
-      "score": null,
-      "point": null
+      "actual": 0.9792,
+      "ach": "121.9%",
+      "score": 5,
+      "point": 0.5
     },
     {
       "kpi": "CR Expansion - Direct (50% Rtl, 50% School)",
