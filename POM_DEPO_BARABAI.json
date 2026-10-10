@@ -24,7 +24,7 @@
       "Month",
       "MTD"
     ],
-    "last_updated": "2026-10-07 18:52:54"
+    "last_updated": "2026-10-10 17:47:31"
   },
   "data": [
     {
@@ -45,7 +45,7 @@
       "CustomerRoute": 129,
       "Year": 2026,
       "Month": 10,
-      "MTD": 8
+      "MTD": 11
     },
     {
       "RegionId": 9,
@@ -65,7 +65,7 @@
       "CustomerRoute": 314,
       "Year": 2026,
       "Month": 10,
-      "MTD": 19
+      "MTD": 28
     },
     {
       "RegionId": 9,
@@ -85,7 +85,7 @@
       "CustomerRoute": 128,
       "Year": 2026,
       "Month": 10,
-      "MTD": 21
+      "MTD": 20
     },
     {
       "RegionId": 9,
@@ -105,7 +105,7 @@
       "CustomerRoute": 282,
       "Year": 2026,
       "Month": 10,
-      "MTD": 62
+      "MTD": 92
     },
     {
       "RegionId": 9,
@@ -125,7 +125,7 @@
       "CustomerRoute": 151,
       "Year": 2026,
       "Month": 10,
-      "MTD": 7
+      "MTD": 15
     },
     {
       "RegionId": 9,
@@ -145,7 +145,7 @@
       "CustomerRoute": 245,
       "Year": 2026,
       "Month": 10,
-      "MTD": 31
+      "MTD": 57
     },
     {
       "RegionId": 9,
@@ -165,7 +165,7 @@
       "CustomerRoute": 244,
       "Year": 2026,
       "Month": 10,
-      "MTD": 17
+      "MTD": 34
     },
     {
       "RegionId": 9,
@@ -185,7 +185,7 @@
       "CustomerRoute": 130,
       "Year": 2026,
       "Month": 10,
-      "MTD": 17
+      "MTD": 19
     },
     {
       "RegionId": 9,
@@ -205,7 +205,7 @@
       "CustomerRoute": 134,
       "Year": 2026,
       "Month": 10,
-      "MTD": 11
+      "MTD": 24
     },
     {
       "RegionId": 9,
@@ -223,106 +223,6 @@
       "Target": 149.73,
       "TargetAdjustment": 158,
       "CustomerRoute": 234,
-      "Year": 2026,
-      "Month": 10,
-      "MTD": 9
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810037477,
-      "SupervisorName": "Taufik Rahmani",
-      "SalesmanId": 8810026450,
-      "SalesmanName": "Muhammad Sabirin",
-      "DepartmentId": "ADD",
-      "ProductId": 90101225206100,
-      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
-      "TargetGroupId": "POM",
-      "Target": 92.69,
-      "TargetAdjustment": 90,
-      "CustomerRoute": 151,
-      "Year": 2026,
-      "Month": 10,
-      "MTD": 9
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810041294,
-      "SupervisorName": "Alfin Raul Dinata",
-      "SalesmanId": 8810035581,
-      "SalesmanName": "M. Sugiannor",
-      "DepartmentId": "ACS",
-      "ProductId": 90101225206100,
-      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
-      "TargetGroupId": "POM",
-      "Target": 156.86,
-      "TargetAdjustment": 165,
-      "CustomerRoute": 245,
-      "Year": 2026,
-      "Month": 10,
-      "MTD": 50
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810041294,
-      "SupervisorName": "Alfin Raul Dinata",
-      "SalesmanId": 8810036505,
-      "SalesmanName": "Muhammad Sulhan Fauzan",
-      "DepartmentId": "ACS",
-      "ProductId": 90101225206100,
-      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
-      "TargetGroupId": "POM",
-      "Target": 149.73,
-      "TargetAdjustment": 165,
-      "CustomerRoute": 244,
-      "Year": 2026,
-      "Month": 10,
-      "MTD": 25
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810041294,
-      "SupervisorName": "Alfin Raul Dinata",
-      "SalesmanId": 8810040320,
-      "SalesmanName": "Muhammad Rizal",
-      "DepartmentId": "ACQ",
-      "ProductId": 90101225206100,
-      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
-      "TargetGroupId": "POM",
-      "Target": 78.43,
-      "TargetAdjustment": 68,
-      "CustomerRoute": 130,
-      "Year": 2026,
-      "Month": 10,
-      "MTD": 33
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810041294,
-      "SupervisorName": "Alfin Raul Dinata",
-      "SalesmanId": 8810041965,
-      "SalesmanName": "Muhammad Rizky",
-      "DepartmentId": "ACQ",
-      "ProductId": 90101225206100,
-      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
-      "TargetGroupId": "POM",
-      "Target": 85.56,
-      "TargetAdjustment": 68,
-      "CustomerRoute": 134,
       "Year": 2026,
       "Month": 10,
       "MTD": 23
@@ -332,6 +232,106 @@
       "RegionName": "Region Kalimantan",
       "DepoId": 88,
       "DepoName": "Depo Barabai",
+      "SupervisorId": 8810037477,
+      "SupervisorName": "Taufik Rahmani",
+      "SalesmanId": 8810026450,
+      "SalesmanName": "Muhammad Sabirin",
+      "DepartmentId": "ADD",
+      "ProductId": 90101225206100,
+      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
+      "TargetGroupId": "POM",
+      "Target": 92.69,
+      "TargetAdjustment": 90,
+      "CustomerRoute": 151,
+      "Year": 2026,
+      "Month": 10,
+      "MTD": 32
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810041294,
+      "SupervisorName": "Alfin Raul Dinata",
+      "SalesmanId": 8810035581,
+      "SalesmanName": "M. Sugiannor",
+      "DepartmentId": "ACS",
+      "ProductId": 90101225206100,
+      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
+      "TargetGroupId": "POM",
+      "Target": 156.86,
+      "TargetAdjustment": 165,
+      "CustomerRoute": 245,
+      "Year": 2026,
+      "Month": 10,
+      "MTD": 87
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810041294,
+      "SupervisorName": "Alfin Raul Dinata",
+      "SalesmanId": 8810036505,
+      "SalesmanName": "Muhammad Sulhan Fauzan",
+      "DepartmentId": "ACS",
+      "ProductId": 90101225206100,
+      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
+      "TargetGroupId": "POM",
+      "Target": 149.73,
+      "TargetAdjustment": 165,
+      "CustomerRoute": 244,
+      "Year": 2026,
+      "Month": 10,
+      "MTD": 45
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810041294,
+      "SupervisorName": "Alfin Raul Dinata",
+      "SalesmanId": 8810040320,
+      "SalesmanName": "Muhammad Rizal",
+      "DepartmentId": "ACQ",
+      "ProductId": 90101225206100,
+      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
+      "TargetGroupId": "POM",
+      "Target": 78.43,
+      "TargetAdjustment": 68,
+      "CustomerRoute": 130,
+      "Year": 2026,
+      "Month": 10,
+      "MTD": 40
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810041294,
+      "SupervisorName": "Alfin Raul Dinata",
+      "SalesmanId": 8810041965,
+      "SalesmanName": "Muhammad Rizky",
+      "DepartmentId": "ACQ",
+      "ProductId": 90101225206100,
+      "ProductName": "EMAKJ8/MAJU8-Gery Malkist Sweet Chese Single Pack",
+      "TargetGroupId": "POM",
+      "Target": 85.56,
+      "TargetAdjustment": 68,
+      "CustomerRoute": 134,
+      "Year": 2026,
+      "Month": 10,
+      "MTD": 40
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
       "SupervisorId": 8810041294,
       "SupervisorName": "Alfin Raul Dinata",
       "SalesmanId": 8810042775,
@@ -345,7 +345,7 @@
       "CustomerRoute": 234,
       "Year": 2026,
       "Month": 10,
-      "MTD": 21
+      "MTD": 38
     },
     {
       "RegionId": 9,
@@ -365,7 +365,7 @@
       "CustomerRoute": 129,
       "Year": 2026,
       "Month": 10,
-      "MTD": 8
+      "MTD": 9
     },
     {
       "RegionId": 9,
@@ -385,7 +385,7 @@
       "CustomerRoute": 314,
       "Year": 2026,
       "Month": 10,
-      "MTD": 39
+      "MTD": 73
     },
     {
       "RegionId": 9,
@@ -405,7 +405,7 @@
       "CustomerRoute": 128,
       "Year": 2026,
       "Month": 10,
-      "MTD": 10
+      "MTD": 15
     },
     {
       "RegionId": 9,
@@ -425,7 +425,7 @@
       "CustomerRoute": 282,
       "Year": 2026,
       "Month": 10,
-      "MTD": 59
+      "MTD": 87
     },
     {
       "RegionId": 9,
@@ -485,7 +485,7 @@
       "CustomerRoute": 244,
       "Year": 2026,
       "Month": 10,
-      "MTD": 0
+      "MTD": 1
     },
     {
       "RegionId": 9,
@@ -565,7 +565,7 @@
       "CustomerRoute": 245,
       "Year": 2026,
       "Month": 10,
-      "MTD": 33
+      "MTD": 58
     },
     {
       "RegionId": 9,
@@ -585,7 +585,7 @@
       "CustomerRoute": 244,
       "Year": 2026,
       "Month": 10,
-      "MTD": 18
+      "MTD": 30
     },
     {
       "RegionId": 9,
@@ -605,7 +605,7 @@
       "CustomerRoute": 130,
       "Year": 2026,
       "Month": 10,
-      "MTD": 8
+      "MTD": 9
     },
     {
       "RegionId": 9,
@@ -625,7 +625,7 @@
       "CustomerRoute": 134,
       "Year": 2026,
       "Month": 10,
-      "MTD": 9
+      "MTD": 17
     },
     {
       "RegionId": 9,
@@ -645,7 +645,7 @@
       "CustomerRoute": 234,
       "Year": 2026,
       "Month": 10,
-      "MTD": 13
+      "MTD": 23
     },
     {
       "RegionId": 9,
@@ -665,7 +665,7 @@
       "CustomerRoute": 151,
       "Year": 2026,
       "Month": 10,
-      "MTD": 5
+      "MTD": 10
     },
     {
       "RegionId": 9,
@@ -685,7 +685,7 @@
       "CustomerRoute": 129,
       "Year": 2026,
       "Month": 10,
-      "MTD": 4
+      "MTD": 7
     },
     {
       "RegionId": 9,
@@ -705,7 +705,7 @@
       "CustomerRoute": 314,
       "Year": 2026,
       "Month": 10,
-      "MTD": 14
+      "MTD": 20
     },
     {
       "RegionId": 9,
@@ -725,7 +725,7 @@
       "CustomerRoute": 128,
       "Year": 2026,
       "Month": 10,
-      "MTD": 13
+      "MTD": 17
     },
     {
       "RegionId": 9,
@@ -745,7 +745,7 @@
       "CustomerRoute": 282,
       "Year": 2026,
       "Month": 10,
-      "MTD": 58
+      "MTD": 85
     }
   ]
 }
