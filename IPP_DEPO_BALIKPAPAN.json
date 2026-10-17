@@ -4,7 +4,7 @@
     "sheet_name": "IPP",
     "depo": "Depo Balikpapan",
     "total_kpis": 10,
-    "last_updated": "2026-10-16 12:18:46"
+    "last_updated": "2026-10-17 12:50:27"
   },
   "kpis": [
     {
@@ -26,8 +26,8 @@
       "uom": "BP",
       "scoring": "General Scoring",
       "target": "8474952615.411104",
-      "actual": 4423964385.8981,
-      "ach": "-47.8%",
+      "actual": 4494872752.6962,
+      "ach": "-47.0%",
       "score": 1,
       "point": 0.1
     },
@@ -62,10 +62,10 @@
       "uom": "100.0%",
       "scoring": "General Scoring",
       "target": "90.0",
-      "actual": 286,
-      "ach": "212.0%",
-      "score": 5,
-      "point": 0.5
+      "actual": 0,
+      "ach": "0.0%",
+      "score": 1,
+      "point": 0.1
     },
     {
       "kpi": "Green Store (Depo Only) - phasing quarter",
@@ -73,11 +73,11 @@
       "weight": 10,
       "uom": "100.0%",
       "scoring": "General Scoring",
-      "target": "1207.8",
+      "target": "1125.2",
       "actual": 1046,
-      "ach": "86.6%",
-      "score": 1,
-      "point": 0.1
+      "ach": "93.0%",
+      "score": 2,
+      "point": 0.2
     },
     {
       "kpi": "Ways of Working : Business Review Top 25 Pareto",
