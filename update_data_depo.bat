@@ -1,83 +1,36 @@
 @echo off
+cd /d "%~dp0"
 echo ============================================
 echo   ONESHEET KALIMANTAN - UPDATE DATA DEPO
 echo ============================================
 echo.
 
-REM ========================================
-REM CONFIGURATION
-REM ========================================
-set GITHUB_USERNAME=kisman271128
-set GITHUB_REPO=onesheet-kalimantan
-set GIT_BRANCH=master
-set PY_SCRIPT=excel_to_json_depo.py
-set EXCEL_FILE=OneSheetDepo.xlsb
+set "PYTHON_EXE="
+if exist "%LOCALAPPDATA%\OneSheetKalimantan\Python312\python.exe" (
+    set "PYTHON_EXE=%LOCALAPPDATA%\OneSheetKalimantan\Python312\python.exe"
+) else if exist "%LOCALAPPDATA%\Programs\Python\Python312\python.exe" (
+    set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Python312\python.exe"
+) else (
+    set "PYTHON_EXE=python"
+)
 
-REM ========================================
-REM [1/4] CEK FILE EXCEL
-REM ========================================
-echo [1/4] Memeriksa file Excel...
-if not exist "%EXCEL_FILE%" (
-    echo ERROR: File %EXCEL_FILE% tidak ditemukan!
-    echo Pastikan file ada di folder yang sama dengan file BAT ini.
+if not exist "OneSheetDepo.xlsb" (
+    echo ERROR: File OneSheetDepo.xlsb tidak ditemukan!
+    echo Pastikan file Excel ada di folder yang sama.
     pause
     exit /b 1
 )
-echo + %EXCEL_FILE% ditemukan
 
-REM ========================================
-REM [3/4] CEK PYTHON & DEPENDENCIES
-REM ========================================
-echo.
-echo [3/4] Memeriksa Python dan dependencies...
-python --version >nul 2>&1
-if errorlevel 1 (
-    echo ERROR: Python tidak terinstall!
-    pause
-    exit /b 1
-)
-pip show pandas >nul 2>&1
-if errorlevel 1 ( pip install pandas --quiet --break-system-packages )
-pip show pyxlsb >nul 2>&1
-if errorlevel 1 ( pip install pyxlsb --quiet --break-system-packages )
-echo + Siap
-
-REM ========================================
-REM [4/4] JALANKAN EXPORT
-REM ========================================
-echo.
-echo [4/4] Menjalankan export data...
-echo.
-echo Output file yang akan dibuat per depo:
-echo   - data_DEPO_xxx.json       (data utama salesman)
-echo   - bti_DEPO_xxx.json        (BTI / achievement)
-echo   - bp_DEPO_xxx.json         (budget plan)
-echo   - tg_DEPO_xxx.json         (target growth + summary MTD)
-echo   - trend_DEPO_xxx.json      (trend harian/mingguan)
-echo   - outlet_DEPO_xxx.json     (25 pareto outlet)
-echo   - sku_DEPO_xxx.json        (25 pareto SKU)
-echo   - project_DEPO_xxx.json    (project MAP)
-echo   - IPP_DEPO_xxx.json    	  (IPP)
-echo   - POM_DEPO_xxx.json    	  (POM)
-echo   - proses_DEPO_xxx.json     (proses salesman)
-echo   - cat_DEPO_xxx.json        (category - agregat level TYPE)
-echo   - 25outlet_cat_DEPO_xxx.json (25 pareto by category - level SzCustId)
-echo.
-python %PY_SCRIPT%
+echo Menjalankan export data depo...
+"%PYTHON_EXE%" excel_to_json_depo.py
 
 if errorlevel 1 (
     echo.
-    echo ============================================
-    echo   ERROR saat export! Cek pesan di atas.
-    echo ============================================
+    echo Terjadi kesalahan saat proses export.
     pause
     exit /b 1
 )
 
 echo.
-echo ============================================
-echo   SELESAI! Silakan upload data via
-echo   tab "Upload Data" di aplikasi.
-echo ============================================
-echo.
+echo Selesai! Silakan upload data via aplikasi.
 pause
