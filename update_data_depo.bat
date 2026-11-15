@@ -6,10 +6,10 @@ echo ============================================
 echo.
 
 set "PYTHON_EXE="
-if exist "%LOCALAPPDATA%\OneSheetKalimantan\Python312\python.exe" (
+if exist "%LOCALAPPDATA%\Programs\Python\Python314\python.exe" (
+    set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Python314\python.exe"
+) else if exist "%LOCALAPPDATA%\OneSheetKalimantan\Python312\python.exe" (
     set "PYTHON_EXE=%LOCALAPPDATA%\OneSheetKalimantan\Python312\python.exe"
-) else if exist "%LOCALAPPDATA%\Programs\Python\Python312\python.exe" (
-    set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Python312\python.exe"
 ) else (
     set "PYTHON_EXE=python"
 )
