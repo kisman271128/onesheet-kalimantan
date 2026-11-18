@@ -24,7 +24,7 @@
       "Month",
       "MTD"
     ],
-    "last_updated": "2026-11-17 14:17:54"
+    "last_updated": "2026-11-18 15:06:53"
   },
   "data": [
     {
@@ -45,7 +45,7 @@
       "CustomerRoute": 149,
       "Year": 2026,
       "Month": 11,
-      "MTD": 97
+      "MTD": 109
     },
     {
       "RegionId": 9,
@@ -65,7 +65,7 @@
       "CustomerRoute": 240,
       "Year": 2026,
       "Month": 11,
-      "MTD": 72
+      "MTD": 84
     },
     {
       "RegionId": 9,
@@ -85,7 +85,7 @@
       "CustomerRoute": 130,
       "Year": 2026,
       "Month": 11,
-      "MTD": 41
+      "MTD": 46
     },
     {
       "RegionId": 9,
@@ -105,7 +105,7 @@
       "CustomerRoute": 127,
       "Year": 2026,
       "Month": 11,
-      "MTD": 57
+      "MTD": 69
     },
     {
       "RegionId": 9,
@@ -125,6 +125,66 @@
       "CustomerRoute": 280,
       "Year": 2026,
       "Month": 11,
+      "MTD": 88
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810041294,
+      "SupervisorName": "Alfin Raul Dinata",
+      "SalesmanId": 8810043328,
+      "SalesmanName": "Rahmatullah",
+      "DepartmentId": "ACS",
+      "ProductId": 90101232176100,
+      "ProductName": "CWSCO5/Chocolatos WS Original Chocolate -21g",
+      "TargetGroupId": "POM",
+      "Target": 189.54,
+      "TargetAdjustment": 145,
+      "CustomerRoute": 280,
+      "Year": 2026,
+      "Month": 11,
+      "MTD": 77
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810041294,
+      "SupervisorName": "Alfin Raul Dinata",
+      "SalesmanId": 8810041836,
+      "SalesmanName": "Danu Dinarta",
+      "DepartmentId": "ACQ",
+      "ProductId": 90101232176100,
+      "ProductName": "CWSCO5/Chocolatos WS Original Chocolate -21g",
+      "TargetGroupId": "POM",
+      "Target": 87.48,
+      "TargetAdjustment": 79,
+      "CustomerRoute": 127,
+      "Year": 2026,
+      "Month": 11,
+      "MTD": 60
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810037477,
+      "SupervisorName": "Taufik Rahmani",
+      "SalesmanId": 8810041965,
+      "SalesmanName": "Muhammad Rizky",
+      "DepartmentId": "ADD",
+      "ProductId": 90101232176100,
+      "ProductName": "CWSCO5/Chocolatos WS Original Chocolate -21g",
+      "TargetGroupId": "POM",
+      "Target": 94.77,
+      "TargetAdjustment": 127,
+      "CustomerRoute": 134,
+      "Year": 2026,
+      "Month": 11,
       "MTD": 69
     },
     {
@@ -134,66 +194,6 @@
       "DepoName": "Depo Barabai",
       "SupervisorId": 8810041294,
       "SupervisorName": "Alfin Raul Dinata",
-      "SalesmanId": 8810043328,
-      "SalesmanName": "Rahmatullah",
-      "DepartmentId": "ACS",
-      "ProductId": 90101232176100,
-      "ProductName": "CWSCO5/Chocolatos WS Original Chocolate -21g",
-      "TargetGroupId": "POM",
-      "Target": 189.54,
-      "TargetAdjustment": 145,
-      "CustomerRoute": 280,
-      "Year": 2026,
-      "Month": 11,
-      "MTD": 66
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810041294,
-      "SupervisorName": "Alfin Raul Dinata",
-      "SalesmanId": 8810041836,
-      "SalesmanName": "Danu Dinarta",
-      "DepartmentId": "ACQ",
-      "ProductId": 90101232176100,
-      "ProductName": "CWSCO5/Chocolatos WS Original Chocolate -21g",
-      "TargetGroupId": "POM",
-      "Target": 87.48,
-      "TargetAdjustment": 79,
-      "CustomerRoute": 127,
-      "Year": 2026,
-      "Month": 11,
-      "MTD": 48
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810037477,
-      "SupervisorName": "Taufik Rahmani",
-      "SalesmanId": 8810041965,
-      "SalesmanName": "Muhammad Rizky",
-      "DepartmentId": "ADD",
-      "ProductId": 90101232176100,
-      "ProductName": "CWSCO5/Chocolatos WS Original Chocolate -21g",
-      "TargetGroupId": "POM",
-      "Target": 94.77,
-      "TargetAdjustment": 127,
-      "CustomerRoute": 134,
-      "Year": 2026,
-      "Month": 11,
-      "MTD": 59
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810041294,
-      "SupervisorName": "Alfin Raul Dinata",
       "SalesmanId": 8810040320,
       "SalesmanName": "Muhammad Rizal",
       "DepartmentId": "ACQ",
@@ -205,7 +205,7 @@
       "CustomerRoute": 130,
       "Year": 2026,
       "Month": 11,
-      "MTD": 48
+      "MTD": 54
     },
     {
       "RegionId": 9,
@@ -225,7 +225,7 @@
       "CustomerRoute": 240,
       "Year": 2026,
       "Month": 11,
-      "MTD": 111
+      "MTD": 125
     },
     {
       "RegionId": 9,
@@ -245,7 +245,7 @@
       "CustomerRoute": 149,
       "Year": 2026,
       "Month": 11,
-      "MTD": 112
+      "MTD": 124
     },
     {
       "RegionId": 9,
@@ -265,7 +265,7 @@
       "CustomerRoute": 245,
       "Year": 2026,
       "Month": 11,
-      "MTD": 79
+      "MTD": 93
     },
     {
       "RegionId": 9,
@@ -285,7 +285,7 @@
       "CustomerRoute": 306,
       "Year": 2026,
       "Month": 11,
-      "MTD": 56
+      "MTD": 64
     },
     {
       "RegionId": 9,
@@ -305,7 +305,7 @@
       "CustomerRoute": 125,
       "Year": 2026,
       "Month": 11,
-      "MTD": 51
+      "MTD": 60
     },
     {
       "RegionId": 9,
@@ -325,7 +325,7 @@
       "CustomerRoute": 280,
       "Year": 2026,
       "Month": 11,
-      "MTD": 67
+      "MTD": 77
     },
     {
       "RegionId": 9,
@@ -345,7 +345,7 @@
       "CustomerRoute": 127,
       "Year": 2026,
       "Month": 11,
-      "MTD": 30
+      "MTD": 39
     },
     {
       "RegionId": 9,
@@ -365,7 +365,7 @@
       "CustomerRoute": 134,
       "Year": 2026,
       "Month": 11,
-      "MTD": 42
+      "MTD": 48
     },
     {
       "RegionId": 9,
@@ -383,66 +383,6 @@
       "Target": 102.06,
       "TargetAdjustment": 148,
       "CustomerRoute": 149,
-      "Year": 2026,
-      "Month": 11,
-      "MTD": 81
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810041294,
-      "SupervisorName": "Alfin Raul Dinata",
-      "SalesmanId": 8810036505,
-      "SalesmanName": "Muhammad Sulhan Fauzan",
-      "DepartmentId": "ACS",
-      "ProductId": 90101351101100,
-      "ProductName": "DBRCO5/BARO5-DILAN Bar Chocolate 18g",
-      "TargetGroupId": "POM",
-      "Target": 167.67,
-      "TargetAdjustment": 152,
-      "CustomerRoute": 240,
-      "Year": 2026,
-      "Month": 11,
-      "MTD": 66
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810041294,
-      "SupervisorName": "Alfin Raul Dinata",
-      "SalesmanId": 8810040320,
-      "SalesmanName": "Muhammad Rizal",
-      "DepartmentId": "ACQ",
-      "ProductId": 90101351101100,
-      "ProductName": "DBRCO5/BARO5-DILAN Bar Chocolate 18g",
-      "TargetGroupId": "POM",
-      "Target": 87.48,
-      "TargetAdjustment": 79,
-      "CustomerRoute": 130,
-      "Year": 2026,
-      "Month": 11,
-      "MTD": 21
-    },
-    {
-      "RegionId": 9,
-      "RegionName": "Region Kalimantan",
-      "DepoId": 88,
-      "DepoName": "Depo Barabai",
-      "SupervisorId": 8810037477,
-      "SupervisorName": "Taufik Rahmani",
-      "SalesmanId": 8810035581,
-      "SalesmanName": "M. Sugiannor",
-      "DepartmentId": "ACT",
-      "ProductId": 90104221202101,
-      "ProductName": "LUTST3/SUC02A-Clevo UHT Stroberi - 115 ml",
-      "TargetGroupId": "POM",
-      "Target": 156.24,
-      "TargetAdjustment": 158,
-      "CustomerRoute": 245,
       "Year": 2026,
       "Month": 11,
       "MTD": 89
@@ -452,6 +392,66 @@
       "RegionName": "Region Kalimantan",
       "DepoId": 88,
       "DepoName": "Depo Barabai",
+      "SupervisorId": 8810041294,
+      "SupervisorName": "Alfin Raul Dinata",
+      "SalesmanId": 8810036505,
+      "SalesmanName": "Muhammad Sulhan Fauzan",
+      "DepartmentId": "ACS",
+      "ProductId": 90101351101100,
+      "ProductName": "DBRCO5/BARO5-DILAN Bar Chocolate 18g",
+      "TargetGroupId": "POM",
+      "Target": 167.67,
+      "TargetAdjustment": 152,
+      "CustomerRoute": 240,
+      "Year": 2026,
+      "Month": 11,
+      "MTD": 77
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810041294,
+      "SupervisorName": "Alfin Raul Dinata",
+      "SalesmanId": 8810040320,
+      "SalesmanName": "Muhammad Rizal",
+      "DepartmentId": "ACQ",
+      "ProductId": 90101351101100,
+      "ProductName": "DBRCO5/BARO5-DILAN Bar Chocolate 18g",
+      "TargetGroupId": "POM",
+      "Target": 87.48,
+      "TargetAdjustment": 79,
+      "CustomerRoute": 130,
+      "Year": 2026,
+      "Month": 11,
+      "MTD": 24
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
+      "SupervisorId": 8810037477,
+      "SupervisorName": "Taufik Rahmani",
+      "SalesmanId": 8810035581,
+      "SalesmanName": "M. Sugiannor",
+      "DepartmentId": "ACT",
+      "ProductId": 90104221202101,
+      "ProductName": "LUTST3/SUC02A-Clevo UHT Stroberi - 115 ml",
+      "TargetGroupId": "POM",
+      "Target": 156.24,
+      "TargetAdjustment": 158,
+      "CustomerRoute": 245,
+      "Year": 2026,
+      "Month": 11,
+      "MTD": 104
+    },
+    {
+      "RegionId": 9,
+      "RegionName": "Region Kalimantan",
+      "DepoId": 88,
+      "DepoName": "Depo Barabai",
       "SupervisorId": 8810037477,
       "SupervisorName": "Taufik Rahmani",
       "SalesmanId": 8810042774,
@@ -465,7 +465,7 @@
       "CustomerRoute": 306,
       "Year": 2026,
       "Month": 11,
-      "MTD": 87
+      "MTD": 103
     },
     {
       "RegionId": 9,
@@ -485,7 +485,7 @@
       "CustomerRoute": 125,
       "Year": 2026,
       "Month": 11,
-      "MTD": 33
+      "MTD": 39
     },
     {
       "RegionId": 9,
@@ -505,7 +505,7 @@
       "CustomerRoute": 125,
       "Year": 2026,
       "Month": 11,
-      "MTD": 42
+      "MTD": 49
     },
     {
       "RegionId": 9,
@@ -525,7 +525,7 @@
       "CustomerRoute": 306,
       "Year": 2026,
       "Month": 11,
-      "MTD": 55
+      "MTD": 64
     },
     {
       "RegionId": 9,
@@ -545,7 +545,7 @@
       "CustomerRoute": 134,
       "Year": 2026,
       "Month": 11,
-      "MTD": 33
+      "MTD": 41
     },
     {
       "RegionId": 9,
@@ -565,7 +565,7 @@
       "CustomerRoute": 245,
       "Year": 2026,
       "Month": 11,
-      "MTD": 68
+      "MTD": 74
     }
   ]
 }
